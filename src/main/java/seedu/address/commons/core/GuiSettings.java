@@ -1,10 +1,10 @@
 package seedu.address.commons.core;
 
-import java.awt.Point;
+import seedu.address.commons.util.ToStringBuilder;
+
+import java.awt.*;
 import java.io.Serializable;
 import java.util.Objects;
-
-import seedu.address.commons.util.ToStringBuilder;
 
 /**
  * A Serializable class that contains the GUI settings.
@@ -50,6 +50,11 @@ public class GuiSettings implements Serializable {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(windowWidth, windowHeight, windowCoordinates);
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;
@@ -64,11 +69,6 @@ public class GuiSettings implements Serializable {
         return windowWidth == otherGuiSettings.windowWidth
                 && windowHeight == otherGuiSettings.windowHeight
                 && Objects.equals(windowCoordinates, otherGuiSettings.windowCoordinates);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(windowWidth, windowHeight, windowCoordinates);
     }
 
     @Override

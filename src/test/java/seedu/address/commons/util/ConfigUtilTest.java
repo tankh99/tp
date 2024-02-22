@@ -1,8 +1,9 @@
 package seedu.address.commons.util;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static seedu.address.testutil.Assert.assertThrows;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+import seedu.address.commons.core.Config;
+import seedu.address.commons.exceptions.DataLoadingException;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -10,11 +11,9 @@ import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.logging.Level;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
-
-import seedu.address.commons.core.Config;
-import seedu.address.commons.exceptions.DataLoadingException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static seedu.address.testutil.Assert.assertThrows;
 
 public class ConfigUtilTest {
 
@@ -26,6 +25,17 @@ public class ConfigUtilTest {
     @Test
     public void read_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> read(null));
+    }
+
+    private Optional<Config> read(String configFileInTestDataFolder) throws DataLoadingException {
+        Path configFilePath = addToTestDataPathIfNotNull(configFileInTestDataFolder);
+        return ConfigUtil.readConfig(configFilePath);
+    }
+
+    private Path addToTestDataPathIfNotNull(String configFileInTestDataFolder) {
+        return configFileInTestDataFolder != null
+                ? TEST_DATA_FOLDER.resolve(configFileInTestDataFolder)
+                : null;
     }
 
     @Test
@@ -47,6 +57,13 @@ public class ConfigUtilTest {
         assertEquals(expected, actual);
     }
 
+    private Config getTypicalConfig() {
+        Config config = new Config();
+        config.setLogLevel(Level.INFO);
+        config.setUserPrefsFilePath(Paths.get("preferences.json"));
+        return config;
+    }
+
     @Test
     public void read_valuesMissingFromFile_defaultValuesUsed() throws DataLoadingException {
         Config actual = read("EmptyConfig.json").get();
@@ -61,21 +78,14 @@ public class ConfigUtilTest {
         assertEquals(expected, actual);
     }
 
-    private Config getTypicalConfig() {
-        Config config = new Config();
-        config.setLogLevel(Level.INFO);
-        config.setUserPrefsFilePath(Paths.get("preferences.json"));
-        return config;
-    }
-
-    private Optional<Config> read(String configFileInTestDataFolder) throws DataLoadingException {
-        Path configFilePath = addToTestDataPathIfNotNull(configFileInTestDataFolder);
-        return ConfigUtil.readConfig(configFilePath);
-    }
-
     @Test
     public void save_nullConfig_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> save(null, "SomeFile.json"));
+    }
+
+    private void save(Config config, String configFileInTestDataFolder) throws IOException {
+        Path configFilePath = addToTestDataPathIfNotNull(configFileInTestDataFolder);
+        ConfigUtil.saveConfig(config, configFilePath);
     }
 
     @Test
@@ -99,17 +109,6 @@ public class ConfigUtilTest {
         ConfigUtil.saveConfig(original, configFilePath);
         readBack = ConfigUtil.readConfig(configFilePath).get();
         assertEquals(original, readBack);
-    }
-
-    private void save(Config config, String configFileInTestDataFolder) throws IOException {
-        Path configFilePath = addToTestDataPathIfNotNull(configFileInTestDataFolder);
-        ConfigUtil.saveConfig(config, configFilePath);
-    }
-
-    private Path addToTestDataPathIfNotNull(String configFileInTestDataFolder) {
-        return configFileInTestDataFolder != null
-                                  ? TEST_DATA_FOLDER.resolve(configFileInTestDataFolder)
-                                  : null;
     }
 
 

@@ -1,10 +1,10 @@
 package seedu.address.commons.core;
 
+import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
-
-import org.junit.jupiter.api.Test;
 
 public class VersionTest {
 
@@ -13,6 +13,11 @@ public class VersionTest {
         verifyVersionParsedCorrectly("V0.0.0ea", 0, 0, 0, true);
         verifyVersionParsedCorrectly("V3.10.2", 3, 10, 2, false);
         verifyVersionParsedCorrectly("V100.100.100ea", 100, 100, 100, true);
+    }
+
+    private void verifyVersionParsedCorrectly(String versionString,
+                                              int major, int minor, int patch, boolean isEarlyAccess) {
+        assertEquals(new Version(major, minor, patch, isEarlyAccess), Version.fromString(versionString));
     }
 
     @Test
@@ -126,10 +131,5 @@ public class VersionTest {
         one = new Version(100, 191, 275, true);
         another = new Version(100, 191, 275, true);
         assertTrue(one.equals(another));
-    }
-
-    private void verifyVersionParsedCorrectly(String versionString,
-            int major, int minor, int patch, boolean isEarlyAccess) {
-        assertEquals(new Version(major, minor, patch, isEarlyAccess), Version.fromString(versionString));
     }
 }

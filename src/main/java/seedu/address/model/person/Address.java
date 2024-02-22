@@ -38,8 +38,8 @@ public class Address {
     }
 
     @Override
-    public String toString() {
-        return value;
+    public int hashCode() {
+        return value.hashCode();
     }
 
     @Override
@@ -58,8 +58,8 @@ public class Address {
     }
 
     @Override
-    public int hashCode() {
-        return value.hashCode();
+    public String toString() {
+        return value;
     }
 
 }

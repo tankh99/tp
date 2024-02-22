@@ -1,11 +1,11 @@
 package seedu.address.commons.core;
 
+import seedu.address.commons.util.ToStringBuilder;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.logging.Level;
-
-import seedu.address.commons.util.ToStringBuilder;
 
 /**
  * Config values used by the app
@@ -35,6 +35,11 @@ public class Config {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(logLevel, userPrefsFilePath);
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;
@@ -48,11 +53,6 @@ public class Config {
         Config otherConfig = (Config) other;
         return Objects.equals(logLevel, otherConfig.logLevel)
                 && Objects.equals(userPrefsFilePath, otherConfig.userPrefsFilePath);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(logLevel, userPrefsFilePath);
     }
 
     @Override

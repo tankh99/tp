@@ -1,15 +1,15 @@
 package seedu.address;
 
+import javafx.application.Application;
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.util.FileUtil;
+import seedu.address.commons.util.ToStringBuilder;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Logger;
-
-import javafx.application.Application;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.util.FileUtil;
-import seedu.address.commons.util.ToStringBuilder;
 
 /**
  * Represents the parsed command-line parameters given to the application.
@@ -18,14 +18,6 @@ public class AppParameters {
     private static final Logger logger = LogsCenter.getLogger(AppParameters.class);
 
     private Path configPath;
-
-    public Path getConfigPath() {
-        return configPath;
-    }
-
-    public void setConfigPath(Path configPath) {
-        this.configPath = configPath;
-    }
 
     /**
      * Parses the application command-line parameters.
@@ -44,6 +36,19 @@ public class AppParameters {
         return appParameters;
     }
 
+    public Path getConfigPath() {
+        return configPath;
+    }
+
+    public void setConfigPath(Path configPath) {
+        this.configPath = configPath;
+    }
+
+    @Override
+    public int hashCode() {
+        return configPath.hashCode();
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -57,11 +62,6 @@ public class AppParameters {
 
         AppParameters otherAppParameters = (AppParameters) other;
         return Objects.equals(configPath, otherAppParameters.configPath);
-    }
-
-    @Override
-    public int hashCode() {
-        return configPath.hashCode();
     }
 
     @Override

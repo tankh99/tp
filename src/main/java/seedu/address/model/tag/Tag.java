@@ -33,6 +33,11 @@ public class Tag {
     }
 
     @Override
+    public int hashCode() {
+        return tagName.hashCode();
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;
@@ -45,11 +50,6 @@ public class Tag {
 
         Tag otherTag = (Tag) other;
         return tagName.equals(otherTag.tagName);
-    }
-
-    @Override
-    public int hashCode() {
-        return tagName.hashCode();
     }
 
     /**

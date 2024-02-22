@@ -1,16 +1,15 @@
 package seedu.address.model.person;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
-
-import java.util.*;
-import java.util.logging.Logger;
-
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.tag.Tag;
-import seedu.address.storage.JsonAddressBookStorage;
+
+import java.util.*;
+import java.util.logging.Logger;
+
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 /**
  * Represents a Person in the address book.
@@ -41,10 +40,6 @@ public class Person {
         this.remark = remark;
     }
 
-    public Name getName() {
-        return name;
-    }
-
     public Phone getPhone() {
         return phone;
     }
@@ -68,6 +63,7 @@ public class Person {
     public Remark getRemark() {
         return remark;
     }
+
     /**
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.
@@ -79,6 +75,16 @@ public class Person {
 
         return otherPerson != null
                 && otherPerson.getName().equals(getName());
+    }
+
+    public Name getName() {
+        return name;
+    }
+
+    @Override
+    public int hashCode() {
+        // use this method for custom fields hashing instead of implementing your own
+        return Objects.hash(name, phone, email, address, remark, tags);
     }
 
     /**
@@ -106,12 +112,6 @@ public class Person {
     }
 
     @Override
-    public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, remark, tags);
-    }
-
-    @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .add("name", name)
@@ -125,6 +125,7 @@ public class Person {
 
     /**
      * Creates a new instance of the current person object and updates only specified values in the new
+     *
      * @return
      */
     public Person toNewPerson(Map<Prefix, Object> editedValues) {
@@ -134,7 +135,7 @@ public class Person {
         Address address = this.address;
         Set<Tag> tags = this.tags;
         Remark remark = this.remark;
-        for (Map.Entry<Prefix, Object> entry: editedValues.entrySet()) {
+        for (Map.Entry<Prefix, Object> entry : editedValues.entrySet()) {
             Object value = entry.getValue();
             Prefix key = entry.getKey();
             if (key == PREFIX_NAME) {

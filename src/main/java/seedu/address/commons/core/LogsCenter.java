@@ -1,21 +1,17 @@
 package seedu.address.commons.core;
 
-import static java.util.Objects.requireNonNull;
-
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.FileHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
+import java.util.logging.*;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * Configures and manages loggers and handlers, including their logging level
  * Named {@link Logger}s can be obtained from this class<br>
  * These loggers have been configured to output messages to the console and a {@code .log} file by default,
- *   at the {@code INFO} level. A new {@code .log} file with a new numbering will be created after the log
- *   file reaches 5MB big, up to a maximum of 5 files.<br>
+ * at the {@code INFO} level. A new {@code .log} file with a new numbering will be created after the log
+ * file reaches 5MB big, up to a maximum of 5 files.<br>
  */
 public class LogsCenter {
     private static final int MAX_FILE_COUNT = 5;
@@ -43,6 +39,14 @@ public class LogsCenter {
     }
 
     /**
+     * Creates a Logger for the given class name.
+     */
+    public static <T> Logger getLogger(Class<T> clazz) {
+        requireNonNull(clazz);
+        return getLogger(clazz.getSimpleName());
+    }
+
+    /**
      * Creates a logger with the given name prefixed by the {@code baseLogger}'s name so that the created logger
      * becomes a descendant of the {@code baseLogger}. Furthermore, the returned logger will have the same log handlers
      * as the {@code baseLogger}.
@@ -56,14 +60,6 @@ public class LogsCenter {
         removeHandlers(logger);
         logger.setUseParentHandlers(true);
         return logger;
-    }
-
-    /**
-     * Creates a Logger for the given class name.
-     */
-    public static <T> Logger getLogger(Class<T> clazz) {
-        requireNonNull(clazz);
-        return getLogger(clazz.getSimpleName());
     }
 
     /**

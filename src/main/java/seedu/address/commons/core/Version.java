@@ -1,10 +1,10 @@
 package seedu.address.commons.core;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Represents a version with major, minor and patch number
@@ -32,24 +32,9 @@ public class Version implements Comparable<Version> {
         this.isEarlyAccess = isEarlyAccess;
     }
 
-    public int getMajor() {
-        return major;
-    }
-
-    public int getMinor() {
-        return minor;
-    }
-
-    public int getPatch() {
-        return patch;
-    }
-
-    public boolean isEarlyAccess() {
-        return isEarlyAccess;
-    }
-
     /**
      * Parses a version number string in the format V1.2.3.
+     *
      * @param versionString version number string
      * @return a Version object
      */
@@ -61,15 +46,24 @@ public class Version implements Comparable<Version> {
             throw new IllegalArgumentException(String.format(EXCEPTION_STRING_NOT_VERSION, versionString));
         }
 
-        return new Version(Integer.parseInt(versionMatcher.group(1)),
+        return new Version(
+                Integer.parseInt(versionMatcher.group(1)),
                 Integer.parseInt(versionMatcher.group(2)),
                 Integer.parseInt(versionMatcher.group(3)),
-                versionMatcher.group(4) == null ? false : true);
+                versionMatcher.group(4) == null ? false : true
+        );
     }
 
-    @JsonValue
-    public String toString() {
-        return String.format("V%d.%d.%d%s", major, minor, patch, isEarlyAccess ? "ea" : "");
+    public int getMajor() {
+        return major;
+    }
+
+    public int getMinor() {
+        return minor;
+    }
+
+    public int getPatch() {
+        return patch;
     }
 
     @Override
@@ -92,6 +86,19 @@ public class Version implements Comparable<Version> {
         return 1;
     }
 
+    public boolean isEarlyAccess() {
+        return isEarlyAccess;
+    }
+
+    @Override
+    public int hashCode() {
+        String hash = String.format("%03d%03d%03d", major, minor, patch);
+        if (!isEarlyAccess) {
+            hash = "1" + hash;
+        }
+        return Integer.parseInt(hash);
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -110,12 +117,8 @@ public class Version implements Comparable<Version> {
                 && isEarlyAccess == otherVersion.isEarlyAccess;
     }
 
-    @Override
-    public int hashCode() {
-        String hash = String.format("%03d%03d%03d", major, minor, patch);
-        if (!isEarlyAccess) {
-            hash = "1" + hash;
-        }
-        return Integer.parseInt(hash);
+    @JsonValue
+    public String toString() {
+        return String.format("V%d.%d.%d%s", major, minor, patch, isEarlyAccess ? "ea" : "");
     }
 }

@@ -1,17 +1,16 @@
 package seedu.address.ui;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.address.testutil.Assert.assertThrows;
+import javafx.fxml.FXML;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+import seedu.address.MainApp;
 
 import java.net.URL;
 import java.nio.file.Path;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
-
-import javafx.fxml.FXML;
-import seedu.address.MainApp;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static seedu.address.testutil.Assert.assertThrows;
 
 public class UiPartTest {
 
@@ -44,6 +43,13 @@ public class UiPartTest {
         assertThrows(AssertionError.class, () -> new TestUiPart<Object>(invalidFileUrl, new Object()));
     }
 
+    private URL getTestFileUrl(String testFilePath) {
+        String testFilePathInView = "/view/" + testFilePath;
+        URL testFileUrl = MainApp.class.getResource(testFilePathInView);
+        assertNotNull(testFileUrl, testFilePathInView + " does not exist.");
+        return testFileUrl;
+    }
+
     @Test
     public void constructor_validFileUrl_loadsFile() {
         URL validFileUrl = getTestFileUrl(VALID_FILE_PATH);
@@ -73,13 +79,6 @@ public class UiPartTest {
     public void constructor_invalidFileName_throwsAssertionError() {
         assertThrows(AssertionError.class, () -> new TestUiPart<Object>(INVALID_FILE_PATH));
         assertThrows(AssertionError.class, () -> new TestUiPart<Object>(INVALID_FILE_PATH, new Object()));
-    }
-
-    private URL getTestFileUrl(String testFilePath) {
-        String testFilePathInView = "/view/" + testFilePath;
-        URL testFileUrl = MainApp.class.getResource(testFilePathInView);
-        assertNotNull(testFileUrl, testFilePathInView + " does not exist.");
-        return testFileUrl;
     }
 
     /**

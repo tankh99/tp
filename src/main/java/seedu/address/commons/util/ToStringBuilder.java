@@ -13,13 +13,6 @@ public class ToStringBuilder {
     private boolean hasField;
 
     /**
-     * Constructs a {@code ToStringBuilder} whose formatted output will be prefixed with {@code objectName}.
-     */
-    public ToStringBuilder(String objectName) {
-        stringBuilder.append(objectName).append(OBJECT_PREFIX);
-    }
-
-    /**
      * Constructs a {@code ToStringBuilder} whose formatted output will be prefixed with the
      * canonical class name of {@code object}.
      */
@@ -28,9 +21,16 @@ public class ToStringBuilder {
     }
 
     /**
+     * Constructs a {@code ToStringBuilder} whose formatted output will be prefixed with {@code objectName}.
+     */
+    public ToStringBuilder(String objectName) {
+        stringBuilder.append(objectName).append(OBJECT_PREFIX);
+    }
+
+    /**
      * Adds a field name/value pair to the output string.
      *
-     * @param fieldName The name of the field.
+     * @param fieldName  The name of the field.
      * @param fieldValue The value of the field.
      * @return A reference to this {@code ToStringBuilder} object, allowing method calls to be chained.
      */

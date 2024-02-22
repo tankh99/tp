@@ -11,15 +11,6 @@ public class Prefix {
         this.prefix = prefix;
     }
 
-    public String getPrefix() {
-        return prefix;
-    }
-
-    @Override
-    public String toString() {
-        return getPrefix();
-    }
-
     @Override
     public int hashCode() {
         return prefix == null ? 0 : prefix.hashCode();
@@ -38,5 +29,14 @@ public class Prefix {
 
         Prefix otherPrefix = (Prefix) other;
         return prefix.equals(otherPrefix.prefix);
+    }
+
+    @Override
+    public String toString() {
+        return getPrefix();
+    }
+
+    public String getPrefix() {
+        return prefix;
     }
 }

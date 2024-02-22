@@ -32,6 +32,13 @@ public class CommandBox extends UiPart<Region> {
     }
 
     /**
+     * Sets the command box style to use the default style.
+     */
+    private void setStyleToDefault() {
+        commandTextField.getStyleClass().remove(ERROR_STYLE_CLASS);
+    }
+
+    /**
      * Handles the Enter button pressed event.
      */
     @FXML
@@ -47,13 +54,6 @@ public class CommandBox extends UiPart<Region> {
         } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();
         }
-    }
-
-    /**
-     * Sets the command box style to use the default style.
-     */
-    private void setStyleToDefault() {
-        commandTextField.getStyleClass().remove(ERROR_STYLE_CLASS);
     }
 
     /**

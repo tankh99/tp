@@ -38,10 +38,9 @@ public class Name {
         return test.matches(VALIDATION_REGEX);
     }
 
-
     @Override
-    public String toString() {
-        return fullName;
+    public int hashCode() {
+        return fullName.hashCode();
     }
 
     @Override
@@ -60,8 +59,8 @@ public class Name {
     }
 
     @Override
-    public int hashCode() {
-        return fullName.hashCode();
+    public String toString() {
+        return fullName;
     }
 
 }

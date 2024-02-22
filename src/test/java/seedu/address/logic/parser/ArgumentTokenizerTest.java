@@ -1,11 +1,8 @@
 package seedu.address.logic.parser;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ArgumentTokenizerTest {
 
@@ -23,12 +20,42 @@ public class ArgumentTokenizerTest {
         assertArgumentAbsent(argMultimap, pSlash);
     }
 
+    private void assertPreambleEmpty(ArgumentMultimap argMultimap) {
+        assertTrue(argMultimap.getPreamble().isEmpty());
+    }
+
+    private void assertArgumentAbsent(ArgumentMultimap argMultimap, Prefix prefix) {
+        assertFalse(argMultimap.getValue(prefix).isPresent());
+    }
+
+    @Test
+    public void tokenize_noPrefixes_allTakenAsPreamble() {
+        String argsString = "  some random string /t tag with leading and trailing spaces ";
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(argsString);
+
+        // Same string expected as preamble, but leading/trailing spaces should be trimmed
+        assertPreamblePresent(argMultimap, argsString.trim());
+
+    }
+
     private void assertPreamblePresent(ArgumentMultimap argMultimap, String expectedPreamble) {
         assertEquals(expectedPreamble, argMultimap.getPreamble());
     }
 
-    private void assertPreambleEmpty(ArgumentMultimap argMultimap) {
-        assertTrue(argMultimap.getPreamble().isEmpty());
+    @Test
+    public void tokenize_oneArgument() {
+        // Preamble present
+        String argsString = "  Some preamble string p/ Argument value ";
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(argsString, pSlash);
+        assertPreamblePresent(argMultimap, "Some preamble string");
+        assertArgumentPresent(argMultimap, pSlash, "Argument value");
+
+        // No preamble
+        argsString = " p/   Argument value ";
+        argMultimap = ArgumentTokenizer.tokenize(argsString, pSlash);
+        assertPreambleEmpty(argMultimap);
+        assertArgumentPresent(argMultimap, pSlash, "Argument value");
+
     }
 
     /**
@@ -47,36 +74,6 @@ public class ArgumentTokenizerTest {
         for (int i = 0; i < expectedValues.length; i++) {
             assertEquals(expectedValues[i], argMultimap.getAllValues(prefix).get(i));
         }
-    }
-
-    private void assertArgumentAbsent(ArgumentMultimap argMultimap, Prefix prefix) {
-        assertFalse(argMultimap.getValue(prefix).isPresent());
-    }
-
-    @Test
-    public void tokenize_noPrefixes_allTakenAsPreamble() {
-        String argsString = "  some random string /t tag with leading and trailing spaces ";
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(argsString);
-
-        // Same string expected as preamble, but leading/trailing spaces should be trimmed
-        assertPreamblePresent(argMultimap, argsString.trim());
-
-    }
-
-    @Test
-    public void tokenize_oneArgument() {
-        // Preamble present
-        String argsString = "  Some preamble string p/ Argument value ";
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(argsString, pSlash);
-        assertPreamblePresent(argMultimap, "Some preamble string");
-        assertArgumentPresent(argMultimap, pSlash, "Argument value");
-
-        // No preamble
-        argsString = " p/   Argument value ";
-        argMultimap = ArgumentTokenizer.tokenize(argsString, pSlash);
-        assertPreambleEmpty(argMultimap);
-        assertArgumentPresent(argMultimap, pSlash, "Argument value");
-
     }
 
     @Test

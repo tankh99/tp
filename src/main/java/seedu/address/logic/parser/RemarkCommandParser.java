@@ -8,7 +8,7 @@ import seedu.address.model.person.Remark;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 
 public class RemarkCommandParser implements Parser<RemarkCommand> {
     @Override
