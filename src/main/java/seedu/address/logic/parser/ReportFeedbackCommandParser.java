@@ -25,12 +25,11 @@ public class ReportFeedbackCommandParser implements Parser<ReportFeedbackCommand
         LocalDateTime fromDate = ParserUtil.parseDate(
                 argMultimap.getValue(PREFIX_FROM_DATE).orElse(""), true);
         LocalDateTime toDate = ParserUtil.parseDate(
-                argMultimap.getValue(PREFIX_FROM_DATE).orElse(""), false);
+                argMultimap.getValue(PREFIX_TO_DATE).orElse(""), false);
 
-        if (fromDate != null && toDate != null && toDate.isBefore(toDate)) {
-            throw new ParseException(Messages.MESSAGE_INVALID_START_END_DATETIME);
+        if (fromDate != null && toDate != null && toDate.isBefore(fromDate)) {
+            throw new ParseException(Messages.MESSAGE_TO_DATE_BEFORE_FROM_DATE);
         }
-        System.out.println("Poggers, " + fromDate.toString() + " " + toDate.toString());
         return new ReportFeedbackCommand(fromDate, toDate);
     }
 }
