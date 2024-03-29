@@ -107,6 +107,8 @@ public class PatientListParser {
         case FilterAppointmentCommand.COMMAND_WORD:
             return new FilterAppointmentCommandParser().parse(arguments);
 
+        case ReportFeedbackCommand.COMMAND_WORD:
+            return new ReportFeedbackCommandParser().parse(arguments);
         default:
             logger.finer("This user input caused a ParseException: " + userInput);
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

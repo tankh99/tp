@@ -24,6 +24,8 @@ public class Messages {
                 "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_INVALID_PATIENT_ID = "No such patient with id %1$d exists";
 
+    public static final String MESSAGE_INVALID_DATE = "Invalid date time format. "
+            + "Please use the format yyyy-MM-dd";
     public static final String MESSAGE_INVALID_DATE_TIME = "Invalid date time format. "
             + "Please use the format yyyy-MM-dd HH:mm";
 
@@ -34,7 +36,6 @@ public class Messages {
     public static final String MESSAGE_INVALID_FEEDBACK_SCORE = "Invalid feedback score. "
             + "Please use a number between 1 and 5 (inclusive)";
     public static final String MESSAGE_INVALID_START_END_DATETIME = "Start datetime must be before end datetime";
-
     /**
      * Returns an error message indicating the duplicate prefixes.
      */
