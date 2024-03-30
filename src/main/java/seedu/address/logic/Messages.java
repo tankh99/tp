@@ -68,8 +68,10 @@ public class Messages {
         builder.append(appointment.getAppointmentId())
                 .append("; StudentId: ")
                 .append(appointment.getStudentId())
-                .append("; DateTime: ")
-                .append(appointment.getAppointmentDateTime())
+                .append("; Start: ")
+                .append(appointment.getStartDateTime())
+                .append("; End: ")
+                .append(appointment.getEndDateTime())
                 .append("; Attend: ")
                 .append((appointment.getAttendedStatus()))
                 //TODO: remove after case log is implemented

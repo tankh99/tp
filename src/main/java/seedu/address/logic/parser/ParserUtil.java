@@ -13,6 +13,9 @@ import seedu.address.commons.util.DateUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Messages;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.appointment.DateTimeField;
+import seedu.address.model.appointment.EndDateTime;
+import seedu.address.model.appointment.StartDateTime;
 import seedu.address.model.patient.Email;
 import seedu.address.model.patient.Name;
 import seedu.address.model.patient.Phone;
@@ -118,7 +121,22 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code dateTime} is invalid.
      */
-    public static LocalDateTime parseDateTime(String dateTime) throws ParseException {
+    public static StartDateTime parseStartDateTime(String dateTime) throws ParseException {
+        LocalDateTime localDateTime = parseDateTime(dateTime);
+        return new StartDateTime(localDateTime);
+    }
+
+    /**
+     * Parses a {@code String dateTime} into an {@code LocalDateTime}.
+     *
+     * @throws ParseException if the given {@code dateTime} is invalid.
+     */
+    public static EndDateTime parseEndDateTime(String dateTime) throws ParseException {
+        LocalDateTime localDateTime = parseDateTime(dateTime);
+        return new EndDateTime(localDateTime);
+    }
+
+    static LocalDateTime parseDateTime(String dateTime) throws ParseException {
         requireNonNull(dateTime);
         String trimmedDateTime = dateTime.trim();
 

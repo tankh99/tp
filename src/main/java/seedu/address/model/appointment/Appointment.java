@@ -152,6 +152,13 @@ public class Appointment implements Comparable<Appointment> {
         return appointmentId;
     }
 
+    public StartDateTime getStartDateTime() {
+        return startDateTime;
+    }
+
+    public EndDateTime getEndDateTime() {
+        return endDateTime;
+    }
 
     public int getStudentId() {
         return studentId;

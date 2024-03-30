@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-abstract class DateTimeField {
+public class DateTimeField implements Comparable<DateTimeField>{
     public static final String MESSAGE_CONSTRAINTS =
             "Date should be in the format of yyyy-MM-dd HH:mm";
     private final LocalDateTime value;
@@ -18,6 +18,11 @@ abstract class DateTimeField {
         requireNonNull(dateTimeValue);
         checkArgument(isValidDateTimeField(dateTimeValue), MESSAGE_CONSTRAINTS);
         this.value = LocalDateTime.parse(dateTimeValue);
+    }
+
+    public DateTimeField(LocalDateTime dateTimeValue) {
+        requireNonNull(dateTimeValue);
+        this.value = dateTimeValue;
     }
 
     /**
@@ -50,5 +55,15 @@ abstract class DateTimeField {
     @Override
     public int hashCode() {
         return value.hashCode();
+    }
+
+
+    @Override
+    public int compareTo(DateTimeField other) {
+        return value.compareTo(other.value);
+    }
+
+    public LocalDateTime getDateTimeValue() {
+        return value;
     }
 }
