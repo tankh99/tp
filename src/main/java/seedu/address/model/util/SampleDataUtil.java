@@ -28,39 +28,18 @@ import seedu.address.model.tag.Tag;
 public class SampleDataUtil {
     public static Patient[] getSamplePersons() {
         return new Patient[]{
-            new Patient(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@gmail.com"),
-                    getTagSet("depression")),
-            new Patient(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@gmail.com"),
-                    getTagSet("jobless", "anxiety")),
-            new Patient(new Name("Charlotte Tan"), new Phone("93210283"), new Email("charlotte@outlook.com"),
-                    getTagSet("depression")),
-            new Patient(new Name("David Li"), new Phone("91031282"), new Email("lidavid@gmail.com"),
-                    getTagSet("ocd", "adhd")),
+            new Patient(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
+                        getTagSet("friends")),
+            new Patient(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
+                        getTagSet("colleagues", "friends")),
+            new Patient(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
+                        getTagSet("neighbours")),
+            new Patient(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
+                        getTagSet("family")),
             new Patient(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
-                    getTagSet("ocd", "depression")),
+                        getTagSet("classmates")),
             new Patient(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
-                    getTagSet("adhd")),
-            new Patient(new Name("Elena Wong"), new Phone("81234567"), new Email("elenawong@gmail.com"),
-                    getTagSet("stress")),
-            new Patient(new Name("Fahad Mubarak"), new Phone("82345678"), new Email("fahadmubarak@example.com"),
-                    getTagSet("insomnia")),
-            new Patient(new Name("Grace Lim"), new Phone("83456789"), new Email("gracelim@outlook.com"),
-                    getTagSet("anxiety", "stress")),
-            new Patient(new Name("Henry Quek"), new Phone("84567890"), new Email("henryquek@gmail.com"),
-                    getTagSet("bipolar")),
-            new Patient(new Name("Isabella Tan"), new Phone("85678901"), new Email("isabellatan@example.com"),
-                    getTagSet("depression", "anxiety")),
-            new Patient(new Name("Jasmine Koh"), new Phone("86789012"), new Email("jasminekoh@outlook.com"),
-                    getTagSet("adhd")),
-            new Patient(new Name("Kumar Singh"), new Phone("87890123"), new Email("kumarsingh@gmail.com"),
-                    getTagSet("ocd")),
-            new Patient(new Name("Lily Chen"), new Phone("88901234"), new Email("lilychen@example.com"),
-                    getTagSet("jobless", "stress")),
-            new Patient(new Name("Mohamed Zulfikar"), new Phone("89012345"), new Email("mohamedz@example.com"),
-                    getTagSet("depression", "insomnia")),
-            new Patient(new Name("Nora Seah"), new Phone("90123456"), new Email("noraseah@outlook.com"),
-                    getTagSet("anxiety"))
-
+                        getTagSet("colleagues"))
         };
     }
 
