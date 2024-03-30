@@ -44,7 +44,7 @@ public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand
      */
     public AddAppointmentCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_PATIENT_ID, PREFIX_START_DATETIME,
+                ArgumentTokenizer.tokenize(args, PREFIX_PATIENT_ID, PREFIX_START_DATETIME,PREFIX_END_DATETIME,
                         PREFIX_ATTEND, PREFIX_APPOINTMENT_DESCRIPTION, PREFIX_FEEDBACK_SCORE);
 
         if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_PATIENT_ID, PREFIX_START_DATETIME)

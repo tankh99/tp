@@ -139,7 +139,6 @@ public class ParserUtil {
     static LocalDateTime parseDateTime(String dateTime) throws ParseException {
         requireNonNull(dateTime);
         String trimmedDateTime = dateTime.trim();
-
         LocalDateTime localDateTime = DateUtil.parseDateTime(trimmedDateTime);
         if (localDateTime == null) {
             throw new ParseException(Messages.MESSAGE_INVALID_DATE_TIME);

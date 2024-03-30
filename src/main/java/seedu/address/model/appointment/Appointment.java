@@ -199,8 +199,8 @@ public class Appointment implements Comparable<Appointment> {
 
         return otherAppointment != null
                 && otherAppointment.getStudentId() == getStudentId()
-                && otherAppointment.startDateTime.equals(startDateTime)
-                && otherAppointment.endDateTime.equals(endDateTime);
+                && this.startDateTime.compareTo(otherAppointment.endDateTime) < 0
+                && this.endDateTime.compareTo(otherAppointment.startDateTime) > 0;
     }
 
 }

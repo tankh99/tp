@@ -17,8 +17,8 @@ public class JsonAdaptedAppointment {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Appointment's %s field is missing!";
     public final int appointmentId;
-    public final StartDateTime startDateTime;
-    public final EndDateTime endDateTime;
+    public final LocalDateTime startDateTime;
+    public final LocalDateTime endDateTime;
 
     public final int studentId;
     public final String appointmentDescription;
@@ -30,8 +30,8 @@ public class JsonAdaptedAppointment {
      */
     @JsonCreator
     public JsonAdaptedAppointment(@JsonProperty("appointmentId") int appointmentId,
-                                  @JsonProperty("startDateTime") StartDateTime startDateTime,
-                                  @JsonProperty("endDateTime") EndDateTime endDateTime,
+                                  @JsonProperty("startDateTime") LocalDateTime startDateTime,
+                                  @JsonProperty("endDateTime") LocalDateTime endDateTime,
                                   @JsonProperty("studentId") int studentId,
                                   @JsonProperty("appointmentDescription") String appointmentDescription,
                                   @JsonProperty("hasAttended") boolean hasAttended,
@@ -50,8 +50,8 @@ public class JsonAdaptedAppointment {
      */
     public JsonAdaptedAppointment(Appointment source) {
         appointmentId = source.getAppointmentId();
-        startDateTime = source.getStartDateTime();
-        endDateTime = source.getEndDateTime();
+        startDateTime = source.getStartDateTime().getDateTimeValue();
+        endDateTime = source.getEndDateTime().getDateTimeValue();
         studentId = source.getStudentId();
         appointmentDescription = source.getAppointmentDescription();
         hasAttended = source.getAttendedStatus();
@@ -78,8 +78,11 @@ public class JsonAdaptedAppointment {
             // TODO: Custom type for SID
             throw new IllegalValueException("Please only use positive index.");
         }
+
+        StartDateTime modelStartDateTime = new StartDateTime(this.startDateTime);
+        EndDateTime modelEndDateTime = new EndDateTime(this.endDateTime);
         // TODO: Dummy value for ID
-        return new Appointment(appointmentId, startDateTime, endDateTime, studentId, appointmentDescription, hasAttended,
+        return new Appointment(appointmentId, modelStartDateTime, modelEndDateTime, studentId, appointmentDescription, hasAttended,
                                feedbackScore);
     }
 }
