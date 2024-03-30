@@ -1,11 +1,14 @@
 package seedu.address.model.appointment;
 
-import java.time.LocalDateTime;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-public class DateTimeField implements Comparable<DateTimeField>{
+import java.time.LocalDateTime;
+
+/**
+ * Represents a DateTimeField in the appointment.
+ */
+public class DateTimeField implements Comparable<DateTimeField> {
     public static final String MESSAGE_CONSTRAINTS =
             "Date should be in the format of yyyy-MM-dd HH:mm";
     private final LocalDateTime value;
@@ -20,6 +23,10 @@ public class DateTimeField implements Comparable<DateTimeField>{
         this.value = LocalDateTime.parse(dateTimeValue);
     }
 
+    /**
+     * Constructs a {@code DateTimeField}.
+     * @param dateTimeValue A valid date
+     */
     public DateTimeField(LocalDateTime dateTimeValue) {
         requireNonNull(dateTimeValue);
         this.value = dateTimeValue;

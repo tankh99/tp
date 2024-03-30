@@ -122,8 +122,8 @@ public class AppointmentBuilder {
      * Builds an (@code Appointment)
      */
     public Appointment build() {
-        return new Appointment(appointmentId, startDateTime, endDateTime, studentId, appointmentDescription, hasAttended,
-                               feedbackScore);
+        return new Appointment(appointmentId, startDateTime, endDateTime,
+                studentId, appointmentDescription, hasAttended, feedbackScore);
     }
 
 }

@@ -82,7 +82,7 @@ public class JsonAdaptedAppointment {
         StartDateTime modelStartDateTime = new StartDateTime(this.startDateTime);
         EndDateTime modelEndDateTime = new EndDateTime(this.endDateTime);
         // TODO: Dummy value for ID
-        return new Appointment(appointmentId, modelStartDateTime, modelEndDateTime, studentId, appointmentDescription, hasAttended,
-                               feedbackScore);
+        return new Appointment(appointmentId, modelStartDateTime,
+                modelEndDateTime, studentId, appointmentDescription, hasAttended, feedbackScore);
     }
 }

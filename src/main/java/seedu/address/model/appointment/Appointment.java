@@ -2,7 +2,6 @@ package seedu.address.model.appointment;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 import seedu.address.commons.util.ToStringBuilder;
@@ -16,9 +15,8 @@ public class Appointment implements Comparable<Appointment> {
     private static final boolean DEFAULT_ATTENDED_STATUS = false;
 
     private static int idTracker = 1;
+
     public final int appointmentId;
-    private final StartDateTime startDateTime;
-    private final EndDateTime endDateTime;
 
     public final int studentId;
 
@@ -27,6 +25,8 @@ public class Appointment implements Comparable<Appointment> {
     public final Integer feedbackScore;
 
     private boolean hasAttended;
+    private final StartDateTime startDateTime;
+    private final EndDateTime endDateTime;
 
     /**
      * Constructs a {@code Appointment}.
@@ -66,7 +66,8 @@ public class Appointment implements Comparable<Appointment> {
      * @param studentId              unique id of the student.
      * @param appointmentDescription description of the appointment.
      */
-    public Appointment(StartDateTime startDateTime, EndDateTime endDateTime, int studentId, String appointmentDescription) {
+    public Appointment(StartDateTime startDateTime, EndDateTime endDateTime,
+                       int studentId, String appointmentDescription) {
         this(idTracker, startDateTime, endDateTime, studentId, appointmentDescription, DEFAULT_ATTENDED_STATUS, null);
     }
 
@@ -94,7 +95,8 @@ public class Appointment implements Comparable<Appointment> {
      * @param hasAttended            whether student has attended the appointment.
      * @param feedbackScore          student's rating of the counselling session
      */
-    public Appointment(StartDateTime startDateTime, EndDateTime endDateTime, int studentId, String appointmentDescription,
+    public Appointment(StartDateTime startDateTime,
+                       EndDateTime endDateTime, int studentId, String appointmentDescription,
                        boolean hasAttended, Integer feedbackScore) {
         this(idTracker, startDateTime, endDateTime, studentId, appointmentDescription, hasAttended, feedbackScore);
     }

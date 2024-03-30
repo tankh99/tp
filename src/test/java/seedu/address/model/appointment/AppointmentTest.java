@@ -43,12 +43,14 @@ public class AppointmentTest {
         assertNotEquals(appointment, differentAppointment);
 
         // different startDateTime -> returns false
-        differentAppointment = new Appointment(TEST_APPOINTMENT_ID, new StartDateTime(LocalDateTime.now().plusHours(1)), endDateTime,
+        differentAppointment = new Appointment(TEST_APPOINTMENT_ID,
+                new StartDateTime(LocalDateTime.now().plusHours(1)), endDateTime,
                 1, "Test", false, 5);
         assertNotEquals(appointment, differentAppointment);
 
         // different endDateTime -> returns false
-        differentAppointment = new Appointment(TEST_APPOINTMENT_ID, startDateTime, new EndDateTime(LocalDateTime.now().plusHours(2)),
+        differentAppointment = new Appointment(TEST_APPOINTMENT_ID, startDateTime,
+                new EndDateTime(LocalDateTime.now().plusHours(2)),
                 1, "Test", false, 5);
         assertNotEquals(appointment, differentAppointment);
 

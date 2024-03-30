@@ -13,7 +13,6 @@ import seedu.address.commons.util.DateUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Messages;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.appointment.DateTimeField;
 import seedu.address.model.appointment.EndDateTime;
 import seedu.address.model.appointment.StartDateTime;
 import seedu.address.model.patient.Email;
