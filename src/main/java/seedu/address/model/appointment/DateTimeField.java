@@ -11,7 +11,7 @@ abstract class DateTimeField {
     private final LocalDateTime value;
 
     /**
-     * Constructs a {@code EndDateTime}.
+     * Constructs a {@code DateTimeField}.
      * @param dateTimeValue A valid date
      */
     public DateTimeField(String dateTimeValue) {
@@ -45,5 +45,10 @@ abstract class DateTimeField {
 
         DateTimeField otherDateTimeField = (DateTimeField) other;
         return value.equals(otherDateTimeField.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return value.hashCode();
     }
 }
