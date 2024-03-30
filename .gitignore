@@ -24,4 +24,5 @@ docs/_site/
 docs/_markbind/logs/
 
 **/node_modules/*
+**/*.class
 **/bin/*
