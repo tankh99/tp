@@ -1,28 +1,32 @@
 {
   "appointments" : [ {
     "appointmentId" : 1,
-    "appointmentDateTime" : "2022-12-12T08:00:00",
+    "startDateTime" : "2022-12-12T08:00:00",
+    "endDateTime" : "2022-12-12T09:00:00",
     "studentId" : 1,
     "appointmentDescription" : "First Appointment",
     "hasAttended" : false,
-    "feedbackScore" : null
+    "feedbackScore" : 1
   }, {
     "appointmentId" : 2,
-    "appointmentDateTime" : "2022-12-12T10:00:00",
+    "startDateTime" : "2022-12-12T10:00:00",
+    "endDateTime" : "2022-12-12T11:00:00",
     "studentId" : 2,
     "appointmentDescription" : "Second Appointment",
     "hasAttended" : false,
-    "feedbackScore" : null
+    "feedbackScore" : 3
   }, {
     "appointmentId" : 3,
-    "appointmentDateTime" : "2022-12-12T11:00:00",
+    "startDateTime" : "2022-12-12T11:00:00",
+    "endDateTime" : "2022-12-12T12:00:00",
     "studentId" : 3,
     "appointmentDescription" : "Third Appointment",
     "hasAttended" : false,
-    "feedbackScore" : 3
+    "feedbackScore" : 5
   }, {
     "appointmentId" : 4,
-    "appointmentDateTime" : "2022-12-12T12:00:00",
+    "startDateTime" : "2022-12-12T12:00:00",
+    "endDateTime" : "2022-12-12T13:00:00",
     "studentId" : 4,
     "appointmentDescription" : "Fourth Appointment",
     "hasAttended" : false,
