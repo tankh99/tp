@@ -62,17 +62,23 @@ public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand
         }
 
         LocalDateTime appointmentDateTime = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_DATETIME).get());
-        if (RelationshipUtil.isAppointmentDateTimeAlreadyTaken(appointmentDateTime, this.appointments)) {
-            throw new ParseException(Appointment.MESSAGE_DATETIME_ALREADY_TAKEN);
-        }
+
         boolean hasAttended = ParserUtil.parseHasAttended(argMultimap.getValue(PREFIX_ATTEND).orElse(""));
-        //TODO: remove after case log is implemented
+        //TODO: remove aftiner case log is implemented
         String appointmentDescription = ParserUtil.parseDescription(
                 argMultimap.getValue(PREFIX_APPOINTMENT_DESCRIPTION).orElse(""));
         Integer feedbackScore = ParserUtil.parseFeedbackScore(
                 argMultimap.getValue(PREFIX_FEEDBACK_SCORE).orElse(""));
+
         Appointment appointment = new Appointment(appointmentDateTime, studentId, appointmentDescription,
-                                                  hasAttended, feedbackScore);
+                hasAttended, feedbackScore);
+
+        if (RelationshipUtil.isAppointmentDateTimeAlreadyTaken(appointmentDateTime, this.appointments)) {
+            throw new ParseException(Appointment.MESSAGE_DATETIME_ALREADY_TAKEN);
+        }
+
+
+
         return new AddAppointmentCommand(appointment);
     }
 }
