@@ -5,10 +5,13 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.parser.CliSyntax;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.EndDateTime;
+import seedu.address.model.appointment.StartDateTime;
 
 import java.util.function.Predicate;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Filter the appointment in the CogniCare appointment list which happen on the specified datetimes.
@@ -26,14 +29,22 @@ public class FilterAppointmentCommand extends Command {
             + CliSyntax.PREFIX_END_DATETIME + "2024-03-18 18:00";
 
     private final Predicate<Appointment> predicate;
+    private final StartDateTime startDateTime;
+    private final EndDateTime endDateTime;
 
-    public FilterAppointmentCommand(Predicate<Appointment> predicate) {
+    public FilterAppointmentCommand(Predicate<Appointment> predicate, StartDateTime startDateTime, EndDateTime endDateTime) {
         this.predicate = predicate;
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
     }
 
     @Override
     public CommandResult execute(Model model) {
-        requireNonNull(model);
+        requireAllNonNull(model, startDateTime, endDateTime);
+        // Check if startDateTime is before endDateTime
+        if (startDateTime.compareTo(endDateTime) > 0) {
+            return new CommandResult(Messages.MESSAGE_INVALID_START_END_DATETIME);
+        }
         model.updateFilteredAppointmentList(predicate);
         return new CommandResult(String.format(Messages.MESSAGE_APPOINTMENTS_LISTED_OVERVIEW,
                 model.getFilteredAppointmentList().size()));

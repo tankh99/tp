@@ -39,7 +39,7 @@ public class FilterAppointmentCommandParser implements Parser<FilterAppointmentC
         StartDateTime startDateTime = ParserUtil.parseStartDateTime(argMultimap.getValue(PREFIX_START_DATETIME).get());
         EndDateTime endDateTime = ParserUtil.parseEndDateTime(argMultimap.getValue(PREFIX_END_DATETIME).get());
 
-        return new FilterAppointmentCommand(new FilterAppointmentPredicate(startDateTime, endDateTime));
+        return new FilterAppointmentCommand(new FilterAppointmentPredicate(startDateTime, endDateTime), startDateTime, endDateTime);
     }
 
 }
