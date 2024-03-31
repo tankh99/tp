@@ -21,7 +21,7 @@ public class FilterAppointmentPredicate implements Predicate<Appointment> {
 
     @Override
     public boolean test(Appointment appointment) {
-        return startDateTime.compareTo(appointment.getStartDateTime()) < 0
-                && endDateTime.compareTo(appointment.getEndDateTime()) > 0;
+        return startDateTime.compareTo(appointment.getStartDateTime()) <= 0
+                && endDateTime.compareTo(appointment.getEndDateTime()) >= 0;
     }
 }

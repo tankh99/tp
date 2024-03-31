@@ -62,7 +62,9 @@ public class FilterAppointmentCommand extends Command {
         }
 
         FilterAppointmentCommand otherAppointmentFindCommand = (FilterAppointmentCommand) other;
-        return predicate.equals(otherAppointmentFindCommand.predicate);
+        return predicate.equals(otherAppointmentFindCommand.predicate)
+                && startDateTime.equals(otherAppointmentFindCommand.startDateTime)
+                && endDateTime.equals(otherAppointmentFindCommand.endDateTime);
     }
 
     @Override

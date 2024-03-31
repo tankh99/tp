@@ -57,6 +57,7 @@ public class TypicalAppointments {
             .withFeedbackScore(4).build();
     public static final Appointment FIFTH_APPOINTMENT = new AppointmentBuilder().withAppointmentId(5)
             .withStartDatetime(LocalDateTime.of(2022, 12, 12, 13, 0, 0))
+            .withEndDateTime(LocalDateTime.of(2022, 12, 12, 14, 0, 0))
             .withStudentId(5)
             .withAppointmentDescription("Final Appointment")
             .withHasAttended(false)

@@ -109,7 +109,7 @@ public class Appointment implements Comparable<Appointment> {
     }
 
     public boolean isValidStartEndDateTime() {
-        return startDateTime.compareTo(endDateTime) < 0;
+        return startDateTime.compareTo(endDateTime) >= 0;
     }
 
     @Override
