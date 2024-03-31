@@ -22,7 +22,7 @@ public class JsonAdaptedAppointmentTest {
             ATTENDED_FIRST_APPOINTMENT.getEndDateTime().getDateTimeValue();
     private static final int VALID_STUDENT_ID = ATTENDED_FIRST_APPOINTMENT.getStudentId();
     private static final String VALID_APPOINTMENT_DESCRIPTION =
-            ATTENDED_FIRST_APPOINTMENT.getAppointmentDescription();
+            ATTENDED_FIRST_APPOINTMENT.getAppointmentDescription().appointmentDescription;
 
     private static final boolean VALID_ATTENDED_STATUS = ATTENDED_FIRST_APPOINTMENT.getAttendedStatus().hasAttended;
     private static final int VALID_FEEDBACK_SCORE = ATTENDED_FIRST_APPOINTMENT.getFeedbackScore().getFeedbackScore();

@@ -20,7 +20,8 @@ public class Appointment implements Comparable<Appointment> {
 
     public final int studentId;
 
-    public final String appointmentDescription;
+    public final AppointmentDescription appointmentDescription;
+
     public final FeedbackScore feedbackScore;
 
     private HasAttended hasAttended;
@@ -41,7 +42,7 @@ public class Appointment implements Comparable<Appointment> {
                        StartDateTime startDateTime,
                        EndDateTime endDateTime,
                        int studentId,
-                       String appointmentDescription,
+                       AppointmentDescription appointmentDescription,
                        HasAttended hasAttended,
                        FeedbackScore feedbackScore) {
         requireAllNonNull(startDateTime, endDateTime, appointmentDescription);
@@ -66,7 +67,7 @@ public class Appointment implements Comparable<Appointment> {
      * @param appointmentDescription description of the appointment.
      */
     public Appointment(StartDateTime startDateTime, EndDateTime endDateTime,
-                       int studentId, String appointmentDescription) {
+                       int studentId, AppointmentDescription appointmentDescription) {
         this(idTracker, startDateTime, endDateTime, studentId, appointmentDescription, DEFAULT_ATTENDED_STATUS, null);
     }
 
@@ -80,7 +81,7 @@ public class Appointment implements Comparable<Appointment> {
      * @param hasAttended            whether student has attended the appointment.
      */
     public Appointment(StartDateTime startDateTime, EndDateTime endDateTime, int studentId,
-                       String appointmentDescription, HasAttended hasAttended) {
+                       AppointmentDescription appointmentDescription, HasAttended hasAttended) {
         this(idTracker, startDateTime, endDateTime, studentId, appointmentDescription, hasAttended, null);
     }
 
@@ -95,7 +96,7 @@ public class Appointment implements Comparable<Appointment> {
      * @param feedbackScore          student's rating of the counselling session
      */
     public Appointment(StartDateTime startDateTime,
-                       EndDateTime endDateTime, int studentId, String appointmentDescription,
+                       EndDateTime endDateTime, int studentId, AppointmentDescription appointmentDescription,
                        HasAttended hasAttended, FeedbackScore feedbackScore) {
 
         this(idTracker, startDateTime, endDateTime, studentId, appointmentDescription, hasAttended, feedbackScore);
@@ -166,7 +167,7 @@ public class Appointment implements Comparable<Appointment> {
         return studentId;
     }
 
-    public String getAppointmentDescription() {
+    public AppointmentDescription getAppointmentDescription() {
         return appointmentDescription;
     }
 

@@ -13,10 +13,7 @@ import seedu.address.commons.util.DateUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Messages;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.appointment.EndDateTime;
-import seedu.address.model.appointment.FeedbackScore;
-import seedu.address.model.appointment.HasAttended;
-import seedu.address.model.appointment.StartDateTime;
+import seedu.address.model.appointment.*;
 import seedu.address.model.patient.Email;
 import seedu.address.model.patient.Name;
 import seedu.address.model.patient.Phone;
@@ -171,12 +168,12 @@ public class ParserUtil {
      * Leading and trailing whitespaces will be trimmed.
      * By default, an empty string will be returned if {@code description} is empty.
      */
-    public static String parseDescription(String description) {
+    public static AppointmentDescription parseDescription(String description) {
         requireNonNull(description);
         if (description.isEmpty()) {
-            return "";
+            return new AppointmentDescription("");
         }
-        return description.trim();
+        return new AppointmentDescription(description.trim());
     }
 
     /**

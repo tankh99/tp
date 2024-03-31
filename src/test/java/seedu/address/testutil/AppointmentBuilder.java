@@ -11,13 +11,15 @@ import seedu.address.model.appointment.*;
 public class AppointmentBuilder {
 
     public static final int DEFAULT_APPOINTMENT_ID = 1;
-    public static final LocalDateTime DEFAULT_APPOINTMENT_DATE_TIME = LocalDateTime.of(2020, 12, 12, 12, 12);
+    public static final LocalDateTime DEFAULT_APPOINTMENT_DATE_TIME =
+            LocalDateTime.of(2020, 12, 12, 12, 12);
 
     public static final StartDateTime DEFAULT_START_DATETIME = new StartDateTime(DEFAULT_APPOINTMENT_DATE_TIME);
     public static final EndDateTime DEFAULT_END_DATETIME = new EndDateTime(DEFAULT_APPOINTMENT_DATE_TIME.plusHours(1));
     public static final int DEFAULT_STUDENT_ID = 1;
 
-    public static final String DEFAULT_APPOINTMENT_DESCRIPTION = "Appointment Description";
+    public static final AppointmentDescription DEFAULT_APPOINTMENT_DESCRIPTION =
+            new AppointmentDescription("Appointment Description");
 
     public static final HasAttended DEFAULT_HAS_ATTENDED = new HasAttended(false);
     public static final FeedbackScore DEFAULT_FEEDBACK_SCORE = null;
@@ -28,7 +30,7 @@ public class AppointmentBuilder {
     private EndDateTime endDateTime;
     private int studentId;
 
-    private String appointmentDescription;
+    private AppointmentDescription appointmentDescription;
 
     private HasAttended hasAttended;
     private FeedbackScore feedbackScore;
@@ -95,7 +97,7 @@ public class AppointmentBuilder {
      * Sets the {@code AppointmentDescription} of the {@code Appointment} that we are building.
      */
     public AppointmentBuilder withAppointmentDescription(String appointmentDescription) {
-        this.appointmentDescription = appointmentDescription;
+        this.appointmentDescription = new AppointmentDescription(appointmentDescription);
         return this;
     }
 

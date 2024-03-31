@@ -51,7 +51,7 @@ public class JsonAdaptedAppointment {
         startDateTime = source.getStartDateTime().getDateTimeValue();
         endDateTime = source.getEndDateTime().getDateTimeValue();
         studentId = source.getStudentId();
-        appointmentDescription = source.getAppointmentDescription();
+        appointmentDescription = source.getAppointmentDescription().appointmentDescription;
         hasAttended = source.getAttendedStatus().hasAttended;
         feedbackScore = source.getFeedbackScore().getFeedbackScore();
     }
@@ -81,8 +81,9 @@ public class JsonAdaptedAppointment {
         EndDateTime modelEndDateTime = new EndDateTime(this.endDateTime);
         FeedbackScore modelFeedbackScore = new FeedbackScore(this.feedbackScore);
         HasAttended modelHasAttended = new HasAttended(hasAttended);
+        AppointmentDescription modelAppointmentDescription = new AppointmentDescription(appointmentDescription);
         // TODO: Dummy value for ID
         return new Appointment(appointmentId, modelStartDateTime,
-                modelEndDateTime, studentId, appointmentDescription, modelHasAttended, modelFeedbackScore);
+                modelEndDateTime, studentId, modelAppointmentDescription, modelHasAttended, modelFeedbackScore);
     }
 }
