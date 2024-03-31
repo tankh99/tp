@@ -36,6 +36,8 @@ public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand
         this.patients = patients;
         this.appointments = appointments;
     }
+
+    //@@author caitlyntang
     /**
      * Parses the given {@code String} of arguments in the context of the AddAppointmentCommand
      * and returns an AddAppointmentCommand object for execution.
@@ -55,16 +57,10 @@ public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand
         argMultimap.verifyNoDuplicatePrefixesFor(
                 PREFIX_PATIENT_ID, PREFIX_START_DATETIME, PREFIX_ATTEND, PREFIX_APPOINTMENT_DESCRIPTION,
                 PREFIX_FEEDBACK_SCORE);
-        int studentId = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_PATIENT_ID).get()).getOneBased();
 
-        if (!RelationshipUtil.personExists(studentId, patients)) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_PATIENT_ID, studentId)
-            );
-        }
+        int studentId = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_PATIENT_ID).get()).getOneBased();
         StartDateTime startDateTime = ParserUtil.parseStartDateTime(argMultimap.getValue(PREFIX_START_DATETIME).get());
         EndDateTime endDateTime = ParserUtil.parseEndDateTime(argMultimap.getValue(PREFIX_END_DATETIME).get());
-
         boolean hasAttended = ParserUtil.parseHasAttended(argMultimap.getValue(PREFIX_ATTEND).orElse(""));
         String appointmentDescription = ParserUtil.parseDescription(
                 argMultimap.getValue(PREFIX_APPOINTMENT_DESCRIPTION).orElse(""));
@@ -74,11 +70,15 @@ public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand
         Appointment appointment = new Appointment(startDateTime, endDateTime, studentId, appointmentDescription,
                 hasAttended, feedbackScore);
 
+        if (!RelationshipUtil.personExists(studentId, patients)) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_PATIENT_ID, studentId)
+            );
+        }
+
         if (RelationshipUtil.isAppointmentDateTimeAlreadyTaken(startDateTime, endDateTime, this.appointments)) {
             throw new ParseException(Appointment.MESSAGE_DATETIME_ALREADY_TAKEN);
         }
-
-
         return new AddAppointmentCommand(appointment);
     }
 }
