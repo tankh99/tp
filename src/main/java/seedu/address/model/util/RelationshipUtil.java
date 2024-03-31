@@ -1,9 +1,10 @@
 package seedu.address.model.util;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.EndDateTime;
+import seedu.address.model.appointment.StartDateTime;
 import seedu.address.model.patient.Patient;
 
 
@@ -14,22 +15,25 @@ public class RelationshipUtil {
 
     /**
      * Checks if a {@code Person} with the given ID exists
-     * @param id personId
+     *
+     * @param id       personId
      * @param patients List of {@code Person}
-     * @return
      */
     public static boolean personExists(int id, List<Patient> patients) {
         return patients.stream().anyMatch(patient -> patient.getSid() == id);
     }
 
     /**
-     * Checks if the given date and time is already usedby another {@code Appointment}.
-     * @param dateTime DAte time to check for
+     * Checks if the given date and time is already used by another {@code Appointment}.
+     *
      * @param appointments List of {@code Appointment}s to check against
      */
-    public static boolean isAppointmentDateTimeAlreadyTaken(LocalDateTime dateTime, List<Appointment> appointments) {
-        for (Appointment appointment: appointments) {
-            if (appointment.getAppointmentDateTime().equals(dateTime)) {
+    public static boolean isAppointmentDateTimeAlreadyTaken(StartDateTime startDateTime,
+                                                            EndDateTime endDateTime, List<Appointment> appointments) {
+        for (Appointment appointment : appointments) {
+            // Check if the appointment is within the range of the existing appointment
+            if (appointment.getEndDateTime().compareTo(startDateTime) > 0
+                    && appointment.getStartDateTime().compareTo(endDateTime) < 0) {
                 return true;
             }
         }

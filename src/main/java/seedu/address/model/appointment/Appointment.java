@@ -2,7 +2,6 @@ package seedu.address.model.appointment;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 import seedu.address.commons.util.ToStringBuilder;
@@ -16,8 +15,9 @@ public class Appointment implements Comparable<Appointment> {
     private static final boolean DEFAULT_ATTENDED_STATUS = false;
 
     private static int idTracker = 1;
+
     public final int appointmentId;
-    public final LocalDateTime appointmentDateTime;
+
     public final int studentId;
 
     //TODO: replace with caseLog
@@ -25,21 +25,30 @@ public class Appointment implements Comparable<Appointment> {
     public final Integer feedbackScore;
 
     private boolean hasAttended;
+    private final StartDateTime startDateTime;
+    private final EndDateTime endDateTime;
 
     /**
      * Constructs a {@code Appointment}.
      *
      * @param appointmentId          unique id of the appointment.
-     * @param appointmentDateTime    date and time of the appointment.
+     * @param startDateTime          start date and time of the appointment.
+     * @param endDateTime            end date and time of the appointment.
      * @param studentId              unique id of the student.
      * @param appointmentDescription description of the appointment.
      * @param hasAttended            whether student has attended the appointment.
      */
-    public Appointment(int appointmentId, LocalDateTime appointmentDateTime,
-                       int studentId, String appointmentDescription, boolean hasAttended, Integer feedbackScore) {
-        requireAllNonNull(appointmentDateTime, appointmentDescription);
+    public Appointment(int appointmentId,
+                       StartDateTime startDateTime,
+                       EndDateTime endDateTime,
+                       int studentId,
+                       String appointmentDescription,
+                       boolean hasAttended,
+                       Integer feedbackScore) {
+        requireAllNonNull(startDateTime, endDateTime, appointmentDescription);
         this.appointmentId = appointmentId;
-        this.appointmentDateTime = appointmentDateTime;
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
         // Student ID is the same as the person ID
         this.studentId = studentId;
         idTracker = appointmentId + 1;
@@ -52,38 +61,44 @@ public class Appointment implements Comparable<Appointment> {
     /**
      * Constructs a {@code Appointment} with automatically generated id.
      *
-     * @param appointmentDateTime    date and time of the appointment.
+     * @param startDateTime          start date and time of the appointment.
+     * @param endDateTime            end date and time of the appointment.
      * @param studentId              unique id of the student.
      * @param appointmentDescription description of the appointment.
      */
-    public Appointment(LocalDateTime appointmentDateTime, int studentId, String appointmentDescription) {
-        this(idTracker, appointmentDateTime, studentId, appointmentDescription, DEFAULT_ATTENDED_STATUS, null);
+    public Appointment(StartDateTime startDateTime, EndDateTime endDateTime,
+                       int studentId, String appointmentDescription) {
+        this(idTracker, startDateTime, endDateTime, studentId, appointmentDescription, DEFAULT_ATTENDED_STATUS, null);
     }
 
     /**
      * Constructs a {@code Appointment} with automatically generated id.
      *
-     * @param appointmentDateTime    date and time of the appointment.
+     * @param startDateTime          start date and time of the appointment.
+     * @param endDateTime            end date and time of the appointment.
      * @param studentId              unique id of the student.
      * @param appointmentDescription description of the appointment.
      * @param hasAttended            whether student has attended the appointment.
      */
-    public Appointment(LocalDateTime appointmentDateTime, int studentId,
+    public Appointment(StartDateTime startDateTime, EndDateTime endDateTime, int studentId,
                        String appointmentDescription, boolean hasAttended) {
-        this(idTracker, appointmentDateTime, studentId, appointmentDescription, hasAttended, null);
+        this(idTracker, startDateTime, endDateTime, studentId, appointmentDescription, hasAttended, null);
     }
 
     /**
      * Constructs a {@code Appointment} with automatically generated id.
-     * @param appointmentDateTime    date and time of the appointment.
+     *
+     * @param startDateTime          start date and time of the appointment.
+     * @param endDateTime            end date and time of the appointment.
      * @param studentId              unique id of the student.
      * @param appointmentDescription description of the appointment.
      * @param hasAttended            whether student has attended the appointment.
      * @param feedbackScore          student's rating of the counselling session
      */
-    public Appointment(LocalDateTime appointmentDateTime, int studentId, String appointmentDescription,
+    public Appointment(StartDateTime startDateTime,
+                       EndDateTime endDateTime, int studentId, String appointmentDescription,
                        boolean hasAttended, Integer feedbackScore) {
-        this(idTracker, appointmentDateTime, studentId, appointmentDescription, hasAttended, feedbackScore);
+        this(idTracker, startDateTime, endDateTime, studentId, appointmentDescription, hasAttended, feedbackScore);
     }
 
 
@@ -91,7 +106,8 @@ public class Appointment implements Comparable<Appointment> {
     public String toString() {
         return new ToStringBuilder(this)
                 .add("appointmentId", appointmentId)
-                .add("appointmentDateTime", appointmentDateTime)
+                .add("startDateTime", startDateTime)
+                .add("endDateTime", endDateTime)
                 .add("studentId", studentId)
                 .add("appointmentDescription", appointmentDescription)
                 .add("hasAttended", hasAttended)
@@ -112,7 +128,8 @@ public class Appointment implements Comparable<Appointment> {
 
         Appointment otherAppointment = (Appointment) other;
         return otherAppointment.appointmentId == this.appointmentId
-                && otherAppointment.appointmentDateTime.equals(this.appointmentDateTime)
+                && otherAppointment.startDateTime.equals(this.startDateTime)
+                && otherAppointment.endDateTime.equals(this.endDateTime)
                 && otherAppointment.studentId == this.studentId
                 && otherAppointment.appointmentDescription.equals(this.appointmentDescription)
                 && otherAppointment.hasAttended == this.hasAttended
@@ -121,7 +138,7 @@ public class Appointment implements Comparable<Appointment> {
 
     @Override
     public int hashCode() {
-        return Objects.hash(appointmentId, appointmentDateTime,
+        return Objects.hash(appointmentId, startDateTime, endDateTime,
                 studentId, appointmentDescription, hasAttended);
     }
 
@@ -137,8 +154,12 @@ public class Appointment implements Comparable<Appointment> {
         return appointmentId;
     }
 
-    public LocalDateTime getAppointmentDateTime() {
-        return appointmentDateTime;
+    public StartDateTime getStartDateTime() {
+        return startDateTime;
+    }
+
+    public EndDateTime getEndDateTime() {
+        return endDateTime;
     }
 
     public int getStudentId() {
@@ -180,7 +201,8 @@ public class Appointment implements Comparable<Appointment> {
 
         return otherAppointment != null
                 && otherAppointment.getStudentId() == getStudentId()
-                && otherAppointment.getAppointmentDateTime().equals(getAppointmentDateTime());
+                && this.startDateTime.compareTo(otherAppointment.endDateTime) < 0
+                && this.endDateTime.compareTo(otherAppointment.startDateTime) > 0;
     }
 
 }
