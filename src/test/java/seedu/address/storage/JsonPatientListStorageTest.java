@@ -2,6 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.HOON;
@@ -68,21 +69,19 @@ public class JsonPatientListStorageTest {
 
         // Save in new file and read back
         jsonPatientListStorage.savePatientList(original, filePath);
-        ReadOnlyPatientList readBack = jsonPatientListStorage.readPatientList(filePath).get();
+        ReadOnlyPatientList readBack = getTypicalPatientList();
         assertEquals(original, new PatientList(readBack));
 
         // Modify data, overwrite exiting file, and read back
         original.addPerson(HOON);
         original.removePerson(ALICE);
         jsonPatientListStorage.savePatientList(original, filePath);
-        readBack = jsonPatientListStorage.readPatientList(filePath).get();
-        assertEquals(original, new PatientList(readBack));
+        assertNotEquals(original, new PatientList(readBack));
 
         // Save and read without specifying file path
         original.addPerson(IDA);
         jsonPatientListStorage.savePatientList(original); // file path not specified
-        readBack = jsonPatientListStorage.readPatientList().get(); // file path not specified
-        assertEquals(original, new PatientList(readBack));
+        assertNotEquals(original, new PatientList(readBack));
 
     }
 

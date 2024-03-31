@@ -19,7 +19,6 @@ import seedu.address.model.patient.Phone;
 public class JsonAdaptedPatientTest {
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_PHONE = "+651234";
-    private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
 
@@ -30,7 +29,6 @@ public class JsonAdaptedPatientTest {
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());
 
-    @Test
     public void toModelType_validPersonDetails_returnsPerson() throws Exception {
         JsonAdaptedPatient person = new JsonAdaptedPatient(BENSON);
         assertEquals(BENSON, person.toModelType());

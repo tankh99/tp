@@ -93,14 +93,18 @@ class JsonAdaptedPatient {
         }
 
         if (sid < 0) {
-            // TODO: Custom type for SID
+            // If the student ID is of an illegal value.
             throw new IllegalValueException("Please only use positive index.");
+        } else if (sid < Patient.getIdTracker()) {
+            // If the studentId is not strictly increasing.
+            throw new IllegalValueException("Index should be strictly increasing.");
         }
+
         final Email modelEmail = new Email(email);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
-        // TODO: Dummy value for ID
+
         return new Patient(modelName, modelPhone, modelEmail, modelTags, sid);
     }
 

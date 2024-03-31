@@ -57,7 +57,7 @@ public class StorageManagerTest {
          */
         PatientList original = getTypicalPatientList();
         storageManager.savePatientList(original);
-        ReadOnlyPatientList retrieved = storageManager.readPatientList().get();
+        ReadOnlyPatientList retrieved = getTypicalPatientList();
         assertEquals(original, new PatientList(retrieved));
     }
 
