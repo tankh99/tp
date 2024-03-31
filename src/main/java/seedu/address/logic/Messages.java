@@ -33,6 +33,8 @@ public class Messages {
 
     public static final String MESSAGE_INVALID_FEEDBACK_SCORE = "Invalid feedback score. "
             + "Please use a number between 1 and 5 (inclusive)";
+    public static final String MESSAGE_INVALID_START_END_DATETIME = "Start datetime must be before end datetime";
+
     /**
      * Returns an error message indicating the duplicate prefixes.
      */

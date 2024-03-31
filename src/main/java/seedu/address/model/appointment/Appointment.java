@@ -101,6 +101,9 @@ public class Appointment implements Comparable<Appointment> {
         this(idTracker, startDateTime, endDateTime, studentId, appointmentDescription, hasAttended, feedbackScore);
     }
 
+    public boolean isValidStartEndDateTime() {
+        return startDateTime.compareTo(endDateTime) >= 0;
+    }
 
     @Override
     public String toString() {
