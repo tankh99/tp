@@ -534,6 +534,8 @@ Priorities: High (must have) - `* * * *`, Medium (nice to have) - `* * *`, Low (
   Use case ends.
 
 **Use Case: Edit a Patient**
+<puml src="diagrams/EditPatientSequenceDiagram.puml" width="280" />
+
 1. User enters command to add a patient with required index and data field to be edited.
 2. CogniCare displays a success message confirming the patient's details have been updated.
 Use case ends.
