@@ -11,11 +11,10 @@ import java.util.function.Predicate;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.patient.EmailContainsKeywordPredicate;
-import seedu.address.model.patient.Name;
 import seedu.address.model.patient.NameContainsKeywordsPredicate;
 import seedu.address.model.patient.Patient;
-import seedu.address.model.patient.Phone;
 import seedu.address.model.patient.PhoneContainsKeywordsPredicate;
+import seedu.address.model.patient.TagContainsKeywordPredicate;
 
 
 /**
@@ -42,22 +41,28 @@ public class ListPatientCommandParser implements Parser<ListCommand> {
         }
 
 
-        // All these criterias are OR not AND
+        // All these criteria are AND not OR
         if (argMultimap.getValue(CliSyntax.PREFIX_NAME).isPresent()) {
-            Name name = ParserUtil.parseName(argMultimap.getValue(CliSyntax.PREFIX_NAME).get());
-            predicates.add(new NameContainsKeywordsPredicate(Collections.singletonList(name.fullName)));
+            String nameToSearch = argMultimap.getValue(CliSyntax.PREFIX_NAME).get();
+            predicates.add(new NameContainsKeywordsPredicate(Collections.singletonList(nameToSearch)));
         }
 
         if (argMultimap.getValue(CliSyntax.PREFIX_PHONE).isPresent()) {
-            Phone phone = ParserUtil.parsePhone(argMultimap.getValue(CliSyntax.PREFIX_PHONE).get());
-            predicates.add(new PhoneContainsKeywordsPredicate(Collections.singletonList(phone.value)));
+            String phoneToSearch = argMultimap.getValue(CliSyntax.PREFIX_PHONE).get();
+            predicates.add(new PhoneContainsKeywordsPredicate(Collections.singletonList(phoneToSearch)));
         }
 
 
         if (argMultimap.getValue(CliSyntax.PREFIX_EMAIL).isPresent()) {
-            String email = argMultimap.getValue(CliSyntax.PREFIX_EMAIL).get();
-            predicates.add(new EmailContainsKeywordPredicate(Collections.singletonList(email)));
+            String emailToSearch = argMultimap.getValue(CliSyntax.PREFIX_EMAIL).get();
+            predicates.add(new EmailContainsKeywordPredicate(Collections.singletonList(emailToSearch)));
         }
+
+        if (argMultimap.getValue(CliSyntax.PREFIX_ALIAS).isPresent()) {
+            List<String> tagsToSearch = argMultimap.getAllValues(PREFIX_ALIAS);
+            predicates.add(new TagContainsKeywordPredicate(tagsToSearch));
+        }
+
 
         // Combine predicates with AND logic
         Predicate<Patient> combinedPredicate = predicates.stream()

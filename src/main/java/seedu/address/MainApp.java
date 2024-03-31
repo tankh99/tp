@@ -103,12 +103,12 @@ public class MainApp extends Application {
             appointmentListOptional = storage.readAppointmentList();
             if (!appointmentListOptional.isPresent()) {
                 logger.info("Creating a new data file " + storage.getAppointmentListFilePath()
-                        + " populated with a sample PatientList.");
+                        + " populated with a sample AppointmentList.");
             }
             initialAppointmentListData = appointmentListOptional.orElseGet(SampleDataUtil::getSampleAppointmentList);
         } catch (DataLoadingException e) {
             logger.warning("Data file at " + storage.getAppointmentListFilePath() + " could not be loaded."
-                    + " Will be starting with an empty PatientList.");
+                    + " Will be starting with an empty AppointmentList.");
             initialAppointmentListData = new AppointmentList();
         }
 
