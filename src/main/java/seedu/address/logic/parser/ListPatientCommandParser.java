@@ -11,10 +11,8 @@ import java.util.function.Predicate;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.patient.EmailContainsKeywordPredicate;
-import seedu.address.model.patient.Name;
 import seedu.address.model.patient.NameContainsKeywordsPredicate;
 import seedu.address.model.patient.Patient;
-import seedu.address.model.patient.Phone;
 import seedu.address.model.patient.PhoneContainsKeywordsPredicate;
 
 
