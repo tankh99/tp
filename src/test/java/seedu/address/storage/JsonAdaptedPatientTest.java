@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.patient.Email;
 import seedu.address.model.patient.Name;
-import seedu.address.model.patient.Patient;
 import seedu.address.model.patient.Phone;
 
 public class JsonAdaptedPatientTest {
