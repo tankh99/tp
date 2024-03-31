@@ -14,6 +14,7 @@ import seedu.address.model.patient.EmailContainsKeywordPredicate;
 import seedu.address.model.patient.NameContainsKeywordsPredicate;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.patient.PhoneContainsKeywordsPredicate;
+import seedu.address.model.patient.TagContainsKeywordPredicate;
 
 
 /**
@@ -56,6 +57,12 @@ public class ListPatientCommandParser implements Parser<ListCommand> {
             String emailToSearch = argMultimap.getValue(CliSyntax.PREFIX_EMAIL).get();
             predicates.add(new EmailContainsKeywordPredicate(Collections.singletonList(emailToSearch)));
         }
+
+        if (argMultimap.getValue(CliSyntax.PREFIX_ALIAS).isPresent()) {
+            List<String> tagsToSearch = argMultimap.getAllValues(PREFIX_ALIAS);
+            predicates.add(new TagContainsKeywordPredicate(tagsToSearch));
+        }
+
 
         // Combine predicates with AND logic
         Predicate<Patient> combinedPredicate = predicates.stream()

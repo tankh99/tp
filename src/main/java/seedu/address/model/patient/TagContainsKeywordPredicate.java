@@ -1,12 +1,13 @@
 package seedu.address.model.patient;
 
-import seedu.address.commons.util.StringUtil;
-import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.model.tag.Tag;
-
 import java.util.List;
 import java.util.function.Predicate;
 
+import seedu.address.commons.util.ToStringBuilder;
+
+/**
+ * Tests that a {@code Person}'s {@code Tags} (case-insensitive) matches a part of the keywords given.
+ */
 public class TagContainsKeywordPredicate implements Predicate<Patient> {
     private final List<String> keywords;
 
@@ -14,6 +15,12 @@ public class TagContainsKeywordPredicate implements Predicate<Patient> {
         this.keywords = keywords;
     }
 
+    /**
+     * Checks if the given patient has any tags that contain the specified keywords.
+     *
+     * @param patient the patient to be checked
+     * @return true if the patient has any tags that contain the specified keywords (case-insensitive), false otherwise
+     */
     @Override
     public boolean test(Patient patient) {
         return keywords.stream()
@@ -25,7 +32,7 @@ public class TagContainsKeywordPredicate implements Predicate<Patient> {
 
     /**
      * Checks if the current object is equal to the given object.
-     *w
+     *
      * @param other The object to compare against
      * @return True if the objects are equal, false otherwise
      */
