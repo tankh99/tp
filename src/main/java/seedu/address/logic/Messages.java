@@ -30,6 +30,8 @@ public class Messages {
     public static final String MESSAGE_DATETIME_IN_THE_PAST =
             "Date and time cannot be in the past";
 
+    public static final String MESSAGE_INVALID_START_END_DATETIME = "Start datetime must be before end datetime";
+
     /**
      * Returns an error message indicating the duplicate prefixes.
      */

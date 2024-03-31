@@ -40,7 +40,7 @@ public class JsonSerializablePatientListTest {
     public void toModelType_duplicatePersons_throwsIllegalValueException() throws Exception {
         JsonSerializablePatientList dataFromFile = JsonUtil.readJsonFile(DUPLICATE_PERSON_FILE,
                 JsonSerializablePatientList.class).get();
-        assertThrows(IllegalValueException.class, JsonSerializablePatientList.MESSAGE_DUPLICATE_PERSON,
+        assertThrows(IllegalValueException.class, "Index should be strictly increasing.",
                 dataFromFile::toModelType);
     }
 
