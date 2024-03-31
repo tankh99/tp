@@ -131,6 +131,11 @@ public class AddPatientCommandTest {
         }
 
         @Override
+        public void setAppointmentList(ReadOnlyAppointmentList appointmentList) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ReadOnlyPatientList getPatientList() {
             throw new AssertionError("This method should not be called.");
         }

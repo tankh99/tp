@@ -109,6 +109,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setAppointmentList(ReadOnlyAppointmentList appointmentList) {
+        this.appointmentList.resetData(appointmentList);
+    }
+
+    @Override
     public ReadOnlyPatientList getPatientList() {
         return patientList;
     }

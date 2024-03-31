@@ -45,14 +45,19 @@ public interface Model {
     Path getPatientListFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' CogniCare book file path.
      */
     void setPatientListFilePath(Path patientListFilePath);
 
     /**
-     * Replaces address book data with the data in {@code patientList}.
+     * Replaces CogniCare book data with the data in {@code patientList}.
      */
     void setPatientList(ReadOnlyPatientList patientList);
+
+    /**
+     * Replaces Appointment book data with the data in {@code patientList}.
+     */
+    void setAppointmentList(ReadOnlyAppointmentList appointmentList);
 
     /** Returns the PatientList */
     ReadOnlyPatientList getPatientList();
