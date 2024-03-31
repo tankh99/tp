@@ -1,17 +1,5 @@
 package seedu.address.logic.commands;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.appointment.EndDateTime;
-import seedu.address.model.appointment.FilterAppointmentPredicate;
-import seedu.address.model.appointment.FindAppointmentPredicate;
-import seedu.address.model.appointment.StartDateTime;
-
-import java.time.LocalDateTime;
-import java.util.Collections;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -26,6 +14,20 @@ import static seedu.address.testutil.TypicalPersons.getTypicalPatientList;
 import static seedu.address.testutil.TypicalStartDateTime.START_DATE_TIME_1;
 import static seedu.address.testutil.TypicalStartDateTime.START_DATE_TIME_2;
 import static seedu.address.testutil.TypicalStartDateTime.START_DATE_TIME_5;
+
+import java.time.LocalDateTime;
+import java.util.Collections;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.appointment.EndDateTime;
+import seedu.address.model.appointment.FilterAppointmentPredicate;
+import seedu.address.model.appointment.StartDateTime;
+
+
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FilterAppointmentCommand}.

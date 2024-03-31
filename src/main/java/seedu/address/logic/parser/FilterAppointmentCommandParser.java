@@ -1,20 +1,14 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATETIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATETIME;
+
 import seedu.address.logic.commands.FilterAppointmentCommand;
-import seedu.address.logic.commands.FindAppointmentCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appointment.EndDateTime;
 import seedu.address.model.appointment.FilterAppointmentPredicate;
-import seedu.address.model.appointment.FindAppointmentPredicate;
 import seedu.address.model.appointment.StartDateTime;
-
-import java.util.logging.Filter;
-
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT_ID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATETIME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PATIENT_ID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATETIME;
 
 /**
  * Parses input arguments and creates a new FindAppointmentCommand object
@@ -39,7 +33,8 @@ public class FilterAppointmentCommandParser implements Parser<FilterAppointmentC
         StartDateTime startDateTime = ParserUtil.parseStartDateTime(argMultimap.getValue(PREFIX_START_DATETIME).get());
         EndDateTime endDateTime = ParserUtil.parseEndDateTime(argMultimap.getValue(PREFIX_END_DATETIME).get());
 
-        return new FilterAppointmentCommand(new FilterAppointmentPredicate(startDateTime, endDateTime), startDateTime, endDateTime);
+        return new FilterAppointmentCommand(new FilterAppointmentPredicate(startDateTime, endDateTime),
+                startDateTime, endDateTime);
     }
 
 }

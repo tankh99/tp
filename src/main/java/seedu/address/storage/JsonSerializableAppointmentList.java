@@ -19,10 +19,10 @@ import seedu.address.model.appointment.ReadOnlyAppointmentList;
 @JsonRootName(value = "appointmentList")
 class JsonSerializableAppointmentList {
 
-    public static final String MESSAGE_DUPLICATE_APPOINTMENT = "Appointment list contains duplicate appointment(s) " +
-            "or appointments with overlapping datetime.";
-    private static final String MESSAGE_INVALID_START_END_DATE_TIME = "Appointment list contains invalid start and end " +
-            "datetime i.e start datetime is after end datetime.";
+    public static final String MESSAGE_DUPLICATE_APPOINTMENT = "Appointment list contains duplicate appointment(s) "
+            + "or appointments with overlapping datetime.";
+    private static final String MESSAGE_INVALID_START_END_DATE_TIME = "Appointment list contains "
+            + "invalid start and end datetime i.e start datetime is after end datetime.";
 
     private final List<JsonAdaptedAppointment> appointments = new ArrayList<>();
 

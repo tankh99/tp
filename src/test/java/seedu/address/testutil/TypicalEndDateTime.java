@@ -1,9 +1,13 @@
 package seedu.address.testutil;
 
-import seedu.address.model.appointment.EndDateTime;
-
 import java.time.LocalDateTime;
 
+import seedu.address.model.appointment.EndDateTime;
+
+
+/**
+ * A utility class containing a list of {@code EndDateTime} objects to be used in tests.
+ */
 public class TypicalEndDateTime {
     public static final EndDateTime END_DATE_TIME_1 = new EndDateTime(LocalDateTime.of(2024, 3, 18, 9, 0));
     public static final EndDateTime END_DATE_TIME_2 = new EndDateTime(LocalDateTime.of(2024, 3, 18, 10, 0));

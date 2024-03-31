@@ -1,5 +1,9 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.function.Predicate;
+
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.parser.CliSyntax;
@@ -8,10 +12,6 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.EndDateTime;
 import seedu.address.model.appointment.StartDateTime;
 
-import java.util.function.Predicate;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Filter the appointment in the CogniCare appointment list which happen on the specified datetimes.
@@ -20,8 +20,8 @@ public class FilterAppointmentCommand extends Command {
 
     public static final String COMMAND_WORD = "filterappointment";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Filter the appointment which happens " +
-            "between one datetime and another datetime. Parameters: "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Filter the appointment which happens "
+            + "between one datetime and another datetime. Parameters: "
             + CliSyntax.PREFIX_START_DATETIME + "START_DATETIME "
             + CliSyntax.PREFIX_END_DATETIME + "END_DATETIME\n"
             + "Example: " + COMMAND_WORD + " "
@@ -32,7 +32,11 @@ public class FilterAppointmentCommand extends Command {
     private final StartDateTime startDateTime;
     private final EndDateTime endDateTime;
 
-    public FilterAppointmentCommand(Predicate<Appointment> predicate, StartDateTime startDateTime, EndDateTime endDateTime) {
+    /**
+     * Creates a FilterAppointmentCommand to filter the appointment list with the specified predicate.
+     */
+    public FilterAppointmentCommand(Predicate<Appointment> predicate,
+                                    StartDateTime startDateTime, EndDateTime endDateTime) {
         this.predicate = predicate;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;

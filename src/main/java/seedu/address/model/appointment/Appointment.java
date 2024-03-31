@@ -5,7 +5,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Objects;
 
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.logic.Messages;
 
 /**
  * Represents an Appointment attached to a Person in PatientList
@@ -100,12 +99,6 @@ public class Appointment implements Comparable<Appointment> {
                        EndDateTime endDateTime, int studentId, String appointmentDescription,
                        boolean hasAttended, Integer feedbackScore) {
         this(idTracker, startDateTime, endDateTime, studentId, appointmentDescription, hasAttended, feedbackScore);
-    }
-
-    public static void requireValidStartEndDateTime(StartDateTime startDateTime, EndDateTime endDateTime) {
-        if (startDateTime.compareTo(endDateTime) > 0) {
-            throw new IllegalArgumentException(Messages.MESSAGE_INVALID_START_END_DATETIME);
-        }
     }
 
     public boolean isValidStartEndDateTime() {
