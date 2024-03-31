@@ -18,7 +18,7 @@ public class FilterAppointmentCommand extends Command {
     public static final String COMMAND_WORD = "filterappointment";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Filter the appointment which happens " +
-            "on the specified date. Parameters: "
+            "between one datetime and another datetime. Parameters: "
             + CliSyntax.PREFIX_START_DATETIME + "START_DATETIME "
             + CliSyntax.PREFIX_END_DATETIME + "END_DATETIME\n"
             + "Example: " + COMMAND_WORD + " "
