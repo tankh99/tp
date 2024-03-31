@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -16,8 +17,10 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appointment.*;
 import seedu.address.model.patient.Email;
 import seedu.address.model.patient.Name;
+import seedu.address.model.patient.Patient;
 import seedu.address.model.patient.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.util.RelationshipUtil;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -203,6 +206,16 @@ public class ParserUtil {
      */
     public static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    public static PatientId parsePatientId(String id, List<Patient> patients) throws ParseException {
+        requireNonNull(id);
+        int patientId = parseIndex(id).getOneBased();
+
+        if (!RelationshipUtil.personExists(patientId, patients)) {
+            throw new ParseException(PatientId.MESSAGE_CONSTRAINTS);
+        }
+        return new PatientId(patientId);
     }
 
     /**

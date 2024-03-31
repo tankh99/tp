@@ -20,7 +20,7 @@ public class JsonAdaptedAppointmentTest {
             ATTENDED_FIRST_APPOINTMENT.getStartDateTime().getDateTimeValue();
     private static final LocalDateTime VALID_END_DATETIME =
             ATTENDED_FIRST_APPOINTMENT.getEndDateTime().getDateTimeValue();
-    private static final int VALID_STUDENT_ID = ATTENDED_FIRST_APPOINTMENT.getStudentId();
+    private static final int VALID_STUDENT_ID = ATTENDED_FIRST_APPOINTMENT.getPatientId().patientId;
     private static final String VALID_APPOINTMENT_DESCRIPTION =
             ATTENDED_FIRST_APPOINTMENT.getAppointmentDescription().appointmentDescription;
 

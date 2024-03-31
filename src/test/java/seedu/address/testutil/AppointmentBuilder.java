@@ -16,7 +16,7 @@ public class AppointmentBuilder {
 
     public static final StartDateTime DEFAULT_START_DATETIME = new StartDateTime(DEFAULT_APPOINTMENT_DATE_TIME);
     public static final EndDateTime DEFAULT_END_DATETIME = new EndDateTime(DEFAULT_APPOINTMENT_DATE_TIME.plusHours(1));
-    public static final int DEFAULT_STUDENT_ID = 1;
+    public static final PatientId DEFAULT_PATIENT_ID = new PatientId(1);
 
     public static final AppointmentDescription DEFAULT_APPOINTMENT_DESCRIPTION =
             new AppointmentDescription("Appointment Description");
@@ -28,7 +28,7 @@ public class AppointmentBuilder {
     private StartDateTime startDateTime;
 
     private EndDateTime endDateTime;
-    private int studentId;
+    private PatientId patientId;
 
     private AppointmentDescription appointmentDescription;
 
@@ -42,7 +42,7 @@ public class AppointmentBuilder {
         appointmentId = DEFAULT_APPOINTMENT_ID;
         startDateTime = DEFAULT_START_DATETIME;
         endDateTime = DEFAULT_END_DATETIME;
-        studentId = DEFAULT_STUDENT_ID;
+        patientId = DEFAULT_PATIENT_ID;
         appointmentDescription = DEFAULT_APPOINTMENT_DESCRIPTION;
         hasAttended = DEFAULT_HAS_ATTENDED;
         feedbackScore = DEFAULT_FEEDBACK_SCORE;
@@ -55,7 +55,7 @@ public class AppointmentBuilder {
         appointmentId = appointmentToCopy.getAppointmentId();
         startDateTime = appointmentToCopy.getStartDateTime();
         endDateTime = appointmentToCopy.getEndDateTime();
-        studentId = appointmentToCopy.getStudentId();
+        patientId = appointmentToCopy.getPatientId();
         appointmentDescription = appointmentToCopy.getAppointmentDescription();
         hasAttended = appointmentToCopy.getAttendedStatus();
         feedbackScore = appointmentToCopy.getFeedbackScore();
@@ -88,8 +88,8 @@ public class AppointmentBuilder {
     /**
      * Sets the {@code studentId} of the {@code Appointment} that we are building.
      */
-    public AppointmentBuilder withStudentId(int studentId) {
-        this.studentId = studentId;
+    public AppointmentBuilder withStudentId(int patientId) {
+        this.patientId = new PatientId(patientId);
         return this;
     }
 
@@ -122,7 +122,7 @@ public class AppointmentBuilder {
      */
     public Appointment build() {
         return new Appointment(appointmentId, startDateTime, endDateTime,
-                studentId, appointmentDescription, hasAttended, feedbackScore);
+                patientId, appointmentDescription, hasAttended, feedbackScore);
     }
 
 }

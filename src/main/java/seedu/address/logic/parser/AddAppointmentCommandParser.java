@@ -56,7 +56,7 @@ public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand
                 PREFIX_PATIENT_ID, PREFIX_START_DATETIME, PREFIX_ATTEND, PREFIX_APPOINTMENT_DESCRIPTION,
                 PREFIX_FEEDBACK_SCORE);
 
-        int studentId = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_PATIENT_ID).get()).getOneBased();
+        PatientId patientId = ParserUtil.parsePatientId(argMultimap.getValue(PREFIX_PATIENT_ID).get(), patients);
         StartDateTime startDateTime = ParserUtil.parseStartDateTime(argMultimap.getValue(PREFIX_START_DATETIME).get());
         EndDateTime endDateTime = ParserUtil.parseEndDateTime(argMultimap.getValue(PREFIX_END_DATETIME).get());
         HasAttended hasAttended = ParserUtil.parseHasAttended(argMultimap.getValue(PREFIX_ATTEND).orElse(""));
@@ -65,14 +65,8 @@ public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand
         FeedbackScore feedbackScore = ParserUtil.parseFeedbackScore(
                 argMultimap.getValue(PREFIX_FEEDBACK_SCORE).orElse(""));
 
-        Appointment appointment = new Appointment(startDateTime, endDateTime, studentId, appointmentDescription,
+        Appointment appointment = new Appointment(startDateTime, endDateTime, patientId, appointmentDescription,
                 hasAttended, feedbackScore);
-
-        if (!RelationshipUtil.personExists(studentId, patients)) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_PATIENT_ID, studentId)
-            );
-        }
 
         if (RelationshipUtil.isAppointmentDateTimeAlreadyTaken(startDateTime, endDateTime, this.appointments)) {
             throw new ParseException(Appointment.MESSAGE_DATETIME_ALREADY_TAKEN);

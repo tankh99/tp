@@ -48,7 +48,7 @@ public class AppointmentCard extends UiPart<Region> {
 
         appointmentId.setText(appointment.getAppointmentId() + ". ");
         //TODO: replace student id with student name
-        name.setText("StudentId: " + Integer.toString(appointment.getStudentId()));
+        name.setText("StudentId: " + Integer.toString(appointment.getPatientId().patientId));
 
         String formattedStartDateTime = DateUtil.formatDateTime(appointment.getStartDateTime().getDateTimeValue());
         String formattedEndDateTime = DateUtil.formatDateTime(appointment.getEndDateTime().getDateTimeValue());

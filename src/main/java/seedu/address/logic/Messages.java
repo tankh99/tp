@@ -64,7 +64,7 @@ public class Messages {
         final StringBuilder builder = new StringBuilder();
         builder.append(appointment.getAppointmentId())
                 .append("; StudentId: ")
-                .append(appointment.getStudentId())
+                .append(appointment.getPatientId())
                 .append("; Start: ")
                 .append(appointment.getStartDateTime())
                 .append("; End: ")
