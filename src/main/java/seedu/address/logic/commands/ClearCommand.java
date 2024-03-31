@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.model.Model;
 import seedu.address.model.PatientList;
+import seedu.address.model.appointment.AppointmentList;
 
 /**
  * Clears the address book.
@@ -11,13 +12,16 @@ import seedu.address.model.PatientList;
 public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
-    public static final String MESSAGE_SUCCESS = "Address book has been cleared!";
+    public static final String MESSAGE_SUCCESS = "All the data in CogniCare has been cleared!";
 
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+
         model.setPatientList(new PatientList());
+        model.setAppointmentList(new AppointmentList());
+
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
