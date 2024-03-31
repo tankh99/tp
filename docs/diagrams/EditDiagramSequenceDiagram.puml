@@ -6,8 +6,8 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":PatientListParser" as PatientListParser LOGIC_COLOR
 participant ":EditPatientCommandParser" as EditPatientCommandParser LOGIC_COLOR
-participant ":EditPatientCommand" as EditPatientCommand LOGIC_COLOR
 participant ":EditPersonDescriptor" as EditPersonDescriptor LOGIC_COLOR
+participant ":EditPatientCommand" as EditPatientCommand LOGIC_COLOR
 participant "r:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -32,49 +32,35 @@ deactivate EditPatientCommandParser
 PatientListParser -> EditPatientCommandParser : parse(arguments)
 activate EditPatientCommandParser
 
-
-
-EditPatientCommandParser --> PatientListParser
-
 create EditPersonDescriptor
+note right of EditPersonDescriptor : Methods in EditPersonDescriptor such as setName and\n setPhone may be used to create a defensive copy \nof the patient that is to be updated.
 EditPatientCommandParser -> EditPersonDescriptor : new EditPersonDescriptor()
 activate EditPersonDescriptor
-EditPersonDescriptor -> EditPatientCommandParser
+EditPersonDescriptor -> EditPatientCommandParser : setup with parsed attributes
+
 deactivate EditPersonDescriptor
 
-deactivate EditPatientCommandParser
-
-
-
+' Now, passing EditPersonDescriptor and studentIndex to EditPatientCommand
 create EditPatientCommand
-EditPatientCommandParser -> EditPatientCommand :  new EditPatientCommand(combinedPredicate) with AND logic
+EditPatientCommandParser -> EditPatientCommand : new EditPatientCommand(studentIndex, editPersonDescriptor)
 activate EditPatientCommand
-
-EditPatientCommand --> EditPatientCommandParser :
+EditPatientCommand --> EditPatientCommandParser
 deactivate EditPatientCommand
 
-EditPatientCommandParser --> PatientListParser : d
+EditPatientCommandParser --> PatientListParser : return
 deactivate EditPatientCommandParser
-
-
-'Hidden arrow to position the destroy marker below the end of the activation bar.
-EditPatientCommandParser -[hidden]-> PatientListParser
-destroy EditPatientCommandParser
 
 PatientListParser --> LogicManager : d
 deactivate PatientListParser
 
-LogicManager -> EditPatientCommand : execute(m)
+LogicManager -> EditPatientCommand : execute
 activate EditPatientCommand
 
-EditPatientCommand -> Model : updateFilteredPersonList(combinedPredicate)
+EditPatientCommand -> Model : updateFilteredPersonList
 activate Model
 
 Model --> EditPatientCommand
 deactivate Model
-
-
-
 
 EditPatientCommand --> LogicManager : command success
 deactivate EditPatientCommand
