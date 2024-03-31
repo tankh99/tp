@@ -143,7 +143,21 @@ public class MainWindow extends UiPart<Stage> {
         if (!helpWindow.isShowing()) {
             helpWindow.show();
         } else {
-            helpWindow.focus();
+            ensureWindowIsFocusedAndUnminimized();
+        }
+    }
+
+    private void ensureWindowIsFocusedAndUnminimized() {
+        helpWindow.focus();
+
+        Stage helpStage = helpWindow.getRoot();
+
+        // Check if the help window is minimized
+        if (helpStage.isIconified()) {
+            // Unminimize the window
+            // Method from: https://stackoverflow.com/questions/22773070/
+            // Question Title: Is there anyway to programmatically unminimize a stage in javafx
+            helpStage.setIconified(false);
         }
     }
 

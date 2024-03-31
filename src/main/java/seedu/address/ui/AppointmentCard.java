@@ -50,8 +50,10 @@ public class AppointmentCard extends UiPart<Region> {
         //TODO: replace student id with student name
         name.setText("StudentId: " + Integer.toString(appointment.getStudentId()));
 
-        String formattedDateTime = DateUtil.formatDateTime(appointment.getAppointmentDateTime());
-        appointmentDateTime.setText("Appointment Time: " + formattedDateTime);
+        String formattedStartDateTime = DateUtil.formatDateTime(appointment.getStartDateTime().getDateTimeValue());
+        String formattedEndDateTime = DateUtil.formatDateTime(appointment.getEndDateTime().getDateTimeValue());
+        appointmentDateTime.setText("Appointment Time: from " + formattedStartDateTime + " \nto "
+                + formattedEndDateTime);
 
         String attendedString = "Attended: ";
         if (appointment.getAttendedStatus()) {

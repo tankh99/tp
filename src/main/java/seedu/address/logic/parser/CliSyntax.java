@@ -13,7 +13,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_ADDRESS = new Prefix("t/");
     public static final Prefix PREFIX_ALIAS = new Prefix("a/");
     public static final Prefix PREFIX_PATIENT_ID = new Prefix("pid/");
-    public static final Prefix PREFIX_DATETIME = new Prefix("d/");
+    public static final Prefix PREFIX_START_DATETIME = new Prefix("sd/");
+    public static final Prefix PREFIX_END_DATETIME = new Prefix("ed/");
     public static final Prefix PREFIX_ATTEND = new Prefix("att/");
     //TODO: remove after case log is implemented
     public static final Prefix PREFIX_APPOINTMENT_DESCRIPTION = new Prefix("ad/");

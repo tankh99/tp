@@ -84,7 +84,7 @@ public class AddAppointmentCommandTest {
     @Test
     public void toStringMethod() {
         Appointment appointment = new AppointmentBuilder().withStudentId(1)
-                .withAppointmentDateTime(LocalDateTime.parse("2024-03-18 12:15",
+                .withStartDatetime(LocalDateTime.parse("2024-03-18 12:15",
                         DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
                 .withAppointmentId(1)
                 .withHasAttended(true)

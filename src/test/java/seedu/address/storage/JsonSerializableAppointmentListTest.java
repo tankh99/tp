@@ -26,7 +26,7 @@ public class JsonSerializableAppointmentListTest {
             TEST_DATA_FOLDER.resolve("duplicateAppointmentList.json");
 
     @Test
-    public void toModelType_typicalPersonsFile_success() throws Exception {
+    public void toModelType_typicalAppointmentFile_success() throws Exception {
         JsonSerializableAppointmentList dataFromFile = JsonUtil.readJsonFile(TYPICAL_APPOINTMENT_LIST_FILE,
                 JsonSerializableAppointmentList.class).get();
         AppointmentList addressBookFromFile = dataFromFile.toModelType();
@@ -35,14 +35,14 @@ public class JsonSerializableAppointmentListTest {
     }
 
     @Test
-    public void toModelType_invalidPersonFile_throwsIllegalValueException() throws Exception {
+    public void toModelType_invalidAppointmentFile_throwsIllegalValueException() throws Exception {
         JsonSerializableAppointmentList dataFromFile = JsonUtil.readJsonFile(INVALID_APPOINTMENT_LIST,
                 JsonSerializableAppointmentList.class).get();
         assertThrows(IllegalValueException.class, dataFromFile::toModelType);
     }
 
     @Test
-    public void toModelType_duplicatePersons_throwsIllegalValueException() throws Exception {
+    public void toModelType_duplicateAppointments_throwsIllegalValueException() throws Exception {
         JsonSerializableAppointmentList dataFromFile = JsonUtil.readJsonFile(DUPLICATE_APPOINTMENT_FILE,
                 JsonSerializableAppointmentList.class).get();
         assertThrows(IllegalValueException.class, JsonSerializableAppointmentList.MESSAGE_DUPLICATE_APPOINTMENT,

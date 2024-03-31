@@ -17,8 +17,10 @@ public class JsonAdaptedAppointmentTest {
     private static final int INVALID_STUDENT_ID = -1;
 
     private static final int VALID_APPOINTMENT_ID = ATTENDED_FIRST_APPOINTMENT.getAppointmentId();
-    private static final LocalDateTime VALID_APPOINTMENT_DATE_TIME =
-            ATTENDED_FIRST_APPOINTMENT.getAppointmentDateTime();
+    private static final LocalDateTime VALID_START_DATETIME =
+            ATTENDED_FIRST_APPOINTMENT.getStartDateTime().getDateTimeValue();
+    private static final LocalDateTime VALID_END_DATETIME =
+            ATTENDED_FIRST_APPOINTMENT.getEndDateTime().getDateTimeValue();
     private static final int VALID_STUDENT_ID = ATTENDED_FIRST_APPOINTMENT.getStudentId();
     private static final String VALID_APPOINTMENT_DESCRIPTION =
             ATTENDED_FIRST_APPOINTMENT.getAppointmentDescription();
@@ -34,7 +36,8 @@ public class JsonAdaptedAppointmentTest {
     @Test
     public void toModelType_invalidAppointmentId_throwsIllegalValueException() {
         JsonAdaptedAppointment appointment = new JsonAdaptedAppointment(INVALID_APPOINTMENT_ID,
-                VALID_APPOINTMENT_DATE_TIME, VALID_STUDENT_ID, VALID_APPOINTMENT_DESCRIPTION, VALID_ATTENDED_STATUS, 5);
+                VALID_START_DATETIME, VALID_END_DATETIME, VALID_STUDENT_ID,
+                VALID_APPOINTMENT_DESCRIPTION, VALID_ATTENDED_STATUS, 5);
         String expectedMessage = "Please only use positive index.";
         assertThrows(IllegalValueException.class, expectedMessage, appointment::toModelType);
     }
@@ -42,7 +45,7 @@ public class JsonAdaptedAppointmentTest {
     @Test
     public void toModelType_invalidStudentId_throwsIllegalValueException() {
         JsonAdaptedAppointment appointment = new JsonAdaptedAppointment(VALID_APPOINTMENT_ID,
-                VALID_APPOINTMENT_DATE_TIME, INVALID_STUDENT_ID, VALID_APPOINTMENT_DESCRIPTION,
+                VALID_START_DATETIME, VALID_END_DATETIME, INVALID_STUDENT_ID, VALID_APPOINTMENT_DESCRIPTION,
                                                                         VALID_ATTENDED_STATUS, 5);
         String expectedMessage = "Please only use positive index.";
         assertThrows(IllegalValueException.class, expectedMessage, appointment::toModelType);
