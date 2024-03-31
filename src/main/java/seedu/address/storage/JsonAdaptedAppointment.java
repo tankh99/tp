@@ -6,10 +6,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.appointment.Appointment;
-import seedu.address.model.appointment.EndDateTime;
-import seedu.address.model.appointment.FeedbackScore;
-import seedu.address.model.appointment.StartDateTime;
+import seedu.address.model.appointment.*;
 
 /**
  * Jackson-friendly version of {@link Appointment}.
@@ -55,7 +52,7 @@ public class JsonAdaptedAppointment {
         endDateTime = source.getEndDateTime().getDateTimeValue();
         studentId = source.getStudentId();
         appointmentDescription = source.getAppointmentDescription();
-        hasAttended = source.getAttendedStatus();
+        hasAttended = source.getAttendedStatus().hasAttended;
         feedbackScore = source.getFeedbackScore().getFeedbackScore();
     }
 
@@ -83,8 +80,9 @@ public class JsonAdaptedAppointment {
         StartDateTime modelStartDateTime = new StartDateTime(this.startDateTime);
         EndDateTime modelEndDateTime = new EndDateTime(this.endDateTime);
         FeedbackScore modelFeedbackScore = new FeedbackScore(this.feedbackScore);
+        HasAttended modelHasAttended = new HasAttended(hasAttended);
         // TODO: Dummy value for ID
         return new Appointment(appointmentId, modelStartDateTime,
-                modelEndDateTime, studentId, appointmentDescription, hasAttended, modelFeedbackScore);
+                modelEndDateTime, studentId, appointmentDescription, modelHasAttended, modelFeedbackScore);
     }
 }

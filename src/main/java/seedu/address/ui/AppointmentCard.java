@@ -56,7 +56,7 @@ public class AppointmentCard extends UiPart<Region> {
                 + formattedEndDateTime);
 
         String attendedString = "Attended: ";
-        if (appointment.getAttendedStatus()) {
+        if (appointment.getAttendedStatus().hasAttended) {
             attendedString += "Y";
         } else {
             attendedString += "N";

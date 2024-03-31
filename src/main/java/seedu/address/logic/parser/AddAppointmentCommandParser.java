@@ -16,6 +16,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.EndDateTime;
 import seedu.address.model.appointment.FeedbackScore;
+import seedu.address.model.appointment.HasAttended;
 import seedu.address.model.appointment.StartDateTime;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.util.RelationshipUtil;
@@ -62,7 +63,7 @@ public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand
         int studentId = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_PATIENT_ID).get()).getOneBased();
         StartDateTime startDateTime = ParserUtil.parseStartDateTime(argMultimap.getValue(PREFIX_START_DATETIME).get());
         EndDateTime endDateTime = ParserUtil.parseEndDateTime(argMultimap.getValue(PREFIX_END_DATETIME).get());
-        boolean hasAttended = ParserUtil.parseHasAttended(argMultimap.getValue(PREFIX_ATTEND).orElse(""));
+        HasAttended hasAttended = ParserUtil.parseHasAttended(argMultimap.getValue(PREFIX_ATTEND).orElse(""));
         String appointmentDescription = ParserUtil.parseDescription(
                 argMultimap.getValue(PREFIX_APPOINTMENT_DESCRIPTION).orElse(""));
         FeedbackScore feedbackScore = ParserUtil.parseFeedbackScore(

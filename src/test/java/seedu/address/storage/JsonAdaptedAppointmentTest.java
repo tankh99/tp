@@ -24,7 +24,7 @@ public class JsonAdaptedAppointmentTest {
     private static final String VALID_APPOINTMENT_DESCRIPTION =
             ATTENDED_FIRST_APPOINTMENT.getAppointmentDescription();
 
-    private static final boolean VALID_ATTENDED_STATUS = ATTENDED_FIRST_APPOINTMENT.getAttendedStatus();
+    private static final boolean VALID_ATTENDED_STATUS = ATTENDED_FIRST_APPOINTMENT.getAttendedStatus().hasAttended;
     private static final int VALID_FEEDBACK_SCORE = ATTENDED_FIRST_APPOINTMENT.getFeedbackScore().getFeedbackScore();
 
     @Test

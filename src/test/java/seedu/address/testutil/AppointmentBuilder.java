@@ -2,10 +2,7 @@ package seedu.address.testutil;
 
 import java.time.LocalDateTime;
 
-import seedu.address.model.appointment.Appointment;
-import seedu.address.model.appointment.EndDateTime;
-import seedu.address.model.appointment.FeedbackScore;
-import seedu.address.model.appointment.StartDateTime;
+import seedu.address.model.appointment.*;
 
 
 /**
@@ -22,7 +19,7 @@ public class AppointmentBuilder {
 
     public static final String DEFAULT_APPOINTMENT_DESCRIPTION = "Appointment Description";
 
-    public static final boolean DEFAULT_HAS_ATTENDED = false;
+    public static final HasAttended DEFAULT_HAS_ATTENDED = new HasAttended(false);
     public static final FeedbackScore DEFAULT_FEEDBACK_SCORE = null;
 
     private int appointmentId;
@@ -33,7 +30,7 @@ public class AppointmentBuilder {
 
     private String appointmentDescription;
 
-    private boolean hasAttended;
+    private HasAttended hasAttended;
     private FeedbackScore feedbackScore;
 
     /**
@@ -106,7 +103,7 @@ public class AppointmentBuilder {
      * Sets the {@code hasAttended} of the {@code Appointment} that we are building.
      */
     public AppointmentBuilder withHasAttended(boolean hasAttended) {
-        this.hasAttended = hasAttended;
+        this.hasAttended = new HasAttended(hasAttended);
         return this;
     }
 

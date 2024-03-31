@@ -27,7 +27,6 @@ public class Messages {
     public static final String MESSAGE_INVALID_DATE_TIME = "Invalid date time format. "
             + "Please use the format yyyy-MM-dd HH:mm";
 
-    public static final String MESSAGE_INVALID_BOOLEAN_VALUE = "Invalid boolean value. Please use true or false.";
     public static final String MESSAGE_DATETIME_IN_THE_PAST =
             "Date and time cannot be in the past";
 

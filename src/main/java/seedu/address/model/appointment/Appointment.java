@@ -12,7 +12,7 @@ import seedu.address.commons.util.ToStringBuilder;
  */
 public class Appointment implements Comparable<Appointment> {
     public static final String MESSAGE_DATETIME_ALREADY_TAKEN = "There is already an appointment at that time";
-    private static final boolean DEFAULT_ATTENDED_STATUS = false;
+    private static final HasAttended DEFAULT_ATTENDED_STATUS = new HasAttended(false);
 
     private static int idTracker = 1;
 
@@ -20,11 +20,10 @@ public class Appointment implements Comparable<Appointment> {
 
     public final int studentId;
 
-    //TODO: replace with caseLog
     public final String appointmentDescription;
     public final FeedbackScore feedbackScore;
 
-    private boolean hasAttended;
+    private HasAttended hasAttended;
     private final StartDateTime startDateTime;
     private final EndDateTime endDateTime;
 
@@ -43,7 +42,7 @@ public class Appointment implements Comparable<Appointment> {
                        EndDateTime endDateTime,
                        int studentId,
                        String appointmentDescription,
-                       boolean hasAttended,
+                       HasAttended hasAttended,
                        FeedbackScore feedbackScore) {
         requireAllNonNull(startDateTime, endDateTime, appointmentDescription);
         this.appointmentId = appointmentId;
@@ -81,7 +80,7 @@ public class Appointment implements Comparable<Appointment> {
      * @param hasAttended            whether student has attended the appointment.
      */
     public Appointment(StartDateTime startDateTime, EndDateTime endDateTime, int studentId,
-                       String appointmentDescription, boolean hasAttended) {
+                       String appointmentDescription, HasAttended hasAttended) {
         this(idTracker, startDateTime, endDateTime, studentId, appointmentDescription, hasAttended, null);
     }
 
@@ -97,7 +96,8 @@ public class Appointment implements Comparable<Appointment> {
      */
     public Appointment(StartDateTime startDateTime,
                        EndDateTime endDateTime, int studentId, String appointmentDescription,
-                       boolean hasAttended, FeedbackScore feedbackScore) {
+                       HasAttended hasAttended, FeedbackScore feedbackScore) {
+
         this(idTracker, startDateTime, endDateTime, studentId, appointmentDescription, hasAttended, feedbackScore);
     }
 
@@ -142,11 +142,11 @@ public class Appointment implements Comparable<Appointment> {
                 studentId, appointmentDescription, hasAttended);
     }
 
-    public boolean getAttendedStatus() {
+    public HasAttended getAttendedStatus() {
         return hasAttended;
     }
 
-    public void setAttendedStatus(boolean hasAttended) {
+    public void setAttendedStatus(HasAttended hasAttended) {
         this.hasAttended = hasAttended;
     }
 

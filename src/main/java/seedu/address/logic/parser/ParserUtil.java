@@ -15,6 +15,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appointment.EndDateTime;
 import seedu.address.model.appointment.FeedbackScore;
+import seedu.address.model.appointment.HasAttended;
 import seedu.address.model.appointment.StartDateTime;
 import seedu.address.model.patient.Email;
 import seedu.address.model.patient.Name;
@@ -152,18 +153,17 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code attend} is invalid.
      */
-    public static boolean parseHasAttended(String attend) throws ParseException {
+    public static HasAttended parseHasAttended(String attend) throws ParseException {
         requireNonNull(attend);
         if (attend.isEmpty()) {
-            return false;
+            return new HasAttended(false);
         }
 
         String trimmedAttend = attend.trim();
-        if (!trimmedAttend.equalsIgnoreCase("true")
-                && !trimmedAttend.equalsIgnoreCase("false")) {
-            throw new ParseException(Messages.MESSAGE_INVALID_BOOLEAN_VALUE);
+        if (!HasAttended.isValidStatus(trimmedAttend)) {
+            throw new ParseException(HasAttended.MESSAGE_CONSTRAINTS);
         }
-        return Boolean.parseBoolean(trimmedAttend);
+        return new HasAttended(Boolean.parseBoolean(trimmedAttend));
     }
 
     /**
