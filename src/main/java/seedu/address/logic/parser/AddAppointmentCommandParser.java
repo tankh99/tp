@@ -70,14 +70,13 @@ public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand
         Integer feedbackScore = ParserUtil.parseFeedbackScore(
                 argMultimap.getValue(PREFIX_FEEDBACK_SCORE).orElse(""));
 
-        Appointment appointment = new Appointment(appointmentDateTime, studentId, appointmentDescription,
-                hasAttended, feedbackScore);
 
         if (RelationshipUtil.isAppointmentDateTimeAlreadyTaken(appointmentDateTime, this.appointments)) {
             throw new ParseException(Appointment.MESSAGE_DATETIME_ALREADY_TAKEN);
         }
 
-
+        Appointment appointment = new Appointment(appointmentDateTime, studentId, appointmentDescription,
+                hasAttended, feedbackScore);
 
         return new AddAppointmentCommand(appointment);
     }
