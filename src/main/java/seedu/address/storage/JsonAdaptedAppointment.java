@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.EndDateTime;
+import seedu.address.model.appointment.StartDateTime;
 
 /**
  * Jackson-friendly version of {@link Appointment}.
@@ -15,7 +17,9 @@ public class JsonAdaptedAppointment {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Appointment's %s field is missing!";
     public final int appointmentId;
-    public final LocalDateTime appointmentDateTime;
+    public final LocalDateTime startDateTime;
+    public final LocalDateTime endDateTime;
+
     public final int studentId;
     public final String appointmentDescription;
     private final boolean hasAttended;
@@ -26,13 +30,15 @@ public class JsonAdaptedAppointment {
      */
     @JsonCreator
     public JsonAdaptedAppointment(@JsonProperty("appointmentId") int appointmentId,
-                                  @JsonProperty("appointmentDateTime") LocalDateTime appointmentDateTime,
+                                  @JsonProperty("startDateTime") LocalDateTime startDateTime,
+                                  @JsonProperty("endDateTime") LocalDateTime endDateTime,
                                   @JsonProperty("studentId") int studentId,
                                   @JsonProperty("appointmentDescription") String appointmentDescription,
                                   @JsonProperty("hasAttended") boolean hasAttended,
                                   @JsonProperty("feedbackScore") Integer feedbackScore) {
         this.appointmentId = appointmentId;
-        this.appointmentDateTime = appointmentDateTime;
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
         this.studentId = studentId;
         this.appointmentDescription = appointmentDescription;
         this.hasAttended = hasAttended;
@@ -44,7 +50,8 @@ public class JsonAdaptedAppointment {
      */
     public JsonAdaptedAppointment(Appointment source) {
         appointmentId = source.getAppointmentId();
-        appointmentDateTime = source.getAppointmentDateTime();
+        startDateTime = source.getStartDateTime().getDateTimeValue();
+        endDateTime = source.getEndDateTime().getDateTimeValue();
         studentId = source.getStudentId();
         appointmentDescription = source.getAppointmentDescription();
         hasAttended = source.getAttendedStatus();
@@ -57,7 +64,10 @@ public class JsonAdaptedAppointment {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
     public Appointment toModelType() throws IllegalValueException {
-        if (appointmentDateTime == null) {
+        if (startDateTime == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "appointmentDateTime"));
+        }
+        if (endDateTime == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "appointmentDateTime"));
         }
         if (appointmentDescription == null) {
@@ -68,8 +78,11 @@ public class JsonAdaptedAppointment {
             // TODO: Custom type for SID
             throw new IllegalValueException("Please only use positive index.");
         }
+
+        StartDateTime modelStartDateTime = new StartDateTime(this.startDateTime);
+        EndDateTime modelEndDateTime = new EndDateTime(this.endDateTime);
         // TODO: Dummy value for ID
-        return new Appointment(appointmentId, appointmentDateTime, studentId, appointmentDescription, hasAttended,
-                               feedbackScore);
+        return new Appointment(appointmentId, modelStartDateTime,
+                modelEndDateTime, studentId, appointmentDescription, hasAttended, feedbackScore);
     }
 }
