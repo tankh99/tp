@@ -60,31 +60,24 @@ public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand
         if (!RelationshipUtil.personExists(studentId, patients)) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_PATIENT_ID, studentId)
-             );
+            );
         }
         StartDateTime startDateTime = ParserUtil.parseStartDateTime(argMultimap.getValue(PREFIX_START_DATETIME).get());
         EndDateTime endDateTime = ParserUtil.parseEndDateTime(argMultimap.getValue(PREFIX_END_DATETIME).get());
 
-        LocalDateTime appointmentDateTime = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_DATETIME).get());
-
-        boolean hasAttended = ParserUtil.parseHasAttended(argMultimap.getValue(PREFIX_ATTEND).orElse(""));
-        //TODO: remove aftiner case log is implemented
-        if (RelationshipUtil.isAppointmentDateTimeAlreadyTaken(startDateTime, endDateTime, this.appointments)) {
-            throw new ParseException(Appointment.MESSAGE_DATETIME_ALREADY_TAKEN);
-        }
         boolean hasAttended = ParserUtil.parseHasAttended(argMultimap.getValue(PREFIX_ATTEND).orElse(""));
         String appointmentDescription = ParserUtil.parseDescription(
                 argMultimap.getValue(PREFIX_APPOINTMENT_DESCRIPTION).orElse(""));
         Integer feedbackScore = ParserUtil.parseFeedbackScore(
                 argMultimap.getValue(PREFIX_FEEDBACK_SCORE).orElse(""));
 
+        Appointment appointment = new Appointment(startDateTime, endDateTime, studentId, appointmentDescription,
+                hasAttended, feedbackScore);
 
-        if (RelationshipUtil.isAppointmentDateTimeAlreadyTaken(appointmentDateTime, this.appointments)) {
+        if (RelationshipUtil.isAppointmentDateTimeAlreadyTaken(startDateTime, endDateTime, this.appointments)) {
             throw new ParseException(Appointment.MESSAGE_DATETIME_ALREADY_TAKEN);
         }
 
-        Appointment appointment = new Appointment(appointmentDateTime, studentId, appointmentDescription,
-                hasAttended, feedbackScore);
 
         return new AddAppointmentCommand(appointment);
     }
