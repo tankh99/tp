@@ -19,13 +19,14 @@ public class AppointmentTest {
     public void equals() {
         StartDateTime startDateTime = new StartDateTime(LocalDateTime.now());
         EndDateTime endDateTime = new EndDateTime(LocalDateTime.now().plusHours(1));
+        FeedbackScore feedbackScore = new FeedbackScore(5);
 
         Appointment appointment = new Appointment(TEST_APPOINTMENT_ID, startDateTime, endDateTime,
-                1, "Test", false, 5);
+                1, "Test", false, feedbackScore);
 
         // same values -> returns true
         Appointment appointmentCopy = new Appointment(TEST_APPOINTMENT_ID, startDateTime, endDateTime,
-                1, "Test", false, 5);
+                1, "Test", false, feedbackScore);
         assertEquals(appointment, appointmentCopy);
 
         // same object -> returns true
@@ -39,34 +40,34 @@ public class AppointmentTest {
 
         // different appointmentId -> returns false
         Appointment differentAppointment = new Appointment(TEST_LATER_APPOINTMENT_ID, startDateTime, endDateTime,
-                1, "Test", false, 5);
+                1, "Test", false, feedbackScore);
         assertNotEquals(appointment, differentAppointment);
 
         // different startDateTime -> returns false
         differentAppointment = new Appointment(TEST_APPOINTMENT_ID,
                 new StartDateTime(LocalDateTime.now().plusHours(1)), endDateTime,
-                1, "Test", false, 5);
+                1, "Test", false, feedbackScore);
         assertNotEquals(appointment, differentAppointment);
 
         // different endDateTime -> returns false
         differentAppointment = new Appointment(TEST_APPOINTMENT_ID, startDateTime,
                 new EndDateTime(LocalDateTime.now().plusHours(2)),
-                1, "Test", false, 5);
+                1, "Test", false, feedbackScore);
         assertNotEquals(appointment, differentAppointment);
 
         // different studentId -> returns false
         differentAppointment = new Appointment(TEST_APPOINTMENT_ID, startDateTime, endDateTime,
-                2, "Test", false, 5);
+                2, "Test", false, feedbackScore);
         assertNotEquals(appointment, differentAppointment);
 
         // different appointmentDescription -> returns false
         differentAppointment = new Appointment(TEST_APPOINTMENT_ID, startDateTime, endDateTime,
-                1, "Different", false, 5);
+                1, "Different", false, feedbackScore);
         assertNotEquals(appointment, differentAppointment);
 
         // different hasAttended -> returns false
         differentAppointment = new Appointment(TEST_APPOINTMENT_ID, startDateTime, endDateTime,
-                1, "Test", true, 5);
+                1, "Test", true, feedbackScore);
         assertNotEquals(appointment, differentAppointment);
     }
 
@@ -78,24 +79,24 @@ public class AppointmentTest {
 
 
         Appointment appointment = new Appointment(TEST_APPOINTMENT_ID, startDateTime, endDateTime, 1,
-                "Test", false, 5);
+                "Test", false, new FeedbackScore(5));
 
         // same values -> returns 0
         Appointment appointmentCopy = new Appointment(TEST_APPOINTMENT_ID, startDateTime, endDateTime, 1,
-                "Test", false, 5);
+                "Test", false, new FeedbackScore(5));
         assertEquals(0, appointment.compareTo(appointmentCopy));
 
         // another Appointment has larger appointmentId -> returns less than 0;
         Appointment differentAppointment = new Appointment(TEST_LATER_APPOINTMENT_ID,
                 new StartDateTime(LocalDateTime.now().plusDays(1)), endDateTime, 1,
-                "Test", false, 5);
+                "Test", false, new FeedbackScore(5));
         assertTrue(appointment.compareTo(differentAppointment) < 0);
 
         // another Appointment has smaller appointmentId -> returns more than 0;
         differentAppointment = new Appointment(TEST_APPOINTMENT_ID, startDateTime, endDateTime, 2,
-                "Test", false, 5);
+                "Test", false, new FeedbackScore(5));
         appointment = new Appointment(TEST_LATER_APPOINTMENT_ID, startDateTime, endDateTime, 1,
-                "Test", false, 5);
+                "Test", false, new FeedbackScore(5));
         assertTrue(appointment.compareTo(differentAppointment) > 0);
     }
 
@@ -105,11 +106,11 @@ public class AppointmentTest {
         StartDateTime startDateTime = new StartDateTime(LocalDateTime.now());
         EndDateTime endDateTime = new EndDateTime(LocalDateTime.now().plusHours(1));
         Appointment appointment = new Appointment(TEST_APPOINTMENT_ID, startDateTime, endDateTime, 1,
-                "Test", false, 5);
+                "Test", false, new FeedbackScore(5));
         assertFalse(appointment.getAttendedStatus());
 
         appointment = new Appointment(TEST_APPOINTMENT_ID, startDateTime, endDateTime, 1, "Test",
-                true, 5);
+                true, new FeedbackScore(5));
         assertTrue(appointment.getAttendedStatus());
     }
 
@@ -119,17 +120,17 @@ public class AppointmentTest {
         EndDateTime endDateTime = new EndDateTime(LocalDateTime.now().plusHours(1));
 
         Appointment appointment = new Appointment(TEST_APPOINTMENT_ID, startDateTime, endDateTime, 1,
-                "Test", false, 5);
+                "Test", false, new FeedbackScore(5));
         appointment.setAttendedStatus(true);
         assertTrue(appointment.getAttendedStatus());
 
         appointment = new Appointment(TEST_APPOINTMENT_ID, startDateTime, endDateTime, 1, "Test",
-                true, 5);
+                true, new FeedbackScore(5));
         appointment.setAttendedStatus(true);
         assertTrue(appointment.getAttendedStatus());
 
         appointment = new Appointment(TEST_APPOINTMENT_ID, startDateTime, endDateTime, 1, "Test",
-                true, 5);
+                true, new FeedbackScore(5));
         appointment.setAttendedStatus(false);
         assertFalse(appointment.getAttendedStatus());
 

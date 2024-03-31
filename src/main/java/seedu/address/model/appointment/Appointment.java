@@ -22,7 +22,7 @@ public class Appointment implements Comparable<Appointment> {
 
     //TODO: replace with caseLog
     public final String appointmentDescription;
-    public final Integer feedbackScore;
+    public final FeedbackScore feedbackScore;
 
     private boolean hasAttended;
     private final StartDateTime startDateTime;
@@ -44,7 +44,7 @@ public class Appointment implements Comparable<Appointment> {
                        int studentId,
                        String appointmentDescription,
                        boolean hasAttended,
-                       Integer feedbackScore) {
+                       FeedbackScore feedbackScore) {
         requireAllNonNull(startDateTime, endDateTime, appointmentDescription);
         this.appointmentId = appointmentId;
         this.startDateTime = startDateTime;
@@ -97,7 +97,7 @@ public class Appointment implements Comparable<Appointment> {
      */
     public Appointment(StartDateTime startDateTime,
                        EndDateTime endDateTime, int studentId, String appointmentDescription,
-                       boolean hasAttended, Integer feedbackScore) {
+                       boolean hasAttended, FeedbackScore feedbackScore) {
         this(idTracker, startDateTime, endDateTime, studentId, appointmentDescription, hasAttended, feedbackScore);
     }
 
@@ -170,7 +170,7 @@ public class Appointment implements Comparable<Appointment> {
         return appointmentDescription;
     }
 
-    public Integer getFeedbackScore() {
+    public FeedbackScore getFeedbackScore() {
         return feedbackScore;
     }
 

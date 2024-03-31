@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.EndDateTime;
+import seedu.address.model.appointment.FeedbackScore;
 import seedu.address.model.appointment.StartDateTime;
 
 
@@ -22,7 +23,7 @@ public class AppointmentBuilder {
     public static final String DEFAULT_APPOINTMENT_DESCRIPTION = "Appointment Description";
 
     public static final boolean DEFAULT_HAS_ATTENDED = false;
-    public static final Integer DEFAULT_FEEDBACK_SCORE = null;
+    public static final FeedbackScore DEFAULT_FEEDBACK_SCORE = null;
 
     private int appointmentId;
     private StartDateTime startDateTime;
@@ -30,11 +31,10 @@ public class AppointmentBuilder {
     private EndDateTime endDateTime;
     private int studentId;
 
-    //TODO: replace with caseLog
     private String appointmentDescription;
 
     private boolean hasAttended;
-    private Integer feedbackScore;
+    private FeedbackScore feedbackScore;
 
     /**
      * Creates a {@code AppointmentBuilder} with the default details.
@@ -113,8 +113,8 @@ public class AppointmentBuilder {
     /**
      * Sets the {@code feedbackScore} of the {@code Appointment} that we are building.
      */
-    public AppointmentBuilder withFeedbackScore(Integer feedbackScore) {
-        this.feedbackScore = feedbackScore;
+    public AppointmentBuilder withFeedbackScore(int feedbackScore) {
+        this.feedbackScore = new FeedbackScore(feedbackScore);
         return this;
     }
 

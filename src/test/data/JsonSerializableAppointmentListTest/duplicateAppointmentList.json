@@ -5,13 +5,15 @@
     "endDateTime" : "2021-10-10T10:59:00",
     "studentId" : 1,
     "appointmentDescription" : "First Appointment",
-    "hasAttended" : false
+    "hasAttended" : false,
+    "feedbackScore": 1
   }, {
     "appointmentId" : 1,
     "startDateTime" : "2021-10-10T10:10:00",
     "endDateTime" : "2021-10-10T10:59:00",
     "studentId" : 1,
     "appointmentDescription" : "First Appointment",
-    "hasAttended" : false
+    "hasAttended" : false,
+    "feedbackScore": 1
   } ]
 }

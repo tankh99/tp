@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.EndDateTime;
+import seedu.address.model.appointment.FeedbackScore;
 import seedu.address.model.appointment.StartDateTime;
 
 /**
@@ -23,7 +24,7 @@ public class JsonAdaptedAppointment {
     public final int studentId;
     public final String appointmentDescription;
     private final boolean hasAttended;
-    private final Integer feedbackScore;
+    private final int feedbackScore;
 
     /**
      * Constructs a {@code JsonAdaptedAppointment} with the given appointment details.
@@ -35,7 +36,7 @@ public class JsonAdaptedAppointment {
                                   @JsonProperty("studentId") int studentId,
                                   @JsonProperty("appointmentDescription") String appointmentDescription,
                                   @JsonProperty("hasAttended") boolean hasAttended,
-                                  @JsonProperty("feedbackScore") Integer feedbackScore) {
+                                  @JsonProperty("feedbackScore") int feedbackScore) {
         this.appointmentId = appointmentId;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
@@ -55,7 +56,7 @@ public class JsonAdaptedAppointment {
         studentId = source.getStudentId();
         appointmentDescription = source.getAppointmentDescription();
         hasAttended = source.getAttendedStatus();
-        feedbackScore = source.getFeedbackScore();
+        feedbackScore = source.getFeedbackScore().getFeedbackScore();
     }
 
     /**
@@ -81,8 +82,9 @@ public class JsonAdaptedAppointment {
 
         StartDateTime modelStartDateTime = new StartDateTime(this.startDateTime);
         EndDateTime modelEndDateTime = new EndDateTime(this.endDateTime);
+        FeedbackScore modelFeedbackScore = new FeedbackScore(this.feedbackScore);
         // TODO: Dummy value for ID
         return new Appointment(appointmentId, modelStartDateTime,
-                modelEndDateTime, studentId, appointmentDescription, hasAttended, feedbackScore);
+                modelEndDateTime, studentId, appointmentDescription, hasAttended, modelFeedbackScore);
     }
 }

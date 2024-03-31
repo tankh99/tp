@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 
-
 public class JsonAdaptedAppointmentTest {
     private static final int INVALID_APPOINTMENT_ID = -1;
     private static final int INVALID_STUDENT_ID = -1;
@@ -26,6 +25,7 @@ public class JsonAdaptedAppointmentTest {
             ATTENDED_FIRST_APPOINTMENT.getAppointmentDescription();
 
     private static final boolean VALID_ATTENDED_STATUS = ATTENDED_FIRST_APPOINTMENT.getAttendedStatus();
+    private static final int VALID_FEEDBACK_SCORE = ATTENDED_FIRST_APPOINTMENT.getFeedbackScore().getFeedbackScore();
 
     @Test
     public void toModelType_validAppointmentDetails_returnsAppointment() throws Exception {
@@ -37,7 +37,7 @@ public class JsonAdaptedAppointmentTest {
     public void toModelType_invalidAppointmentId_throwsIllegalValueException() {
         JsonAdaptedAppointment appointment = new JsonAdaptedAppointment(INVALID_APPOINTMENT_ID,
                 VALID_START_DATETIME, VALID_END_DATETIME, VALID_STUDENT_ID,
-                VALID_APPOINTMENT_DESCRIPTION, VALID_ATTENDED_STATUS, 5);
+                VALID_APPOINTMENT_DESCRIPTION, VALID_ATTENDED_STATUS, VALID_FEEDBACK_SCORE);
         String expectedMessage = "Please only use positive index.";
         assertThrows(IllegalValueException.class, expectedMessage, appointment::toModelType);
     }
@@ -46,7 +46,7 @@ public class JsonAdaptedAppointmentTest {
     public void toModelType_invalidStudentId_throwsIllegalValueException() {
         JsonAdaptedAppointment appointment = new JsonAdaptedAppointment(VALID_APPOINTMENT_ID,
                 VALID_START_DATETIME, VALID_END_DATETIME, INVALID_STUDENT_ID, VALID_APPOINTMENT_DESCRIPTION,
-                                                                        VALID_ATTENDED_STATUS, 5);
+                                                                        VALID_ATTENDED_STATUS, VALID_FEEDBACK_SCORE);
         String expectedMessage = "Please only use positive index.";
         assertThrows(IllegalValueException.class, expectedMessage, appointment::toModelType);
     }

@@ -14,6 +14,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Messages;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appointment.EndDateTime;
+import seedu.address.model.appointment.FeedbackScore;
 import seedu.address.model.appointment.StartDateTime;
 import seedu.address.model.patient.Email;
 import seedu.address.model.patient.Name;
@@ -169,7 +170,6 @@ public class ParserUtil {
      * Parses a {@code Collection<String> description} into a {@code String}.
      * Leading and trailing whitespaces will be trimmed.
      * By default, an empty string will be returned if {@code description} is empty.
-     * TODO: remove after case log is implemented
      */
     public static String parseDescription(String description) {
         requireNonNull(description);
@@ -185,19 +185,19 @@ public class ParserUtil {
      *
      * @throws ParseException
      */
-    public static Integer parseFeedbackScore(String feedbackScore) throws ParseException {
+    public static FeedbackScore parseFeedbackScore(String feedbackScore) throws ParseException {
         if (feedbackScore.isEmpty()) {
             return null;
         }
         String trimmedFeedbackScore = feedbackScore.trim();
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedFeedbackScore)) {
-            throw new ParseException(Messages.MESSAGE_INVALID_FEEDBACK_SCORE);
+            throw new ParseException(FeedbackScore.MESSAGE_CONSTRAINTS);
         }
         int feedbackScoreInt = Integer.parseInt(trimmedFeedbackScore);
-        if (feedbackScoreInt < 1 || feedbackScoreInt > 5) {
-            throw new ParseException(Messages.MESSAGE_INVALID_FEEDBACK_SCORE);
+        if (!FeedbackScore.isValidScore(feedbackScoreInt)) {
+            throw new ParseException(FeedbackScore.MESSAGE_CONSTRAINTS);
         }
-        return Integer.parseInt(trimmedFeedbackScore);
+        return new FeedbackScore(feedbackScoreInt);
     }
 
     /**
