@@ -124,7 +124,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String date} into a {@code LocalDateTime}. by etting it to be at either the start or end
+     * Parses a {@code String date} into a {@code LocalDateTime}. by setting it to be at either the start or end
      * of the day.
      *
      * @param isStartOfDay Determines whether to return a date string at the start or end of day
