@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_START_END_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ATTEND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATETIME;
@@ -58,6 +59,10 @@ public class AddAppointmentCommand extends Command {
 
         if (model.hasAppointment(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
+        }
+
+        if (toAdd.isInvalidStartEndDateTime()) {
+            throw new CommandException(MESSAGE_INVALID_START_END_DATETIME);
         }
 
         model.addAppointment(toAdd);

@@ -56,7 +56,7 @@ class JsonSerializableAppointmentList {
             if (appointmentList.hasAppointment(appointment)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_APPOINTMENT);
             }
-            if (appointment.isValidStartEndDateTime()) {
+            if (appointment.isInvalidStartEndDateTime()) {
                 throw new IllegalValueException(MESSAGE_INVALID_START_END_DATE_TIME);
             }
             appointmentList.addAppointment(appointment);
