@@ -102,8 +102,8 @@ public class Appointment implements Comparable<Appointment> {
         this(idTracker, startDateTime, endDateTime, patientId, appointmentDescription, hasAttended, feedbackScore);
     }
 
-    public boolean isInvalidStartEndDateTime() {
-        return startDateTime.compareTo(endDateTime) >= 0;
+    public boolean isStartDateTimeAfterEndDateTime() {
+        return startDateTime.compareTo(endDateTime) > 0;
     }
 
     @Override
@@ -174,7 +174,12 @@ public class Appointment implements Comparable<Appointment> {
         return appointmentDescription;
     }
 
-    public FeedbackScore getFeedbackScore() {
+    /**
+     * This getter method is a bit special is it can return null. It is the job of the
+     * caller to check fo null first before using the value.
+     * @return A nullable integer
+     */
+    public Integer getFeedbackScore() {
         return feedbackScore;
     }
 
