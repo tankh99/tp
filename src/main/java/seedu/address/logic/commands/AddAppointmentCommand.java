@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ATTEND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FEEDBACK_SCORE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PATIENT_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATETIME;
@@ -23,13 +24,15 @@ public class AddAppointmentCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an appointment to CogniCare. "
             + "Parameters: "
             + PREFIX_PATIENT_ID + "PATIENT_ID "
-            + PREFIX_START_DATETIME + "DATETIME "
+            + PREFIX_START_DATETIME + "START_DATETIME "
+            + PREFIX_END_DATETIME + "END_DATETIME "
             + PREFIX_ATTEND + "ATTEND "
             + PREFIX_FEEDBACK_SCORE + "FEEDBACK_SCORE "
             + PREFIX_APPOINTMENT_DESCRIPTION + "APPOINTMENT DESCRIPTION\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_PATIENT_ID + "1 "
             + PREFIX_START_DATETIME + "2024-03-18 09:00 "
+            + PREFIX_END_DATETIME + "2024-03-18 10:00 "
             + PREFIX_ATTEND + "false "
             + PREFIX_FEEDBACK_SCORE + "5 "
             + PREFIX_APPOINTMENT_DESCRIPTION + "This is a new appointment";
