@@ -23,16 +23,21 @@ Class UniquePersonList
 
 Class Appointment
 Class AppointmentList
+
 Class DataTimeField
 Class StartDateTime
 Class EndDateTime
+Class AppointmentDescription
+Class PatientId
+Class FeedbackScore
+Class HasAttended
+
 Class I #FFFFFF
 Class F #FFFFFF
 }
 
 Class HiddenOutside #FFFFFF
-Class HiddenOutsideOutside #FFFFFF
-Class HiddenInside #FFFFFF
+
 
 HiddenOutside ..> Model
 
@@ -60,6 +65,18 @@ Appointment *--> StartDateTime
 Appointment *--> EndDateTime
 StartDateTime -down-|> DataTimeField
 EndDateTime -down-|> DataTimeField
+
+Appointment *-left-> AppointmentDescription
+Appointment *-left-> PatientId
+Appointment *-left-> FeedbackScore
+Appointment *-left-> HasAttended
+
+AppointmentDescription -[hidden]down-|> FeedbackScore
+FeedbackScore -[hidden]down-|> HasAttended
+HasAttended -[hidden]down-|> PatientId
+
+
+
 
 Person -[hidden]up--> I
 UniquePersonList -[hidden]right-> I
