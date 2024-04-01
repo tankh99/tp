@@ -73,7 +73,6 @@ public class Messages {
                 .append(appointment.getEndDateTime())
                 .append("; Attend: ")
                 .append((appointment.getAttendedStatus()))
-                //TODO: remove after case log is implemented
                 .append("; Description: ")
                 .append((appointment.getAppointmentDescription()));
         return builder.toString();

@@ -14,12 +14,12 @@ import seedu.address.model.appointment.*;
 public class JsonAdaptedAppointment {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Appointment's %s field is missing!";
-    public final int appointmentId;
-    public final LocalDateTime startDateTime;
-    public final LocalDateTime endDateTime;
+    private final int appointmentId;
+    private final LocalDateTime startDateTime;
+    private final LocalDateTime endDateTime;
 
-    public final int patientId;
-    public final String appointmentDescription;
+    private final int patientId;
+    private final String appointmentDescription;
     private final boolean hasAttended;
     private final int feedbackScore;
 
@@ -53,7 +53,7 @@ public class JsonAdaptedAppointment {
         patientId = source.getPatientId().patientId;
         appointmentDescription = source.getAppointmentDescription().appointmentDescription;
         hasAttended = source.getAttendedStatus().hasAttended;
-        feedbackScore = source.getFeedbackScore().getFeedbackScore();
+        feedbackScore = source.getFeedbackScore().feedbackScore;
     }
 
     /**
@@ -73,16 +73,15 @@ public class JsonAdaptedAppointment {
         }
 
         if (appointmentId <= 0 || patientId <= 0) {
-            // TODO: Custom type for SID
             throw new IllegalValueException("Please only use positive index.");
         }
 
-        PatientId modelPatientId = new PatientId(patientId);
-        StartDateTime modelStartDateTime = new StartDateTime(this.startDateTime);
-        EndDateTime modelEndDateTime = new EndDateTime(this.endDateTime);
-        FeedbackScore modelFeedbackScore = new FeedbackScore(this.feedbackScore);
-        HasAttended modelHasAttended = new HasAttended(hasAttended);
-        AppointmentDescription modelAppointmentDescription = new AppointmentDescription(appointmentDescription);
+        final PatientId modelPatientId = new PatientId(patientId);
+        final StartDateTime modelStartDateTime = new StartDateTime(this.startDateTime);
+        final EndDateTime modelEndDateTime = new EndDateTime(this.endDateTime);
+        final FeedbackScore modelFeedbackScore = new FeedbackScore(this.feedbackScore);
+        final HasAttended modelHasAttended = new HasAttended(hasAttended);
+        final AppointmentDescription modelAppointmentDescription = new AppointmentDescription(appointmentDescription);
         // TODO: Dummy value for ID
         return new Appointment(appointmentId, modelStartDateTime,
                 modelEndDateTime, modelPatientId, modelAppointmentDescription, modelHasAttended, modelFeedbackScore);

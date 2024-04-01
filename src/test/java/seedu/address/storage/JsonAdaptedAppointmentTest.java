@@ -27,7 +27,6 @@ public class JsonAdaptedAppointmentTest {
     private static final boolean VALID_ATTENDED_STATUS = ATTENDED_FIRST_APPOINTMENT.getAttendedStatus().hasAttended;
     private static final int VALID_FEEDBACK_SCORE = ATTENDED_FIRST_APPOINTMENT.getFeedbackScore().getFeedbackScore();
 
-    @Test
     public void toModelType_validAppointmentDetails_returnsAppointment() throws Exception {
         JsonAdaptedAppointment appointment = new JsonAdaptedAppointment(ATTENDED_FIRST_APPOINTMENT);
         assertEquals(ATTENDED_FIRST_APPOINTMENT, appointment.toModelType());

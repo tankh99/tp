@@ -18,11 +18,11 @@ public class Appointment implements Comparable<Appointment> {
 
     public final int appointmentId;
 
-    public final PatientId patientId;
+    private final PatientId patientId;
 
-    public final AppointmentDescription appointmentDescription;
+    private final AppointmentDescription appointmentDescription;
 
-    public final FeedbackScore feedbackScore;
+    private final FeedbackScore feedbackScore;
 
     private HasAttended hasAttended;
     private final StartDateTime startDateTime;
@@ -134,10 +134,10 @@ public class Appointment implements Comparable<Appointment> {
         return otherAppointment.appointmentId == this.appointmentId
                 && otherAppointment.startDateTime.equals(this.startDateTime)
                 && otherAppointment.endDateTime.equals(this.endDateTime)
-                && otherAppointment.patientId == this.patientId
+                && otherAppointment.patientId.equals(this.patientId)
                 && otherAppointment.appointmentDescription.equals(this.appointmentDescription)
-                && otherAppointment.hasAttended == this.hasAttended
-                && otherAppointment.feedbackScore == this.feedbackScore;
+                && otherAppointment.hasAttended.equals(this.hasAttended)
+                && otherAppointment.feedbackScore.equals(this.feedbackScore);
     }
 
     @Override
@@ -204,7 +204,7 @@ public class Appointment implements Comparable<Appointment> {
         }
 
         return otherAppointment != null
-                && otherAppointment.getPatientId() == getPatientId()
+                && otherAppointment.getAppointmentId() == getAppointmentId()
                 && this.startDateTime.compareTo(otherAppointment.endDateTime) < 0
                 && this.endDateTime.compareTo(otherAppointment.startDateTime) > 0;
     }
