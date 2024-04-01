@@ -58,8 +58,8 @@ public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(
-                PREFIX_PATIENT_ID, PREFIX_START_DATETIME, PREFIX_ATTEND, PREFIX_APPOINTMENT_DESCRIPTION,
-                PREFIX_FEEDBACK_SCORE);
+                PREFIX_PATIENT_ID, PREFIX_START_DATETIME, PREFIX_END_DATETIME, PREFIX_ATTEND,
+                PREFIX_APPOINTMENT_DESCRIPTION, PREFIX_FEEDBACK_SCORE);
 
         PatientId patientId = ParserUtil.parsePatientId(argMultimap.getValue(PREFIX_PATIENT_ID).get(), patients);
         StartDateTime startDateTime = ParserUtil.parseStartDateTime(argMultimap.getValue(PREFIX_START_DATETIME).get());
