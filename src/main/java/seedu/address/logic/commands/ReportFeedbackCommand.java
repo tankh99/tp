@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TO_DATE;
 
 import java.time.LocalDateTime;
 
+import seedu.address.commons.util.DateUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.EndDateTime;
@@ -47,6 +48,14 @@ public class ReportFeedbackCommand extends Command {
 
         model.updateFilteredPatientFeedbackReports(new FilterAppointmentPredicate(
             new StartDateTime(fromDate), new EndDateTime(toDate)));
-        return new CommandResult(String.format(MESSAGE_SUCCESS, fromDate, toDate));
+        String fromDateStr = DateUtil.formatDateTime(fromDate);
+        if (fromDate == LocalDateTime.MIN) {
+            fromDateStr = "the beginning of time";
+        }
+        String toDateStr = DateUtil.formatDateTime(toDate);
+        if (toDate == LocalDateTime.MAX) {
+            toDateStr = "the end of time";
+        }
+        return new CommandResult(String.format(MESSAGE_SUCCESS, fromDateStr, toDateStr));
     }
 }
