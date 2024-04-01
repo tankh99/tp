@@ -179,7 +179,7 @@ public class Appointment implements Comparable<Appointment> {
      * caller to check fo null first before using the value.
      * @return A nullable integer
      */
-    public Integer getFeedbackScore() {
+    public FeedbackScore getFeedbackScore() {
         return feedbackScore;
     }
 
