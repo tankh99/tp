@@ -25,10 +25,23 @@ public class ReportFeedbackCommandParser implements Parser<ReportFeedbackCommand
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_FROM_DATE, PREFIX_TO_DATE);
-        LocalDateTime fromDate = ParserUtil.parseDate(
-                argMultimap.getValue(PREFIX_FROM_DATE).orElse(""), true);
-        LocalDateTime toDate = ParserUtil.parseDate(
-                argMultimap.getValue(PREFIX_TO_DATE).orElse(""), false);
+
+        // If no values are provided in the command, We set the default values for fromDate and toDate to
+        // LocalDateTime.MIN and LocalDateTime.MAX respectively
+        LocalDateTime fromDate;
+        LocalDateTime toDate;
+        if (argMultimap.getValue(PREFIX_FROM_DATE).isEmpty()) {
+            fromDate = LocalDateTime.MIN;
+        } else {
+            fromDate = ParserUtil.parseDate(
+                    argMultimap.getValue(PREFIX_FROM_DATE).get(), true);
+        }
+        if (argMultimap.getValue(PREFIX_TO_DATE).isEmpty()) {
+            toDate = LocalDateTime.MAX;
+        } else {
+            toDate = ParserUtil.parseDate(
+                argMultimap.getValue(PREFIX_TO_DATE).get(), false);
+        }
 
         if (fromDate != null && toDate != null && toDate.isBefore(fromDate)) {
             throw new ParseException(Messages.MESSAGE_INVALID_START_END_DATETIME);
