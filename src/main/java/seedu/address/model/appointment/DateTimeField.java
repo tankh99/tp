@@ -36,7 +36,12 @@ public class DateTimeField implements Comparable<DateTimeField> {
      * Returns true if a given string is a valid start date.
      */
     public static boolean isValidDateTimeField(String test) {
-        return test.matches("([0-9]{4})-([0-9]{2})-([0-9]{2}) ([0-9]{2}):([0-9]{2})");
+        try {
+            LocalDateTime.parse(test, Appointment.DATE_TIME_FORMATTER);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @Override
