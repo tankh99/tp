@@ -31,7 +31,7 @@ class DateUtilTest {
     void formatDateTime_validDateTimeString_returnsFormattedDateTime() {
         LocalDateTime validDateTime1 = LocalDateTime.of(2024, 3, 18, 9, 0);
         String formattedDateTime1 = DateUtil.formatDateTime(validDateTime1);
-        Assertions.assertEquals("18 Mar 2024, 09:00 am", formattedDateTime1);
+        Assertions.assertEquals("18 Mar 2024, 09:00 AM", formattedDateTime1);
     }
 
     @Test
