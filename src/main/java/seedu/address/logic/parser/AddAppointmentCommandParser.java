@@ -1,7 +1,6 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.Messages.MESSAGE_INVALID_PATIENT_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ATTEND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATETIME;
@@ -14,7 +13,11 @@ import java.util.List;
 import seedu.address.logic.commands.AddAppointmentCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.AppointmentDescription;
 import seedu.address.model.appointment.EndDateTime;
+import seedu.address.model.appointment.FeedbackScore;
+import seedu.address.model.appointment.HasAttended;
+import seedu.address.model.appointment.PatientId;
 import seedu.address.model.appointment.StartDateTime;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.util.RelationshipUtil;
@@ -58,23 +61,17 @@ public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand
                 PREFIX_PATIENT_ID, PREFIX_START_DATETIME, PREFIX_ATTEND, PREFIX_APPOINTMENT_DESCRIPTION,
                 PREFIX_FEEDBACK_SCORE);
 
-        int studentId = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_PATIENT_ID).get()).getOneBased();
+        PatientId patientId = ParserUtil.parsePatientId(argMultimap.getValue(PREFIX_PATIENT_ID).get(), patients);
         StartDateTime startDateTime = ParserUtil.parseStartDateTime(argMultimap.getValue(PREFIX_START_DATETIME).get());
         EndDateTime endDateTime = ParserUtil.parseEndDateTime(argMultimap.getValue(PREFIX_END_DATETIME).get());
-        boolean hasAttended = ParserUtil.parseHasAttended(argMultimap.getValue(PREFIX_ATTEND).orElse(""));
-        String appointmentDescription = ParserUtil.parseDescription(
+        HasAttended hasAttended = ParserUtil.parseHasAttended(argMultimap.getValue(PREFIX_ATTEND).orElse(""));
+        AppointmentDescription appointmentDescription = ParserUtil.parseDescription(
                 argMultimap.getValue(PREFIX_APPOINTMENT_DESCRIPTION).orElse(""));
-        Integer feedbackScore = ParserUtil.parseFeedbackScore(
+        FeedbackScore feedbackScore = ParserUtil.parseFeedbackScore(
                 argMultimap.getValue(PREFIX_FEEDBACK_SCORE).orElse(""));
 
-        Appointment appointment = new Appointment(startDateTime, endDateTime, studentId, appointmentDescription,
+        Appointment appointment = new Appointment(startDateTime, endDateTime, patientId, appointmentDescription,
                 hasAttended, feedbackScore);
-
-        if (!RelationshipUtil.personExists(studentId, patients)) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_PATIENT_ID, studentId)
-            );
-        }
 
         if (RelationshipUtil.isAppointmentDateTimeAlreadyTaken(startDateTime, endDateTime, this.appointments)) {
             throw new ParseException(Appointment.MESSAGE_DATETIME_ALREADY_TAKEN);

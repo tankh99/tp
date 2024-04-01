@@ -12,19 +12,19 @@ import seedu.address.commons.util.ToStringBuilder;
  */
 public class Appointment implements Comparable<Appointment> {
     public static final String MESSAGE_DATETIME_ALREADY_TAKEN = "There is already an appointment at that time";
-    private static final boolean DEFAULT_ATTENDED_STATUS = false;
+    private static final HasAttended DEFAULT_ATTENDED_STATUS = new HasAttended(false);
 
     private static int idTracker = 1;
 
     public final int appointmentId;
 
-    public final int studentId;
+    private final PatientId patientId;
 
-    //TODO: replace with caseLog
-    public final String appointmentDescription;
-    public final Integer feedbackScore;
+    private final AppointmentDescription appointmentDescription;
 
-    private boolean hasAttended;
+    private final FeedbackScore feedbackScore;
+
+    private HasAttended hasAttended;
     private final StartDateTime startDateTime;
     private final EndDateTime endDateTime;
 
@@ -34,23 +34,23 @@ public class Appointment implements Comparable<Appointment> {
      * @param appointmentId          unique id of the appointment.
      * @param startDateTime          start date and time of the appointment.
      * @param endDateTime            end date and time of the appointment.
-     * @param studentId              unique id of the student.
+     * @param patientId              unique id of the student.
      * @param appointmentDescription description of the appointment.
      * @param hasAttended            whether student has attended the appointment.
      */
     public Appointment(int appointmentId,
                        StartDateTime startDateTime,
                        EndDateTime endDateTime,
-                       int studentId,
-                       String appointmentDescription,
-                       boolean hasAttended,
-                       Integer feedbackScore) {
+                       PatientId patientId,
+                       AppointmentDescription appointmentDescription,
+                       HasAttended hasAttended,
+                       FeedbackScore feedbackScore) {
         requireAllNonNull(startDateTime, endDateTime, appointmentDescription);
         this.appointmentId = appointmentId;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
         // Student ID is the same as the person ID
-        this.studentId = studentId;
+        this.patientId = patientId;
         idTracker = appointmentId + 1;
 
         this.appointmentDescription = appointmentDescription;
@@ -63,12 +63,12 @@ public class Appointment implements Comparable<Appointment> {
      *
      * @param startDateTime          start date and time of the appointment.
      * @param endDateTime            end date and time of the appointment.
-     * @param studentId              unique id of the student.
+     * @param patientId              unique id of the student.
      * @param appointmentDescription description of the appointment.
      */
     public Appointment(StartDateTime startDateTime, EndDateTime endDateTime,
-                       int studentId, String appointmentDescription) {
-        this(idTracker, startDateTime, endDateTime, studentId, appointmentDescription, DEFAULT_ATTENDED_STATUS, null);
+                       PatientId patientId, AppointmentDescription appointmentDescription) {
+        this(idTracker, startDateTime, endDateTime, patientId, appointmentDescription, DEFAULT_ATTENDED_STATUS, null);
     }
 
     /**
@@ -76,13 +76,13 @@ public class Appointment implements Comparable<Appointment> {
      *
      * @param startDateTime          start date and time of the appointment.
      * @param endDateTime            end date and time of the appointment.
-     * @param studentId              unique id of the student.
+     * @param patientId              unique id of the student.
      * @param appointmentDescription description of the appointment.
      * @param hasAttended            whether student has attended the appointment.
      */
-    public Appointment(StartDateTime startDateTime, EndDateTime endDateTime, int studentId,
-                       String appointmentDescription, boolean hasAttended) {
-        this(idTracker, startDateTime, endDateTime, studentId, appointmentDescription, hasAttended, null);
+    public Appointment(StartDateTime startDateTime, EndDateTime endDateTime, PatientId patientId,
+                       AppointmentDescription appointmentDescription, HasAttended hasAttended) {
+        this(idTracker, startDateTime, endDateTime, patientId, appointmentDescription, hasAttended, null);
     }
 
     /**
@@ -90,15 +90,16 @@ public class Appointment implements Comparable<Appointment> {
      *
      * @param startDateTime          start date and time of the appointment.
      * @param endDateTime            end date and time of the appointment.
-     * @param studentId              unique id of the student.
+     * @param patientId              unique id of the student.
      * @param appointmentDescription description of the appointment.
      * @param hasAttended            whether student has attended the appointment.
      * @param feedbackScore          student's rating of the counselling session
      */
     public Appointment(StartDateTime startDateTime,
-                       EndDateTime endDateTime, int studentId, String appointmentDescription,
-                       boolean hasAttended, Integer feedbackScore) {
-        this(idTracker, startDateTime, endDateTime, studentId, appointmentDescription, hasAttended, feedbackScore);
+                       EndDateTime endDateTime, PatientId patientId, AppointmentDescription appointmentDescription,
+                       HasAttended hasAttended, FeedbackScore feedbackScore) {
+
+        this(idTracker, startDateTime, endDateTime, patientId, appointmentDescription, hasAttended, feedbackScore);
     }
 
     public boolean isValidStartEndDateTime() {
@@ -111,7 +112,7 @@ public class Appointment implements Comparable<Appointment> {
                 .add("appointmentId", appointmentId)
                 .add("startDateTime", startDateTime)
                 .add("endDateTime", endDateTime)
-                .add("studentId", studentId)
+                .add("studentId", patientId)
                 .add("appointmentDescription", appointmentDescription)
                 .add("hasAttended", hasAttended)
                 .add("feedbackScore", feedbackScore)
@@ -133,23 +134,23 @@ public class Appointment implements Comparable<Appointment> {
         return otherAppointment.appointmentId == this.appointmentId
                 && otherAppointment.startDateTime.equals(this.startDateTime)
                 && otherAppointment.endDateTime.equals(this.endDateTime)
-                && otherAppointment.studentId == this.studentId
+                && otherAppointment.patientId.equals(this.patientId)
                 && otherAppointment.appointmentDescription.equals(this.appointmentDescription)
-                && otherAppointment.hasAttended == this.hasAttended
-                && otherAppointment.feedbackScore == this.feedbackScore;
+                && otherAppointment.hasAttended.equals(this.hasAttended)
+                && otherAppointment.feedbackScore.equals(this.feedbackScore);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(appointmentId, startDateTime, endDateTime,
-                studentId, appointmentDescription, hasAttended);
+                patientId, appointmentDescription, hasAttended);
     }
 
-    public boolean getAttendedStatus() {
+    public HasAttended getAttendedStatus() {
         return hasAttended;
     }
 
-    public void setAttendedStatus(boolean hasAttended) {
+    public void setAttendedStatus(HasAttended hasAttended) {
         this.hasAttended = hasAttended;
     }
 
@@ -165,15 +166,15 @@ public class Appointment implements Comparable<Appointment> {
         return endDateTime;
     }
 
-    public int getStudentId() {
-        return studentId;
+    public PatientId getPatientId() {
+        return patientId;
     }
 
-    public String getAppointmentDescription() {
+    public AppointmentDescription getAppointmentDescription() {
         return appointmentDescription;
     }
 
-    public Integer getFeedbackScore() {
+    public FeedbackScore getFeedbackScore() {
         return feedbackScore;
     }
 
@@ -203,7 +204,7 @@ public class Appointment implements Comparable<Appointment> {
         }
 
         return otherAppointment != null
-                && otherAppointment.getStudentId() == getStudentId()
+                && otherAppointment.getAppointmentId() == getAppointmentId()
                 && this.startDateTime.compareTo(otherAppointment.endDateTime) < 0
                 && this.endDateTime.compareTo(otherAppointment.startDateTime) > 0;
     }

@@ -8,8 +8,12 @@ import java.util.stream.Collectors;
 import seedu.address.model.PatientList;
 import seedu.address.model.ReadOnlyPatientList;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.AppointmentDescription;
 import seedu.address.model.appointment.AppointmentList;
 import seedu.address.model.appointment.EndDateTime;
+import seedu.address.model.appointment.FeedbackScore;
+import seedu.address.model.appointment.HasAttended;
+import seedu.address.model.appointment.PatientId;
 import seedu.address.model.appointment.ReadOnlyAppointmentList;
 import seedu.address.model.appointment.StartDateTime;
 import seedu.address.model.patient.Email;
@@ -63,21 +67,25 @@ public class SampleDataUtil {
     public static Appointment[] getSampleAppointments() {
         return new Appointment[]{
             new Appointment(1,
-                        new StartDateTime(LocalDateTime.of(2021, 10, 10, 10, 10)),
-                        new EndDateTime(LocalDateTime.of(2021, 10, 10, 10, 59)),
-                        1, "First appointment", true, 1),
+                    new StartDateTime(LocalDateTime.of(2021, 10, 10, 10, 10)),
+                    new EndDateTime(LocalDateTime.of(2021, 10, 10, 10, 59)),
+                    new PatientId(1), new AppointmentDescription("First appointment"),
+                    new HasAttended(true), new FeedbackScore(1)),
             new Appointment(2,
-                        new StartDateTime(LocalDateTime.of(2021, 10, 10, 11, 0)),
-                        new EndDateTime(LocalDateTime.of(2021, 10, 10, 11, 45)),
-                        2, "Second appointment", false, 3),
+                    new StartDateTime(LocalDateTime.of(2021, 10, 10, 11, 0)),
+                    new EndDateTime(LocalDateTime.of(2021, 10, 10, 11, 45)),
+                    new PatientId(2), new AppointmentDescription("Second appointment"),
+                    new HasAttended(false), new FeedbackScore(3)),
             new Appointment(3,
-                        new StartDateTime(LocalDateTime.of(2021, 10, 10, 12, 30)),
-                        new EndDateTime(LocalDateTime.of(2021, 10, 10, 14, 59)),
-                        3, "Third appointment", true, 5),
+                    new StartDateTime(LocalDateTime.of(2021, 10, 10, 12, 30)),
+                    new EndDateTime(LocalDateTime.of(2021, 10, 10, 14, 59)),
+                    new PatientId(3), new AppointmentDescription("Third appointment"),
+                    new HasAttended(true), new FeedbackScore(5)),
             new Appointment(4,
-                        new StartDateTime(LocalDateTime.of(2021, 11, 10, 10, 10)),
-                        new EndDateTime(LocalDateTime.of(2021, 11, 10, 10, 59)),
-                        1, "Fourth appointment", false, 4),
+                    new StartDateTime(LocalDateTime.of(2021, 11, 10, 10, 10)),
+                    new EndDateTime(LocalDateTime.of(2021, 11, 10, 10, 59)),
+                    new PatientId(1), new AppointmentDescription("Fourth appointment"),
+                    new HasAttended(false), new FeedbackScore(4)),
         };
     }
 

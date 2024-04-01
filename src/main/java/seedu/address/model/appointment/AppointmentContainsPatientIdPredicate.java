@@ -19,7 +19,7 @@ public class AppointmentContainsPatientIdPredicate implements Predicate<Appointm
     public boolean test(Appointment appointment) {
         // We check for equality here instead of containsIn because otherwise, student 1 would match with 100
         return keywords.stream()
-                .anyMatch(keyword -> String.valueOf(appointment.getStudentId()).equals(keyword)
+                .anyMatch(keyword -> String.valueOf(appointment.getPatientId()).equals(keyword)
                 );
     }
 

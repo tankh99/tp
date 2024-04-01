@@ -36,7 +36,7 @@ public class AppointmentContainsPatientNamePredicate implements Predicate<Appoin
                     .map(patient -> patient.getSid())
                     .collect(Collectors.toList());
             for (int patientId: patientIdsMatched) {
-                if (appointment.getStudentId() == patientId) {
+                if (appointment.getPatientId().patientId == patientId) {
                     return true;
                 }
             }

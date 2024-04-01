@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.util.DateUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.appointment.HasAttended;
 import seedu.address.model.patient.Email;
 import seedu.address.model.patient.Name;
 import seedu.address.model.patient.Phone;
@@ -207,11 +208,11 @@ public class ParserUtilTest {
 
     @Test
     public void parseHasAttended_validBoolean_returnsHasAttended() throws Exception {
-        Assertions.assertEquals(true, ParserUtil.parseHasAttended("true"));
-        Assertions.assertEquals(true, ParserUtil.parseHasAttended("   TruE  "));
+        Assertions.assertEquals(new HasAttended(true), ParserUtil.parseHasAttended("true"));
+        Assertions.assertEquals(new HasAttended(true), ParserUtil.parseHasAttended("   TruE  "));
 
-        Assertions.assertEquals(false, ParserUtil.parseHasAttended("false"));
-        Assertions.assertEquals(false, ParserUtil.parseHasAttended(" FalSE  "));
+        Assertions.assertEquals(new HasAttended(false), ParserUtil.parseHasAttended("false"));
+        Assertions.assertEquals(new HasAttended(false), ParserUtil.parseHasAttended(" FalSE  "));
     }
     @Test
     public void parseHasAttended_invalidBoolean_throwsParseException() throws Exception {

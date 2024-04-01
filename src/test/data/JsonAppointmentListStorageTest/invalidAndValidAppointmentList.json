@@ -1,13 +1,16 @@
 {
   "appointments" : [ {
     "appointmentId" : -1,
-    "appointmentDateTime" : "2022-12-12T12:12:00",
+    "startDateTime" : "2022-12-12T12:12:00",
+    "endDateTime" : "2022-12-12T13:12:00",
     "studentId" : 1,
     "appointmentDescription" : "First Appointment",
-    "hasAttended" : false
+    "hasAttended" : false,
+    "feedbackScore": 1
   },{
     "appointmentId" : 1,
-    "appointmentDateTime" : "2022-12-12T12:12:00",
+    "startDateTime" : "2022-12-12T12:12:00",
+    "endDateTime" : "2022-12-12T12:12:00",
     "studentId" : 1,
     "appointmentDescription" : "First Appointment",
     "hasAttended" : false

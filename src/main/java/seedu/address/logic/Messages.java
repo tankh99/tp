@@ -27,12 +27,9 @@ public class Messages {
     public static final String MESSAGE_INVALID_DATE_TIME = "Invalid date time format. "
             + "Please use the format yyyy-MM-dd HH:mm";
 
-    public static final String MESSAGE_INVALID_BOOLEAN_VALUE = "Invalid boolean value. Please use true or false.";
     public static final String MESSAGE_DATETIME_IN_THE_PAST =
             "Date and time cannot be in the past";
 
-    public static final String MESSAGE_INVALID_FEEDBACK_SCORE = "Invalid feedback score. "
-            + "Please use a number between 1 and 5 (inclusive)";
     public static final String MESSAGE_INVALID_START_END_DATETIME = "Start datetime must be before end datetime";
 
     /**
@@ -69,14 +66,13 @@ public class Messages {
         final StringBuilder builder = new StringBuilder();
         builder.append(appointment.getAppointmentId())
                 .append("; StudentId: ")
-                .append(appointment.getStudentId())
+                .append(appointment.getPatientId())
                 .append("; Start: ")
                 .append(appointment.getStartDateTime())
                 .append("; End: ")
                 .append(appointment.getEndDateTime())
                 .append("; Attend: ")
                 .append((appointment.getAttendedStatus()))
-                //TODO: remove after case log is implemented
                 .append("; Description: ")
                 .append((appointment.getAppointmentDescription()));
         return builder.toString();

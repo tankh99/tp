@@ -48,7 +48,7 @@ public class AppointmentCard extends UiPart<Region> {
 
         appointmentId.setText(appointment.getAppointmentId() + ". ");
         //TODO: replace student id with student name
-        name.setText("StudentId: " + Integer.toString(appointment.getStudentId()));
+        name.setText("StudentId: " + Integer.toString(appointment.getPatientId().patientId));
 
         String formattedStartDateTime = DateUtil.formatDateTime(appointment.getStartDateTime().getDateTimeValue());
         String formattedEndDateTime = DateUtil.formatDateTime(appointment.getEndDateTime().getDateTimeValue());
@@ -56,7 +56,7 @@ public class AppointmentCard extends UiPart<Region> {
                 + formattedEndDateTime);
 
         String attendedString = "Attended: ";
-        if (appointment.getAttendedStatus()) {
+        if (appointment.getAttendedStatus().hasAttended) {
             attendedString += "Y";
         } else {
             attendedString += "N";
@@ -64,8 +64,9 @@ public class AppointmentCard extends UiPart<Region> {
         hasAttended.setText(attendedString);
 
         appointmentDescription.managedProperty().bind(appointmentDescription.visibleProperty());
-        if (!appointment.getAppointmentDescription().isEmpty()) {
-            appointmentDescription.setText("Description: " + appointment.getAppointmentDescription());
+        if (!appointment.getAppointmentDescription().appointmentDescription.isEmpty()) {
+            appointmentDescription.setText(
+                    "Description: " + appointment.getAppointmentDescription().appointmentDescription);
         } else {
             appointmentDescription.setVisible(false);
         }

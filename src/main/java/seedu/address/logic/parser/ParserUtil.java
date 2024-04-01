@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -13,12 +14,18 @@ import seedu.address.commons.util.DateUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Messages;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.appointment.AppointmentDescription;
 import seedu.address.model.appointment.EndDateTime;
+import seedu.address.model.appointment.FeedbackScore;
+import seedu.address.model.appointment.HasAttended;
+import seedu.address.model.appointment.PatientId;
 import seedu.address.model.appointment.StartDateTime;
 import seedu.address.model.patient.Email;
 import seedu.address.model.patient.Name;
+import seedu.address.model.patient.Patient;
 import seedu.address.model.patient.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.util.RelationshipUtil;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -146,58 +153,72 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code Collection<String> attend} into a {@code boolean}.
+     * Parses a {@code String attend} into a {@code HasAttended}.
      * By default, false will be returned if {@code attend} is empty.
      *
      * @throws ParseException if the given {@code attend} is invalid.
      */
-    public static boolean parseHasAttended(String attend) throws ParseException {
+    public static HasAttended parseHasAttended(String attend) throws ParseException {
         requireNonNull(attend);
         if (attend.isEmpty()) {
-            return false;
+            return new HasAttended(false);
         }
 
         String trimmedAttend = attend.trim();
-        if (!trimmedAttend.equalsIgnoreCase("true")
-                && !trimmedAttend.equalsIgnoreCase("false")) {
-            throw new ParseException(Messages.MESSAGE_INVALID_BOOLEAN_VALUE);
+        if (!HasAttended.isValidStatus(trimmedAttend)) {
+            throw new ParseException(HasAttended.MESSAGE_CONSTRAINTS);
         }
-        return Boolean.parseBoolean(trimmedAttend);
+        return new HasAttended(Boolean.parseBoolean(trimmedAttend));
     }
 
     /**
-     * Parses a {@code Collection<String> description} into a {@code String}.
+     * Parses a {@code String description} into a {@code AppointmentDescription}.
      * Leading and trailing whitespaces will be trimmed.
      * By default, an empty string will be returned if {@code description} is empty.
-     * TODO: remove after case log is implemented
      */
-    public static String parseDescription(String description) {
+    public static AppointmentDescription parseDescription(String description) {
         requireNonNull(description);
         if (description.isEmpty()) {
-            return "";
+            return new AppointmentDescription("");
         }
-        return description.trim();
+        return new AppointmentDescription(description.trim());
     }
 
     /**
-     * Parses a {@code String feedbackScore} into an {@code Integer} and ensures that it is a valid number and is
-     * between 1 and 5 (inclusive).
+     * Parses a {@code String feedbackScore} into an {@code FeedbackScore} and ensures that
+     * it is a valid number and is between 1 and 5 (inclusive).
      *
-     * @throws ParseException
+     * @throws ParseException if the given {@code attend} is invalid.
      */
-    public static Integer parseFeedbackScore(String feedbackScore) throws ParseException {
+    public static FeedbackScore parseFeedbackScore(String feedbackScore) throws ParseException {
         if (feedbackScore.isEmpty()) {
             return null;
         }
         String trimmedFeedbackScore = feedbackScore.trim();
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedFeedbackScore)) {
-            throw new ParseException(Messages.MESSAGE_INVALID_FEEDBACK_SCORE);
+            throw new ParseException(FeedbackScore.MESSAGE_CONSTRAINTS);
         }
         int feedbackScoreInt = Integer.parseInt(trimmedFeedbackScore);
-        if (feedbackScoreInt < 1 || feedbackScoreInt > 5) {
-            throw new ParseException(Messages.MESSAGE_INVALID_FEEDBACK_SCORE);
+        if (!FeedbackScore.isValidScore(feedbackScoreInt)) {
+            throw new ParseException(FeedbackScore.MESSAGE_CONSTRAINTS);
         }
-        return Integer.parseInt(trimmedFeedbackScore);
+        return new FeedbackScore(feedbackScoreInt);
+    }
+
+    /**
+     * Parses a {@code String id} into a {@code PatientId}.
+     * By default, false will be returned if {@code id} is empty.
+     *
+     * @throws ParseException if the given {@code id} is invalid.
+     */
+    public static PatientId parsePatientId(String id, List<Patient> patients) throws ParseException {
+        requireNonNull(id);
+        int patientId = parseIndex(id).getOneBased();
+
+        if (!RelationshipUtil.personExists(patientId, patients)) {
+            throw new ParseException(PatientId.MESSAGE_CONSTRAINTS);
+        }
+        return new PatientId(patientId);
     }
 
     /**
