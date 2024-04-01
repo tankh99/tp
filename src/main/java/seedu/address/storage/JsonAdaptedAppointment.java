@@ -6,7 +6,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.appointment.*;
+import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.AppointmentDescription;
+import seedu.address.model.appointment.EndDateTime;
+import seedu.address.model.appointment.FeedbackScore;
+import seedu.address.model.appointment.HasAttended;
+import seedu.address.model.appointment.PatientId;
+import seedu.address.model.appointment.StartDateTime;
 
 /**
  * Jackson-friendly version of {@link Appointment}.

@@ -1,13 +1,17 @@
 package seedu.address.model.appointment;
 
+/**
+ * Represents an Appointment's description in the address book.
+ * Guarantees: immutable;
+ */
 public class AppointmentDescription {
 
     public final String appointmentDescription;
 
     /**
-     * Constructs a {@code HasAttended}.
+     * Constructs a {@code AppointmentDescription}.
      *
-     * @param appointmentDescription A valid attend status.
+     * @param appointmentDescription A valid appointment description.
      */
     public AppointmentDescription(String appointmentDescription) {
         this.appointmentDescription = appointmentDescription;

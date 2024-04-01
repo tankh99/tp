@@ -68,7 +68,7 @@ public class Appointment implements Comparable<Appointment> {
      */
     public Appointment(StartDateTime startDateTime, EndDateTime endDateTime,
                        PatientId patientId, AppointmentDescription appointmentDescription) {
-        this(idTracker, startDateTime, endDateTime, patientId,appointmentDescription, DEFAULT_ATTENDED_STATUS, null);
+        this(idTracker, startDateTime, endDateTime, patientId, appointmentDescription, DEFAULT_ATTENDED_STATUS, null);
     }
 
     /**

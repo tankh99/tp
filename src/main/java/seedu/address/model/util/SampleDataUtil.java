@@ -7,7 +7,15 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.PatientList;
 import seedu.address.model.ReadOnlyPatientList;
-import seedu.address.model.appointment.*;
+import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.AppointmentDescription;
+import seedu.address.model.appointment.AppointmentList;
+import seedu.address.model.appointment.EndDateTime;
+import seedu.address.model.appointment.FeedbackScore;
+import seedu.address.model.appointment.HasAttended;
+import seedu.address.model.appointment.PatientId;
+import seedu.address.model.appointment.ReadOnlyAppointmentList;
+import seedu.address.model.appointment.StartDateTime;
 import seedu.address.model.patient.Email;
 import seedu.address.model.patient.Name;
 import seedu.address.model.patient.Patient;

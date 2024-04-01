@@ -14,7 +14,12 @@ import seedu.address.commons.util.DateUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Messages;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.appointment.*;
+import seedu.address.model.appointment.AppointmentDescription;
+import seedu.address.model.appointment.EndDateTime;
+import seedu.address.model.appointment.FeedbackScore;
+import seedu.address.model.appointment.HasAttended;
+import seedu.address.model.appointment.PatientId;
+import seedu.address.model.appointment.StartDateTime;
 import seedu.address.model.patient.Email;
 import seedu.address.model.patient.Name;
 import seedu.address.model.patient.Patient;
@@ -148,7 +153,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code Collection<String> attend} into a {@code boolean}.
+     * Parses a {@code String attend} into a {@code HasAttended}.
      * By default, false will be returned if {@code attend} is empty.
      *
      * @throws ParseException if the given {@code attend} is invalid.
@@ -167,7 +172,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code Collection<String> description} into a {@code String}.
+     * Parses a {@code String description} into a {@code AppointmentDescription}.
      * Leading and trailing whitespaces will be trimmed.
      * By default, an empty string will be returned if {@code description} is empty.
      */
@@ -180,10 +185,10 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String feedbackScore} into an {@code Integer} and ensures that it is a valid number and is
-     * between 1 and 5 (inclusive).
+     * Parses a {@code String feedbackScore} into an {@code FeedbackScore} and ensures that
+     * it is a valid number and is between 1 and 5 (inclusive).
      *
-     * @throws ParseException
+     * @throws ParseException if the given {@code attend} is invalid.
      */
     public static FeedbackScore parseFeedbackScore(String feedbackScore) throws ParseException {
         if (feedbackScore.isEmpty()) {
@@ -201,13 +206,11 @@ public class ParserUtil {
     }
 
     /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
+     * Parses a {@code String id} into a {@code PatientId}.
+     * By default, false will be returned if {@code id} is empty.
+     *
+     * @throws ParseException if the given {@code id} is invalid.
      */
-    public static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
-
     public static PatientId parsePatientId(String id, List<Patient> patients) throws ParseException {
         requireNonNull(id);
         int patientId = parseIndex(id).getOneBased();
@@ -216,6 +219,14 @@ public class ParserUtil {
             throw new ParseException(PatientId.MESSAGE_CONSTRAINTS);
         }
         return new PatientId(patientId);
+    }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    public static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
     /**

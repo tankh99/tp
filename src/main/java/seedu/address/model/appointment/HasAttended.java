@@ -1,5 +1,9 @@
 package seedu.address.model.appointment;
 
+/**
+ * Represents an Appointment's attended status in the address book.
+ * Guarantees: immutable; is valid as declared in {@link #isValidStatus(String)}
+ */
 public class HasAttended {
 
     public static final String MESSAGE_CONSTRAINTS = "Attended status should only be true or false.";

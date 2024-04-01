@@ -1,13 +1,17 @@
 package seedu.address.model.appointment;
 
-import seedu.address.model.patient.Patient;
-
 import java.util.List;
 
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import seedu.address.model.patient.Patient;
+
+/**
+ * Represents an Appointment's patient id in the address book.
+ * Guarantees: immutable; is valid as declared in {@link #isValidId(int)}
+ */
 public class PatientId {
-    public static final String MESSAGE_CONSTRAINTS = "No such patient with id %1$d exists. Please pick a valid id.";
+    public static final String MESSAGE_CONSTRAINTS = "No such patient with this id exists. Please pick a valid id.";
     public final int patientId;
 
     /**

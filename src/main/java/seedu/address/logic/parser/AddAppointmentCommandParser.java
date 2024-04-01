@@ -1,7 +1,6 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.Messages.MESSAGE_INVALID_PATIENT_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ATTEND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATETIME;
@@ -13,7 +12,13 @@ import java.util.List;
 
 import seedu.address.logic.commands.AddAppointmentCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.appointment.*;
+import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.AppointmentDescription;
+import seedu.address.model.appointment.EndDateTime;
+import seedu.address.model.appointment.FeedbackScore;
+import seedu.address.model.appointment.HasAttended;
+import seedu.address.model.appointment.PatientId;
+import seedu.address.model.appointment.StartDateTime;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.util.RelationshipUtil;
 

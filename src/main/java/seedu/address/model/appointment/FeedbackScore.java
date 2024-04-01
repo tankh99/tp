@@ -2,7 +2,10 @@ package seedu.address.model.appointment;
 
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-//@@author caitlyntang
+/**
+ * Represents an Appointment's feedback score in the address book.
+ * Guarantees: immutable; is valid as declared in {@link #isValidScore(int)}
+ */
 public class FeedbackScore {
 
     public static final String MESSAGE_CONSTRAINTS = "Feedback score should only be from 1 to 5 (inclusive)";
