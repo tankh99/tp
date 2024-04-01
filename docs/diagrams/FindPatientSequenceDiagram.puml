@@ -32,6 +32,7 @@ activate ListCommandPatientParser
 
 create ListCommandPatient
 ListCommandPatientParser -> ListCommandPatient :  new ListCommandPatient(combinedPredicate) with AND logic
+note right of ListCommandPatientParser : Details of how predicates are combined \nare simplified for the sake of diagramming.
 activate ListCommandPatient
 
 ListCommandPatient --> ListCommandPatientParser :
