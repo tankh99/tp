@@ -2,7 +2,13 @@ package seedu.address.testutil;
 
 import java.time.LocalDateTime;
 
-import seedu.address.model.appointment.*;
+import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.AppointmentDescription;
+import seedu.address.model.appointment.EndDateTime;
+import seedu.address.model.appointment.FeedbackScore;
+import seedu.address.model.appointment.HasAttended;
+import seedu.address.model.appointment.PatientId;
+import seedu.address.model.appointment.StartDateTime;
 
 
 /**
