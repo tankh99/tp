@@ -10,6 +10,9 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.ReportFeedbackCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Parses input arguments and creates a new ReportFeedbackCommand object
+ */
 public class ReportFeedbackCommandParser implements Parser<ReportFeedbackCommand> {
     @Override
     public ReportFeedbackCommand parse(String args) throws ParseException {

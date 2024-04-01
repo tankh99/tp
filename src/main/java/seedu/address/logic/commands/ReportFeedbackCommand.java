@@ -4,11 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FROM_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TO_DATE;
 
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.ReportFeedbackCommandParser;
-import seedu.address.model.Model;
-
 import java.time.LocalDateTime;
+
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
+import seedu.address.model.appointment.EndDateTime;
+import seedu.address.model.appointment.FilterAppointmentPredicate;
+import seedu.address.model.appointment.StartDateTime;
 
 
 /**
@@ -32,14 +34,19 @@ public class ReportFeedbackCommand extends Command {
     private final LocalDateTime fromDate;
     private final LocalDateTime toDate;
 
+    // Note that we're unable to perform the same predicate query logic here because reports are fundmantally different
+    // from the usual model objects as report objects are transient data that are aggregated from other models
     public ReportFeedbackCommand(LocalDateTime fromDate, LocalDateTime toDate) {
         this.fromDate = fromDate;
         this.toDate = toDate;
     }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        // TODO: Create a function inside model that updates the reports UI
-        return new CommandResult(MESSAGE_SUCCESS);
+
+        model.updateFilteredPatientFeedbackReports(new FilterAppointmentPredicate(
+            new StartDateTime(fromDate), new EndDateTime(toDate)));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, fromDate, toDate));
     }
 }
