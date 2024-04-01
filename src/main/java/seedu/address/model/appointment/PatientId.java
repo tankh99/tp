@@ -1,8 +1,8 @@
 package seedu.address.model.appointment;
 
-import java.util.List;
-
 import static seedu.address.commons.util.AppUtil.checkArgument;
+
+import java.util.List;
 
 import seedu.address.model.patient.Patient;
 
