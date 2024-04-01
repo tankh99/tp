@@ -24,6 +24,9 @@ public class PatientFeedbackReport implements Comparable<PatientFeedbackReport> 
         this.appointments = appointments;
     }
 
+    public int getPatientId() {
+        return patient.getSid();
+    }
     public Name getPatientName() {
         return patient.getName();
     }
@@ -36,10 +39,10 @@ public class PatientFeedbackReport implements Comparable<PatientFeedbackReport> 
         Double total = Double.valueOf(0);
         int count = 0;
         for (Appointment appointment : appointments) {
-            boolean apptBelongsToPatient = appointment.getStudentId() == patient.getSid();
+            boolean apptBelongsToPatient = appointment.getPatientId().patientId == patient.getSid();
             boolean apptHasFeedbacScore = appointment.getFeedbackScore() != null;
             if (apptBelongsToPatient && apptHasFeedbacScore) {
-                total += appointment.getFeedbackScore();
+                total += appointment.getFeedbackScore().feedbackScore;
                 count++;
             }
         }

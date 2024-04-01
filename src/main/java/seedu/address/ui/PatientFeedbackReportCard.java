@@ -24,6 +24,8 @@ public class PatientFeedbackReportCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
+    private Label id;
+    @FXML
     private Label name;
     @FXML
     private Label avgFeedbackScore;
@@ -33,6 +35,7 @@ public class PatientFeedbackReportCard extends UiPart<Region> {
      */
     public PatientFeedbackReportCard(PatientFeedbackReport pfr) {
         super(FXML);
+        id.setText(pfr.getPatientId() + ". ");
         name.setText("Name: " + pfr.getPatientName().fullName);
         avgFeedbackScore.managedProperty().bind(avgFeedbackScore.visibleProperty());
         if (pfr.getAvgFeedbackScore() != null) {
