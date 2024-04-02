@@ -1,8 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FROM_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TO_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATETIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATETIME;
 
 import java.time.LocalDateTime;
 
@@ -22,14 +22,15 @@ public class ReportFeedbackCommand extends Command {
     public static final String COMMAND_WORD = "reportfeedback";
 
     public static final String MESSAGE_SUCCESS = "Generated report from %1$s to %2$s";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Generates a report of feedback scores "
             + "for each patient across a specific date range. "
             + "Parameters: "
-            + PREFIX_FROM_DATE + "FROM_DATE "
-            + PREFIX_TO_DATE + " TO_DATE\n"
+            + PREFIX_START_DATETIME + "FROM_DATE "
+            + PREFIX_END_DATETIME + " TO_DATE\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_FROM_DATE + "2024-03-18 "
-            + PREFIX_TO_DATE + "2024-03-18\n"
+            + PREFIX_START_DATETIME + "2024-03-18 "
+            + PREFIX_END_DATETIME + "2024-03-18\n"
             + "Note: At least from date or to date must be specified";
 
     private final LocalDateTime fromDate;

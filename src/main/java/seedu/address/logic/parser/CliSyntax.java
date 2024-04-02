@@ -20,7 +20,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_APPOINTMENT_DESCRIPTION = new Prefix("ad/");
     public static final Prefix PREFIX_APPOINTMENT_ID = new Prefix("aid/");
     public static final Prefix PREFIX_FEEDBACK_SCORE = new Prefix("s/");
-    public static final Prefix PREFIX_FROM_DATE = new Prefix("from/");
-    public static final Prefix PREFIX_TO_DATE = new Prefix("to/");
 
 }
