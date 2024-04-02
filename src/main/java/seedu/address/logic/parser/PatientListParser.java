@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.AddAppointmentCommand;
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddPatientCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteAppointmentCommand;
@@ -72,7 +72,7 @@ public class PatientListParser {
 
         switch (commandWord) {
 
-        case AddCommand.COMMAND_WORD:
+        case AddPatientCommand.COMMAND_WORD:
             return new AddPatientCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:

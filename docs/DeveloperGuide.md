@@ -222,6 +222,11 @@ Appointment List are saved under a separate file `appointments.json` in the data
 
 
 **Aspect: Search query with AND constraint**
+### Finding Contact by different parameters.
+
+<puml src="diagrams/FindPatientSequenceDiagram.puml" width="574" />
+
+
 In enhancing the search functionality within CogniCare, the implementation of an AND constraint for search queries was paramount. This feature allows counsellors to refine search criteria, leading to more precise and relevant search results. For example, counsellors can search for a patient using a combination of (partial name AND partial phone number AND partial email address). Only parameter is required, the others are optional.
 
 This enhancement was driven for the need of:
@@ -447,6 +452,72 @@ _{more aspects and alternatives to be added}_
 _{Explain here how the data archiving feature will be implemented}_
 
 
+## Create a new Patient
+
+`AddPatientCommandParser` obtains the values that correspond to the prefixes such as `/p`, `/n`, `/e`, and `/a` which represent phone, name, email address, and alias accordingly.
+
+This class ensures that
+* The data stored must contain the name, phone, and email address corresponding to their respective format.
+* Values that are corresponding to each tag are valid.
+* There can be multiple aliases (`a/`), but `p/`, `n/`, `e/` may only appear once.
+* A unique Id is created for each patient. This ID is strictly increasing and remains tagged to the patient (and does not change its order even if other records prior get deleted).
+* Names are also used as a primary key (meaning no 2 users of the same name may be added to the CogniCare application) regardless of case sensitivity and whitespace, i.e. "JEROME CHUA" and "jErOmE    CHuA" are treated the same.
+
+If the constraints are violated, `AddPatientCommandParser` will throw a `ParseException` and log the invalid parameter passed into the function.
+
+Otherwise, if the process is successful, a new `Patient` object will be created to add the patient to the CongiCare application.
+
+We have considered these alternatives:
+* Using the natural order of the list as the index of the Person. This is sub-optimal as holes in the records may lead to unexpected behaviour when handling the appointments. For example, consider a list with 3 patients. If the second patient is deleted, then the 3rd patient becomes the 2nd patient. This will be confusing for the user. Therefore, we sought to seek a solution to ensure that the studentId always remains unique.
+* Completely re-writing AB3's addressbook. This is not practical as our functionalities and use-case is similar to the use case of the AB3 application.
+
+
+
+## Editing a current Patient
+`EditPatientCommandParser` obtains the patient index and the values that correspond to the prefixes such as `/p`, `/n`, `/e`, and `/a` which represent phone, name, email address, and alias accordingly.
+
+* There can be multiple aliases (`\a`), but `/p`, `/n`, `/e` may only appear once.
+* The patient index is based on the unique ID that is tagged to each patient, and is not the natural ordering of the list.
+* The edited fields are required to have the same validation as creating a new patient.
+
+
+If the constraints are violated, `EditPatientCommandParser` will throw a `ParseException` due to invalid patient ID or invalid parameter being parsed.
+
+Otherwise, if the process is successful, the current `Patient` object corresponding to the respective ID will be updated with the editedInformation.
+
+We have considered these alternatives:
+* Using the name as the primary key instead of the patient ID - may lead to unexpected deletes as there could be a case where the counselor has two patients of the similar name "Tan Ah Kow" and "Tan Ah". Suppose the counselor wants to delete "Tan Ah", and not "Tan Ah Kou" - in this case, the wrong record will be deleted by accident. Using an integer value as the identifier would eliminate this problem and will also makes it much easier for the user to input the commands.
+  * Therefore the workflow would be to search for the respective patient for the respective index via the `queryp` command before editing it.
+
+## Deleting an existing patient
+`DeletePatientCommandParser` obtains the patient index that is to be deleted.
+
+* The patient index is based on the unique ID that is tagged to each individual patient and is not the natural ordering of the list.
+
+If the constraints are violated, `DeletePatientCommandParser` will throw a `ParseException` due to an invalid patient ID passed.
+
+Otherwise, if the process is successful, the current `Patient` object corresponding to the respective ID will be updated with the deleted patient information containing the phone, email, and respective alias information.
+
+We have considered these alternatives:
+* A confirmation dialog when deleting the patients. We decided to not go with this approach as this drastically reduces the speed which the user makes use of the application.
+* Deleting the student using the natural order of the list may also result in unintended deletions.
+
+
+## Querying for Patients
+`ListPatientCommandParser` obtains the values that correspond to the criteria such as `/p`, `/n`, `/e` and `/a` which represent phone, name, email address, and alias(es) accordingly, and combined with an AND logic.
+
+The command for this operation is `queryp` with at least one or zero parameters. If no parameters (or at least one invalid parameter is passed into the command), the `queryp` command returns all the information of the patients (that is applied without any filters/predicates).
+
+The `ListPatientCommandParser` first checks for the presence of empty arguments / no prefix being specified. If this criterion is true, then all the patient is returned as normal. As such this class does not throw any exceptions, but just returns all the data in the CogniCare application.
+
+Otherwise, each of the search terms will be applied to each of the respective fields of the CogniCare application in a case-insensitive format.
+
+
+We have considered these alternatives:
+- User-Forgiveness _versus_ Strict Error Handling: Returning an error message where the command is correct, but illegal parameters are being supplied, then an error message is displayed. We decided against this approach because this will reduce the "user friendliness" of the application as the user would then have the consult the manual / read the error message to resolve the error.
+- Creating a "do-it-all" predicate for the `Patient` class will be less repetitive code as compared to the current approach (`EmailContainsKeywordPredicate.java`, `NameContainsKeywordPredicate.java`, `PhoneContainsKeywordPredicate.java`, `TagContainsKeywordPredicate.java`) which requires more (repetitive code) as compared to making a class such as `StudentContainsKeywordPredicate.java` which would be easier to code - but harder to test and extend in future. Not to mention, this will also increase the difficulty in writing unit tests.
+- Using `AND` logic for combining predicates, instead of `OR` predicate - the reason was that since the values already supported partial word matching (i.e. Searching for `coco` in the String `Coconut` will result in the row being returned). As such, using the `OR` logic will lead to too many rows being returned and therefore confusing to the user.
+- Using case-insensitive search: the use of case-insensitive search terms for parameters matching provides a more seamless and more user-friendly experience.
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -529,6 +600,8 @@ Priorities: High (must have) - `* * * *`, Medium (nice to have) - `* * *`, Low (
   Use case ends.
 
 **Use Case: Edit a Patient**
+<puml src="diagrams/EditPatientSequenceDiagram.puml" width="280" />
+
 1. User enters command to add a patient with required index and data field to be edited.
 2. CogniCare displays a success message confirming the patient's details have been updated.
 Use case ends.
@@ -936,3 +1009,132 @@ testers are expected to do more *exploratory* testing.
    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 1. _{ more test cases …​ }_
+
+
+6.0. Manual Testing
+
+## 6.1. Launch and Shutdown
+1. Ensure you have Java `11` or above installed in your Computer.
+  1. If you are on macOS on an Apple Silicon System, we recommend that you follow the guide on [CS2103 Course website](https://nus-cs2103-ay2324s2.github.io/website/admin/programmingLanguages.html#programming-language) using the Zulu version `zulu11.50.19-ca-fx-jdk11.0.12-macosx_aarch64.dmg`
+  2. If you are on Windows / Intel architecture, most versions of Java 11 should work.
+
+2. Download the latest `cognicare.jar` from [here](https://github.com/AY2324S2-CS2103-F08-2/tp/releases).
+
+3. Copy the file to the folder you want to use as the _home folder_ for your CogniCare application.
+
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar cognicare.jar` command to run the application.<br>  
+   **Expected**: A GUI containing the sample patient list the below should appear in a few seconds. Note that the app contains some sample data. You may need to re-scale the window size to suit your computer display.
+
+## 6.2 List all students (without any parameters)
+Pre-requisite:
+- There is at least one ("1") patient stored in the CogniCare application.
+
+Command: `queryp`
+- The patient information in CogniCare will be shown in the item ListView.
+
+Expected Output:
+- All the patient information will be displayed in the ListView.
+
+Expected Output in the Command Output Box:
+- `Listed all persons`
+
+
+> [!TIP]
+> If there are no patients stored in the Application, then an empty ListView will be displayed.
+
+## 6.3 List all students meeting the selected (one or more) criteria
+Pre-requisite:
+- There is at least one ("1") patient stored in the CogniCare application meeting the requested criterion / criteria.
+
+Command: `queryp n/Jerome p/123 `
+- The patient information meeting the criteria specified in CogniCare will be displayed in the item ListView.
+- You may specify zero or one of each parameters
+  - `p/`: phone number
+  - `n/`: name
+  - `e/`: email address
+- You may specify zero or many this parameter:
+  - `a/`: `associated with` tag
+    - Consider the use-case as such, `queryp a/depression`
+
+Expected Output:
+- All the patient information with their respective patientId will be displayed in the ListView.
+
+Expected Output in the Command Output Box:
+- `Listed all persons`
+
+
+> [!TIP]
+> If there are no patients stored in the Application, or if there are no data that meets the required criteria,  an empty ListView will be displayed
+
+
+
+## 6.3 Adding a new patient
+Pre-requisite:
+- There does not exists another patient with the same name (regardless of capitalisation) and spacing, i.e. the names "Jerome Chua" and "jEROmE       CHuA" are considered the same name.
+
+Command: `patient n/John Doe p/98765432 e/johnd@example.com a/Johnny a/owesMoney `
+- You must specify exactly one of each parameters (in the correct format)
+  - `p/`: phone number
+  - `n/`: name
+  - `e/`: email address
+- You may specify zero or many of this parameter:
+  - `a/`: `associated with` tag
+
+Expected Output:
+- The newly created patient will have an increased index (as compared to the last created one)
+-  The `ListView` will be updated with the latest patient data.
+
+Expected Output in the Command Output Box:
+- `New student added: John Doe; Phone: 98765432; Email: johnd@example.com; Associated with: [owesMoney][Johnny]`
+- A message echo-ing the information that you have just entered.
+
+
+## 6.4 Editing a currently created patient
+Pre-requisite:
+- You know the index (`patientId`) of the person that you are trying to edit.
+- There is exactly one ("1") patient stored in the CogniCare application
+
+Command: `edit 26 n/Jerome Chua`
+- You must specify exactly at least one of these parameters (in the correct format)
+  - `/p`: phone number
+    - It must match the validation logic also.
+  - `/n`: name
+    - The edited name must not be an existing entry in the CogniCare application. See the Section above for the validation logic.
+  - `/e`: email address
+    - It must match validation logic too
+  - `/a`: `associated with` the tag
+
+Expected Output:
+-  The `ListView` will be updated with the latest patient data.
+
+Expected Output in the CommandBox: `Edited Person: Bernice Yu; Phone: 91234567; Email: johndoe@example.com; Associated with: [jobless][anxiety]`
+-  The `ListView` will be updated with the latest patient data.
+
+> [!TIP]
+> The student identifier that is commonly referred to in this article refers to the student id that is permanently tagged to each student, and is not the index of the natural ordering in the list.
+
+
+## 6.5 Deleting an existing patient
+Pre-requisite:
+- You know the index (`patientId`) of the person that you are trying to delete.
+- There is at exactly one ("1") patient stored in the CogniCare application
+
+Command: `delete 26`
+- You must specify exactly the patient identifier that exists.
+
+Expected Output:
+-  The `ListView` will be updated with the latest patient data.
+
+Expected Output in the CommandBox: `Deleted Patient: Grace Lim; Phone: 83456789; Email: gracelim@outlook.com; Associated with: [anxiety][stress]`
+-  The `ListView` will be updated with the latest patient data (which removes the deleted patient).
+
+
+## 7. Planned Future Enhancements (Beyond `v1.4`)
+This section describes the potential enhancements that could be improved in future editions of the application.
+* Adding the ability to allow the counselor to secure the application - via a PIN Code feature, and encryption of the JSON file so that data loss does not result in the leakage of highly confidential medical data.
+* Enhancing the graphical user interface to make it more user-friendly, i.e. more usage of the mouse as compared to the keyboard.
+
+## 8. Learning Outcomes
+The implementation of the CogniCare application was an extremely challenging endeavour - as we needed to morph and reshape the AB3 application in a team-based setting. The transformation process involved significant alternations and enhancements to reach the new requirements of the application.
+
+The team-based setting also exposed us to various crucial skills such as improving our working styles to achieve a high level of collaboration. Skillsets that are crucial to a Software Engineer such as reviewing Pull Requests (PRs), and providing and receiving feedback from peers are also learned in the course of the project.
