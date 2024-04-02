@@ -169,6 +169,7 @@ public class EditAppointmentCommand extends Command {
          * Copy constructor.
          */
         public EditAppointmentDescriptor(EditAppointmentCommand.EditAppointmentDescriptor toCopy) {
+            setAppointmentId(toCopy.appointmentId);
             setPatientId(toCopy.patientId);
             setStartDateTime(toCopy.startDateTime);
             setEndDateTime(toCopy.endDateTime);
@@ -254,7 +255,7 @@ public class EditAppointmentCommand extends Command {
 
             EditAppointmentCommand.EditAppointmentDescriptor otherEditAppointmentDescriptor =
                     (EditAppointmentCommand.EditAppointmentDescriptor) other;
-            return Objects.equals(appointmentId, otherEditAppointmentDescriptor.appointmentId)
+            return appointmentId == otherEditAppointmentDescriptor.appointmentId
                     && Objects.equals(patientId, otherEditAppointmentDescriptor.patientId)
                     && Objects.equals(startDateTime, otherEditAppointmentDescriptor.startDateTime)
                     && Objects.equals(endDateTime, otherEditAppointmentDescriptor.endDateTime)
@@ -266,12 +267,12 @@ public class EditAppointmentCommand extends Command {
         @Override
         public String toString() {
             return new ToStringBuilder(this)
+                    .add("patientId", patientId)
                     .add("startDateTime", startDateTime)
                     .add("endDateTime", endDateTime)
-                    .add("studentId", patientId)
-                    .add("appointmentDescription", appointmentDescription)
                     .add("hasAttended", hasAttended)
                     .add("feedbackScore", feedbackScore)
+                    .add("appointmentDescription", appointmentDescription)
                     .toString();
         }
     }
