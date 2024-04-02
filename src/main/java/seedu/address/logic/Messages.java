@@ -55,7 +55,7 @@ public class Messages {
                 .append(patient.getPhone())
                 .append("; Email: ")
                 .append(patient.getEmail())
-                .append("; Tags: ");
+                .append("; Associated with: ");
         patient.getTags().forEach(builder::append);
         return builder.toString();
     }
