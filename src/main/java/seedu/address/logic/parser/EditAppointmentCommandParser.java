@@ -1,12 +1,5 @@
 package seedu.address.logic.parser;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditAppointmentCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.patient.Patient;
-
-import java.util.List;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT_DESCRIPTION;
@@ -15,6 +8,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FEEDBACK_SCORE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PATIENT_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATETIME;
+
+import java.util.List;
+
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.EditAppointmentCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.patient.Patient;
 
 /**
  * Parses input arguments and creates a new EditAppointmentCommand object

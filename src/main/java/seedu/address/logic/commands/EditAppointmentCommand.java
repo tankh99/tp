@@ -1,5 +1,18 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT_DESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ATTEND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATETIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FEEDBACK_SCORE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PATIENT_ID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATETIME;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_APPOINTMENTS;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.ToStringBuilder;
@@ -13,19 +26,6 @@ import seedu.address.model.appointment.FeedbackScore;
 import seedu.address.model.appointment.HasAttended;
 import seedu.address.model.appointment.PatientId;
 import seedu.address.model.appointment.StartDateTime;
-
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT_DESCRIPTION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ATTEND;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATETIME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FEEDBACK_SCORE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PATIENT_ID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATETIME;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_APPOINTMENTS;
 
 /**
  * Edits the details of an existing appointment in the address book.
