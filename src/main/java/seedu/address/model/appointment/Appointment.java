@@ -204,7 +204,7 @@ public class Appointment implements Comparable<Appointment> {
         }
 
         return otherAppointment != null
-                && otherAppointment.getAppointmentId() == getAppointmentId()
+                && this.patientId.equals(otherAppointment.patientId)
                 && this.startDateTime.compareTo(otherAppointment.endDateTime) < 0
                 && this.endDateTime.compareTo(otherAppointment.startDateTime) > 0;
     }

@@ -93,8 +93,6 @@ public class EditAppointmentCommandTest {
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
-    //TODO: add duplicate appointment test case
-
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredAppointmentList().size() + 1);
@@ -103,6 +101,17 @@ public class EditAppointmentCommandTest {
         EditAppointmentCommand editCommand = new EditAppointmentCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_duplicateAppointmentFilteredList_failure() {
+        // edit person in filtered list into a duplicate in address book
+        Appointment appointmentInList = model.getAppointmentList().getAppointmentList()
+                .get(INDEX_SECOND_APPOINTMENT.getZeroBased());
+        EditAppointmentCommand editCommand = new EditAppointmentCommand(INDEX_FIRST_APPOINTMENT,
+                new EditAppointmentDescriptorBuilder(appointmentInList).build());
+
+        assertCommandFailure(editCommand, model, EditAppointmentCommand.MESSAGE_DUPLICATE_APPOINTMENT);
     }
 
     @Test
