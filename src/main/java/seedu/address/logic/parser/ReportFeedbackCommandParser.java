@@ -1,8 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_DATETIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_START_DATETIME;
 
 import java.time.LocalDateTime;
 
@@ -18,8 +18,7 @@ public class ReportFeedbackCommandParser implements Parser<ReportFeedbackCommand
     public ReportFeedbackCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_START_DATETIME, PREFIX_END_DATETIME);
-        if (!ParserUtil.hasAtLeastOnePrefixPresent(argMultimap, PREFIX_START_DATETIME, PREFIX_END_DATETIME)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReportFeedbackCommand.MESSAGE_USAGE));
         }
@@ -43,7 +42,8 @@ public class ReportFeedbackCommandParser implements Parser<ReportFeedbackCommand
                 argMultimap.getValue(PREFIX_END_DATETIME).get(), false);
         }
 
-        if (fromDate != null && toDate != null && toDate.isBefore(fromDate)) {
+        boolean bothDatesPresent = fromDate != null && toDate != null;
+        if (bothDatesPresent && toDate.isBefore(fromDate)) {
             throw new ParseException(Messages.MESSAGE_INVALID_START_END_DATETIME);
         }
         return new ReportFeedbackCommand(fromDate, toDate);
