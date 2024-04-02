@@ -44,10 +44,16 @@ public class ListAppointmentCommandParser implements Parser<ListAppointmentComma
                 CliSyntax.PREFIX_PATIENT_ID,
                 CliSyntax.PREFIX_APPOINTMENT_ID);
 
-        if (!hasAtLeastOnePrefixPresent || !argMultimap.getPreamble().isEmpty()) {
+        if (!hasAtLeastOnePrefixPresent && argMultimap.getPreamble().isEmpty()) {
             // If there is no prefix specified, then display all records.
             // TODO: Show an error message here.
             return new ListAppointmentCommand(PREDICATE_SHOW_ALL_APPOINTMENTS);
+        }
+
+        if (!hasAtLeastOnePrefixPresent && !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(
+                    String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, ListAppointmentCommand.MESSAGE_USAGE)
+            );
         }
 
 
