@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
@@ -92,18 +93,8 @@ public class EditAppointmentCommandTest {
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
-//    @Test
-//    public void execute_duplicatePersonUnfilteredList_failure() {
-//        Appointment firstAppointment = model.getFilteredAppointmentList().get(INDEX_FIRST_APPOINTMENT.getZeroBased());
-//        System.out.println(firstAppointment.toString());
-//        EditAppointmentCommand.EditAppointmentDescriptor descriptor =
-//                new EditAppointmentDescriptorBuilder(firstAppointment).build();
-//        EditAppointmentCommand editCommand = new EditAppointmentCommand(INDEX_SECOND_APPOINTMENT, descriptor);
-//        System.out.println(descriptor.toString());
-//        assertCommandFailure(editCommand, model, EditAppointmentCommand.MESSAGE_DUPLICATE_APPOINTMENT);
-//    }
-
-
+    //TODO: add duplicate appointment test case
+    
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredAppointmentList().size() + 1);
