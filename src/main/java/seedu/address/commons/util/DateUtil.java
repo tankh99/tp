@@ -19,10 +19,10 @@ public class DateUtil {
      * @return Parsed date time from String, or if unable to parse, returns null
             */
     public static LocalDate parseDate(String date) {
+        if (date == null) {
+            return null;
+        }
         try {
-            if (date == null) {
-                return null;
-            }
             LocalDate parsedDate = LocalDate.parse(date, DateTimeFormatter.ofPattern(DATE_INPUT_FORMAT));
             return parsedDate;
         } catch (DateTimeException ex) {
@@ -34,10 +34,10 @@ public class DateUtil {
      * @return Parsed date time from String, or if unable to parse, returns null
      */
     public static LocalDateTime parseDateTime(String dateTime) {
+        if (dateTime == null) {
+            return null;
+        }
         try {
-            if (dateTime == null) {
-                return null;
-            }
             return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern(DATETIME_INPUT_FORMAT));
         } catch (DateTimeException ex) {
             return null;
@@ -49,10 +49,10 @@ public class DateUtil {
      * @return The formatted date time string if successful, or null if unable to format
      */
     public static String formatDateTime(LocalDateTime dateTime) {
+        if (dateTime == null) {
+            return null;
+        }
         try {
-            if (dateTime == null) {
-                return null;
-            }
             return dateTime.format(DateTimeFormatter.ofPattern(DATETIME_DISPLAY_FORMAT));
         } catch (DateTimeException ex) {
             return null;
@@ -64,10 +64,10 @@ public class DateUtil {
      * @return The formatted date time string if successful, or null if unable to format
      */
     public static String formatDate(LocalDate dateTime) {
+        if (dateTime == null) {
+            return null;
+        }
         try {
-            if (dateTime == null) {
-                return null;
-            }
             return dateTime.format(DateTimeFormatter.ofPattern(DATE_DISPLAY_FORMAT));
         } catch (DateTimeException ex) {
             return null;
