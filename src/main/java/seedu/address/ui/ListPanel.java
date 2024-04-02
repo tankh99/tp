@@ -30,12 +30,8 @@ public class ListPanel extends UiPart<Region> {
         super(FXML);
         personListView.setItems(patientList);
         appointmentListView.setItems(appointmentList);
-        //Temporarily removed for v1.2
-        //caseLogListView.setItems(personList);
 
         personListView.setCellFactory(listView -> new PersonListViewCell());
-        appointmentListView.setCellFactory(listView -> new AppointmentListViewCell());
-        //Temporarily removed for v1.2
-        //caseLogListView.setCellFactory(listView -> new CaseLogListViewCell());
+        appointmentListView.setCellFactory(listView -> new AppointmentListViewCell(patientList));
     }
 }
