@@ -107,7 +107,7 @@ public class EditAppointmentCommandTest {
 
     @Test
     public void equals() {
-        EditAppointmentCommand.EditAppointmentDescriptor DESC_FIRST = new EditAppointmentDescriptorBuilder()
+        EditAppointmentCommand.EditAppointmentDescriptor descFirst = new EditAppointmentDescriptorBuilder()
                 .withPatientId(1)
                 .withStartDateTime(LocalDateTime.of(2022, 12, 12, 8, 0, 0))
                 .withEndDateTime(LocalDateTime.of(2022, 12, 12, 9, 0, 0))
@@ -116,7 +116,7 @@ public class EditAppointmentCommandTest {
                 .withAttendedStatus(false)
                 .build();
 
-        final EditAppointmentCommand.EditAppointmentDescriptor DESC_SECOND = new EditAppointmentDescriptorBuilder()
+        final EditAppointmentCommand.EditAppointmentDescriptor descSecond = new EditAppointmentDescriptorBuilder()
                 .withPatientId(1)
                 .withStartDateTime(LocalDateTime.of(2022, 12, 12, 9, 0, 0))
                 .withEndDateTime(LocalDateTime.of(2022, 12, 12, 10, 0, 0))
@@ -125,12 +125,13 @@ public class EditAppointmentCommandTest {
                 .withAttendedStatus(false)
                 .build();
 
-        final EditAppointmentCommand standardCommand = new EditAppointmentCommand(INDEX_FIRST_APPOINTMENT, DESC_FIRST);
+        final EditAppointmentCommand standardCommand = new EditAppointmentCommand(INDEX_FIRST_APPOINTMENT, descFirst);
 
         // same values -> returns true
         EditAppointmentCommand.EditAppointmentDescriptor copyDescriptor =
-                new EditAppointmentCommand.EditAppointmentDescriptor(DESC_FIRST);
-        EditAppointmentCommand commandWithSameValues = new EditAppointmentCommand(INDEX_FIRST_APPOINTMENT, copyDescriptor);
+                new EditAppointmentCommand.EditAppointmentDescriptor(descFirst);
+        EditAppointmentCommand commandWithSameValues =
+                new EditAppointmentCommand(INDEX_FIRST_APPOINTMENT, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -143,10 +144,10 @@ public class EditAppointmentCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditAppointmentCommand(INDEX_SECOND_APPOINTMENT, DESC_FIRST)));
+        assertFalse(standardCommand.equals(new EditAppointmentCommand(INDEX_SECOND_APPOINTMENT, descFirst)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditAppointmentCommand(INDEX_FIRST_APPOINTMENT, DESC_SECOND)));
+        assertFalse(standardCommand.equals(new EditAppointmentCommand(INDEX_FIRST_APPOINTMENT, descSecond)));
     }
 
     @Test

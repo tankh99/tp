@@ -11,6 +11,9 @@ import seedu.address.model.appointment.HasAttended;
 import seedu.address.model.appointment.PatientId;
 import seedu.address.model.appointment.StartDateTime;
 
+/**
+ * A utility class to help with building EditAppointmentDescriptor objects.
+ */
 public class EditAppointmentDescriptorBuilder {
 
     private EditAppointmentCommand.EditAppointmentDescriptor descriptor;
