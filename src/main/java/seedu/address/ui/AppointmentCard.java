@@ -50,7 +50,7 @@ public class AppointmentCard extends UiPart<Region> {
 
         String formattedStartDateTime = DateUtil.formatDateTime(appointment.getStartDateTime().getDateTimeValue());
         String formattedEndDateTime = DateUtil.formatDateTime(appointment.getEndDateTime().getDateTimeValue());
-        appointmentDateTime.setText(formattedStartDateTime + " to "
+        appointmentDateTime.setText(formattedStartDateTime + " - "
                 + formattedEndDateTime);
 
         if (appointment.getAttendedStatus().hasAttended) {
