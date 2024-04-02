@@ -12,6 +12,7 @@ public class DateUtil {
     public static final String DATE_INPUT_FORMAT = "yyyy-MM-dd";
     public static final String DATETIME_INPUT_FORMAT = "yyyy-MM-dd HH:mm";
     public static final String DATETIME_DISPLAY_FORMAT = "dd MMM yyyy, hh:mm a";
+    public static final String DATE_DISPLAY_FORMAT = "dd MMM yyyy";
 
     /**
      * Parses a LocalDate object from a string
@@ -53,6 +54,21 @@ public class DateUtil {
                 return null;
             }
             return dateTime.format(DateTimeFormatter.ofPattern(DATETIME_DISPLAY_FORMAT));
+        } catch (DateTimeException ex) {
+            return null;
+        }
+    }
+
+    /**
+     * Formats a LocalDateTime object into a string for display
+     * @return The formatted date time string if successful, or null if unable to format
+     */
+    public static String formatDate(LocalDate dateTime) {
+        try {
+            if (dateTime == null) {
+                return null;
+            }
+            return dateTime.format(DateTimeFormatter.ofPattern(DATE_DISPLAY_FORMAT));
         } catch (DateTimeException ex) {
             return null;
         }
