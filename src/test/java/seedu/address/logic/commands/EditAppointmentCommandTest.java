@@ -94,7 +94,7 @@ public class EditAppointmentCommandTest {
     }
 
     //TODO: add duplicate appointment test case
-    
+
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredAppointmentList().size() + 1);
