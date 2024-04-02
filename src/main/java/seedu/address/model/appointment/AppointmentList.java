@@ -100,4 +100,16 @@ public class AppointmentList implements ReadOnlyAppointmentList {
     public void removeAppointment(Appointment key) {
         appointments.remove(key);
     }
+
+    /**
+     * Replaces the given appointment {@code target} in the list with {@code editedAppointment}.
+     * {@code target} must exist in the address book.
+     * The appointment details of {@code editedAppointment} must not be the same as another
+     * existing appointment in the address book.
+     */
+    public void setAppointment(Appointment target, Appointment editedAppointment) {
+        requireNonNull(editedAppointment);
+
+        appointments.setAppointment(target, editedAppointment);
+    }
 }
