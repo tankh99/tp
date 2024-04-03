@@ -26,7 +26,7 @@ public class JsonAdaptedAppointment {
 
     private final int patientId;
     private final String appointmentDescription;
-    private final boolean hasAttended;
+    private final Boolean hasAttended;
     private final Integer feedbackScore;
 
     /**
@@ -38,8 +38,8 @@ public class JsonAdaptedAppointment {
                                   @JsonProperty("endDateTime") LocalDateTime endDateTime,
                                   @JsonProperty("studentId") int patientId,
                                   @JsonProperty("appointmentDescription") String appointmentDescription,
-                                  @JsonProperty("hasAttended") boolean hasAttended,
-                                  @JsonProperty("feedbackScore") int feedbackScore) {
+                                  @JsonProperty("hasAttended") Boolean hasAttended,
+                                  @JsonProperty("feedbackScore") Integer feedbackScore) {
         this.appointmentId = appointmentId;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
@@ -58,7 +58,13 @@ public class JsonAdaptedAppointment {
         endDateTime = source.getEndDateTime().getDateTimeValue();
         patientId = source.getPatientId().patientId;
         appointmentDescription = source.getAppointmentDescription().appointmentDescription;
-        hasAttended = source.getAttendedStatus().hasAttended;
+
+        if (source.getAttendedStatus() != null) {
+            hasAttended = source.getAttendedStatus().hasAttended;
+        } else {
+            hasAttended = null;
+        }
+
         if (source.getFeedbackScore() != null) {
             feedbackScore = source.getFeedbackScore().feedbackScore;
         } else {
