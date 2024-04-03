@@ -13,7 +13,6 @@ import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditAppointmentCommand;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.EndDateTime;
@@ -72,7 +71,7 @@ public class EditAppointmentCommandParser {
             StartDateTime startDateTime =
                     ParserUtil.parseStartDateTime(argMultimap.getValue(PREFIX_START_DATETIME).get());
 
-            if (RelationshipUtil.isAppointmentDateTimeAlreadyTaken(startDateTime,appointments)) {
+            if (RelationshipUtil.isAppointmentDateTimeAlreadyTaken(startDateTime, appointments)) {
                 throw new ParseException(Appointment.MESSAGE_DATETIME_ALREADY_TAKEN);
             }
 
