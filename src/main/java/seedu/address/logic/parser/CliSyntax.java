@@ -9,8 +9,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_NAME = new Prefix("n/");
     public static final Prefix PREFIX_PHONE = new Prefix("p/");
     public static final Prefix PREFIX_EMAIL = new Prefix("e/");
-    // TODO: Change and remove this
-    public static final Prefix PREFIX_ADDRESS = new Prefix("t/");
     public static final Prefix PREFIX_ALIAS = new Prefix("a/");
     public static final Prefix PREFIX_PATIENT_ID = new Prefix("pid/");
     public static final Prefix PREFIX_START_DATETIME = new Prefix("sd/");
