@@ -274,6 +274,12 @@ Format: `deletea INDEX`
 Examples:
 * `querya` followed by `deletea 90` deletes the appointment with the appointmentId of 90 in the address book.
 
+The screenshot below show a successful operation:
+![delete-success.png](images%2Fappointments%2Fdelete-success.png)
+
+The screenshot below show a failed operation due to invalid appointment index:
+![delete-fail.png](images%2Fappointments%2Fdelete-fail.png)
+
 ### Clearing all entries : `clear`
 
 Clears all entries from the CogniCare application.
