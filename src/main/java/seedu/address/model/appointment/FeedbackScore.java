@@ -17,6 +17,7 @@ public class FeedbackScore {
      * @param feedbackScore A valid feedback score.
      */
     public FeedbackScore(Integer feedbackScore) {
+
         checkArgument(isValidScore(feedbackScore), MESSAGE_CONSTRAINTS);
         this.feedbackScore = feedbackScore;
     }
@@ -24,7 +25,10 @@ public class FeedbackScore {
     /**
      * Returns true if a given string is a valid name.
      */
-    public static boolean isValidScore(int test) {
+    public static boolean isValidScore(Integer test) {
+        if (test == null) {
+            return true;
+        }
         return test >= 1 && test <= 5;
     }
 
