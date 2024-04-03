@@ -228,7 +228,8 @@ The screenshot below shows a failed operation due to another appointment being s
 
 ### Listing all appointments: `querya`
 
-Shows a list of all appointments in the address book. Can be filtered by multiple criteria.
+Shows a list of all appointments in CogniCare. Can be filtered by multiple criteria.
+
 
 Format: `querya [pid/PATIENT_ID] [n/PATIENT_NAME] [aid/APPOINTMENT_ID]`
 
@@ -243,6 +244,20 @@ The screenshot below show a successful query of all appointments:
 
 The screenshot below show a successful query of appointments using patient id:
 ![querya-pid.png](images%2Fappointments%2Fquerya-pid.png)
+
+### Filter appointments by date time: `filterappointments`
+
+Show list of appointments in a specific date time range. This includes the appointments that starts or ends in the date time range or appointments that starts before and ends after the date time range.
+
+Format: `filterappointments [sd/START_DATETIME] [ed/END_DATETIME]`
+
+Examples:
+* `filterappointments sd/2022-12-12 12:00 ed/2022-12-12 14:00` shows all appointments starts or ends in the date time range of 12pm to 2pm on 12 December 2022. Any appointments that starts before 12pm and ends after 2pm will also be shown.
+
+**Validation**:
+1. START_DATETIME and END_DATETIME
+   1. Must be in the format of yyyy-MM-dd HH:mm.
+   2. END_DATETIME must be after START_DATETIME.
 
 ### Editing an appointments: `edita`
 
