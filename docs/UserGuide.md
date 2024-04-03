@@ -86,11 +86,11 @@ Shows a message explaining how to access the help page.
 Format: `help`
 
 
-### Adding a patient: `patient`
+### Adding a patient: `adda`
 
 Adds a patient to the address book.
 
-Format: `patient n/NAME p/PHONE_NUMBER e/EMAIL [a/AFFLIATED_WITH]…​`
+Format: `adda n/NAME p/PHONE_NUMBER e/EMAIL [a/AFFLIATED_WITH]…​`
 
 **Validation**:
 1. NAME
