@@ -56,11 +56,8 @@ public class AppointmentCard extends UiPart<Region> {
         if (appointment.getAttendedStatus() != null
                 && appointment.getAttendedStatus().hasAttended != null
                 && appointment.getAttendedStatus().hasAttended) {
-            details.getChildren().add(new Label("Y"));
-        } else {
-            details.getChildren().add(new Label("N"));
+            details.getChildren().add(new Label("Attended"));
         }
-
 
         appointmentDescription.managedProperty().bind(appointmentDescription.visibleProperty());
         if (appointment.getAppointmentDescription() != null

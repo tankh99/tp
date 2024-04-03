@@ -22,10 +22,7 @@ public class ListPanel extends UiPart<Region> {
     private ListView<Patient> personListView;
     @FXML
     private ListView<Appointment> appointmentListView;
-    @FXML
-    private ListView<Patient> caseLogListView;
-    @FXML
-    private ListView<PatientFeedbackReport> patientFeedbackReportListView;
+
     /**
      * Creates a {@code ListPanel} with the given {@code ObservableLists}.
      */
@@ -37,10 +34,8 @@ public class ListPanel extends UiPart<Region> {
         super(FXML);
         personListView.setItems(patientList);
         appointmentListView.setItems(appointmentList);
-        patientFeedbackReportListView.setItems(patientFeedbackReportList);
 
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+        personListView.setCellFactory(listView -> new PersonListViewCell(patientFeedbackReportList));
         appointmentListView.setCellFactory(listView -> new AppointmentListViewCell(patientList));
-        patientFeedbackReportListView.setCellFactory(listView -> new PatientFeedbackReportListViewCell());
     }
 }
