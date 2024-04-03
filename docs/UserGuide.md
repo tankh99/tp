@@ -295,6 +295,29 @@ The screenshot below show a successful operation:
 The screenshot below show a failed operation due to invalid appointment index:
 ![delete-fail.png](images%2Fappointments%2Fdelete-fail.png)
 
+### Reporting Patient Feedback Statistics: `reportf`
+
+Shows the average feedback score per patient for all appointments given a specified date range.
+
+Format: `reportf [sd/DATE] [ed/DATE]`
+
+- Note that`sd/` and `ed/` expect dates and not datetimes
+- By default, if either `/sd` or `/ed` are left blank, their values will default to the minimum and maximum datetimes respectively
+
+**Examples**
+1. `reportf` - Generates a report using all existing date
+![alt text](<Screenshot 2024-04-03 at 12.41.38 PM.png>)
+1. `reportf sd/2024-02-18` - Generates a report with appointments that start from 18 Feb 2024
+![alt text](<Screenshot 2024-04-03 at 12.50.33 PM.png>)
+2. `reportf ed/2024-02-20` - Generates a report with appointments that end before 20 Feb 2024
+![alt text](<Screenshot 2024-04-03 at 12.51.20 PM.png>)
+3. `reportf sd/2024-02-18 ed/2024-02-20` - Generates a report with appointments that start from 18 Feb 2024 and end before 20 Feb 2024. 
+![alt text](<Screenshot 2024-04-03 at 12.51.50 PM.png>)
+
+**Notes**
+1. When filtering using `reportf`, the  also appointments list is also filtered. This is intended behaviour because the patient feedback report data is entirely dependent on the Patient and Appointment lists.
+2. `reportf` allows for loose date ranges. E.g. there is an appointment from 18 Feb to 20 Feb 2024. Calling `reportf sd/2024-02-19 ed/2024-02-21` will include this report.
+
 ### Clearing all entries : `clear`
 
 Clears all entries from the CogniCare application.
