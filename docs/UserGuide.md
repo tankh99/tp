@@ -315,7 +315,7 @@ Format: `reportf [sd/DATE] [ed/DATE]`
 ![alt text](<Screenshot 2024-04-03 at 12.51.50 PM.png>)
 
 **Notes**
-1. When filtering using `reportf`, the  also appointments list is also filtered. This is intended behaviour because the patient feedback report data is entirely dependent on the Patient and Appointment lists.
+1. When filtering using `reportf`, the appointments list is also filtered. This is intended behaviour because the patient feedback report data is entirely dependent on the Patient and Appointment lists.
 2. `reportf` allows for loose date ranges. E.g. there is an appointment from 18 Feb to 20 Feb 2024. Calling `reportf sd/2024-02-19 ed/2024-02-21` will include this report.
 
 ### Clearing all entries : `clear`
