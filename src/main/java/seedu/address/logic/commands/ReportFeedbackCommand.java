@@ -19,7 +19,7 @@ import seedu.address.model.appointment.StartDateTime;
  */
 public class ReportFeedbackCommand extends Command {
 
-    public static final String COMMAND_WORD = "reportfeedback";
+    public static final String COMMAND_WORD = "reportf";
 
     public static final String MESSAGE_SUCCESS = "Generated patient feedback report from %1$s to %2$s";
 
