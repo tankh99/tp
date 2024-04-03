@@ -39,7 +39,7 @@ public class JsonAdaptedAppointment {
                                   @JsonProperty("studentId") int patientId,
                                   @JsonProperty("appointmentDescription") String appointmentDescription,
                                   @JsonProperty("hasAttended") Boolean hasAttended,
-                                  @JsonProperty("feedbackScore") int feedbackScore) {
+                                  @JsonProperty("feedbackScore") Integer feedbackScore) {
         this.appointmentId = appointmentId;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;

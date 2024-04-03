@@ -205,11 +205,6 @@ public class AddAppointmentCommandTest {
         }
 
         @Override
-        public void updateFilteredPatientFeedbackReports(Predicate<Appointment> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public ObservableList<PatientFeedbackReport> getPatientFeedbackReportList() {
             throw new AssertionError("This method should not be called.");
         }

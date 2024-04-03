@@ -52,7 +52,7 @@ public class ReportFeedbackCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        model.updateFilteredPatientFeedbackReports(new FilterAppointmentPredicate(
+        model.updateFilteredAppointmentList(new FilterAppointmentPredicate(
             new StartDateTime(fromDate), new EndDateTime(toDate)));
         String fromDateStr = DateUtil.formatDate(fromDate.toLocalDate());
         if (fromDate == LocalDateTime.MIN) {
