@@ -29,11 +29,11 @@ CogniCare is a **desktop app for managing all patients, optimized for use via a 
 5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-    * `querypatients` : Lists all patients that are stored in CogniCare.
+    * `queryp` : Lists all patients that are stored in CogniCare.
 
-    * `patient n/Jerome Chua p/98765432 e/jerome@example.com a/depressed` : Adds a contact named `Jerome Chua` to the Address Book who is associated with having depression.
+    * `addp n/Jerome Chua p/98765432 e/jerome@example.com a/depressed` : Adds a contact named `Jerome Chua` to the Address Book who is associated with having depression.
 
-    * `delete 903` : Deletes the patient that has the id of 903 (This is different from the natural ordering of the list).
+    * `deletep 903` : Deletes the patient that has the id of 903 (This is different from the natural ordering of the list).
    
     * `adda pid/1 sd/2022-12-12 12:00 ed/2022-12-12 13:00 att/true s/5 ad/This is a dummy appointment` : Adds an appointment for patient index 1 to the address book from 12pm to 1pm on 12 December 2022.
    
@@ -60,7 +60,7 @@ CogniCare is a **desktop app for managing all patients, optimized for use via a 
 **Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `patient n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+  e.g. in `addp n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 
 * Items in square brackets are optional.<br>
   e.g `n/NAME [a/AFFLIATED_WITH]` can be used as `n/Jerome a/depression` or as `n/Jerome`.
@@ -109,8 +109,8 @@ Format: `adda n/NAME p/PHONE_NUMBER e/EMAIL [a/AFFLIATED_WITH]…​`
 </box>
 
 Examples:
-* `patient n/Jerome Chua p/98765432 e/jerome@example.com a/depression`
-* `patient n/Davinci Lim p/98731122 e/betsycrowe@example.com a/sad a/anxiety`
+* `addp n/Jerome Chua p/98765432 e/jerome@example.com a/depression`
+* `addp n/Davinci Lim p/98731122 e/betsycrowe@example.com a/sad a/anxiety`
 
 
 <box type="tip" seamless>
@@ -141,56 +141,56 @@ This is similar to SQL database behaviour where the auto-increment primary key g
 </box>
 
 
-### Listing all patients : `querypatients`
+### Listing all patients : `queryp`
 
 Shows a list of all patients in the address book.
 
 
-### Listing selected patients that meets specified criterion / criteria : `querypatients`
+### Listing selected patients that meets specified criterion / criteria : `queryp`
 
 Shows a list of all patients in the address book that matches _ALL_ the conditions that are specified.
 
-Format: `querypatients [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] …​`
+Format: `queryp [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] …​`
 
 For example: to find all the "Jerome" that are stored in the CogniCare application, the user may use the command
-Format: `querypatients n/Jerome …​`
+Format: `queryp n/Jerome …​`
 
 For example: to find all the "Jeromes" that are stored in the CogniCare application, have a phone number that contains 979, and email using outlook, the user may use the command
 
-Format: `querypatients n/Jerome p/987 e/example.com ​`
+Format: `queryp n/Jerome p/987 e/example.com ​`
 
 
-### Editing a patient : `edit`
+### Editing a patient : `editp`
 
 Edits an existing patient in the address book.
 
-Format: `edit PATIENT_ID [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [a/AFFLIATED_WITH]…​`
+Format: `editp PATIENT_ID [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [a/AFFLIATED_WITH]…​`
 
-* Edits the patient at the specified `PATIENT_ID`. The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
+* Edits the patient at the specified `addp_ID`. The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the patient will be removed; i.e. adding of tags is not cumulative.
-* The `PATIENT_ID` will not be changed when you edit an individual's information.
+* The `addp_ID` will not be changed when you edit an individual's information.
 * You can remove all the patient’s tags by typing `a/` without
   specifying any tags after it.
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st patient to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower a/` Edits the name of the 2nd patient to be `Betsy Crower` and clears all existing tags.
+*  `editp 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st patient to be `91234567` and `johndoe@example.com` respectively.
+*  `editp 2 n/Betsy Crower a/` Edits the name of the 2nd patient to be `Betsy Crower` and clears all existing tags.
 
 
-### Deleting a patient : `delete`
+### Deleting a patient : `deletep`
 
 Deletes the specified patient from the address book from the specified patient index.
 
-Format: `delete INDEX`
+Format: `deletep INDEX`
 
 * Deletes the patient at the specified `INDEX`.
 * The index refers to the index number shown in the displayed patient list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete 90` deletes the patient with the patientId of 90 in the address book.
+* `list` followed by `deletep 90` deletes the patient with the patientId of 90 in the address book.
 
 ### Adding an appointment: `adda`
 
@@ -340,14 +340,14 @@ _Details coming soon ..._
 
 | Action                                               | Format, Examples                                                                                                                                                                                                            |
 |------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add a patient**                                    | `patient n/NAME p/PHONE_NUMBER e/EMAIL [a/AFFLIATED_WITH]…​` <br> e.g., `patient n/Jerome Chua p/98765432 e/jerome@example.com a/depression` or `patient n/Davinci Lim p/98731122 e/betsycrowe@example.com a/sad a/anxiety` |
+| **Add a patient**                                    | `addp n/NAME p/PHONE_NUMBER e/EMAIL [a/AFFLIATED_WITH]…​` <br> e.g., `addp n/Jerome Chua p/98765432 e/jerome@example.com a/depression` or `addp n/Davinci Lim p/98731122 e/betsycrowe@example.com a/sad a/anxiety` |
 | **Delete all entries from the CogniCare application** | `clear`                                                                                                                                                                                                                     |
-| **Delete**                                           | `delete PATIENT_ID`<br> e.g., `delete 3`                                                                                                                                                                                    |
-| **Edit**                                             | `edit PATIENT_ID [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/AFFLIATED_WITH]…​`edit 1 p/91234567 e/johndoe@example.com`                                                                                                          |
-| **Search**                                           | `querypatients [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] …​`<br> e.g., `querypatients n/Jerome p/987 e/example.com​`                                                                                                              |
+| **Delete**                                           | `deletep PATIENT_ID`<br> e.g., `deletep 3`                                                                                                                                                                                    |
+| **Edit**                                             | `editp PATIENT_ID [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/AFFLIATED_WITH]…​`editp 1 p/91234567 e/johndoe@example.com`                                                                                                          |
+| **Search**                                           | `queryp [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] …​`<br> e.g., `queryp n/Jerome p/987 e/example.com​`                                                                                                              |
 | **Add an appointment**                               | `appointment pid/PATIENT_ID d/DATE_TIME [att/ATTEND] [ad/APPOINTMENT_DESCRIPTION]`                                                                                                                                          |
 | **Query appointments**                               | `queryappointments [pid/PATIENT_ID] [n/PATIENT_NAME] [aid/APPOINTMENT_ID]`                                                                                                                                                  |
-| **Delete an appointment**                            | `delete aid/APPOINTMENT_ID`                                                                                                                                                                                                 |
+| **Delete an appointment**                            | `deletep aid/APPOINTMENT_ID`                                                                                                                                                                                                 |
 | **List**                                             | `list`                                                                                                                                                                                                                      |
 | **Help**                                             | `help`                                                                                                                                                                                                                      |
 
