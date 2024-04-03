@@ -53,9 +53,9 @@ public class AppointmentCard extends UiPart<Region> {
         appointmentDateTime.setText(formattedStartDateTime + " - "
                 + formattedEndDateTime);
 
-        if (appointment.getAttendedStatus() == null || appointment.getAttendedStatus().hasAttended == null) {
-            details.getChildren().add(new Label("N"));
-        } else if (appointment.getAttendedStatus().hasAttended) {
+        if (appointment.getAttendedStatus() != null
+                && appointment.getAttendedStatus().hasAttended != null
+                && appointment.getAttendedStatus().hasAttended) {
             details.getChildren().add(new Label("Y"));
         } else {
             details.getChildren().add(new Label("N"));
