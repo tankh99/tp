@@ -133,9 +133,4 @@ public interface Model {
      * Gets the current patient feedback report list.
      */
     ObservableList<PatientFeedbackReport> getPatientFeedbackReportList();
-
-    /**
-     * Updates the patient feedback report list with the latest data.
-     */
-    void updateFilteredPatientFeedbackReports(Predicate<Appointment> predicate);
 }
