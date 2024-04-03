@@ -73,7 +73,7 @@ public class AppointmentCard extends UiPart<Region> {
 
         // This line of code ensures that if it's not visible, it doesn't take up any space in the layout
         feedbackScore.managedProperty().bind(feedbackScore.visibleProperty());
-        if (appointment.getFeedbackScore() != null) {
+        if (appointment.getFeedbackScore().feedbackScore != null) {
             feedbackScore.setText("Score: " + appointment.getFeedbackScore().toString());
         } else {
             feedbackScore.setVisible(false);
