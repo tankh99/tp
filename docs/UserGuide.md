@@ -29,11 +29,11 @@ CogniCare is a **desktop app for managing all patients, optimized for use via a 
 5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-    * `querystudents` : Lists all students that are stored in CogniCare.
+    * `querypatients` : Lists all patients that are stored in CogniCare.
 
     * `patient n/Jerome Chua p/98765432 e/jerome@example.com a/depressed` : Adds a contact named `Jerome Chua` to the Address Book who is associated with having depression.
 
-    * `delete 903` : Deletes the student that has the id of 903 (This is different from the natural ordering of the list).
+    * `delete 903` : Deletes the patient that has the id of 903 (This is different from the natural ordering of the list).
    
     * `appointment pid/1 d/2022-12-12 12:00 att/true ad/This is a dummy appointment` : Adds an appointment for patient index 1 to the address book at 12pm on 12 December 2022.
    
@@ -109,7 +109,7 @@ Examples:
 
 <box type="tip" seamless>
 
-**Tip:** Once the student is created, the student identifier `sid` will be permanently tagged to a student,
+**Tip:** Once the patient is created, the patient identifier `pid` will be permanently tagged to a patient,
 and is not coalesced when other entries are deleted.
 
 This means that if the CogniCare application initially contained of the items
@@ -119,7 +119,7 @@ This means that if the CogniCare application initially contained of the items
 3. Jerome
 ```
 
-When Khang Hou is deleted, the student identifier are as below:
+When Khang Hou is deleted, the patient ids are as below:
 
 ```
 1. Caitlyn
@@ -130,41 +130,41 @@ When Khang Hou is deleted, the student identifier are as below:
 
 <box type="tip" seamless>
 
-**Second Tip:** You may not add two students with the same name even if they are in different case (i.e. "DAVINCI    Lim" vs "Davinci Lim").
+**Second Tip:** You may not add two patients with the same name even if they are in different case (i.e. "DAVINCI    Lim" vs "Davinci Lim").
 This is similar to SQL database behaviour where the auto-increment primary key goes on to the next value even if the transaction has failed. [Read more](https://stackoverflow.com/questions/10108593/mysql-autoincrement-value-increases-even-when-insertion-fails-due-to-error)
 </box>
 
 
-### Listing all patients : `querystudents`
+### Listing all patients : `querypatients`
 
-Shows a list of all students in the address book.
+Shows a list of all patients in the address book.
 
 
-### Listing selected patients that meets specified criterion / criteria : `querystudents`
+### Listing selected patients that meets specified criterion / criteria : `querypatients`
 
-Shows a list of all students in the address book that matches _ALL_ the conditions that are specified.
+Shows a list of all patients in the address book that matches _ALL_ the conditions that are specified.
 
-Format: `querystudents [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] …​`
+Format: `querypatients [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] …​`
 
 For example: to find all the "Jerome" that are stored in the CogniCare application, the user may use the command
-Format: `querystudents n/Jerome …​`
+Format: `querypatients n/Jerome …​`
 
 For example: to find all the "Jeromes" that are stored in the CogniCare application, have a phone number that contains 979, and email using outlook, the user may use the command
 
-Format: `querystudents n/Jerome p/987 e/example.com ​`
+Format: `querypatients n/Jerome p/987 e/example.com ​`
 
 
 ### Editing a patient : `edit`
 
 Edits an existing patient in the address book.
 
-Format: `edit STUDENT_ID [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [a/AFFLIATED_WITH]…​`
+Format: `edit PATIENT_ID [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [a/AFFLIATED_WITH]…​`
 
-* Edits the patient at the specified `STUDENT_ID`. The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
+* Edits the patient at the specified `PATIENT_ID`. The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the patient will be removed; i.e. adding of tags is not cumulative.
-* The `STUDENT_ID` will not be changed when you edit an individual's information.
+* The `PATIENT_ID` will not be changed when you edit an individual's information.
 * You can remove all the patient’s tags by typing `a/` without
   specifying any tags after it.
 
@@ -175,7 +175,7 @@ Examples:
 
 ### Deleting a patient : `delete`
 
-Deletes the specified patient from the address book from the specified student index.
+Deletes the specified patient from the address book from the specified patient index.
 
 Format: `delete INDEX`
 
@@ -184,7 +184,7 @@ Format: `delete INDEX`
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete 90` deletes the patient with the studentId of 90 in the address book.
+* `list` followed by `delete 90` deletes the patient with the patientId of 90 in the address book.
 
 ### Adding an appointment: `appointment`
 
@@ -193,8 +193,8 @@ Adds an appointment to the address book.
 Format: `appointment pid/PATIENT_ID d/DATE_TIME [att/ATTEND] [ad/APPOINTMENT_DESCRIPTION]`
 
 * Format of date time is yyyy-MM-dd HH:mm.
-* Once the student is created, the appointment identifier `aid` will be permanently tagged to an appointment, and is not coalesced when other entries are deleted.
-* You may not add two appointments with the same date and time even if they are for different students.
+* Once the patient is created, the appointment identifier `aid` will be permanently tagged to an appointment, and is not coalesced when other entries are deleted.
+* You may not add two appointments with the same date and time even if they are for different patients.
 
 Examples:
 * `appointment pid/1 d/2022-12-12 12:00`
@@ -213,7 +213,7 @@ Examples:
 
 ### Listing all appointments: `queryappointments`
 
-Shows a list of all students in the address book. Can be filtered by multiple criteria.
+Shows a list of all patients in the address book. Can be filtered by multiple criteria.
 
 Format: `queryappointments [pid/PATIENT_ID] [n/PATIENT_NAME] [aid/APPOINTMENT_ID]`
 
@@ -299,9 +299,9 @@ _Details coming soon ..._
 |------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Add a patient**                                    | `patient n/NAME p/PHONE_NUMBER e/EMAIL [a/AFFLIATED_WITH]…​` <br> e.g., `patient n/Jerome Chua p/98765432 e/jerome@example.com a/depression` or `patient n/Davinci Lim p/98731122 e/betsycrowe@example.com a/sad a/anxiety` |
 | **Delete all entries from the CogniCare application** | `clear`                                                                                                                                                                                                                     |
-| **Delete**                                           | `delete STUDENT_ID`<br> e.g., `delete 3`                                                                                                                                                                                    |
-| **Edit**                                             | `edit STUDENT_ID [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/AFFLIATED_WITH]…​`edit 1 p/91234567 e/johndoe@example.com`                                                                                                          |
-| **Search**                                           | `querystudents [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] …​`<br> e.g., `querystudents n/Jerome p/987 e/example.com​`                                                                                                              |
+| **Delete**                                           | `delete PATIENT_ID`<br> e.g., `delete 3`                                                                                                                                                                                    |
+| **Edit**                                             | `edit PATIENT_ID [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/AFFLIATED_WITH]…​`edit 1 p/91234567 e/johndoe@example.com`                                                                                                          |
+| **Search**                                           | `querypatients [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] …​`<br> e.g., `querypatients n/Jerome p/987 e/example.com​`                                                                                                              |
 | **Add an appointment**                               | `appointment pid/PATIENT_ID d/DATE_TIME [att/ATTEND] [ad/APPOINTMENT_DESCRIPTION]`                                                                                                                                          |
 | **Query appointments**                               | `queryappointments [pid/PATIENT_ID] [n/PATIENT_NAME] [aid/APPOINTMENT_ID]`                                                                                                                                                  |
 | **Delete an appointment**                            | `delete aid/APPOINTMENT_ID`                                                                                                                                                                                                 |

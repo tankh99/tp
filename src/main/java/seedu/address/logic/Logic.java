@@ -10,6 +10,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyPatientList;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.patient.Patient;
+import seedu.address.model.patientfeedbackreport.PatientFeedbackReport;
 
 /**
  * API of the Logic component
@@ -53,4 +54,6 @@ public interface Logic {
      * Returns an unmodifiable view of the filtered list of appointments
      */
     ObservableList<Appointment> getFilteredAppointmentList();
+
+    ObservableList<PatientFeedbackReport> getPatientFeedbackReportList();
 }

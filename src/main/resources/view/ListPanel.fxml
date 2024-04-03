@@ -7,4 +7,6 @@
 <HBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" VBox.vgrow="ALWAYS">
   <ListView fx:id="personListView" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS"/>
   <ListView fx:id="appointmentListView" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS"/>
+  <!-- TODO: Move this to a separate component -->
+  <ListView fx:id="patientFeedbackReportListView" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS"/>
 </HBox>

@@ -9,14 +9,14 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class FeedbackScore {
 
     public static final String MESSAGE_CONSTRAINTS = "Feedback score should only be from 1 to 5 (inclusive)";
-    public final int feedbackScore;
+    public final Integer feedbackScore;
 
     /**
      * Constructs a {@code FeedbackScore}.
      *
      * @param feedbackScore A valid feedback score.
      */
-    public FeedbackScore(int feedbackScore) {
+    public FeedbackScore(Integer feedbackScore) {
         checkArgument(isValidScore(feedbackScore), MESSAGE_CONSTRAINTS);
         this.feedbackScore = feedbackScore;
     }

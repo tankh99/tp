@@ -25,13 +25,14 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.ReadOnlyAppointmentList;
 import seedu.address.model.patient.Patient;
+import seedu.address.model.patientfeedbackreport.PatientFeedbackReport;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddPatientCommandTest {
 
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddCommand(null));
+        assertThrows(NullPointerException.class, () -> new AddPatientCommand(null));
     }
 
     @Test
@@ -39,9 +40,9 @@ public class AddPatientCommandTest {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
         Patient validPatient = new PersonBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPatient).execute(modelStub);
+        CommandResult commandResult = new AddPatientCommand(validPatient).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(validPatient)),
+        assertEquals(String.format(AddPatientCommand.MESSAGE_SUCCESS, Messages.format(validPatient)),
                 commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validPatient), modelStub.personsAdded);
     }
@@ -49,24 +50,25 @@ public class AddPatientCommandTest {
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Patient validPatient = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPatient);
+        AddPatientCommand addPatientCommand = new AddPatientCommand(validPatient);
         ModelStub modelStub = new ModelStubWithPerson(validPatient);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class,
+                AddPatientCommand.MESSAGE_DUPLICATE_PERSON, () -> addPatientCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
         Patient alice = new PersonBuilder().withName("Alice").build();
         Patient bob = new PersonBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        AddPatientCommand addAliceCommand = new AddPatientCommand(alice);
+        AddPatientCommand addBobCommand = new AddPatientCommand(bob);
 
         // same object -> returns true
         assertTrue(addAliceCommand.equals(addAliceCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
+        AddPatientCommand addAliceCommandCopy = new AddPatientCommand(alice);
         assertTrue(addAliceCommand.equals(addAliceCommandCopy));
 
         // different types -> returns false
@@ -81,9 +83,9 @@ public class AddPatientCommandTest {
 
     @Test
     public void toStringMethod() {
-        AddCommand addCommand = new AddCommand(ALICE);
-        String expected = AddCommand.class.getCanonicalName() + "{toAdd=" + ALICE + "}";
-        assertEquals(expected, addCommand.toString());
+        AddPatientCommand addPatientCommand = new AddPatientCommand(ALICE);
+        String expected = AddPatientCommand.class.getCanonicalName() + "{toAdd=" + ALICE + "}";
+        assertEquals(expected, addPatientCommand.toString());
     }
 
     /**
@@ -192,6 +194,16 @@ public class AddPatientCommandTest {
 
         @Override
         public ReadOnlyAppointmentList getAppointmentList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredPatientFeedbackReports(Predicate<Appointment> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<PatientFeedbackReport> getPatientFeedbackReportList() {
             throw new AssertionError("This method should not be called.");
         }
     }

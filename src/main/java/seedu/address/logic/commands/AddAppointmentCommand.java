@@ -61,7 +61,7 @@ public class AddAppointmentCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
         }
 
-        if (toAdd.isInvalidStartEndDateTime()) {
+        if (toAdd.isStartDateTimeAfterEndDateTime()) {
             throw new CommandException(MESSAGE_INVALID_START_END_DATETIME);
         }
 

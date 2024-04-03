@@ -15,7 +15,7 @@ import seedu.address.model.patient.Patient;
 /**
  * Adds a person to the address book.
  */
-public class AddCommand extends Command {
+public class AddPatientCommand extends Command {
 
     public static final String COMMAND_WORD = "patient";
 
@@ -24,15 +24,15 @@ public class AddCommand extends Command {
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_EMAIL + "EMAIL "
-            + "[" + PREFIX_ALIAS + "TAG]...\n"
+            + "[" + PREFIX_ALIAS + "ASSOCIATED WITH]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_ALIAS + "Johnny "
-            + PREFIX_ALIAS + "owesMoney";
+            + PREFIX_ALIAS + "depression "
+            + PREFIX_ALIAS + "sadness";
 
-    public static final String MESSAGE_SUCCESS = "New student added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New patient added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This student already exists in the CogniCare address book";
 
     private final Patient toAdd;
@@ -40,7 +40,7 @@ public class AddCommand extends Command {
     /**
      * Creates an AddCommand to add the specified {@code Person}
      */
-    public AddCommand(Patient patient) {
+    public AddPatientCommand(Patient patient) {
         requireNonNull(patient);
         toAdd = patient;
     }
@@ -64,12 +64,12 @@ public class AddCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof AddCommand)) {
+        if (!(other instanceof AddPatientCommand)) {
             return false;
         }
 
-        AddCommand otherAddCommand = (AddCommand) other;
-        return toAdd.equals(otherAddCommand.toAdd);
+        AddPatientCommand otherAddPatientCommand = (AddPatientCommand) other;
+        return toAdd.equals(otherAddPatientCommand.toAdd);
     }
 
     @Override
