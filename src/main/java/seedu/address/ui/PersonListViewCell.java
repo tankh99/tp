@@ -1,12 +1,22 @@
 package seedu.address.ui;
 
+import java.util.List;
+
 import javafx.scene.control.ListCell;
 import seedu.address.model.patient.Patient;
+import seedu.address.model.patientfeedbackreport.PatientFeedbackReport;
 
 /**
  * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
  */
 public class PersonListViewCell extends ListCell<Patient> {
+
+    private final List<PatientFeedbackReport> reports;
+
+    PersonListViewCell(List<PatientFeedbackReport> reports) {
+        this.reports = reports;
+    }
+
     @Override
     protected void updateItem(Patient patient, boolean empty) {
         super.updateItem(patient, empty);
@@ -15,7 +25,10 @@ public class PersonListViewCell extends ListCell<Patient> {
             setGraphic(null);
             setText(null);
         } else {
-            setGraphic(new PersonCard(patient, getIndex() + 1).getRoot());
+            Double score = reports.stream()
+                    .filter(report -> report.getPatientName().equals(patient.getName()))
+                    .findFirst().get().getAvgFeedbackScore();
+            setGraphic(new PersonCard(patient, score).getRoot());
         }
     }
 }

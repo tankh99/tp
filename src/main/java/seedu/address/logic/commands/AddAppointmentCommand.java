@@ -20,7 +20,7 @@ import seedu.address.model.appointment.Appointment;
  */
 public class AddAppointmentCommand extends Command {
 
-    public static final String COMMAND_WORD = "appointment";
+    public static final String COMMAND_WORD = "adda";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an appointment to CogniCare. "
             + "Parameters: "

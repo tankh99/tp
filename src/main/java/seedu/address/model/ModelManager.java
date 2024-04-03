@@ -249,10 +249,4 @@ public class ModelManager implements Model {
     public ObservableList<PatientFeedbackReport> getPatientFeedbackReportList() {
         return this.reportFeedbackList.getList();
     }
-
-    @Override
-    public void updateFilteredPatientFeedbackReports(Predicate<Appointment> predicate) {
-        this.updateFilteredAppointmentList(predicate);
-        System.out.println("test");
-    }
 }
