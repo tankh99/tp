@@ -1,10 +1,10 @@
 package seedu.address.ui;
 
+import java.util.List;
+
 import javafx.scene.control.ListCell;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.patientfeedbackreport.PatientFeedbackReport;
-
-import java.util.List;
 
 /**
  * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
