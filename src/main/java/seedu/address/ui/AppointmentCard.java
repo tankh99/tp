@@ -53,23 +53,26 @@ public class AppointmentCard extends UiPart<Region> {
         appointmentDateTime.setText(formattedStartDateTime + " - "
                 + formattedEndDateTime);
 
-        if (appointment.getAttendedStatus().hasAttended) {
+        if (appointment.getAttendedStatus() == null || appointment.getAttendedStatus().hasAttended == null) {
+            details.getChildren().add(new Label("N"));
+        } else if (appointment.getAttendedStatus().hasAttended) {
             details.getChildren().add(new Label("Y"));
         } else {
             details.getChildren().add(new Label("N"));
         }
 
+
         appointmentDescription.managedProperty().bind(appointmentDescription.visibleProperty());
-        if (!appointment.getAppointmentDescription().appointmentDescription.isEmpty()) {
+        if (appointment.getAppointmentDescription() != null &&
+                appointment.getAppointmentDescription().appointmentDescription != null) {
             appointmentDescription.setText(appointment.getAppointmentDescription().appointmentDescription);
         } else {
             appointmentDescription.setVisible(false);
         }
 
-        if (appointment.getFeedbackScore() != null && appointment.getFeedbackScore().feedbackScore == 0) {
+        if (appointment.getFeedbackScore() == null || appointment.getFeedbackScore().feedbackScore == null) {
             details.getChildren().add(new Label("N/A"));
-        }
-        if (appointment.getFeedbackScore() != null && appointment.getFeedbackScore().feedbackScore != 0) {
+        } else {
             details.getChildren().add(new Label(appointment.getFeedbackScore().toString()));
         }
     }
