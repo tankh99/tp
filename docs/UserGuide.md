@@ -117,6 +117,7 @@ Examples:
 
 **Tip:** Once the patient is created, the patient identifier `pid` will be permanently tagged to a patient,
 and is not coalesced when other entries are deleted.
+This is similar to SQL database behaviour where the auto-increment primary key goes on to the next value even if the transaction has failed. [Read more](https://stackoverflow.com/questions/10108593/mysql-autoincrement-value-increases-even-when-insertion-fails-due-to-error)
 
 This means that if the CogniCare application initially contained of the items
 ```
@@ -137,7 +138,6 @@ When Khang Hou is deleted, the patient ids are as below:
 <box type="tip" seamless>
 
 **Second Tip:** You may not add two patients with the same name even if they are in different case (i.e. "DAVINCI    Lim" vs "Davinci Lim").
-This is similar to SQL database behaviour where the auto-increment primary key goes on to the next value even if the transaction has failed. [Read more](https://stackoverflow.com/questions/10108593/mysql-autoincrement-value-increases-even-when-insertion-fails-due-to-error)
 </box>
 
 
@@ -155,7 +155,7 @@ Format: `queryp [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] …​`
 For example: to find all the "Jerome" that are stored in the CogniCare application, the user may use the command
 Format: `queryp n/Jerome …​`
 
-For example: to find all the "Jeromes" that are stored in the CogniCare application, have a phone number that contains 979, and email using outlook, the user may use the command
+For example: to find all the "Jeromes" that are stored in the CogniCare application, have a phone number that contains 987, and email using outlook, the user may use the command
 
 Format: `queryp n/Jerome p/987 e/example.com ​`
 
@@ -170,7 +170,7 @@ Format: `editp PATIENT_ID [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [a/AFFLIATED_
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the patient will be removed; i.e. adding of tags is not cumulative.
-* The `addp_ID` will not be changed when you edit an individual's information.
+* The `patientId` will not be changed when you edit an individual's information.
 * You can remove all the patient’s tags by typing `a/` without
   specifying any tags after it.
 
