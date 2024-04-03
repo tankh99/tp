@@ -16,7 +16,7 @@ import seedu.address.model.patient.Patient;
  */
 public class ListCommand extends Command {
 
-    public static final String COMMAND_WORD = "querystudents";
+    public static final String COMMAND_WORD = "queryp";
 
     public static final String MESSAGE_SUCCESS = "Listed all persons";
 
