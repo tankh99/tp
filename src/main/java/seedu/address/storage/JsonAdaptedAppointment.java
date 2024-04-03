@@ -26,7 +26,7 @@ public class JsonAdaptedAppointment {
 
     private final int patientId;
     private final String appointmentDescription;
-    private final boolean hasAttended;
+    private final Boolean hasAttended;
     private final Integer feedbackScore;
 
     /**
@@ -38,7 +38,7 @@ public class JsonAdaptedAppointment {
                                   @JsonProperty("endDateTime") LocalDateTime endDateTime,
                                   @JsonProperty("studentId") int patientId,
                                   @JsonProperty("appointmentDescription") String appointmentDescription,
-                                  @JsonProperty("hasAttended") boolean hasAttended,
+                                  @JsonProperty("hasAttended") Boolean hasAttended,
                                   @JsonProperty("feedbackScore") int feedbackScore) {
         this.appointmentId = appointmentId;
         this.startDateTime = startDateTime;
@@ -57,8 +57,19 @@ public class JsonAdaptedAppointment {
         startDateTime = source.getStartDateTime().getDateTimeValue();
         endDateTime = source.getEndDateTime().getDateTimeValue();
         patientId = source.getPatientId().patientId;
-        appointmentDescription = source.getAppointmentDescription().appointmentDescription;
-        hasAttended = source.getAttendedStatus().hasAttended;
+
+        if (source.getAppointmentDescription() != null) {
+            appointmentDescription = source.getAppointmentDescription().appointmentDescription;
+        } else {
+            appointmentDescription = null;
+        }
+
+        if (source.getAttendedStatus() != null) {
+            hasAttended = source.getAttendedStatus().hasAttended;
+        } else {
+            hasAttended = null;
+        }
+
         if (source.getFeedbackScore() != null) {
             feedbackScore = source.getFeedbackScore().feedbackScore;
         } else {
@@ -77,9 +88,6 @@ public class JsonAdaptedAppointment {
         }
         if (endDateTime == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "appointmentDateTime"));
-        }
-        if (appointmentDescription == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "appointmentDescription"));
         }
 
         if (appointmentId <= 0 || patientId <= 0) {

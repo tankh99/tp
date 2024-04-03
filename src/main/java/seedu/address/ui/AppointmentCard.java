@@ -56,15 +56,20 @@ public class AppointmentCard extends UiPart<Region> {
                 + formattedEndDateTime);
 
         String attendedString = "Attended: ";
-        if (appointment.getAttendedStatus().hasAttended) {
-            attendedString += "Y";
+        hasAttended.managedProperty().bind(appointmentDescription.visibleProperty());
+        if (appointment.getAttendedStatus().hasAttended == null) {
+            hasAttended.setVisible(false);
         } else {
-            attendedString += "N";
+            if (appointment.getAttendedStatus().hasAttended) {
+                attendedString += "Y";
+            } else {
+                attendedString += "N";
+            }
+            hasAttended.setText(attendedString);
         }
-        hasAttended.setText(attendedString);
 
         appointmentDescription.managedProperty().bind(appointmentDescription.visibleProperty());
-        if (!appointment.getAppointmentDescription().appointmentDescription.isEmpty()) {
+        if (appointment.getAppointmentDescription() != null) {
             appointmentDescription.setText(
                     "Description: " + appointment.getAppointmentDescription().appointmentDescription);
         } else {

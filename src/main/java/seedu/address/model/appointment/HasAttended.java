@@ -7,14 +7,14 @@ package seedu.address.model.appointment;
 public class HasAttended {
 
     public static final String MESSAGE_CONSTRAINTS = "Attended status should only be true or false.";
-    public final boolean hasAttended;
+    public final Boolean hasAttended;
 
     /**
      * Constructs a {@code HasAttended}.
      *
      * @param hasAttended A valid attend status.
      */
-    public HasAttended(boolean hasAttended) {
+    public HasAttended(Boolean hasAttended) {
         this.hasAttended = hasAttended;
     }
 
@@ -23,6 +23,9 @@ public class HasAttended {
      * Returns true if a given string is a valid name.
      */
     public static boolean isValidStatus(String test) {
+        if (test == null) {
+            return true;
+        }
         return test.equalsIgnoreCase("true") || test.equalsIgnoreCase("false");
     }
 
