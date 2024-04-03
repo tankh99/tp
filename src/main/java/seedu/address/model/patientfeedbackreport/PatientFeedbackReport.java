@@ -47,7 +47,7 @@ public class PatientFeedbackReport implements Comparable<PatientFeedbackReport> 
             }
         }
         if (count != 0) {
-            return total / count;
+            return Math.round(total / count * 100.0) / 100.0;
         } else {
             return null;
         }
