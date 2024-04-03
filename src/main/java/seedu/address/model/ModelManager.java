@@ -15,6 +15,8 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentList;
 import seedu.address.model.appointment.ReadOnlyAppointmentList;
 import seedu.address.model.patient.Patient;
+import seedu.address.model.patientfeedbackreport.PatientFeedbackReport;
+import seedu.address.model.patientfeedbackreport.PatientFeedbackReportList;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -26,9 +28,9 @@ public class ModelManager implements Model {
 
     private final AppointmentList appointmentList;
     private final UserPrefs userPrefs;
+    private final PatientFeedbackReportList reportFeedbackList;
     private final FilteredList<Patient> filteredPatients;
     private final FilteredList<Appointment> filteredAppointments;
-
 
     /**
      * Initializes a ModelManager with the given patientList and userPrefs.
@@ -43,13 +45,16 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPatients = new FilteredList<>(this.patientList.getPersonList());
         filteredAppointments = new FilteredList<>(this.appointmentList.getAppointmentList());
+
+        this.reportFeedbackList = new PatientFeedbackReportList(this.filteredPatients, this.filteredAppointments);
     }
 
     /**
      * Initializes a ModelManager with the given patientList, appointmentList and userPrefs.
      */
     public ModelManager(ReadOnlyPatientList patientList,
-                        ReadOnlyAppointmentList appointmentList, ReadOnlyUserPrefs userPrefs) {
+                        ReadOnlyAppointmentList appointmentList,
+                        ReadOnlyUserPrefs userPrefs) {
         requireAllNonNull(patientList, appointmentList, userPrefs);
 
         logger.fine("Initializing with patientList book: " + patientList
@@ -60,6 +65,8 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPatients = new FilteredList<>(this.patientList.getPersonList());
         filteredAppointments = new FilteredList<>(this.appointmentList.getAppointmentList());
+
+        this.reportFeedbackList = new PatientFeedbackReportList(this.filteredPatients, this.filteredAppointments);
     }
 
     public ModelManager() {
@@ -106,11 +113,13 @@ public class ModelManager implements Model {
     @Override
     public void setPatientList(ReadOnlyPatientList patientList) {
         this.patientList.resetData(patientList);
+        this.reportFeedbackList.generateReportList(this.filteredPatients, this.filteredAppointments);
     }
 
     @Override
     public void setAppointmentList(ReadOnlyAppointmentList appointmentList) {
         this.appointmentList.resetData(appointmentList);
+        this.reportFeedbackList.generateReportList(this.filteredPatients, this.filteredAppointments);
     }
 
     @Override
@@ -127,12 +136,14 @@ public class ModelManager implements Model {
     @Override
     public void deletePerson(Patient target) {
         patientList.removePerson(target);
+        this.reportFeedbackList.generateReportList(this.filteredPatients, this.filteredAppointments);
     }
 
     @Override
     public void addPerson(Patient patient) {
         patientList.addPerson(patient);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        this.reportFeedbackList.generateReportList(this.filteredPatients, this.filteredAppointments);
     }
 
     @Override
@@ -140,6 +151,7 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPatient);
 
         patientList.setPerson(target, editedPatient);
+        this.reportFeedbackList.generateReportList(this.filteredPatients, this.filteredAppointments);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -196,6 +208,8 @@ public class ModelManager implements Model {
     public void addAppointment(Appointment appointment) {
         appointmentList.addAppointment(appointment);
         updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
+        this.reportFeedbackList.generateReportList(this.filteredPatients, this.filteredAppointments);
+
     }
 
     @Override
@@ -208,6 +222,7 @@ public class ModelManager implements Model {
     @Override
     public void deleteAppointment(Appointment target) {
         appointmentList.removeAppointment(target);
+        this.reportFeedbackList.generateReportList(this.filteredPatients, this.filteredAppointments);
     }
 
     //=========== Filtered Appointment List Accessors =============================================================
@@ -225,6 +240,19 @@ public class ModelManager implements Model {
     public void updateFilteredAppointmentList(Predicate<Appointment> predicate) {
         requireNonNull(predicate);
         filteredAppointments.setPredicate(predicate);
+        this.reportFeedbackList.generateReportList(this.filteredPatients, this.filteredAppointments);
     }
 
+    //=========== Reports =============================================================
+
+    @Override
+    public ObservableList<PatientFeedbackReport> getPatientFeedbackReportList() {
+        return this.reportFeedbackList.getList();
+    }
+
+    @Override
+    public void updateFilteredPatientFeedbackReports(Predicate<Appointment> predicate) {
+        this.updateFilteredAppointmentList(predicate);
+        System.out.println("test");
+    }
 }

@@ -2,6 +2,7 @@ package seedu.address.model.appointment;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 import seedu.address.commons.util.ToStringBuilder;
@@ -12,6 +13,7 @@ import seedu.address.commons.util.ToStringBuilder;
  */
 public class Appointment implements Comparable<Appointment> {
     public static final String MESSAGE_DATETIME_ALREADY_TAKEN = "There is already an appointment at that time";
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private static final HasAttended DEFAULT_ATTENDED_STATUS = new HasAttended(false);
 
     private static int idTracker = 1;
@@ -102,8 +104,8 @@ public class Appointment implements Comparable<Appointment> {
         this(idTracker, startDateTime, endDateTime, patientId, appointmentDescription, hasAttended, feedbackScore);
     }
 
-    public boolean isInvalidStartEndDateTime() {
-        return startDateTime.compareTo(endDateTime) >= 0;
+    public boolean isStartDateTimeAfterEndDateTime() {
+        return startDateTime.compareTo(endDateTime) > 0;
     }
 
     @Override
@@ -174,6 +176,11 @@ public class Appointment implements Comparable<Appointment> {
         return appointmentDescription;
     }
 
+    /**
+     * This getter method is a bit special is it can return null. It is the job of the
+     * caller to check fo null first before using the value.
+     * @return A nullable integer
+     */
     public FeedbackScore getFeedbackScore() {
         return feedbackScore;
     }

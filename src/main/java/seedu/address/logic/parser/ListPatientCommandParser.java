@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.patient.EmailContainsKeywordPredicate;
@@ -34,10 +35,16 @@ public class ListPatientCommandParser implements Parser<ListCommand> {
         boolean hasAtLeastOnePrefixPresent = ParserUtil.hasAtLeastOnePrefixPresent(argMultimap, CliSyntax.PREFIX_NAME,
                 CliSyntax.PREFIX_PHONE, CliSyntax.PREFIX_EMAIL, PREFIX_ALIAS);
 
-        if (!hasAtLeastOnePrefixPresent || !argMultimap.getPreamble().isEmpty()) {
+        if (!hasAtLeastOnePrefixPresent && argMultimap.getPreamble().isEmpty()) {
             // If there is no prefix specified, then display all records.
             // TODO: Show an error message here.
             return new ListCommand(PREDICATE_SHOW_ALL_PERSONS);
+        }
+
+        if (!hasAtLeastOnePrefixPresent && !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(
+                    String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE)
+            );
         }
 
 

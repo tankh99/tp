@@ -4,12 +4,14 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.patient.Patient;
 
 /**
@@ -36,6 +38,7 @@ public class DeleteCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Patient> lastShownList = model.getFilteredPersonList();
+        List< Appointment> lastShownAppointmentList = model.getFilteredAppointmentList();
 
         //  TODO: We possibly don't have to check for this anymore. It either exists or does not.
         if (targetIndex.getZeroBased() >= Patient.getIdTracker()) {
@@ -47,10 +50,16 @@ public class DeleteCommand extends Command {
                 .filter(person -> person.getSid() == targetIndex.getOneBased())
                 .findFirst();
 
+        List<Appointment> appointmentToDelete = lastShownAppointmentList.stream()
+                .filter(appointment -> appointment.getPatientId().patientId == targetIndex.getOneBased())
+                .collect(Collectors.toList());
+
         if (personToDelete.isPresent()) {
             // Delete the person if it was successfully found.
             model.deletePerson(personToDelete.get());
-
+            for (Appointment appointment : appointmentToDelete) {
+                model.deleteAppointment(appointment);
+            }
             return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS,
                     Messages.format(personToDelete.get())));
 

@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.AddAppointmentCommand;
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddPatientCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteAppointmentCommand;
@@ -23,6 +23,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListAppointmentCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ReportFeedbackCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.patient.Patient;
@@ -73,7 +74,7 @@ public class PatientListParser {
 
         switch (commandWord) {
 
-        case AddCommand.COMMAND_WORD:
+        case AddPatientCommand.COMMAND_WORD:
             return new AddPatientCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
@@ -108,6 +109,9 @@ public class PatientListParser {
 
         case FilterAppointmentCommand.COMMAND_WORD:
             return new FilterAppointmentCommandParser().parse(arguments);
+
+        case ReportFeedbackCommand.COMMAND_WORD:
+            return new ReportFeedbackCommandParser().parse(arguments);
 
         case EditAppointmentCommand.COMMAND_WORD:
             return new EditAppointmentCommandParser(patients).parse(arguments);

@@ -8,6 +8,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.ReadOnlyAppointmentList;
 import seedu.address.model.patient.Patient;
+import seedu.address.model.patientfeedbackreport.PatientFeedbackReport;
 
 /**
  * The API of the Model component.
@@ -135,4 +136,14 @@ public interface Model {
      * Get appointments from inside person list
      */
     ReadOnlyAppointmentList getAppointmentList();
+
+    /**
+     * Gets the current patient feedback report list.
+     */
+    ObservableList<PatientFeedbackReport> getPatientFeedbackReportList();
+
+    /**
+     * Updates the patient feedback report list with the latest data.
+     */
+    void updateFilteredPatientFeedbackReports(Predicate<Appointment> predicate);
 }

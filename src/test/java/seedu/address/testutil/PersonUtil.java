@@ -7,7 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
 import java.util.Set;
 
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddPatientCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.tag.Tag;
@@ -21,7 +21,7 @@ public class PersonUtil {
      * Returns an add command string for adding the {@code person}.
      */
     public static String getAddCommand(Patient patient) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(patient);
+        return AddPatientCommand.COMMAND_WORD + " " + getPersonDetails(patient);
     }
 
     /**
