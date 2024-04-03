@@ -13,23 +13,29 @@ import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditAppointmentCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.EndDateTime;
+import seedu.address.model.appointment.StartDateTime;
 import seedu.address.model.patient.Patient;
+import seedu.address.model.util.RelationshipUtil;
 
 /**
  * Parses input arguments and creates a new EditAppointmentCommand object
  */
 public class EditAppointmentCommandParser {
     private final List<Patient> patients;
-
+    private final List<Appointment> appointments;
 
     /**
      * Takes in multiple lists so as to perform validation checks against them
      *
      * @param patients List of patients
      */
-    public EditAppointmentCommandParser(List<Patient> patients) {
+    public EditAppointmentCommandParser(List<Patient> patients, List<Appointment> appointments) {
         this.patients = patients;
+        this.appointments = appointments;
     }
 
     /**
@@ -63,12 +69,24 @@ public class EditAppointmentCommandParser {
                     ParserUtil.parsePatientId(argMultimap.getValue(PREFIX_PATIENT_ID).get(), patients));
         }
         if (argMultimap.getValue(PREFIX_START_DATETIME).isPresent()) {
-            editAppointmentDescriptor.setStartDateTime(
-                    ParserUtil.parseStartDateTime(argMultimap.getValue(PREFIX_START_DATETIME).get()));
+            StartDateTime startDateTime =
+                    ParserUtil.parseStartDateTime(argMultimap.getValue(PREFIX_START_DATETIME).get());
+
+            if (RelationshipUtil.isAppointmentDateTimeAlreadyTaken(startDateTime,appointments)) {
+                throw new ParseException(Appointment.MESSAGE_DATETIME_ALREADY_TAKEN);
+            }
+
+            editAppointmentDescriptor.setStartDateTime(startDateTime);
         }
         if (argMultimap.getValue(PREFIX_END_DATETIME).isPresent()) {
-            editAppointmentDescriptor.setEndDateTime(
-                    ParserUtil.parseEndDateTime(argMultimap.getValue(PREFIX_END_DATETIME).get()));
+            EndDateTime endDateTime =
+                    ParserUtil.parseEndDateTime(argMultimap.getValue(PREFIX_END_DATETIME).get());
+
+            if (RelationshipUtil.isAppointmentDateTimeAlreadyTaken(endDateTime, appointments)) {
+                throw new ParseException(Appointment.MESSAGE_DATETIME_ALREADY_TAKEN);
+            }
+
+            editAppointmentDescriptor.setEndDateTime(endDateTime);
         }
         if (argMultimap.getValue(PREFIX_ATTEND).isPresent()) {
             editAppointmentDescriptor.setHasAttended(
