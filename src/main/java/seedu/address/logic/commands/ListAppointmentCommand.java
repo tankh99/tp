@@ -15,7 +15,7 @@ import seedu.address.model.appointment.Appointment;
  */
 public class ListAppointmentCommand extends Command {
 
-    public static final String COMMAND_WORD = "queryappointments";
+    public static final String COMMAND_WORD = "querya";
 
     public static final String MESSAGE_SUCCESS = "Listed all appointments";
 

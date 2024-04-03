@@ -35,8 +35,14 @@ CogniCare is a **desktop app for managing all patients, optimized for use via a 
 
     * `delete 903` : Deletes the patient that has the id of 903 (This is different from the natural ordering of the list).
    
-    * `appointment pid/1 d/2022-12-12 12:00 att/true ad/This is a dummy appointment` : Adds an appointment for patient index 1 to the address book at 12pm on 12 December 2022.
+    * `adda pid/1 sd/2022-12-12 12:00 ed/2022-12-12 13:00 att/true s/5 ad/This is a dummy appointment` : Adds an appointment for patient index 1 to the address book from 12pm to 1pm on 12 December 2022.
    
+    * `querya` : Lists all appointments that are stored in CogniCare.
+
+    * `querya pid/2` : List all appointments belonging to patient index 2 that are stored in CogniCare.
+   
+    * `edita 1 pid/3` : Changes appointment index 1 with the patient id 3.
+
     * `deleteappointment 900` : Deletes the appointment that has the id of 900 (This is different from the natural ordering of the list).
 
     * `clear` : Deletes all patient information from the CogniCare application.
@@ -186,11 +192,11 @@ Format: `delete INDEX`
 Examples:
 * `list` followed by `delete 90` deletes the patient with the patientId of 90 in the address book.
 
-### Adding an appointment: `appointment`
+### Adding an appointment: `adda`
 
 Adds an appointment to the address book.
 
-Format: `appointment pid/PATIENT_ID d/DATE_TIME [att/ATTEND] [ad/APPOINTMENT_DESCRIPTION]`
+Format: `adda pid/PATIENT_ID sd/START_DATE_TIME ed/END_DATE_TIME [att/ATTEND] [s/SCORE] [ad/APPOINTMENT_DESCRIPTION]`
 
 * Format of date time is yyyy-MM-dd HH:mm.
 * Once the patient is created, the appointment identifier `aid` will be permanently tagged to an appointment, and is not coalesced when other entries are deleted.
@@ -201,41 +207,72 @@ Examples:
 * `appointment pid/1 d/2022-12-12 13:00 att/false`
 * `appointment pid/1 d/2022-12-12 14:00 att/true ad/Patient attended the appointment.`
 
+The screenshot below shows a successful operation:
+![add-success.png](images%2Fappointments%2Fadd-success.png)
+
+The screenshot below shows a failed operation due to another appointment being scheduled for the same date and time:
+![add-invalid.png](images%2Fappointments%2Fadd-invalid.png)
+
 **Validation**:
 1. PATIENT_ID
-   1. No duplicate patient IDs are allowed. Checks are made against the patient list
+   1. No non-existing patient IDs are allowed. Checks are made against the patient list
    2. Patient ID given must exist in the current patient list.
    3. Patient ID must be a positive integer.
 2. DATE_TIME
    1. No two appointments can share the exact same date and time, even if they differ by other attributes like different patient IDs
+   2. The start date and time cannot be before the end date and time.
 3. ATTEND
    1. Must be either `true` or `false` (case-insensitive)
+4. SCORE
+   1. The score must be between 1 and 5 (inclusive).
 
-### Listing all appointments: `queryappointments`
+### Listing all appointments: `querya`
 
-Shows a list of all patients in the address book. Can be filtered by multiple criteria.
+Shows a list of all appointments in the address book. Can be filtered by multiple criteria.
 
-Format: `queryappointments [pid/PATIENT_ID] [n/PATIENT_NAME] [aid/APPOINTMENT_ID]`
+Format: `querya [pid/PATIENT_ID] [n/PATIENT_NAME] [aid/APPOINTMENT_ID]`
 
 Examples:
-* `queryappointments` shows all appointments in the address book.
-* `queryappointments pid/1` shows all appointments for the patient with the patientId of 1 in the address book.
-* `queryappointments aid/90` shows the appointment with the appointmentId of 90 in the address book.
-* `queryappointments n/Jer` shows all appointments whose patient's name contains "Jer" in the address book.
+* `querya` shows all appointments in the address book.
+* `querya pid/1` shows all appointments for the patient with the patientId of 1 in the address book.
+* `querya aid/90` shows the appointment with the appointmentId of 90 in the address book.
+* `querya n/Jer` shows all appointments whose patient's name contains "Jer" in the address book.
+
+The screenshot below show a successful query of all appointments:
+![querya-all.png](images%2Fappointments%2Fquerya-all.png)
+
+The screenshot below show a successful query of appointments using patient id:
+![querya-pid.png](images%2Fappointments%2Fquerya-pid.png)
+
+### Editing an appointments: `edita`
+
+Edits an appointment in CogniCare using the specified appointment index.
+
+Format: `edita APPOINTMENT_INDEX [pid/PATIENT_ID] [sd/START_DATE_TIME] [ed/END_DATE_TIME] [att/ATTEND] [s/SCORE] [ad/APPOINTMENT_DESCTIPTION]`
+
+* Edits the appointment at the specified `APPOINTMENT_ID`. The index refers to the index number shown in the displayed appointment list. The index **must be a positive integer** 1, 2, 3, …​
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* The `APPOINTMENT_ID` will not be changed when you edit an appointment's information.
+
+Examples:
+* `edita 1 pid/1` edits the appointment with appointment index 1 with patient id 2.
+* `edita 1 sd/2024-04-01 10:00` edits the start date and time of the appointment with appointment index 1 to 10am, 1 April 2024.
+* `edita 1 att/true` edits the attended status of the appointment with appointment index 1 to true.
 
 
-### Deleting an appointment : `deleteappointment`
+### Deleting an appointment : `deletea`
 
 Deletes the specified appointment from the address book using the specified appointment index.
 
-Format: `deleteappointment INDEX`
+Format: `deletea INDEX`
 
 * Deletes the appointment at the specified `INDEX`.
 * The index refers to the index number shown in the displayed appointment list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `queryappointment` followed by `deleteappointment 90` deletes the appointment with the appointmentId of 90 in the address book.
+* `querya` followed by `deletea 90` deletes the appointment with the appointmentId of 90 in the address book.
 
 ### Clearing all entries : `clear`
 
