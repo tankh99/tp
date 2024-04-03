@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.commons.util.DateUtil;
@@ -33,50 +34,43 @@ public class AppointmentCard extends UiPart<Region> {
     @FXML
     private Label appointmentDateTime;
     @FXML
-    private Label hasAttended;
-    @FXML
     private Label appointmentDescription;
     @FXML
-    private Label feedbackScore;
+    private FlowPane details;
 
     /**
      * Creates a {@code AppointmentCode} with the given {@code Appointment} to display.
      */
-    public AppointmentCard(Appointment appointment) {
+    public AppointmentCard(Appointment appointment, String patientName) {
         super(FXML);
         this.appointment = appointment;
 
         appointmentId.setText(appointment.getAppointmentId() + ". ");
-        //TODO: replace student id with student name
-        name.setText("StudentId: " + Integer.toString(appointment.getPatientId().patientId));
+        name.setText(patientName);
 
         String formattedStartDateTime = DateUtil.formatDateTime(appointment.getStartDateTime().getDateTimeValue());
         String formattedEndDateTime = DateUtil.formatDateTime(appointment.getEndDateTime().getDateTimeValue());
-        appointmentDateTime.setText("Appointment Time: from " + formattedStartDateTime + " \nto "
+        appointmentDateTime.setText(formattedStartDateTime + " - "
                 + formattedEndDateTime);
 
-        String attendedString = "Attended: ";
-        if (appointment.getAttendedStatus().hasAttended) {
-            attendedString += "Y";
-        } else {
-            attendedString += "N";
+        if (appointment.getAttendedStatus() != null
+                && appointment.getAttendedStatus().hasAttended != null
+                && appointment.getAttendedStatus().hasAttended) {
+            details.getChildren().add(new Label("Attended"));
         }
-        hasAttended.setText(attendedString);
 
         appointmentDescription.managedProperty().bind(appointmentDescription.visibleProperty());
-        if (!appointment.getAppointmentDescription().appointmentDescription.isEmpty()) {
-            appointmentDescription.setText(
-                    "Description: " + appointment.getAppointmentDescription().appointmentDescription);
+        if (appointment.getAppointmentDescription() != null
+                && appointment.getAppointmentDescription().appointmentDescription != null) {
+            appointmentDescription.setText(appointment.getAppointmentDescription().appointmentDescription);
         } else {
             appointmentDescription.setVisible(false);
         }
 
-        // This line of code ensures that if it's not visible, it doesn't take up any space in the layout
-        feedbackScore.managedProperty().bind(feedbackScore.visibleProperty());
-        if (appointment.getFeedbackScore().feedbackScore != null) {
-            feedbackScore.setText("Score: " + appointment.getFeedbackScore().toString());
+        if (appointment.getFeedbackScore() == null || appointment.getFeedbackScore().feedbackScore == null) {
+            details.getChildren().add(new Label("N/A"));
         } else {
-            feedbackScore.setVisible(false);
+            details.getChildren().add(new Label(appointment.getFeedbackScore().toString()));
         }
     }
 }
