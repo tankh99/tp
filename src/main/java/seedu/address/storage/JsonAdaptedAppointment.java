@@ -27,7 +27,7 @@ public class JsonAdaptedAppointment {
     private final int patientId;
     private final String appointmentDescription;
     private final boolean hasAttended;
-    private final int feedbackScore;
+    private final Integer feedbackScore;
 
     /**
      * Constructs a {@code JsonAdaptedAppointment} with the given appointment details.
@@ -59,7 +59,11 @@ public class JsonAdaptedAppointment {
         patientId = source.getPatientId().patientId;
         appointmentDescription = source.getAppointmentDescription().appointmentDescription;
         hasAttended = source.getAttendedStatus().hasAttended;
-        feedbackScore = source.getFeedbackScore().feedbackScore;
+        if (source.getFeedbackScore() != null) {
+            feedbackScore = source.getFeedbackScore().feedbackScore;
+        } else {
+            feedbackScore = null;
+        }
     }
 
     /**

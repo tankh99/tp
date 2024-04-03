@@ -25,6 +25,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.ReadOnlyAppointmentList;
 import seedu.address.model.patient.Patient;
+import seedu.address.model.patientfeedbackreport.PatientFeedbackReport;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddPatientCommandTest {
@@ -193,6 +194,16 @@ public class AddPatientCommandTest {
 
         @Override
         public ReadOnlyAppointmentList getAppointmentList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredPatientFeedbackReports(Predicate<Appointment> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<PatientFeedbackReport> getPatientFeedbackReportList() {
             throw new AssertionError("This method should not be called.");
         }
     }

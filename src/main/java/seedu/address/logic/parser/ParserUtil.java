@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
@@ -120,6 +121,27 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String date} into a {@code LocalDateTime}. by setting it to be at either the start or end
+     * of the day.
+     *
+     * @param isStartOfDay Determines whether to return a date string at the start or end of day
+     * @throws ParseException if the given {@code date} is invalid.
+     */
+    public static LocalDateTime parseDate(String date, boolean isStartOfDay) throws ParseException {
+        requireNonNull(date);
+        String trimmedDateTime = date.trim();
+
+        LocalDate localDate = DateUtil.parseDate(trimmedDateTime);
+        if (localDate == null) {
+            throw new ParseException(Messages.MESSAGE_INVALID_DATE);
+        }
+        LocalDateTime dateTime = isStartOfDay
+                ? localDate.atStartOfDay()
+                : localDate.atTime(23, 59, 59);;
+        return dateTime;
     }
 
     /**
