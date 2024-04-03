@@ -155,7 +155,7 @@ Format: `queryp [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] …​`
 For example: to find all the "Jerome" that are stored in the CogniCare application, the user may use the command
 Format: `queryp n/Jerome …​`
 
-For example: to find all the "Jeromes" that are stored in the CogniCare application, have a phone number that contains 987, and email using outlook, the user may use the command
+For example: to find all the "Jerome"s that are stored in the CogniCare application, have a phone number that contains 987, and email using outlook, the user may use the command
 
 Format: `queryp n/Jerome p/987 e/example.com ​`
 
