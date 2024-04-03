@@ -86,7 +86,7 @@ Shows a message explaining how to access the help page.
 Format: `help`
 
 
-### Adding a patient: `adda`
+### Adding a patient: `addp`
 
 Adds a patient to the address book.
 
@@ -338,16 +338,16 @@ _Details coming soon ..._
 
 ## Command summary
 
-| Action                                               | Format, Examples                                                                                                                                                                                                            |
-|------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add a patient**                                    | `addp n/NAME p/PHONE_NUMBER e/EMAIL [a/AFFLIATED_WITH]…​` <br> e.g., `addp n/Jerome Chua p/98765432 e/jerome@example.com a/depression` or `addp n/Davinci Lim p/98731122 e/betsycrowe@example.com a/sad a/anxiety` |
-| **Delete all entries from the CogniCare application** | `clear`                                                                                                                                                                                                                     |
-| **Delete**                                           | `deletep PATIENT_ID`<br> e.g., `deletep 3`                                                                                                                                                                                    |
-| **Edit**                                             | `editp PATIENT_ID [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/AFFLIATED_WITH]…​`editp 1 p/91234567 e/johndoe@example.com`                                                                                                          |
-| **Search**                                           | `queryp [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] …​`<br> e.g., `queryp n/Jerome p/987 e/example.com​`                                                                                                              |
-| **Add an appointment**                               | `appointment pid/PATIENT_ID d/DATE_TIME [att/ATTEND] [ad/APPOINTMENT_DESCRIPTION]`                                                                                                                                          |
-| **Query appointments**                               | `queryappointments [pid/PATIENT_ID] [n/PATIENT_NAME] [aid/APPOINTMENT_ID]`                                                                                                                                                  |
-| **Delete an appointment**                            | `deletep aid/APPOINTMENT_ID`                                                                                                                                                                                                 |
-| **List**                                             | `list`                                                                                                                                                                                                                      |
-| **Help**                                             | `help`                                                                                                                                                                                                                      |
+| Action                                                | Format, Examples                                                                                                                                                                                                   |
+|-------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add a patient**                                     | `addp n/NAME p/PHONE_NUMBER e/EMAIL [a/AFFLIATED_WITH]…​` <br> e.g., `addp n/Jerome Chua p/98765432 e/jerome@example.com a/depression` or `addp n/Davinci Lim p/98731122 e/betsycrowe@example.com a/sad a/anxiety` |
+| **Delete all entries from the CogniCare application** | `clear`                                                                                                                                                                                                            |
+| **Delete**                                            | `deletep PATIENT_ID`<br> e.g., `deletep 3`                                                                                                                                                                         |
+| **Edit**                                              | `editp PATIENT_ID [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/AFFLIATED_WITH]…​`editp 1 p/91234567 e/johndoe@example.com`                                                                                               |
+| **Search**                                            | `queryp [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] …​`<br> e.g., `queryp n/Jerome p/987 e/example.com​`                                                                                                                   |
+| **Add an appointment**                                | `adda pid/PATIENT_ID d/DATE_TIME [att/ATTEND] [ad/APPOINTMENT_DESCRIPTION]`                                                                                                                                        |
+| **Query appointments**                                | `querya [pid/PATIENT_ID] [n/PATIENT_NAME] [aid/APPOINTMENT_ID]`                                                                                                                                                    |
+| **Delete an appointment**                             | `deletep aid/APPOINTMENT_ID`                                                                                                                                                                                       |
+| **List**                                              | `list`                                                                                                                                                                                                             |
+| **Help**                                              | `help`                                                                                                                                                                                                             |
 
