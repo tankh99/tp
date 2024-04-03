@@ -47,7 +47,12 @@
                 </StackPane>
 
 
-                <VBox fx:id="patientTagViewer"></VBox>
+                <VBox fx:id="patientTagViewer" prefHeight="24" styleClass="pane-with-border">
+                    <padding>
+                        <Insets top="5" right="10" bottom="5" left="10"/>
+                    </padding>
+                </VBox>
+
 
                 <VBox styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
                     <padding>

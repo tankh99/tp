@@ -2,6 +2,6 @@
 <?import javafx.scene.layout.FlowPane?>
 
 <?import javafx.scene.text.Text?>
-<FlowPane fx:id="allPatientTags" xmlns:fx="http://javafx.com/fxml">
+<FlowPane fx:id="tags" xmlns:fx="http://javafx.com/fxml">
 </FlowPane>
 
