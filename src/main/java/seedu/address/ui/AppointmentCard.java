@@ -54,9 +54,9 @@ public class AppointmentCard extends UiPart<Region> {
                 + formattedEndDateTime);
 
         if (appointment.getAttendedStatus().hasAttended) {
-            details.getChildren().add(new Label("Y "));
+            details.getChildren().add(new Label("Y"));
         } else {
-            details.getChildren().add(new Label("N "));
+            details.getChildren().add(new Label("N"));
         }
 
         appointmentDescription.managedProperty().bind(appointmentDescription.visibleProperty());
@@ -66,7 +66,10 @@ public class AppointmentCard extends UiPart<Region> {
             appointmentDescription.setVisible(false);
         }
 
-        if (appointment.getFeedbackScore() != null) {
+        if (appointment.getFeedbackScore() != null && appointment.getFeedbackScore().feedbackScore == 0) {
+            details.getChildren().add(new Label("N/A"));
+        }
+        if (appointment.getFeedbackScore() != null && appointment.getFeedbackScore().feedbackScore != 0) {
             details.getChildren().add(new Label(appointment.getFeedbackScore().toString()));
         }
     }
