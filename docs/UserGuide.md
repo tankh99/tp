@@ -98,7 +98,7 @@ Format: `adda n/NAME p/PHONE_NUMBER e/EMAIL [a/AFFLIATED_WITH]…​`
 2. PHONE_NUMBER
     1. Should be exactly 3 or 8 digits long
     2. Should start with 6, 8 or 9. (We ignore 3 since those are numbers that people wouldn't normally have)
-    3. Note: This simplistic  validation allows for weird numbers like 666, but we allow thie anyway since comprehensive number validating is too technically complex
+    3. Note: This simplistic  validation allows for weird numbers like 666, but we allow this anyway since comprehensive number validating is too technically complex
 3. EMAIL
     1. Should be a valid email address with the form `local-part@domain` where domain is at least 2 letters long
     2. All emails are stored in lowercase by default
@@ -294,11 +294,11 @@ Format: `exit`
 
 ### Saving the data
 
-CogniCare data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+CogniCare data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ### Editing the data file
 
-CogniCare data is saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+CogniCare data is saved automatically as a JSON file `[JAR file location]/data/patientList.json` and `[JAR file location]/data/appointmentList.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <box type="warning" seamless>
 
