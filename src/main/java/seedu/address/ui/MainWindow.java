@@ -130,7 +130,7 @@ public class MainWindow extends UiPart<Stage> {
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        PatientTagViewer patientTagViewer1 = new PatientTagViewer();
+        PatientTagViewer patientTagViewer1 = new PatientTagViewer(logic.getPatientList());
         patientTagViewer.getChildren().add(patientTagViewer1.getRoot());
     }
 

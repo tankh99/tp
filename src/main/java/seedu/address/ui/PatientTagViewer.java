@@ -6,14 +6,21 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
+import seedu.address.model.Model;
+import seedu.address.model.ReadOnlyPatientList;
+
+import java.util.Comparator;
+import java.util.HashMap;
 
 public class PatientTagViewer extends UiPart<Region> {
     private static final String FXML = "PatientTagViewer.fxml";
 
+    public static final int MAX_TAGS_TO_BE_DISPLAYED = 20;
+
     @FXML
     private FlowPane tags;
 
-    public PatientTagViewer() {
+    public PatientTagViewer(ReadOnlyPatientList model) {
         super(FXML);
 
         // Set horizontal and vertical gaps
@@ -21,24 +28,34 @@ public class PatientTagViewer extends UiPart<Region> {
         tags.setVgap(10); // Set the vertical gap between children
 
 
-        // TODO: Limit to 10
-        addStyledLabel("depression");
-        addStyledLabel("anxiety");
-        addStyledLabel("substance abuse");
-        addStyledLabel("PTSD");
-        addStyledLabel("OCD");
-        addStyledLabel("bipolar disorder");
-        addStyledLabel("schizophrenia");
-        addStyledLabel("ADHD");
-        addStyledLabel("eating disorders");
-        addStyledLabel("insomnia");
+
+        HashMap<String, Integer> tagInfo = new HashMap<>();
+
+        model.getPersonList().stream().forEach(person -> {
+            person.getTags().stream().forEach(tag -> {
+                tagInfo.put(tag.tagName, tagInfo.getOrDefault(tag.tagName, 0) + 1);
+            });
+        });
+
+
+
+        tagInfo.entrySet().stream()
+                // Sort by value size in descending order
+                // Credits: ChatGPT "Stream sort by value size"
+                .sorted(Comparator.comparingInt(entry -> -entry.getValue()))
+                // Limit length to prevent malicious users.
+                .limit(MAX_TAGS_TO_BE_DISPLAYED).forEach(tag -> {
+                    addStyledLabel(tag.getKey() + " (" + tag.getValue() + ")");
+                }
+        );
     }
+
+
 
 
     // Method to add styled label
     private void addStyledLabel(String labelText) {
         Label label = new Label(labelText);
-        label.getStyleClass().add("cell_small_label"); // Add a CSS class for styling
         tags.getChildren().add(label);
     }
 }
