@@ -51,7 +51,7 @@ public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand
                 ArgumentTokenizer.tokenize(args, PREFIX_PATIENT_ID, PREFIX_START_DATETIME, PREFIX_END_DATETIME,
                         PREFIX_ATTEND, PREFIX_APPOINTMENT_DESCRIPTION, PREFIX_FEEDBACK_SCORE);
 
-        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_PATIENT_ID, PREFIX_START_DATETIME)
+        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_PATIENT_ID, PREFIX_START_DATETIME, PREFIX_END_DATETIME)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAppointmentCommand.MESSAGE_USAGE));
