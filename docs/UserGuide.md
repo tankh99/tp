@@ -249,15 +249,26 @@ The screenshot below show a successful query of appointments using patient id:
 
 Show list of appointments in a specific date time range. This includes the appointments that starts or ends in the date time range or appointments that starts before and ends after the date time range.
 
-Format: `filter sd/START_DATETIME ed/END_DATETIME`
+Format: `filter [sd/START_DATETIME] [ed/END_DATETIME]`
+
+Both `START_DATETIME` and `END_DATETIME` are optional. If only `START_DATETIME` is provided, all appointments that starts on or after the `START_DATETIME` will be shown. If only `END_DATETIME` is provided, all appointments that ends on or before the `END_DATETIME` will be shown.
 
 Examples:
 * `filter sd/2022-12-12 12:00 ed/2022-12-12 14:00` shows all appointments starts or ends in the date time range of 12pm to 2pm on 12 December 2022. Any appointments that starts before 12pm and ends after 2pm will also be shown.
+* `filter sd/2022-12-12 12:00` shows all appointments that starts on or after 12pm on 12 December 2022.
+* `filter ed/2022-12-12 14:00` shows all appointments that ends on or before 2pm on 12 December 2022.
+* `filter` shows all appointments in the address book.
 
 **Validation**:
 1. START_DATETIME and END_DATETIME
    1. Must be in the format of yyyy-MM-dd HH:mm.
    2. END_DATETIME must be after START_DATETIME.
+
+The screenshot below show a successful filter appointments using both date time range:
+
+The screenshot below show a successful filter appointments using one date time range:
+
+The screenshot below show a unsuccessful filter appointments due to invalid date time range:
 
 ### Editing an appointments: `edita`
 
