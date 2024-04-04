@@ -27,6 +27,7 @@ import seedu.address.model.appointment.FeedbackScore;
 import seedu.address.model.appointment.HasAttended;
 import seedu.address.model.appointment.PatientId;
 import seedu.address.model.appointment.StartDateTime;
+import seedu.address.model.util.RelationshipUtil;
 
 /**
  * Edits the details of an existing appointment in the address book.
@@ -92,6 +93,10 @@ public class EditAppointmentCommand extends Command {
 
             if (editedAppointment.isStartDateTimeAfterEndDateTime()) {
                 throw new CommandException(MESSAGE_INVALID_START_END_DATETIME);
+            }
+            if (RelationshipUtil.isAppointmentDateTimeAlreadyTaken(
+                    appointmentToEdit.get(), editedAppointment, lastShownList)) {
+                throw new CommandException(Appointment.MESSAGE_DATETIME_ALREADY_TAKEN);
             }
 
             model.setAppointment(appointmentToEdit.get(), editedAppointment);

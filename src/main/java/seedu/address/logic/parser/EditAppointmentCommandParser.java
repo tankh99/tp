@@ -68,24 +68,12 @@ public class EditAppointmentCommandParser {
                     ParserUtil.parsePatientId(argMultimap.getValue(PREFIX_PATIENT_ID).get(), patients));
         }
         if (argMultimap.getValue(PREFIX_START_DATETIME).isPresent()) {
-            StartDateTime startDateTime =
-                    ParserUtil.parseStartDateTime(argMultimap.getValue(PREFIX_START_DATETIME).get());
-
-            if (RelationshipUtil.isAppointmentDateTimeAlreadyTaken(startDateTime, appointments)) {
-                throw new ParseException(Appointment.MESSAGE_DATETIME_ALREADY_TAKEN);
-            }
-
-            editAppointmentDescriptor.setStartDateTime(startDateTime);
+            editAppointmentDescriptor.setStartDateTime(
+                    ParserUtil.parseStartDateTime(argMultimap.getValue(PREFIX_START_DATETIME).get()));
         }
         if (argMultimap.getValue(PREFIX_END_DATETIME).isPresent()) {
-            EndDateTime endDateTime =
-                    ParserUtil.parseEndDateTime(argMultimap.getValue(PREFIX_END_DATETIME).get());
-
-            if (RelationshipUtil.isAppointmentDateTimeAlreadyTaken(endDateTime, appointments)) {
-                throw new ParseException(Appointment.MESSAGE_DATETIME_ALREADY_TAKEN);
-            }
-
-            editAppointmentDescriptor.setEndDateTime(endDateTime);
+            editAppointmentDescriptor.setEndDateTime(
+                    ParserUtil.parseEndDateTime(argMultimap.getValue(PREFIX_END_DATETIME).get()));
         }
         if (argMultimap.getValue(PREFIX_ATTEND).isPresent()) {
             editAppointmentDescriptor.setHasAttended(

@@ -41,31 +41,21 @@ public class RelationshipUtil {
     }
 
     /**
-     * Checks if the given start date and time is already used by another {@code Appointment}.
+     * Checks if the given start and end date and time is already used by another {@code Appointment}.
      *
      * @param appointments List of {@code Appointment}s to check against
      */
-    public static boolean isAppointmentDateTimeAlreadyTaken(StartDateTime startDateTime,
+    public static boolean isAppointmentDateTimeAlreadyTaken(Appointment uneditedAppointment,
+                                                            Appointment editedAppointment,
                                                             List<Appointment> appointments) {
         for (Appointment appointment : appointments) {
-            // Check if the appointment is within the range of the existing appointment
-            if (appointment.getEndDateTime().compareTo(startDateTime) > 0) {
-                return true;
+            if (appointment.isSameAppointment(uneditedAppointment)) {
+                continue;
             }
-        }
-        return false;
-    }
 
-    /**
-     * Checks if the given end date and time is already used by another {@code Appointment}.
-     *
-     * @param appointments List of {@code Appointment}s to check against
-     */
-    public static boolean isAppointmentDateTimeAlreadyTaken(EndDateTime endDateTime,
-                                                            List<Appointment> appointments) {
-        for (Appointment appointment : appointments) {
             // Check if the appointment is within the range of the existing appointment
-            if (appointment.getStartDateTime().compareTo(endDateTime) < 0) {
+            if (appointment.getEndDateTime().compareTo(editedAppointment.getStartDateTime()) > 0
+                    && appointment.getStartDateTime().compareTo(editedAppointment.getEndDateTime()) < 0) {
                 return true;
             }
         }
