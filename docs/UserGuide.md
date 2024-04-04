@@ -363,13 +363,13 @@ Format: `reportf [sd/DATE] [ed/DATE]`
 
 **Examples**
 1. `reportf` - Generates a report using all appointments
-![alt text](<images/reportf/reportf.png>)
+![alt text](<images/reportf/0a_reportf.png>)
 1. `reportf sd/2024-02-18` - Generates a report with all appointments that start from 18 Feb 2024
-![alt text](<images/reportf/reportf-sd.png>)
+![alt text](<images/reportf/0b_reportf_withsd.png>)
 1. `reportf ed/2024-02-20` - Generates a report with all appointments that end before 20 Feb 2024
-![alt text](<images/reportf/reportf-ed.png>)
+![alt text](<images/reportf/0c_reportf_ed.png>)
 1. `reportf sd/2024-02-18 ed/2024-02-20` - Generates a report with all appointments that start from 18 Feb 2024 and end before 20 Feb 2024.
-![alt text](<images/reportf/reportf-sd-ed.png>)
+![alt text](<images/reportf/0d_reportf_sd_ed.png>)
 
 **Notes**
 1. When filtering using `reportf`, the appointments list is also filtered. This is intended behaviour because the patient feedback report data is entirely dependent on the Patient and Appointment lists.
@@ -409,6 +409,8 @@ UP - Goes to the previous command in the history
 DOWN - Goes to the next command in the history
 
 Note: Upon reaching the start of the history, pressing UP further will play a sound to indicate this fact
+
+![alt text](<images/command-history/command-history.gif>)
 
 ### Archiving data files `[coming in v2.0]`
 
