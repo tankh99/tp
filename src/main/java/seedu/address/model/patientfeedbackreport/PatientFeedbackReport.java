@@ -40,7 +40,8 @@ public class PatientFeedbackReport implements Comparable<PatientFeedbackReport> 
         int count = 0;
         for (Appointment appointment : appointments) {
             boolean apptBelongsToPatient = appointment.getPatientId().patientId == patient.getSid();
-            boolean apptHasFeedbacScore = appointment.getFeedbackScore().feedbackScore != null;
+            boolean apptHasFeedbacScore = appointment.getFeedbackScore() != null
+                    && appointment.getFeedbackScore().feedbackScore != null;
             if (apptBelongsToPatient && apptHasFeedbacScore) {
                 total += appointment.getFeedbackScore().feedbackScore;
                 count++;
