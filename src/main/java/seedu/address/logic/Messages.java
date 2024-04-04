@@ -75,6 +75,8 @@ public class Messages {
                 .append(appointment.getEndDateTime())
                 .append("; Attend: ")
                 .append(appointment.getAttendedStatus())
+                .append("; Score: ")
+                .append(appointment.getFeedbackScore())
                 .append("; Description: ")
                 .append((appointment.getAppointmentDescription()));
         return builder.toString();

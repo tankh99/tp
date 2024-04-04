@@ -28,7 +28,7 @@ public class AppointmentBuilder {
             new AppointmentDescription("Appointment Description");
 
     public static final HasAttended DEFAULT_HAS_ATTENDED = new HasAttended(false);
-    public static final FeedbackScore DEFAULT_FEEDBACK_SCORE = null;
+    public static final FeedbackScore DEFAULT_FEEDBACK_SCORE = new FeedbackScore(1);
 
     private int appointmentId;
     private StartDateTime startDateTime;
