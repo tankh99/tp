@@ -169,6 +169,7 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Patient> predicate) {
         requireNonNull(predicate);
         filteredPatients.setPredicate(predicate);
+        this.reportFeedbackList.generateReportList(this.filteredPatients, this.filteredAppointments);
     }
 
     /**
@@ -217,6 +218,7 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editededitedAppointment);
 
         appointmentList.setAppointment(target, editededitedAppointment);
+        this.reportFeedbackList.generateReportList(this.filteredPatients, this.filteredAppointments);
     }
 
     @Override
