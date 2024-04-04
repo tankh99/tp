@@ -240,10 +240,10 @@ Examples:
 * `querya n/Jer` shows all appointments whose patient's name contains "Jer" in the address book.
 
 The screenshot below show a successful query of all appointments:
-![querya-all.png](images%2Fappointments%2Fquerya-all.png)
+![5a_Query_appointment_no-parameter_success.png](images%2Fappointments%2F5a_Query_appointment_no-parameter_success.png)
 
 The screenshot below show a successful query of appointments using patient id:
-![querya-pid.png](images%2Fappointments%2Fquerya-pid.png)
+![5b_Query_appointment_with_pid_success.png](images%2Fappointments%2F5b_Query_appointment_with_pid_success.png)
 
 ### Filter appointments by date time: `filter`
 
@@ -301,10 +301,10 @@ Examples:
 * `querya` followed by `deletea 90` deletes the appointment with the appointmentId of 90 in the address book.
 
 The screenshot below show a successful operation:
-![delete-success.png](images%2Fappointments%2Fdelete-success.png)
+![6a_Delete_appointment_success.png](images%2Fappointments%2F6a_Delete_appointment_success.png)
 
 The screenshot below show a failed operation due to invalid appointment index:
-![delete-fail.png](images%2Fappointments%2Fdelete-fail.png)
+![6b_Delete_appointment_failure.png](images%2Fappointments%2F6b_Delete_appointment_failure.png)
 
 ### Reporting Patient Feedback Statistics: `reportf`
 
