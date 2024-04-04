@@ -181,9 +181,8 @@ public class ParserUtil {
      * @throws ParseException if the given {@code attend} is invalid.
      */
     public static HasAttended parseHasAttended(String attend) throws ParseException {
-        requireNonNull(attend);
         if (attend.isEmpty()) {
-            return new HasAttended(false);
+            return null;
         }
 
         String trimmedAttend = attend.trim();
@@ -199,9 +198,8 @@ public class ParserUtil {
      * By default, an empty string will be returned if {@code description} is empty.
      */
     public static AppointmentDescription parseDescription(String description) {
-        requireNonNull(description);
         if (description.isEmpty()) {
-            return new AppointmentDescription("");
+            return null;
         }
         return new AppointmentDescription(description.trim());
     }

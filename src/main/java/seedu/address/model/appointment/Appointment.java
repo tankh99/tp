@@ -47,7 +47,7 @@ public class Appointment implements Comparable<Appointment> {
                        AppointmentDescription appointmentDescription,
                        HasAttended hasAttended,
                        FeedbackScore feedbackScore) {
-        requireAllNonNull(startDateTime, endDateTime, appointmentDescription);
+        requireAllNonNull(startDateTime, endDateTime);
         this.appointmentId = appointmentId;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
@@ -211,7 +211,7 @@ public class Appointment implements Comparable<Appointment> {
         }
 
         return otherAppointment != null
-                && otherAppointment.getAppointmentId() == getAppointmentId()
+                && this.patientId.equals(otherAppointment.patientId)
                 && this.startDateTime.compareTo(otherAppointment.endDateTime) < 0
                 && this.endDateTime.compareTo(otherAppointment.startDateTime) > 0;
     }

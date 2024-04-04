@@ -57,7 +57,12 @@ public class JsonAdaptedAppointment {
         startDateTime = source.getStartDateTime().getDateTimeValue();
         endDateTime = source.getEndDateTime().getDateTimeValue();
         patientId = source.getPatientId().patientId;
-        appointmentDescription = source.getAppointmentDescription().appointmentDescription;
+
+        if (source.getAppointmentDescription() != null) {
+            appointmentDescription = source.getAppointmentDescription().appointmentDescription;
+        } else {
+            appointmentDescription = null;
+        }
 
         if (source.getAttendedStatus() != null) {
             hasAttended = source.getAttendedStatus().hasAttended;
@@ -83,9 +88,6 @@ public class JsonAdaptedAppointment {
         }
         if (endDateTime == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "appointmentDateTime"));
-        }
-        if (appointmentDescription == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "appointmentDescription"));
         }
 
         if (appointmentId <= 0 || patientId <= 0) {

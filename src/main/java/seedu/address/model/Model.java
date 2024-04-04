@@ -125,6 +125,14 @@ public interface Model {
     void deleteAppointment(Appointment target);
 
     /**
+     * Replaces the given appointment {@code target} with {@code editedAppointment}.
+     * {@code target} must exist in the address book.
+     * The appointment details of {@code editedAppointment} must not be the same as another
+     * existing appointment in the address book.
+     */
+    void setAppointment(Appointment target, Appointment editedAppointment);
+
+    /**
      * Get appointments from inside person list
      */
     ReadOnlyAppointmentList getAppointmentList();

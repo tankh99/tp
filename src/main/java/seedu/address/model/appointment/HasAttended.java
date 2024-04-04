@@ -23,6 +23,9 @@ public class HasAttended {
      * Returns true if a given string is a valid name.
      */
     public static boolean isValidStatus(String test) {
+        if (test == null) {
+            return true;
+        }
         return test.equalsIgnoreCase("true") || test.equalsIgnoreCase("false");
     }
 
