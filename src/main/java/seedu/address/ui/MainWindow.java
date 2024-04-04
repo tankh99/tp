@@ -116,6 +116,7 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         listPanel = new ListPanel(
             logic.getFilteredPersonList(),
+            logic.getPatientList(),
             logic.getFilteredAppointmentList(),
             logic.getPatientFeedbackReportList()
         );
