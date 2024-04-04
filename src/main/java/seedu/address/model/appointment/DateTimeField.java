@@ -64,6 +64,14 @@ public class DateTimeField implements Comparable<DateTimeField> {
         return value.equals(otherDateTimeField.value);
     }
 
+    public boolean isAfter(DateTimeField other) {
+        return this.compareTo(other) > 0;
+    }
+
+    public boolean isBefore(DateTimeField other) {
+        return this.compareTo(other) < 0;
+    }
+
     @Override
     public int hashCode() {
         return value.hashCode();

@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.Messages.MESSAGE_APPOINTMENTS_LISTED_OVERVIEW;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_START_END_DATETIME;
@@ -20,6 +21,7 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -71,8 +73,7 @@ public class FilterAppointmentCommandTest {
         String expectedMessage = String.format(MESSAGE_INVALID_START_END_DATETIME);
         FilterAppointmentPredicate predicate = new FilterAppointmentPredicate(START_DATE_TIME_5, END_DATE_TIME_1);
         FilterAppointmentCommand command = new FilterAppointmentCommand(predicate, START_DATE_TIME_5, END_DATE_TIME_1);
-        expectedModel.updateFilteredAppointmentList(predicate);
-        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertThrows(CommandException.class, () -> command.execute(model), expectedMessage);
     }
 
     @Test

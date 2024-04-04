@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.CliSyntax;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
@@ -43,11 +44,11 @@ public class FilterAppointmentCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireAllNonNull(model, startDateTime, endDateTime);
         // Check if startDateTime is before endDateTime
         if (startDateTime.compareTo(endDateTime) > 0) {
-            return new CommandResult(Messages.MESSAGE_INVALID_START_END_DATETIME);
+            throw new CommandException(Messages.MESSAGE_INVALID_START_END_DATETIME);
         }
         model.updateFilteredAppointmentList(predicate);
         return new CommandResult(String.format(Messages.MESSAGE_APPOINTMENTS_LISTED_OVERVIEW,
