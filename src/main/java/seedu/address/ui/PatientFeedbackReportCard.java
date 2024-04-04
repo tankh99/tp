@@ -10,7 +10,6 @@ import seedu.address.model.patientfeedbackreport.PatientFeedbackReport;
  * An UI component that displays information of a {@code PatientFeedbackReport}.
  */
 public class PatientFeedbackReportCard extends UiPart<Region> {
-
     private static final String FXML = "PatientFeedbackReportListCard.fxml";
 
     /**
