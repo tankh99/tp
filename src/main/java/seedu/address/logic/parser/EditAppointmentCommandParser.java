@@ -15,10 +15,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditAppointmentCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appointment.Appointment;
-import seedu.address.model.appointment.EndDateTime;
-import seedu.address.model.appointment.StartDateTime;
 import seedu.address.model.patient.Patient;
-import seedu.address.model.util.RelationshipUtil;
 
 /**
  * Parses input arguments and creates a new EditAppointmentCommand object
