@@ -305,14 +305,14 @@ Format: `reportf [sd/DATE] [ed/DATE]`
 - By default, if either `/sd` or `/ed` are left blank, their values will default to the minimum and maximum datetimes respectively
 
 **Examples**
-1. `reportf` - Generates a report using all existing date
-![alt text](<Screenshot 2024-04-03 at 12.41.38 PM.png>)
-1. `reportf sd/2024-02-18` - Generates a report with appointments that start from 18 Feb 2024
-![alt text](<Screenshot 2024-04-03 at 12.50.33 PM.png>)
-2. `reportf ed/2024-02-20` - Generates a report with appointments that end before 20 Feb 2024
-![alt text](<Screenshot 2024-04-03 at 12.51.20 PM.png>)
-3. `reportf sd/2024-02-18 ed/2024-02-20` - Generates a report with appointments that start from 18 Feb 2024 and end before 20 Feb 2024. 
-![alt text](<Screenshot 2024-04-03 at 12.51.50 PM.png>)
+1. `reportf` - Generates a report using all appointments
+![alt text](<images/reportf/reportf.png>)
+1. `reportf sd/2024-02-18` - Generates a report with all appointments that start from 18 Feb 2024
+![alt text](<images/reportf/reportf-sd.png>)
+1. `reportf ed/2024-02-20` - Generates a report with all appointments that end before 20 Feb 2024
+![alt text](<images/reportf/reportf-ed.png>)
+1. `reportf sd/2024-02-18 ed/2024-02-20` - Generates a report with all appointments that start from 18 Feb 2024 and end before 20 Feb 2024.
+![alt text](<images/reportf/reportf-sd-ed.png>)
 
 **Notes**
 1. When filtering using `reportf`, the appointments list is also filtered. This is intended behaviour because the patient feedback report data is entirely dependent on the Patient and Appointment lists.
