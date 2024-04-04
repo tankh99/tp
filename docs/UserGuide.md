@@ -245,14 +245,14 @@ The screenshot below show a successful query of all appointments:
 The screenshot below show a successful query of appointments using patient id:
 ![querya-pid.png](images%2Fappointments%2Fquerya-pid.png)
 
-### Filter appointments by date time: `filterappointments`
+### Filter appointments by date time: `filter`
 
 Show list of appointments in a specific date time range. This includes the appointments that starts or ends in the date time range or appointments that starts before and ends after the date time range.
 
-Format: `filterappointments [sd/START_DATETIME] [ed/END_DATETIME]`
+Format: `filter sd/START_DATETIME ed/END_DATETIME`
 
 Examples:
-* `filterappointments sd/2022-12-12 12:00 ed/2022-12-12 14:00` shows all appointments starts or ends in the date time range of 12pm to 2pm on 12 December 2022. Any appointments that starts before 12pm and ends after 2pm will also be shown.
+* `filter sd/2022-12-12 12:00 ed/2022-12-12 14:00` shows all appointments starts or ends in the date time range of 12pm to 2pm on 12 December 2022. Any appointments that starts before 12pm and ends after 2pm will also be shown.
 
 **Validation**:
 1. START_DATETIME and END_DATETIME

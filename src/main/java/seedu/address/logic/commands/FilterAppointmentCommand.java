@@ -19,7 +19,7 @@ import seedu.address.model.appointment.StartDateTime;
  */
 public class FilterAppointmentCommand extends Command {
 
-    public static final String COMMAND_WORD = "filterappointment";
+    public static final String COMMAND_WORD = "filter";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Filter the appointment which happens "
             + "between one datetime and another datetime. Parameters: "
