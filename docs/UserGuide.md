@@ -264,6 +264,12 @@ Examples:
    1. Must be in the format of yyyy-MM-dd HH:mm.
    2. END_DATETIME must be after START_DATETIME.
 
+The screenshot below show a successful filter appointments using both date time range:
+
+The screenshot below show a successful filter appointments using one date time range:
+
+The screenshot below show a unsuccessful filter appointments due to invalid date time range:
+
 ### Editing an appointments: `edita`
 
 Edits an appointment in CogniCare using the specified appointment index.
