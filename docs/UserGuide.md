@@ -88,9 +88,22 @@ Format: `help`
 
 ### Adding a patient: `addp`
 
+
+
 Adds a patient to the address book.
 
 Format: `adda n/NAME p/PHONE_NUMBER e/EMAIL [a/AFFLIATED_WITH]…​`
+
+The following image shows when command is valid:
+
+The image below shows a successful addition of patient.
+![Add patient success](images/patients/2a_Add_patient_success.png)
+
+The image below a failure of adding student due to missing phone tag.
+![Add patient failure](images/patients/2bi_Cannot_Add_Patient_Missing_Phone_Tag_failure.png)
+
+The image below a failure of adding student due to duplicate email tag.
+![Add patient failure](images/patients/2bii_Cannot_Add_Patient_Duplicate_Email_Tag_failure.png)
 
 **Validation**:
 1. NAME
@@ -145,6 +158,8 @@ When Khang Hou is deleted, the patient ids are as below:
 
 Shows a list of all patients in the address book.
 
+The image shows the successful `queryp` command
+![Query patient without parameters](images/patients/3c_Query_with_no_parameters_success.png)
 
 ### Listing selected patients that meets specified criterion / criteria : `queryp`
 
@@ -152,12 +167,26 @@ Shows a list of all patients in the address book that matches _ALL_ the conditio
 
 Format: `queryp [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] …​`
 
+The image shows the successful `queryp` command with all parameters specified.
+![Query patients with all parameters](images/patients/3a_Query_with_all_parameters_success.png)
+
+
 For example: to find all the "Jerome" that are stored in the CogniCare application, the user may use the command
 Format: `queryp n/Jerome …​`
+
+The image shows the successful `queryp` command with only one parameter (name) specified.
+![Add patient success](images/patients/3b_Query_with_name_only_success.png)
+
 
 For example: to find all the "Jerome"s that are stored in the CogniCare application, have a phone number that contains 987, and email using outlook, the user may use the command
 
 Format: `queryp n/Jerome p/987 e/example.com ​`
+
+
+## Viewing statistics of tagged information
+The image shows the (top 10) most popular tags sorted by how many patients with that respective tag.
+Note that the command was entered to demonstrate that the count for the anxiety tag is the same as the ones in the CogniCare application.
+![Viewing tags statistics](images/patients/3e_Query_via_tags-same_count_as_summary_success.png)
 
 
 ### Editing a patient : `editp`
@@ -177,6 +206,15 @@ Format: `editp PATIENT_ID [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [a/AFFLIATED_
 Examples:
 *  `editp 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st patient to be `91234567` and `johndoe@example.com` respectively.
 *  `editp 2 n/Betsy Crower a/` Edits the name of the 2nd patient to be `Betsy Crower` and clears all existing tags.
+
+The image belows shows a successful message of an edit patient command.
+![Edit patient success](images/patients/4a_Edit_student_name_success.png)
+
+The image belows shows a failed message of an edit patient command (when an invalid index is specified).
+![Edit patient success](images/patients/4b_Edit_invalid_index_failure.png)
+
+The image belows shows a failed message of an edit patient command (when no index is specified).
+![Edit patient success](images/patients/4c_Edit_missing_index_failure.png)
 
 
 ### Deleting a patient : `deletep`
@@ -265,10 +303,18 @@ Examples:
    2. END_DATETIME must be after START_DATETIME.
 
 The screenshot below show a successful filter appointments using both date time range:
+![Filter patient with start and end date](images/appointments/filter/7a_Filter_appointment_start_end_success-nam.png)
 
-The screenshot below show a successful filter appointments using one date time range:
+The screenshots below show a successful filter appointments using one date time range:
+![Filter patient with start](images/appointments/filter/7b_Filter_appointment_start_success-nam.png)
+
+![Filter patient with end](images/appointments/filter/7c_Filter_appointment_end_success-nam.png)
+
 
 The screenshot below show a unsuccessful filter appointments due to invalid date time range:
+
+![Filter patient failure](images/appointments/filter/7d_Filter_appointment_start_later_than_end_fail-nam.png)
+
 
 ### Editing an appointments: `edita`
 
