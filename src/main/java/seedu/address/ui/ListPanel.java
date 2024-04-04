@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.ReadOnlyPatientList;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.patientfeedbackreport.PatientFeedbackReport;
@@ -30,6 +31,7 @@ public class ListPanel extends UiPart<Region> {
      */
     public ListPanel(
         ObservableList<Patient> patientList,
+        ReadOnlyPatientList readOnlyPatientList,
         ObservableList<Appointment> appointmentList,
         ObservableList<PatientFeedbackReport> patientFeedbackReportList
     ) {
@@ -38,8 +40,8 @@ public class ListPanel extends UiPart<Region> {
         appointmentListView.setItems(appointmentList);
         patientFeedbackReportListView.setItems(patientFeedbackReportList);
 
-        personListView.setCellFactory(listView -> new PersonListViewCell(patientFeedbackReportList));
-        appointmentListView.setCellFactory(listView -> new AppointmentListViewCell(patientList));
+        personListView.setCellFactory(listView -> new PersonListViewCell());
+        appointmentListView.setCellFactory(listView -> new AppointmentListViewCell(readOnlyPatientList));
         patientFeedbackReportListView.setCellFactory(listView ->
             new PatientFeedbackReportListViewCell());
     }

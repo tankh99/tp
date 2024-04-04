@@ -44,18 +44,13 @@ public class PersonCard extends UiPart<Region> {
     /**
      * Creates a {@code PersonCode} with the given {@code Person} and index to display.
      */
-    public PersonCard(Patient patient, Double score) {
+    public PersonCard(Patient patient) {
         super(FXML);
         this.patient = patient;
         id.setText(patient.getSid() + ". ");
         name.setText(patient.getName().fullName);
         phone.setText(patient.getPhone().value);
         email.setText(patient.getEmail().value);
-
-        if (score != null) {
-            tags.getChildren().add(new Label(Double.toString(score)));
-        }
-
         patient.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
