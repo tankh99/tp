@@ -221,6 +221,12 @@ The image belows shows a failed message of an edit patient command (when no inde
 
 Deletes the specified patient from the address book from the specified patient index.
 
+The image belows shows a successful message of a delete patient command (when no index is specified).
+![Delete patient success](images/patients/4d_Delete_patient_successful.png)
+
+The output failed message of a delete patient command (when no index or invalid index is specified) is similar to when the edit command fails.
+
+
 Format: `deletep INDEX`
 
 * Deletes the patient at the specified `INDEX`.
