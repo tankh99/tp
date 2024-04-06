@@ -1,36 +1,48 @@
 @startuml
-
+!include style.puml
+show members
 hide circle
 skinparam classAttributeIconSize 0
+skinparam Class {
+    FontColor #000000
+    BorderColor #000000
+    StereotypeFontColor #000000
+}
+
+title Patient Feedback Report Data Flow
 
 class PatientFeedbackReportList {
-    +void generateReportList()
+    +generateReportList()
+    +getList()
 }
 
 class PatientFeedbackReport {
-    +double getAvgFeedbackScore()
+    +getPatientId()
+    +getPatientName()
+    +getAvgFeedbackScore()
 }
 
 class Patient {
-    +Name getName()
+    +getName(): Name
 }
 
 class Appointment {
-    +Integer getFeedbackScore()
+    +getFeedbackScore(): Integer
 }
 
 class Model {
     +updateFilteredAppointmentList()
+    +getPatientFeedbackReportList()
 
 }
 
 class Logic {
-    +updateFilteredAppointmentList()
+    +getPatientFeedbackReportList()
 }
 
- class ListPanel {
+class ListPanel {
 
- }
+}
 
 PatientFeedbackReport -->"1" Patient : contains
 PatientFeedbackReport -->"*" Appointment : contains
@@ -41,8 +53,8 @@ Model -->"1" PatientFeedbackReportList
 
 Logic -->"1" Model
 
-ListPanel -->"1" Logic
-
+ListPanel -[dashed]->"*" PatientFeedbackReport
+ListPanel --> "1" Logic
 
 
 @enduml
