@@ -49,10 +49,14 @@ deactivate CommandParser
 LogicManager -> DeleteCommand : execute(m)
 activate DeleteCommand
 
-DeleteCommand -> Model : deletePatient(1)
+DeleteCommand -> Model : getFilteredPersonList()
 activate Model
-
-Model --> DeleteCommand
+DeleteCommand -> Model : getFilteredAppointmentList()
+DeleteCommand -> Model : getIdTracker()
+Model --> DeleteCommand: current running ID
+DeleteCommand -> Model : deletePerson(1)
+Model --> DeleteCommand: Optional.of(personToDelete)
+DeleteCommand -> Model : deleteAppointment()
 deactivate Model
 
 create CommandResult
