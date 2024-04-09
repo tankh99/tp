@@ -31,13 +31,13 @@ import seedu.address.model.patient.Patient;
 /**
  * Parses user input.
  */
-public class PatientListParser {
+public class CommandParser {
 
     /**
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-    private static final Logger logger = LogsCenter.getLogger(PatientListParser.class);
+    private static final Logger logger = LogsCenter.getLogger(CommandParser.class);
 
     private final List<Patient> patients;
     private final List<Appointment> appointments;
@@ -46,7 +46,7 @@ public class PatientListParser {
      * @param patients List of patients
      * @param appointments List of appointments
      */
-    public PatientListParser(List<Patient> patients, List<Appointment> appointments) {
+    public CommandParser(List<Patient> patients, List<Appointment> appointments) {
         this.patients = patients;
         this.appointments = appointments;
     }
