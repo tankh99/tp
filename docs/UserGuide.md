@@ -301,7 +301,6 @@ Examples:
 * `filter sd/2022-12-12 12:00 ed/2022-12-12 14:00` shows all appointments starts or ends in the date time range of 12pm to 2pm on 12 December 2022. Any appointments that starts before 12pm and ends after 2pm will also be shown.
 * `filter sd/2022-12-12 12:00` shows all appointments that starts on or after 12pm on 12 December 2022.
 * `filter ed/2022-12-12 14:00` shows all appointments that ends on or before 2pm on 12 December 2022.
-* `filter` shows all appointments in the address book.
 
 **Validation**:
 1. START_DATETIME and END_DATETIME
