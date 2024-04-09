@@ -6,8 +6,8 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":PatientListParser" as PatientListParser LOGIC_COLOR
 participant ":FilterAppointmentParser" as FilterAppointmentParser LOGIC_COLOR
-participant ":FilterAppointmentPredicate" as FilterAppointmentPredicate LOGIC_COLOR
-participant ":FilterAppointmentCommand" as FilterAppointmentCommand LOGIC_COLOR
+participant "pre:FilterAppointmentPredicate" as FilterAppointmentPredicate LOGIC_COLOR
+participant "f:FilterAppointmentCommand" as FilterAppointmentCommand LOGIC_COLOR
 participant "r:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -32,34 +32,34 @@ activate FilterAppointmentParser
 create FilterAppointmentPredicate
 FilterAppointmentParser -> FilterAppointmentPredicate: new FilterAppointmentPredicate()
 activate FilterAppointmentPredicate
-FilterAppointmentPredicate --> FilterAppointmentParser
+FilterAppointmentPredicate --> FilterAppointmentParser: pre
 deactivate FilterAppointmentPredicate
 
 create FilterAppointmentCommand
 FilterAppointmentParser -> FilterAppointmentCommand: new FilterAppointmentCommand()
 activate FilterAppointmentCommand
-FilterAppointmentCommand --> FilterAppointmentParser
+FilterAppointmentCommand --> FilterAppointmentParser: f
 deactivate FilterAppointmentCommand
 
-FilterAppointmentParser --> PatientListParser : return command
+FilterAppointmentParser --> PatientListParser : f
 deactivate FilterAppointmentParser
 destroy FilterAppointmentParser
 
-PatientListParser --> LogicManager : return command
+PatientListParser --> LogicManager : f
 deactivate PatientListParser
 LogicManager -> FilterAppointmentCommand : execute
 
 activate FilterAppointmentCommand
 FilterAppointmentCommand -> FilterAppointmentCommand: check valid datetime
 
-FilterAppointmentCommand -> Model : updateFilteredAppointmentList(predicate)
+FilterAppointmentCommand -> Model : updateFilteredAppointmentList(pre)
 activate Model
 Model --> FilterAppointmentCommand
 deactivate Model
 
 FilterAppointmentCommand -> CommandResult : new CommandResult()
 activate CommandResult
-CommandResult --> FilterAppointmentCommand
+CommandResult --> FilterAppointmentCommand: r
 deactivate CommandResult
 
 FilterAppointmentCommand -> Model: getFilteredAppointmentList().size()
@@ -67,7 +67,7 @@ activate Model
 Model --> FilterAppointmentCommand
 deactivate Model
 
-FilterAppointmentCommand --> LogicManager : return result
+FilterAppointmentCommand --> LogicManager : r
 deactivate FilterAppointmentCommand
 destroy FilterAppointmentCommand
 [<-- LogicManager : successfully filter appointment
