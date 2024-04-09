@@ -46,7 +46,7 @@ public class RemarkCommand extends Command {
 
 ### Hook `RemarkCommand` into the application
 
-Now that we have our `RemarkCommand` ready to be executed, we need to update `AddressBookParser#parseCommand()` to recognize the `remark` keyword. Add the new command to the `switch` block by creating a new `case` that returns a new instance of `RemarkCommand`.
+Now that we have our `RemarkCommand` ready to be executed, we need to update `CommandParser#parseCommand()` to recognize the `remark` keyword. Add the new command to the `switch` block by creating a new `case` that returns a new instance of `RemarkCommand`.
 
 You can refer to the changes in this [diff](https://github.com/AY2324S2-CS2103-F08-2/tp/commit/35eb7286f18a029d39cb7a29df8f172a001e4fd8#diff-399c284cb892c20b7c04a69116fcff6ccc0666c5230a1db8e4a9145def8fa4ee).
 
@@ -217,7 +217,7 @@ public RemarkCommand parse(String args) throws ParseException {
 
 <box type="info" seamless>
 
-Don’t forget to update `AddressBookParser` to use our new `RemarkCommandParser`!
+Don’t forget to update `CommandParser` to use our new `RemarkCommandParser`!
 
 </box>
 
