@@ -5,11 +5,6 @@ import java.util.List;
 
 import seedu.address.commons.util.AudioUtil;
 
-enum CommandHistoryType {
-    UNDO,
-    REDO
-}
-
 /**
  * An abstraction for command history operations like viewing the previous and next command in history.
  * Offers a similar experience to navigating through history of commands in a shell terminal.
@@ -17,11 +12,6 @@ enum CommandHistoryType {
 public class CommandHistory {
     private final List<String> commandHistory;
     private int currentCommandIndex = -1;
-
-    /**
-     * Maintaining lastCommandType is required due to indexing issues when calling undo after redo and vice versa
-     */
-    private CommandHistoryType lastCommandType;
 
     /**
      * Initializes the command history with an empty string as the first command.
