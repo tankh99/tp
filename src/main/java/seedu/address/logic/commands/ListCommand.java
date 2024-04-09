@@ -20,7 +20,7 @@ public class ListCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Listed all persons";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all students that meets the condition "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all patients that meets the condition "
             + "Optional Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "

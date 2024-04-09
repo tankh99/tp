@@ -94,7 +94,7 @@ public class AppointmentBuilder {
     /**
      * Sets the {@code studentId} of the {@code Appointment} that we are building.
      */
-    public AppointmentBuilder withStudentId(int patientId) {
+    public AppointmentBuilder withPatientId(int patientId) {
         this.patientId = new PatientId(patientId);
         return this;
     }
