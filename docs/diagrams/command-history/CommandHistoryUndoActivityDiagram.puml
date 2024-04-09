@@ -8,4 +8,5 @@ else ([else])
 endif
 :Get current command;
 stop
+
 @enduml

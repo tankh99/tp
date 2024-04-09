@@ -5,10 +5,14 @@ skinparam ArrowFontStyle plain
 
 title Command history user flow
 
+box Command History LOGIC_COLOR_T1
+
 Participant "<$user>" as user MODEL_COLOR_T2
 Participant ":CommandBox" as cmdBox LOGIC_COLOR
 Participant "commandHistory:CommandHistory" as cmdHist LOGIC_COLOR
 ' Participant ":AudioUtil" as audio LOGIC_COLOR
+
+end box
 
 user -> cmdBox: user enters a command
 activate cmdBox
