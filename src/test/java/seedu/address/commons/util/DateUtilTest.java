@@ -22,9 +22,15 @@ class DateUtilTest {
         LocalDateTime parsedDateTime1 = DateUtil.parseDateTime(invalidDateTimeString1);
         Assertions.assertNull(parsedDateTime1);
 
+        // Invalid format: no time
         String invalidDateTimeString2 = "2024-03-18";
         LocalDateTime parsedDateTime2 = DateUtil.parseDateTime(invalidDateTimeString2);
         Assertions.assertNull(parsedDateTime2);
+
+        // Invalid format: invalid date
+        String invalidDateTimeString3 = "2024-02-30 09:00";
+        LocalDateTime parsedDateTime3 = DateUtil.parseDateTime(invalidDateTimeString3);
+        Assertions.assertNull(parsedDateTime3);
     }
 
     @Test

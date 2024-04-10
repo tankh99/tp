@@ -34,16 +34,16 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 
-public class PatientListParserTest {
+public class CommandParserTest {
 
-    private PatientListParser parser;
+    private CommandParser parser;
 
     private Model model;
 
     @BeforeEach
     public void setUp() {
         model = new ModelManager(getTypicalPatientList(), new UserPrefs());
-        parser = new PatientListParser(
+        parser = new CommandParser(
                 model.getPatientList().getPersonList(),
                 model.getAppointmentList().getAppointmentList());
     }

@@ -4,13 +4,14 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 
 /**
  * Helper functions for parsing and formatting dates
  */
 public class DateUtil {
-    public static final String DATE_INPUT_FORMAT = "yyyy-MM-dd";
-    public static final String DATETIME_INPUT_FORMAT = "yyyy-MM-dd HH:mm";
+    public static final String DATE_INPUT_FORMAT = "uuuu-MM-dd";
+    public static final String DATETIME_INPUT_FORMAT = "uuuu-MM-dd HH:mm";
     public static final String DATETIME_DISPLAY_FORMAT = "dd MMM yyyy, hh:mm a";
     public static final String DATE_DISPLAY_FORMAT = "dd MMM yyyy";
 
@@ -23,7 +24,10 @@ public class DateUtil {
             return null;
         }
         try {
-            LocalDate parsedDate = LocalDate.parse(date, DateTimeFormatter.ofPattern(DATE_INPUT_FORMAT));
+            LocalDate parsedDate = LocalDate.parse(
+                date,
+                DateTimeFormatter.ofPattern(DATE_INPUT_FORMAT).withResolverStyle(ResolverStyle.STRICT)
+            );
             return parsedDate;
         } catch (DateTimeException ex) {
             return null;
@@ -38,7 +42,9 @@ public class DateUtil {
             return null;
         }
         try {
-            return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern(DATETIME_INPUT_FORMAT));
+            return LocalDateTime.parse(
+                dateTime,
+                DateTimeFormatter.ofPattern(DATETIME_INPUT_FORMAT).withResolverStyle(ResolverStyle.STRICT));
         } catch (DateTimeException ex) {
             return null;
         }
@@ -53,7 +59,9 @@ public class DateUtil {
             return null;
         }
         try {
-            return dateTime.format(DateTimeFormatter.ofPattern(DATETIME_DISPLAY_FORMAT));
+            return dateTime.format(
+                DateTimeFormatter.ofPattern(DATETIME_DISPLAY_FORMAT).withResolverStyle(ResolverStyle.STRICT)
+            );
         } catch (DateTimeException ex) {
             return null;
         }
@@ -68,7 +76,9 @@ public class DateUtil {
             return null;
         }
         try {
-            return dateTime.format(DateTimeFormatter.ofPattern(DATE_DISPLAY_FORMAT));
+            return dateTime.format(
+                DateTimeFormatter.ofPattern(DATE_DISPLAY_FORMAT).withResolverStyle(ResolverStyle.STRICT)
+            );
         } catch (DateTimeException ex) {
             return null;
         }

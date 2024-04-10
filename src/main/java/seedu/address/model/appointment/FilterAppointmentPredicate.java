@@ -22,6 +22,19 @@ public class FilterAppointmentPredicate implements Predicate<Appointment> {
     }
 
     @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof FilterAppointmentPredicate)) {
+            return false;
+        }
+        FilterAppointmentPredicate otherPredicate = (FilterAppointmentPredicate) other;
+        return lowerBoundDateTime.equals(otherPredicate.lowerBoundDateTime)
+                && upperBoundDateTime.equals(otherPredicate.upperBoundDateTime);
+    }
+
+    @Override
     public boolean test(Appointment appointment) {
         boolean isAppointmentFullyBeforeLowerBound = appointment.getEndDateTime().isBefore(lowerBoundDateTime);
         boolean isAppointmentFullyAfterUpperBound = appointment.getStartDateTime().isAfter(upperBoundDateTime);

@@ -6,14 +6,13 @@
 
 # CogniCare Developer Guide
 
+## About CogniCare
+As the job climate is worsening, more and more students become afflicted with mental health conditions due to not being able to find a job. This results in an increased workload from a larger number of patients to manage and appointments to schedule. CogniCare is a patient management system, designed to take care of SoC students who suffer from various mental health issues and concerns due to being unable to find internships or jobs.
+
+CogniCare takes care of the load of many tedious tasks such as identifying today's appointments and measuring a patient's satisfication progress levels over a period of time, until they are finally ready for discharge.
+
 <!-- * Table of Contents -->
 <page-nav-print />
-
---------------------------------------------------------------------------------------------------------------------
-
-## **Acknowledgements**
-
-Code base adapted from [Address Book Level-3](https://github.com/nus-cs2103-AY2324S2/tp)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -35,7 +34,7 @@ Given below is a quick overview of main components and how they interact with ea
 
 **Main components of the architecture**
 
-**`Main`** (consisting of classes [`Main`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/MainApp.java)) is in charge of the app launch and shut down.
+**`Main`** (consisting of classes [`Main`](https://github.com/AY2324S2-CS2103-F08-2/tp/tree/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/AY2324S2-CS2103-F08-2/tp/tree/master/src/main/java/seedu/address/MainApp.java)) is in charge of the app launch and shut down.
 * At app launch, it initializes the other components in the correct sequence, and connects them up with each other.
 * At shut down, it shuts down the other components and invokes cleanup methods where necessary.
 
@@ -67,24 +66,24 @@ The sections below give more details of each component.
 
 ### UI component
 
-The **API** of this component is specified in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
+The **API** of this component is specified in [`Ui.java`](https://github.com/AY2324S2-CS2103-F08-2/tp/tree/master/src/main/java/seedu/address/ui/Ui.java)
 
 <puml src="diagrams/UiClassDiagram.puml" alt="Structure of the UI Component"/>
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
-The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
+The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2324S2-CS2103-F08-2/tp/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2324S2-CS2103-F08-2/tp/tree/master/src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
 
 * executes user commands using the `Logic` component.
 * listens for changes to `Model` data so that the UI can be updated with the modified data.
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
-* depends on some classes in the `Model` component, as it displays `Person` object residing in the `Model`.
+* depends on some classes in the `Model` component, as it displays `Patient` object residing in the `Model`.
 
 ### Logic component
 
-**API** : [`Logic.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](https://github.com/AY2324S2-CS2103-F08-2/tp/tree/master/src/main/java/seedu/address/logic/Logic.java)
 
 Here's a (partial) class diagram of the `Logic` component:
 
@@ -101,22 +100,21 @@ The sequence diagram below illustrates the interactions within the `Logic` compo
 
 How the `Logic` component works:
 
-1. When `Logic` is called upon to execute a command, it is passed to an `AddressBookParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
+1. When `Logic` is called upon to execute a command, the command is passed to a `CommandParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
 1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is executed by the `LogicManager`.
-1. The command can communicate with the `Model` when it is executed (e.g. to delete a patient).<br>
-   Note that although this is shown as a single step in the diagram above (for simplicity), in the code it can take several interactions (between the command object and the `Model`) to achieve.
-1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
+2. The command can communicate with the `Model` when it is executed (e.g. to delete a patient).<br>
+3. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
 
 <puml src="diagrams/ParserClasses.puml" width="600"/>
 
 How the parsing works:
-* When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
+* When called upon to parse a user command, the `CommandParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `CommandParser` returns back as a `Command` object.
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
-**API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](https://github.com/AY2324S2-CS2103-F08-2/tp/tree/master/src/main/java/seedu/address/model/Model.java)
 
 <puml src="diagrams/ModelClassDiagram.puml" width="450" />
 
@@ -128,18 +126,9 @@ The `Model` component,
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
-<box type="info" seamless>
-
-**Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
-
-<puml src="diagrams/BetterModelClassDiagram.puml" width="450" />
-
-</box>
-
-
 ### Storage component
 
-**API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](https://github.com/AY2324S2-CS2103-F08-2/tp/tree/master/src/main/java/seedu/address/storage/Storage.java)
 
 <puml src="diagrams/StorageClassDiagram.puml" width="550" />
 
@@ -289,20 +278,33 @@ This enhancement was driven for the need of:
 Command history is a feature that aims to improve the user experience for experienced users by allowing them to quickly
 navigate through their history of commands to make minor changes. Many features were inspired from macOS's Bash shell
 
+Below is a general user flow of the command history
+<puml src="diagrams/CommandHistorySequenceDiagram.puml" alt="Command History sequence diagram" />
+
+**Note** that the above diagram doesn't capture the audio playback feature because it's not a core part of the feature.
+
+And below are the specific behaviours of the command history module
+
+**Undo**
+<puml src="diagrams/command-history/CommandHistoryUndoActivityDiagram.puml" alt="command history undo activity diagram" />
+
+**Redo**
+<puml src="diagrams/command-history/CommandHistoryRedoActivityDiagram.puml" alt="command history redo activity diagram" />
+
 **Implementation**
 An array list was used to store the history of commands and an index to indicate which command is the history currently 
-at. 
-- The list is initialised to have an empty string as the initial element
+at.
+- The list is initialised to have an empty string as the initial element. This is so that our default behaviour of returning an empty string from pressing redo when there is no next command can be easily implemented
 - The current command index defaults to 0
 
 There are a few methods used to interact with the command history
-1. getCurrentCommand()
+1. **getCurrentCommand()**
    1. Gets the command at the current command index
-2. undo()
+2. **undo()**
    1. Decrements the current command index by 1
    2. If the current command index is already 0, it will play a Boop sound to indicate that there is 
 are no more commands left to undo
-3. redo()
+1. **redo()**
    1. Increments the current command index by 1
 
 Below shows expected behaviour of the command history from a series of actions. 
@@ -313,7 +315,10 @@ is pointing at.
 - undo - decrements the index
 - redo - increments the index
 
-![](images/command-history/command-history-illustration.jpeg)
+<img 
+  src="images/command-history/command-history-illustration.jpeg" 
+  alt="Command history illustration/"
+  width=480>
 
 **Rationale for implementation**
 There are a few key features that this module aims to implement
@@ -355,7 +360,6 @@ There are a few key features that this module aims to implement
 1. Using an array list instead of an observable list. However, the GUI was not able to accurately reflect the new appointment list when new appointments were added.
 
 
-======
 ### Filter Appointment Feature
 
 The filter appointment feature allows users to filter appointments based on the date and time of the appointment.
@@ -387,6 +391,44 @@ There are a few key features that this module aims to implement
 
 **Alternatives considered**
 1. Smarter filtering based on the date and time of the appointment. However, this was not implemented as it was not necessary for the current scope of the project.
+### Report Patient Feedback Feature
+Report patient feedback score is a feature that averages out the feedback scores of all currently filtered appointment. It allows getting the average scores of appointments within a given date range
+
+The overall data flow of patient feedback data is detailed below by a class diagram. 
+**Note**: This class diagram doesn't represent the command, but rather, how data is stored
+<puml src="diagrams/PatientFeedbackReportClassDiagram.puml" alt="Report Feedback Class Diagram" />
+
+Below is a sequence diagram of the user flow of the report command
+<puml src="diagrams/ReportFeedbackSequenceDiagram.puml" alt="Report Feedback Sequence Diagram" />
+
+**Implementation**
+1. `PatientFeedbackReport` - A model that contains information from both Patient and Appointments. It uses both data to determine which appointments to calculate the average from
+2. `PatientFeedbackReportList` - Contains a list of patinet feedback reports
+3. `ReportFeedbackCommand` - Reports the average feedback score for a given date range
+4. `ReportFeedbackCommandParser`- Parses ReportFeedbackCommand accordingly
+5. `FeedbackScore` - Contains a nullable Integer field. If it is null, then there is no rating for the appointment yet
+
+**Rationale for Implementation**
+1. High-level structure for `ReportFeedbackCommand`, `ReportFeedbackCommandParser` and `PatientFEedbackReportList` was inspired from previous implementations of similar models
+2. Integer was used for `FeedbackScore` because:
+   1. We did not want to make FeedbackScore compulsory to add when creating an appointment
+   2. The primitive type `int` is not nullable, so we used a wrapper class instead
+3. `PatientFeedbackReport` is different from Appointment and Patient because it holds transient data and is dependent on data from the Patient and Appointment models.
+   1. Therefore, it was decided that the entire list of appointments and a specified patient data should be passed into this object in order to calculate the average feedback score
+4. `PatientFeedbackReportList` does not have any direct list modification methods of its own. It only has a generateReportList function which is called every time there is an update to the list of patients or appointments, e.g. filter, add, edit or delete
+   1. To achieve such reactivity, `generateReportList()` was called at the end of each such function inside `ModelManager`
+
+**Alternatives considered**
+1. `PatientFeedbackReport` - We considered just passing the required fields, however there were a few limitations
+   1. Passing only the Patient name and ID
+      1. We need the name for sorting and UI purposes and we need the patient ID to determine which appointments to select. This resulted in 2 fields from the same object, which could be simplified if we just pass in a single Patient object
+    2. Passing only the patient's list of appointments instead of all appointments
+       1. This quickly proved to be very complex because we would need to filter appointments every time a patient or appointment was updated in the list
+2. `FeedbackScore` data representation
+   1. A string data type was considered to represent the Feedback Score, however, it simply did not make sense logically-speaking, and thus, we used an Integer instead.
+   2. A 0 was considered to represent the null value of a feedback score. This was because we did not have any actually null fields in the previous code base, with FeedbackScore being the only nullable field. However, having 0 represent the null value is confusing and also prone to error, in case someone decided to edit the feedbaCkScore to any other value, e.g. -1
+3. An observer pattern was considered when implementing the `generateReportList()` fucntionality, however, it was scrapped because it was already implemented via the `ObservableList` fields and implementing the pattern fully would not be worth the refactor 
+
 
 ### \[Proposed\] Undo/redo feature
 
@@ -569,16 +611,27 @@ We have considered these alternatives:
 ### Product scope
 
 **Target user profile**:
-* Staff at SoC Center for Future Graduates (CFG)
+
+This product is for staff at SoC Center for Future Graduates (CFG), and is specifically targeted towards Buck Seng, our target audience. This product aims to help make managing his patients easier
+
+The following further describes our user
+
 * has a need to manage a significant number of contacts due to the large number of students requiring counselling services
 * prefer desktop apps over other types
 * can type fast
 * prefers typing to mouse interactions
+* is technically competent
 * is reasonably comfortable using CLI apps
 * only a single user
 
-**Value proposition**: Manage students that are being counselled by him faster than a typical mouse/GUI application.
+**Value proposition**: 
 
+CogniCare provides a comprehensive set of features that help streamline especially tedious tasks such as:
+1. Looking up what appointments are there in a given time period to clear up the schedule
+2. Report patient satisfaction levels over a given time period
+3. Updating a patient's data across all their appointments. E.g. Updating a person's phone number or removing the patient and their associated appointments from UI
+
+Furthermore, CogniCare's operations are specialised for technically competent users who type fast, which matches Buck Seng's description.
 
 ### User stories
 
@@ -597,7 +650,8 @@ Priorities: High (must have) - `* * * *`, Medium (nice to have) - `* * *`, Low (
 | `* * * *` | Counsellor       | view all appointments for a specified patient             | quickly view all appointments related to a student without having to remember the appointment ID or dates. |
 | `* * * *` | Counsellor       | view patient case logs                                    | understand where I left off with the patient last time.                                                    |
 | `* * * *` | Counsellor       | create patient logs                                       | note down what I went through with the patient during the session.                                         |
-| `* * * *` | Counsellor       | update counselling sessions                               | fix mistakes for a prior counselling session.                                                              |
+| `* * * *` | Counsellor       | update appointments                                       | fix mistakes for a prior appointment.                                                                      |
+| `* * * *` | Counsellor       | track patient feedback scores over time                   | quickly identify which patients need more help.                                                            |
 | `* * *`   | Counsellor       | to categorise / tag my patients                           | patients with more serious issues can be attended to first.                                                |
 | `* * * `  | Counsellor       | know how many patients I am seeing in a week              | better manage my own time and emotions.                                                                    |
 | `* * *`   | Counsellor       | know what mistakes I make when creating patients          | easily understand how to rectify my mistakes                                                               |
@@ -766,137 +820,39 @@ Use case ends.
 
   Use case ends.
 
-**Use case: View one case log of an appointment of a specific student**
+**Use case: View all appointments of a specific patient**
 
 **MSS**
-
-1. User searches for specific student.
-2. CogniCare shows a list of students that meet the criteria.
-3. User requests to list all appointments at the given the student index.
-4. CogniCare shows a list of appointments that meet the criteria.
-5. User requests to find the case log of the appointment at the given student and appointment.
-6. CogniCare shows the case log that meets the criteria.
-
-   Use case ends.
-
-**Extensions**
-
-* 1a. The query has missing parameters
-
-    * 1a1. CogniCare shows an error message.
-
-  Use case ends.
-
-* 2a. The list of students is empty.
-
-  Use case ends.
-
-* 3a. The query has missing parameters
-
-    * 3a1. CogniCare shows an error message.
-
-  Use case ends.
-
-* 4a. The list of appointments is empty.
-
-  Use case ends.
-
-* 5a. The query has missing/out of bound parameters
-
-    * 5a1. CogniCare shows an error message.
-
-  Use case ends.
-
-* 6a. There is no case log for such appointment
-
-    * 6a1. CogniCare shows an error message.
-
-  Use case ends.
-
-**Use case: View many case logs of a specific student**
-
-**MSS**
-
-1. User searches for specific student.
-2. CogniCare shows a list of students that meet the criteria.
-3. User requests to see all appointments' case log at the given the student index.
-4. CogniCare shows a list of all appointments' case log that meet the criteria.
-
-   Use case ends.
-
-**Extensions**
-
-* 1a. The query has missing parameters
-
-    * 1a1. CogniCare shows an error message.
-
-  Use case ends.
-
-* 2a. The list of students is empty.
-
-  Use case ends.
-
-* 3a. The query has missing parameters
-
-    * 3a1. CogniCare shows an error message.
-
-  Use case ends.
-
-* 4a. The list of appointments is empty.
-
-  Use case ends.
-
-**Use case: Edit one case log of an appointment of a specific student**
-
-**MSS**
-
-1. User searches for specific student.
-2. CogniCare shows a list of students that meet the criteria.
-3. User requests to see all appointments' case log at the given the student index.
-4. CogniCare shows a list of all appointments' case log that meet the criteria.
-5. User requests to edit the case log of the appointment at the given student and appointment.
-6. CogniCare edits the case log for the specified appointment and student.
-
-   Use case ends.
-
-**Extensions**
-
-* 1a. The query has missing parameters
-
-    * 1a1. CogniCare shows an error message.
-
-  Use case ends.
-
-* 2a. The list of students is empty.
-
-  Use case ends.
-
-* 3a. The query has missing parameters
-
-    * 3a1. CogniCare shows an error message.
-
-  Use case ends.
-
-* 4a. The list of appointments is empty.
-
-  Use case ends.
-
-* 5a. The query has missing/out of bound parameters
-
-    * 5a1. CogniCare shows an error message.
+1. User retrieve the patient index or name of the specific student.
+2. User requests to list all appointments at the given student index.
+3. CogniCare shows a list of appointments that meet the criteria.
 
     Use case ends.
 
-**Use case: Create one case log of a appointment of a specific student**
+**Extensions**
+* 1a. The query has missing parameters
+
+    * 1a1. CogniCare shows an error message.
+
+  Use case ends.
+
+* 1b. The list of students is empty.
+
+  Use case ends.
+* 2a. The patient index is invalid. 
+    * 2a1. CogniCare displays an error message that the index is invalid. 
+
+  Use case ends.
+
+* 3a. The list of appointments is empty.
+  Use case ends.
+
+**Use case: Filter appointment in a date time range**
 
 **MSS**
 
-1. User searches for specific student.
-2. CogniCare shows a list of students that meet the criteria.
-3. User requests to list all appointments at the given the student index.
-4. CogniCare shows a list of appointments that meet the criteria.
-5. User requests to create the case log of the appointment at the given student and appointment.
-6. CogniCare create the case log for the specified appointment and student.
+1. User requests to filter appointments based on the date and time range.
+2. CogniCare shows a list of appointments that meet the criteria and success messages.
 
    Use case ends.
 
@@ -908,30 +864,53 @@ Use case ends.
 
   Use case ends.
 
-* 2a. The list of students is empty.
+* 2a. The list of appointments is empty.
 
   Use case ends.
 
-* 3a. The query has missing parameters
+* 3a. The query has incorrect parameters
 
     * 3a1. CogniCare shows an error message.
 
   Use case ends.
 
-* 4a. The list of appointments is empty.
+* 4a. The query has missing parameters
+
+    * 4a1. CogniCare shows all appointments.
 
   Use case ends.
 
-* 5a. The query has missing/out of bound parameters
+**Use case: Report patient feedback over a given time period**
 
-    * 5a1. CogniCare shows an error message.
+**MSS**
+1. User requests to view all feedback scores from a given start date to a given end date
+2. Feedback scores are updated to get the average of all appontments within the given time period
 
-  Use case ends.
+Use case ends.
+
+**Extensions**
+* 1a. User specifies the start date only
+  * 1a1. All appointments from the specified start date to the end of time are returned
+  
+  Use case resumes from step 2
+* 1b. User specifies the end date only
+  * 1b1. All appointments from the beginning of time to the specified end date are returned
+
+  Use case resumes from step 2
+* 1c. User specifies neither end or start date
+  * 1c1. All appointments are returned
+
+  Use case resumes from step 2
+
+* 1d. Date specified is in an incorrect format
+  * 1d1. Invalid format exception message is shown to the user
+
+  Use case ends
 
 **Use case: Getting the previous command entered**
 
 **MSS**
-1. User types in and executes any command.
+1. User executes any command.
 2. User presses the Up arrow key to view his last command
 3. User modifies his last command
 4. User executes the modified command
@@ -942,11 +921,13 @@ Use case ends.
 **Extension**
 
 * 3a. User modifies the command, and without executing it, presses the Down arrow key, followed by the Up arrow key
-    * 4a1. The command before modification is shown because the modified command was not executed
-* *a. User presses the Up arrow key when there is no previous command
+    * 3a1. The command before modification is shown because the modified command was not executed
+  
+  Use case resumes from step 3
+* 2a. User presses the Up arrow key again
     * *a1. A sound is played indicating that there is no previous command
 
-    Use case ends.
+    Use case resumes from step 3.
 
 **Use case: Getting the next command entered**
 
@@ -960,7 +941,7 @@ Use case ends.
 **Extension**
 
 * *a. User presses the Down arrow key when there is no next command
-    * *b1. An empty string is returned
+    * *a1. An empty string is returned
 
   Use case ends.
 
@@ -1167,8 +1148,15 @@ Expected Output in the CommandBox: `Deleted Patient: Grace Lim; Phone: 83456789;
 This section describes the potential enhancements that could be improved in future editions of the application.
 * Adding the ability to allow the counselor to secure the application - via a PIN Code feature, and encryption of the JSON file so that data loss does not result in the leakage of highly confidential medical data.
 * Enhancing the graphical user interface to make it more user-friendly, i.e. more usage of the mouse as compared to the keyboard.
-
+* Enabling localisation support: In future more options will be available for users to set their preferred phone number validation types (i.e. US Phone format), Extended Character Set for Naming validation (so that Chinese / Vietnamese / Tamil, etc names can be supported).
+* More commands to improve the counsellor workflow: As with a typical application, our primary objective is to concentrate collection of patient and appointment data. As we progress, we plan to introduce updates and increase more commands to derive new insights from the data. We appreciate your understanding and patience as we work towards working with the users and making these advanced features available.
 ## 8. Learning Outcomes
 The implementation of the CogniCare application was an extremely challenging endeavour - as we needed to morph and reshape the AB3 application in a team-based setting. The transformation process involved significant alternations and enhancements to reach the new requirements of the application.
 
 The team-based setting also exposed us to various crucial skills such as improving our working styles to achieve a high level of collaboration. Skillsets that are crucial to a Software Engineer such as reviewing Pull Requests (PRs), and providing and receiving feedback from peers are also learned in the course of the project.
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Acknowledgements**
+
+Code base adapted from [Address Book Level-3](https://github.com/nus-cs2103-AY2324S2/tp)

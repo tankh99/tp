@@ -54,7 +54,7 @@ public class EditAppointmentCommandTest {
                 .findFirst();
 
         AppointmentBuilder appointmentInList = new AppointmentBuilder(lastAppointment.get());
-        Appointment editedAppointment = appointmentInList.withStudentId(1)
+        Appointment editedAppointment = appointmentInList.withPatientId(1)
                 .withStartDatetime(LocalDateTime.of(2022, 12, 12, 8, 0, 0))
                 .withEndDateTime(LocalDateTime.of(2022, 12, 12, 9, 0, 0))
                 .withAppointmentDescription("pre-edited appointment")

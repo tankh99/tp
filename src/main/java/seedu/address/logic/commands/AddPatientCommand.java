@@ -33,7 +33,7 @@ public class AddPatientCommand extends Command {
             + PREFIX_ALIAS + "sadness";
 
     public static final String MESSAGE_SUCCESS = "New patient added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This student already exists in the CogniCare address book";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This patient already exists in the CogniCare address book";
 
     private final Patient toAdd;
 

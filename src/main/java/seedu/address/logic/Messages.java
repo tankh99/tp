@@ -4,6 +4,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import seedu.address.commons.util.DateUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.patient.Patient;
@@ -67,12 +68,12 @@ public class Messages {
     public static String formatAppointment(Appointment appointment) {
         final StringBuilder builder = new StringBuilder();
         builder.append(appointment.getAppointmentId())
-                .append("; StudentId: ")
+                .append("; PatientId: ")
                 .append(appointment.getPatientId())
                 .append("; Start: ")
-                .append(appointment.getStartDateTime())
+                .append(DateUtil.formatDateTime(appointment.getStartDateTime().getDateTimeValue()))
                 .append("; End: ")
-                .append(appointment.getEndDateTime())
+                .append(DateUtil.formatDateTime(appointment.getEndDateTime().getDateTimeValue()))
                 .append("; Attend: ")
                 .append(appointment.getAttendedStatus())
                 .append("; Score: ")
