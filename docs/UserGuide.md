@@ -195,7 +195,7 @@ Format: `queryp a/depression a/anxiety ​`
 For example: to find all the "rome"s that are stored in the CogniCare application.
 Format: `queryp n/rome ​`
 
-Then all patients with "rome" in their names will be returned as well. Similar logic applies for Name, Phone Number and Email address.
+Then all patients with "rome" in their names will be returned as well. Similar logic applies for Name, Phone Number and Email address, but not affiliated-with tags.
 
 ## Viewing statistics of tagged information
 The image shows the (top 10) most popular tags sorted by how many patients with that respective tag.
