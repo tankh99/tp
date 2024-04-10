@@ -116,7 +116,8 @@ The image below a failure of adding patient due to duplicate email tag.
     3. Note: This simplistic  validation allows for weird numbers like 666, but we allow this anyway since comprehensive number validating is too technically complex
 3. EMAIL
     1. Should be a valid email address with the form `local-part@domain` where domain is at least 2 letters long
-    2. All emails are stored in lowercase by default
+    2. All emails are stored in lowercase by default.
+    3. It is important to note that the email validation is not very strict and allows for flexibility in the local-part and domain formats.
 4. AFFILIATED_WITH
     1. There can be many AFFILIATED_WITH tag specified.
     2. Each AFFILIATED_WITH tag should be a single word, alphanumerical type, and should not be empty.
