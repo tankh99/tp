@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 import seedu.address.commons.util.ToStringBuilder;
 
 /**
- * Tests that a {@code Person}'s {@code Tags} (case-insensitive) matches a part of the keywords given.
+ * Tests that a {@code Patients}'s {@code Tags} (case-insensitive) matches a part of the keywords given.
  */
 public class TagContainsKeywordPredicate implements Predicate<Patient> {
     private final List<String> keywords;
