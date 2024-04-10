@@ -6,7 +6,7 @@
 
 # CogniCare User Guide
 
-CogniCare is a **desktop app for managing all patients, optimized for use via a Command Line Interface** (CLI) while still retaining all the benefits of a Graphical User Interface (GUI). If you can type fast, CogniCare can get your patient management tasks done faster than other traditional GUI apps.
+CogniCare is a **desktop app for managing most Singaporean patients, optimized for use via a Command Line Interface** (CLI) while still retaining all the benefits of a Graphical User Interface (GUI). If you can type fast, CogniCare can get your patient management tasks done faster than other traditional GUI apps.
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -31,7 +31,7 @@ CogniCare is a **desktop app for managing all patients, optimized for use via a 
 
     * `queryp` : Lists all patients that are stored in CogniCare.
 
-    * `addp n/Jerome Chua p/98765432 e/jerome@example.com a/depressed` : Adds a contact named `Jerome Chua` to the Address Book who is associated with having depression.
+    * `addp n/Jerome Chua p/98765432 e/jerome@example.com a/depression` : Adds a contact named `Jerome Chua` to the Address Book who is associated with having "depression".
 
     * `deletep 903` : Deletes the patient that has the id of 903 (This is different from the natural ordering of the list).
    
@@ -81,7 +81,7 @@ CogniCare is a **desktop app for managing all patients, optimized for use via a 
 
 Shows a message explaining how to access the help page.
 
-![help message](images/helpMessage.png)
+![Help Message](images/helpMessage.png)
 
 Format: `help`
 
@@ -108,9 +108,11 @@ The image below a failure of adding patient due to duplicate email tag.
 **Validation**:
 1. NAME
     1. No duplicate names are allowed. Names are lowercased and trimmed before duplicate comparison
+    2. Please note that special characters are not allowed in this iteration (So, for example, "Jerome S/O Gary" will not be a valid name)
+   3. Please note that only English names are allowed at this point, as all Singaporean residents / visitors have an English version of their name.
 2. PHONE_NUMBER
-    1. Should be exactly 3 or 8 digits long
-    2. Should start with 6, 8 or 9. (We ignore 3 since those are numbers that people wouldn't normally have)
+    1. Should be exactly 3 or 8 digits long which is in a Singaporean phone number format. (For example: 82221234, 91112222 and 999 are valid phone numbers)
+    2. Should start with 6, 8 or 9. (We ignore 3 since those are IP Phone Numbers that people wouldn't normally have)
     3. Note: This simplistic  validation allows for weird numbers like 666, but we allow this anyway since comprehensive number validating is too technically complex
 3. EMAIL
     1. Should be a valid email address with the form `local-part@domain` where domain is at least 2 letters long
