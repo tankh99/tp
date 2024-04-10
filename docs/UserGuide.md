@@ -138,7 +138,7 @@ Examples:
 and is not coalesced when other entries are deleted.
 This is similar to SQL database behaviour where the auto-increment primary key goes on to the next value even if the transaction has failed. [Read more](https://stackoverflow.com/questions/10108593/mysql-autoincrement-value-increases-even-when-insertion-fails-due-to-error)
 
-This means that if the CogniCare application initially contained of the items
+This means that if the CogniCare application initially contained of the patients
 ```
 1. Caitlyn
 2. Khang Hou
