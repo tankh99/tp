@@ -6,7 +6,7 @@
 
 # CogniCare User Guide
 
-CogniCare is a **desktop app for managing all patients, optimized for use via a Command Line Interface** (CLI) while still retaining all the benefits of a Graphical User Interface (GUI). If you can type fast, CogniCare can get your patient management tasks done faster than other traditional GUI apps.
+CogniCare is a **desktop app for managing most Singaporean patients, optimized for use via a Command Line Interface** (CLI) while still retaining all the benefits of a Graphical User Interface (GUI). If you can type fast, CogniCare can get your patient management tasks done faster than other traditional GUI apps.
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -31,7 +31,7 @@ CogniCare is a **desktop app for managing all patients, optimized for use via a 
 
     * `queryp` : Lists all patients that are stored in CogniCare.
 
-    * `addp n/Jerome Chua p/98765432 e/jerome@example.com a/depressed` : Adds a contact named `Jerome Chua` to the Address Book who is associated with having depression.
+    * `addp n/Jerome Chua p/98765432 e/jerome@example.com a/depression` : Adds a contact named `Jerome Chua` to the Address Book who is associated with having "depression".
 
     * `deletep 903` : Deletes the patient that has the id of 903 (This is different from the natural ordering of the list).
    
@@ -81,7 +81,7 @@ CogniCare is a **desktop app for managing all patients, optimized for use via a 
 
 Shows a message explaining how to access the help page.
 
-![help message](images/helpMessage.png)
+![Help Message](images/helpMessage.png)
 
 Format: `help`
 
@@ -108,13 +108,19 @@ The image below a failure of adding patient due to duplicate email tag.
 **Validation**:
 1. NAME
     1. No duplicate names are allowed. Names are lowercased and trimmed before duplicate comparison
+    2. Please note that special characters are not allowed in this iteration (So, for example, "Jerome S/O Gary" will not be a valid name)
+   3. Please note that only English names are allowed at this point, as all Singaporean residents / visitors have an English version of their name.
 2. PHONE_NUMBER
-    1. Should be exactly 3 or 8 digits long
-    2. Should start with 6, 8 or 9. (We ignore 3 since those are numbers that people wouldn't normally have)
+    1. Should be exactly 3 or 8 digits long which is in a Singaporean phone number format. (For example: 82221234, 91112222 and 999 are valid phone numbers)
+    2. Should start with 6, 8 or 9. (We ignore 3 since those are IP Phone Numbers that people wouldn't normally have)
     3. Note: This simplistic  validation allows for weird numbers like 666, but we allow this anyway since comprehensive number validating is too technically complex
 3. EMAIL
     1. Should be a valid email address with the form `local-part@domain` where domain is at least 2 letters long
-    2. All emails are stored in lowercase by default
+    2. All emails are stored in lowercase by default.
+    3. It is important to note that the email validation is not very strict and allows for flexibility in the local-part and domain formats.
+4. AFFILIATED_WITH
+    1. There can be many AFFILIATED_WITH tag specified.
+    2. Each AFFILIATED_WITH tag should be a single word, alphanumerical type, and should not be empty.
 
 <box type="tip" seamless>
 
@@ -167,10 +173,11 @@ Shows a list of all patients in the CogniCare application that matches the crite
 
 Format: `queryp [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/AFFLIATED_WITH]…​`
 
-* Case-Insensitive, partial search: The `queryp` command does not require an exact match (including UPPER or lower case) of the letters in your search criteria. It allows for partial matches meaning that it can find entries that contain the specified pattern anywhere within the relavant fields (name, phone number, email, affliated_with tags).
+* Case-Insensitive, partial search: The queryp command supports partial matching for the "Name", "Phone Number", and "Email" fields, allowing for flexibility in executing search queries. This means the `queryp` command can find entries that contain the specified pattern anywhere within these fields, regardless of whether the letters are uppercase or lowercase. However, it is important to note that partial matching is not supported for Tags.
 * Search Logic:
-  * AND Logic for Different Criteria: When different criterias are used in a single `queryp` command (e.g., name, phone number, email), CogniCare will return the list of patients that meets all those criteria. For example, when you search for a patient with a specific name, phone number, and email address, only patients who match all these details will be shown in the results.
+  * AND Logic for Different Criteria: When different criteria are used in a single `queryp` command (e.g., name, phone number, email), CogniCare will return the list of patients that meets all those criteria. For example, when you search for a patient with a specific name, phone number, and email address, only patients who match all these details will be shown in the results.
   * OR Logic for Tags: However, when you specify more than one tag in the command, the application interprets this as an OR condition. This means CogniCare will return the list patients who have any of the tags specified. For example, using `queryp a/depression a/anxiety` will return the list of patients who are tagged with either depression or anxiety (or both).
+
 
 The image shows the successful `queryp` command with all parameters specified.
 ![Query patients with all parameters](images/patients/3a_Query_with_all_parameters_success.png)
@@ -180,20 +187,25 @@ For example: to find all the "Jerome" that are stored in the CogniCare applicati
 Format: `queryp n/Jerome …​`
 This searches for any patient whose name contains "Jerome", regardless of case. So, it will find "JEROME", "jerome", "Jerome", etc.
 
-
-The image shows the successful `queryp` command with only one parameter (name) specified.
+The image shows the successful `queryp` command.
 ![Add patient success](images/patients/3b_Query_with_name_only_success.png)
 
 
 For example: to find all the "Jerome"s that are stored in the CogniCare application, have a phone number that contains 987, and email using outlook, the user may use the command
-
 Format: `queryp n/Jerome p/987 e/example.com ​`
 
 The user may also choose to use the command in the following way to view students that have either `depression` OR `anxiety` tag.
 Format: `queryp a/depression a/anxiety ​`
 
 
-## Viewing statistics of tagged information
+For example: to find all the "rome"s that are stored in the CogniCare application.
+Format: `queryp n/rome ​`
+
+Then all patients with "rome" in their names will be returned as well. Similar logic applies for Name, Phone Number and Email address, but not affiliated-with tags.
+
+## Viewing top 10 distinct tags
+> **Note**: You **_do not_** need to enter any command to access this information. This top 10 statistic is automatically updated.
+
 The image shows the (top 10) most popular tags sorted by how many patients with that respective tag.
 Note that the command was entered to demonstrate that the count for the anxiety tag is the same as the ones in the CogniCare application.
 ![Viewing tags statistics](images/patients/3e_Query_via_tags-same_count_as_summary_success.png)
