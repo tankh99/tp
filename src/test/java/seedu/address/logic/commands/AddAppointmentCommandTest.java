@@ -60,8 +60,8 @@ public class AddAppointmentCommandTest {
 
     @Test
     public void equals() {
-        Appointment appointmentOne = new AppointmentBuilder().withStudentId(1).build();
-        Appointment appointmentTwo = new AppointmentBuilder().withStudentId(2).build();
+        Appointment appointmentOne = new AppointmentBuilder().withPatientId(1).build();
+        Appointment appointmentTwo = new AppointmentBuilder().withPatientId(2).build();
         AddAppointmentCommand addAppointmentOneCommand = new AddAppointmentCommand(appointmentOne);
         AddAppointmentCommand addAppointmentTwoCommand = new AddAppointmentCommand(appointmentTwo);
 
@@ -84,7 +84,7 @@ public class AddAppointmentCommandTest {
 
     @Test
     public void toStringMethod() {
-        Appointment appointment = new AppointmentBuilder().withStudentId(1)
+        Appointment appointment = new AppointmentBuilder().withPatientId(1)
                 .withStartDatetime(LocalDateTime.parse("2024-03-18 12:15",
                         DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
                 .withAppointmentId(1)

@@ -68,7 +68,7 @@ public class Messages {
     public static String formatAppointment(Appointment appointment) {
         final StringBuilder builder = new StringBuilder();
         builder.append(appointment.getAppointmentId())
-                .append("; StudentId: ")
+                .append("; PatientId: ")
                 .append(appointment.getPatientId())
                 .append("; Start: ")
                 .append(DateUtil.formatDateTime(appointment.getStartDateTime().getDateTimeValue()))

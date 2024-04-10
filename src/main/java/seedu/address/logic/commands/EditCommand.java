@@ -208,12 +208,12 @@ public class EditCommand extends Command {
         }
 
 
-        public void setStudentId(int studentId) {
-            this.id = studentId;
+        public void setPatientId(int patientId) {
+            this.id = patientId;
         }
 
 
-        public Optional<Integer> getStudentId() {
+        public Optional<Integer> getPatientId() {
             return Optional.of(Integer.valueOf(id));
         }
 
