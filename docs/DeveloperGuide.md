@@ -16,12 +16,6 @@ CogniCare takes care of the load of many tedious tasks such as identifying today
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Acknowledgements**
-
-Code base adapted from [Address Book Level-3](https://github.com/nus-cs2103-AY2324S2/tp)
-
---------------------------------------------------------------------------------------------------------------------
-
 ## **Setting up, getting started**
 
 Refer to the guide [_Setting up and getting started_](SettingUp.md).
@@ -1076,3 +1070,11 @@ This section describes the potential enhancements that could be improved in futu
 The implementation of the CogniCare application was an extremely challenging endeavour - as we needed to morph and reshape the AB3 application in a team-based setting. The transformation process involved significant alternations and enhancements to reach the new requirements of the application.
 
 The team-based setting also exposed us to various crucial skills such as improving our working styles to achieve a high level of collaboration. Skillsets that are crucial to a Software Engineer such as reviewing Pull Requests (PRs), and providing and receiving feedback from peers are also learned in the course of the project.
+
+
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Acknowledgements**
+
+Code base adapted from [Address Book Level-3](https://github.com/nus-cs2103-AY2324S2/tp)
