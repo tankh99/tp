@@ -35,6 +35,8 @@ public class DeleteAppointmentCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        assert model != null : "Model should not be null.";
+
         List<Appointment> lastShownList = model.getFilteredAppointmentList();
 
         if (targetAppointmentIndex.getZeroBased() >= Appointment.getIdTracker()) {
