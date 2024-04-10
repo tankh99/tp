@@ -20,7 +20,7 @@ HelpCommand --> CommandParser
 deactivate HelpCommand
 LogicManager <-- CommandParser
 deactivate CommandParser
-LogicManager -> HelpCommand: execute()
+LogicManager -> HelpCommand: execute(model)
 activate HelpCommand
 create CommandResult
 HelpCommand -> CommandResult: CommandResult()
