@@ -90,9 +90,9 @@ Format: `help`
 
 
 
-Adds a patient to the address book.
+Adds a patient to the CogniCare application.
 
-Format: `adda n/NAME p/PHONE_NUMBER e/EMAIL [a/AFFLIATED_WITH]…​`
+Format: `addp n/NAME p/PHONE_NUMBER e/EMAIL [a/AFFLIATED_WITH]…​`
 
 The following image shows when command is valid:
 
