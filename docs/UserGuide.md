@@ -9,6 +9,50 @@
 CogniCare is a **desktop app for managing most Singaporean patients, optimized for use via a Command Line Interface** (CLI) while still retaining all the benefits of a Graphical User Interface (GUI). If you can type fast, CogniCare can get your patient management tasks done faster than other traditional GUI apps.
 
 <!-- * Table of Contents -->
+# Table of Contents
+1. [Quick Start](#Quick-start)
+2. [Overview of GUI](#overview-of-gui)
+3. [Features](#Features)
+
+    3.1. [Viewing help](#viewing-help--help)
+
+    3.2. [Adding a patient](#adding-a-patient-addp)
+    
+    3.3. [Listing all patients](#listing-all-patients--queryp)
+
+    3.4. [Listing selected patients](#listing-selected-patients-that-meets-specified-criterion--criteria--queryp)
+
+    3.5. [Viewing top 10 distinct tags](#viewing-top-10-distinct-tags)
+
+    3.6. [Editing a patient](#editing-a-patient--editp)
+
+    3.7. [Deleting a patient](#deleting-a-patient--deletep)
+
+    3.8. [Adding an appointment](#adding-an-appointment-adda)
+
+    3.9. [Listing all appointments](#listing-all-appointments-querya)
+
+    3.10. [Listing selected appointments](#listing-selected-appointments-that-meets-specified-criterion--criteria-querya)
+
+    3.11. [Filtering appointments by date time](#filter-appointments-by-date-time-filter)
+
+    3.12. [Editing an appointment](#editing-an-appointments-edita)
+
+    3.13. [Deleting an appointment](#deleting-an-appointment--deletea)
+
+    3.14. [Reporting patient feedback statistics](#reporting-patient-feedback-statistics-reportf)
+
+    3.15. [Clearing all entries](#clearing-all-entries--clear)
+
+    3.16. [Exiting the program](#exiting-the-program--exit)
+4. [Saving the data](#saving-the-data)
+5. [Editing the data file](#editing-the-data-file)
+6. [Navigating through history of commands](#navigating-through-history-of-commands)
+7. [FAQ](#faq)
+8. [Known issues](#known-issues)
+9. [Command summary](#command-summary)
+
+
 <page-nav-print />
 
 --------------------------------------------------------------------------------------------------------------------
@@ -52,7 +96,25 @@ CogniCare is a **desktop app for managing most Singaporean patients, optimized f
 6. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
+## Overview of GUI
 
+The CogniCare application has three columns displaying from left to right, patient data, appointment data and the average feedback score per patient.
+
+![GUI mockup.png](images%2Fui-mockup%2FGUI%20mockup.png)
+
+(From the left) the first column displays patient details stored in CogniCare. For each patient, their full name, affiliated tags phone number and email will be displayed. 
+
+![name card.jpg](images%2Fui-mockup%2Fname%20card.jpg)
+
+The second column displays appointment details stored in CogniCare. For each appointment, the name of the patient who requested the appointment, appointment timing and notes will be displayed.
+Additionally, it will display if the patient has attended the appointment and the given feedback score.
+
+![appointment card.jpg](images%2Fui-mockup%2Fappointment%20card.jpg)
+
+Lastly, the third column displays the name and average feedback score per patient.
+
+![average score card.jpg](images%2Fui-mockup%2Faverage%20score%20card.jpg)
+--------------------------------------------------------------------------------------------------------------------
 ## Features
 
 <box type="info" seamless>
@@ -71,7 +133,7 @@ CogniCare is a **desktop app for managing most Singaporean patients, optimized f
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
+* Extraneous parameters for commands that do not take in parameters (such as `help`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 * If you are using a PDF version of this document, please be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
