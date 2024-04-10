@@ -650,7 +650,8 @@ Priorities: High (must have) - `* * * *`, Medium (nice to have) - `* * *`, Low (
 | `* * * *` | Counsellor       | view all appointments for a specified patient             | quickly view all appointments related to a student without having to remember the appointment ID or dates. |
 | `* * * *` | Counsellor       | view patient case logs                                    | understand where I left off with the patient last time.                                                    |
 | `* * * *` | Counsellor       | create patient logs                                       | note down what I went through with the patient during the session.                                         |
-| `* * * *` | Counsellor       | update counselling sessions                               | fix mistakes for a prior counselling session.                                                              |
+| `* * * *` | Counsellor       | update appointments                                       | fix mistakes for a prior appointment.                                                                      |
+| `* * * *` | Counsellor       | track patient feedback scores over time                   | quickly identify which patients need more help.                                                            |
 | `* * *`   | Counsellor       | to categorise / tag my patients                           | patients with more serious issues can be attended to first.                                                |
 | `* * * `  | Counsellor       | know how many patients I am seeing in a week              | better manage my own time and emotions.                                                                    |
 | `* * *`   | Counsellor       | know what mistakes I make when creating patients          | easily understand how to rectify my mistakes                                                               |
