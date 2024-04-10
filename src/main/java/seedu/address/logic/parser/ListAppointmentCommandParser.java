@@ -35,6 +35,9 @@ public class ListAppointmentCommandParser implements Parser<ListAppointmentComma
                                            CliSyntax.PREFIX_PATIENT_ID,
                                            CliSyntax.PREFIX_APPOINTMENT_ID);
 
+        argMultimap.verifyNoDuplicatePrefixesFor(CliSyntax.PREFIX_NAME, CliSyntax.PREFIX_PATIENT_ID,
+                CliSyntax.PREFIX_APPOINTMENT_ID);
+
         List<Predicate<Appointment>> predicates = new ArrayList<>();
 
         // Checks if there is at least one prefix available.
