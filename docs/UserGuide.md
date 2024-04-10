@@ -99,10 +99,10 @@ The following image shows when command is valid:
 The image below shows a successful addition of patient.
 ![Add patient success](images/patients/2a_Add_patient_success.png)
 
-The image below a failure of adding student due to missing phone tag.
+The image below a failure of adding patient due to missing phone tag.
 ![Add patient failure](images/patients/2bi_Cannot_Add_Patient_Missing_Phone_Tag_failure.png)
 
-The image below a failure of adding student due to duplicate email tag.
+The image below a failure of adding patient due to duplicate email tag.
 ![Add patient failure](images/patients/2bii_Cannot_Add_Patient_Duplicate_Email_Tag_failure.png)
 
 **Validation**:
