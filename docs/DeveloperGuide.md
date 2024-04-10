@@ -6,14 +6,13 @@
 
 # CogniCare Developer Guide
 
+## About CogniCare
+As the job climate is worsening, more and more students become afflicted with mental health conditions due to not being able to find a job. This results in an increased workload from a larger number of patients to manage and appointments to schedule. CogniCare is a patient management system, designed to take care of SoC students who suffer from various mental health issues and concerns due to being unable to find internships or jobs.
+
+CogniCare takes care of the load of many tedious tasks such as identifying today's appointments and measuring a patient's satisfication progress levels over a period of time, until they are finally ready for discharge.
+
 <!-- * Table of Contents -->
 <page-nav-print />
-
---------------------------------------------------------------------------------------------------------------------
-
-## **Acknowledgements**
-
-Code base adapted from [Address Book Level-3](https://github.com/nus-cs2103-AY2324S2/tp)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -559,16 +558,27 @@ We have considered these alternatives:
 ### Product scope
 
 **Target user profile**:
-* Staff at SoC Center for Future Graduates (CFG)
+
+This product is for staff at SoC Center for Future Graduates (CFG), and is specifically targeted towards Buck Seng, our target audience. This product aims to help make managing his patients easier
+
+The following further describes our user
+
 * has a need to manage a significant number of contacts due to the large number of students requiring counselling services
 * prefer desktop apps over other types
 * can type fast
 * prefers typing to mouse interactions
+* is technically competent
 * is reasonably comfortable using CLI apps
 * only a single user
 
-**Value proposition**: Manage students that are being counselled by him faster than a typical mouse/GUI application.
+**Value proposition**: 
 
+CogniCare provides a comprehensive set of features that help streamline especially tedious tasks such as:
+1. Looking up what appointments are there in a given time period to clear up the schedule
+2. Report patient satisfaction levels over a given time period
+3. Updating a patient's data across all their appointments. E.g. Updating a person's phone number or removing the patient and their associated appointments from UI
+
+Furthermore, CogniCare's operations are specialised for technically competent users who type fast, which matches Buck Seng's description.
 
 ### User stories
 
@@ -1060,3 +1070,9 @@ This section describes the potential enhancements that could be improved in futu
 The implementation of the CogniCare application was an extremely challenging endeavour - as we needed to morph and reshape the AB3 application in a team-based setting. The transformation process involved significant alternations and enhancements to reach the new requirements of the application.
 
 The team-based setting also exposed us to various crucial skills such as improving our working styles to achieve a high level of collaboration. Skillsets that are crucial to a Software Engineer such as reviewing Pull Requests (PRs), and providing and receiving feedback from peers are also learned in the course of the project.
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Acknowledgements**
+
+Code base adapted from [Address Book Level-3](https://github.com/nus-cs2103-AY2324S2/tp)
