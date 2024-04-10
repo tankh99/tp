@@ -200,7 +200,7 @@ Examples:
 and is not coalesced when other entries are deleted.
 This is similar to SQL database behaviour where the auto-increment primary key goes on to the next value even if the transaction has failed. [Read more](https://stackoverflow.com/questions/10108593/mysql-autoincrement-value-increases-even-when-insertion-fails-due-to-error)
 
-This means that if the CogniCare application initially contained of the items
+This means that if the CogniCare application initially contained of the patients
 ```
 1. Caitlyn
 2. Khang Hou
@@ -279,7 +279,8 @@ Edits an existing patient in the CogniCare application at the specified index.
 
 Format: `editp PATIENT_ID [n/NAME] [p/PHONE] [e/EMAIL] [a/AFFLIATED_WITH]…​`
 
-* Edits the patient at the specified `addp_ID`. The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
+* Edits the patient at the specified `PATIENT_ID`. The index refers to the unique identifier number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
+> Tip: Please take note that 0 is not a valid patient identifier.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the patient will be removed; i.e. adding of tags is not cumulative.
@@ -305,12 +306,6 @@ The image belows shows a failed message of an edit patient command (when no inde
 
 Deletes the specified patient from the address book from the specified patient index.
 
-The image belows shows a successful message of a delete patient command (when a valid index is specified).
-![Delete patient success](images/patients/4d_Delete_patient_successful.png)
-
-The output failed message of a delete patient command (when no index or invalid index is specified) is similar to when the edit command fails.
-
-
 Format: `deletep INDEX`
 
 * Deletes the patient at the specified `INDEX`.
@@ -319,6 +314,14 @@ Format: `deletep INDEX`
 
 Examples:
 * `list` followed by `deletep 90` deletes the patient with the patientId of 90 in the address book.
+
+
+The image belows shows a successful message of a delete patient command (when a valid index is specified).
+![Delete patient success](images/patients/4d_Delete_patient_successful.png)
+
+The output failed message of a delete patient command (when no index or invalid index is specified) is similar to when the edit command fails.
+
+
 
 ### Adding an appointment: `adda`
 
