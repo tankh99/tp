@@ -163,9 +163,14 @@ The image shows the successful `queryp` command
 
 ### Listing selected patients that meets specified criterion / criteria : `queryp`
 
-Shows a list of all patients in the CogniCare application that matches _ALL_ the conditions that are specified.
+Shows a list of all patients in the CogniCare application that matches the criteria.
 
-Format: `queryp [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] …​`
+Format: `queryp [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/AFFLIATED_WITH]…​`
+
+* Case-Insensitive, partial search: The `queryp` command does not require an exact match (including UPPER or lower case) of the letters in your search criteria. It allows for partial matches meaning that it can find entries that contain the specified pattern anywhere within the relavant fields (name, phone number, email, affliated_with tags).
+* Search Logic:
+  * AND Logic for Different Criteria: When different criterias are used in a single `queryp` command (e.g., name, phone number, email), CogniCare will return the list of patients that meets all those criteria. For example, when you search for a patient with a specific name, phone number, and email address, only patients who match all these details will be shown in the results.
+  * OR Logic for Tags: However, when you specify more than one tag in the command, the application interprets this as an OR condition. This means CogniCare will return the list patients who have any of the tags specified. For example, using `queryp a/depression a/anxiety` will return the list of patients who are tagged with either depression or anxiety (or both).
 
 The image shows the successful `queryp` command with all parameters specified.
 ![Query patients with all parameters](images/patients/3a_Query_with_all_parameters_success.png)
@@ -173,6 +178,8 @@ The image shows the successful `queryp` command with all parameters specified.
 
 For example: to find all the "Jerome" that are stored in the CogniCare application, the user may use the command
 Format: `queryp n/Jerome …​`
+This searches for any patient whose name contains "Jerome", regardless of case. So, it will find "JEROME", "jerome", "Jerome", etc.
+
 
 The image shows the successful `queryp` command with only one parameter (name) specified.
 ![Add patient success](images/patients/3b_Query_with_name_only_success.png)
@@ -181,6 +188,9 @@ The image shows the successful `queryp` command with only one parameter (name) s
 For example: to find all the "Jerome"s that are stored in the CogniCare application, have a phone number that contains 987, and email using outlook, the user may use the command
 
 Format: `queryp n/Jerome p/987 e/example.com ​`
+
+The user may also choose to use the command in the following way to view students that have either `depression` OR `anxiety` tag.
+Format: `queryp a/depression a/anxiety ​`
 
 
 ## Viewing statistics of tagged information
@@ -191,7 +201,7 @@ Note that the command was entered to demonstrate that the count for the anxiety 
 
 ### Editing a patient : `editp`
 
-Edits an existing patient in the CogniCare application.
+Edits an existing patient in the CogniCare application at the specified index.
 
 Format: `editp PATIENT_ID [n/NAME] [p/PHONE] [e/EMAIL] [a/AFFLIATED_WITH]…​`
 
