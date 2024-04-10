@@ -90,19 +90,19 @@ Format: `help`
 
 
 
-Adds a patient to the address book.
+Adds a patient to the CogniCare application.
 
-Format: `adda n/NAME p/PHONE_NUMBER e/EMAIL [a/AFFLIATED_WITH]…​`
+Format: `addp n/NAME p/PHONE_NUMBER e/EMAIL [a/AFFLIATED_WITH]…​`
 
 The following image shows when command is valid:
 
 The image below shows a successful addition of patient.
 ![Add patient success](images/patients/2a_Add_patient_success.png)
 
-The image below a failure of adding student due to missing phone tag.
+The image below a failure of adding patient due to missing phone tag.
 ![Add patient failure](images/patients/2bi_Cannot_Add_Patient_Missing_Phone_Tag_failure.png)
 
-The image below a failure of adding student due to duplicate email tag.
+The image below a failure of adding patient due to duplicate email tag.
 ![Add patient failure](images/patients/2bii_Cannot_Add_Patient_Duplicate_Email_Tag_failure.png)
 
 **Validation**:
@@ -156,16 +156,21 @@ When Khang Hou is deleted, the patient ids are as below:
 
 ### Listing all patients : `queryp`
 
-Shows a list of all patients in the address book.
+Shows a list of all patients in the CogniCare application.
 
 The image shows the successful `queryp` command
 ![Query patient without parameters](images/patients/3c_Query_with_no_parameters_success.png)
 
 ### Listing selected patients that meets specified criterion / criteria : `queryp`
 
-Shows a list of all patients in the address book that matches _ALL_ the conditions that are specified.
+Shows a list of all patients in the CogniCare application that matches the criteria.
 
-Format: `queryp [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] …​`
+Format: `queryp [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/AFFLIATED_WITH]…​`
+
+* Case-Insensitive, partial search: The `queryp` command does not require an exact match (including UPPER or lower case) of the letters in your search criteria. It allows for partial matches meaning that it can find entries that contain the specified pattern anywhere within the relavant fields (name, phone number, email, affliated_with tags).
+* Search Logic:
+  * AND Logic for Different Criteria: When different criterias are used in a single `queryp` command (e.g., name, phone number, email), CogniCare will return the list of patients that meets all those criteria. For example, when you search for a patient with a specific name, phone number, and email address, only patients who match all these details will be shown in the results.
+  * OR Logic for Tags: However, when you specify more than one tag in the command, the application interprets this as an OR condition. This means CogniCare will return the list patients who have any of the tags specified. For example, using `queryp a/depression a/anxiety` will return the list of patients who are tagged with either depression or anxiety (or both).
 
 The image shows the successful `queryp` command with all parameters specified.
 ![Query patients with all parameters](images/patients/3a_Query_with_all_parameters_success.png)
@@ -173,6 +178,8 @@ The image shows the successful `queryp` command with all parameters specified.
 
 For example: to find all the "Jerome" that are stored in the CogniCare application, the user may use the command
 Format: `queryp n/Jerome …​`
+This searches for any patient whose name contains "Jerome", regardless of case. So, it will find "JEROME", "jerome", "Jerome", etc.
+
 
 The image shows the successful `queryp` command with only one parameter (name) specified.
 ![Add patient success](images/patients/3b_Query_with_name_only_success.png)
@@ -181,6 +188,9 @@ The image shows the successful `queryp` command with only one parameter (name) s
 For example: to find all the "Jerome"s that are stored in the CogniCare application, have a phone number that contains 987, and email using outlook, the user may use the command
 
 Format: `queryp n/Jerome p/987 e/example.com ​`
+
+The user may also choose to use the command in the following way to view students that have either `depression` OR `anxiety` tag.
+Format: `queryp a/depression a/anxiety ​`
 
 
 ## Viewing statistics of tagged information
@@ -191,9 +201,9 @@ Note that the command was entered to demonstrate that the count for the anxiety 
 
 ### Editing a patient : `editp`
 
-Edits an existing patient in the address book.
+Edits an existing patient in the CogniCare application at the specified index.
 
-Format: `editp PATIENT_ID [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [a/AFFLIATED_WITH]…​`
+Format: `editp PATIENT_ID [n/NAME] [p/PHONE] [e/EMAIL] [a/AFFLIATED_WITH]…​`
 
 * Edits the patient at the specified `addp_ID`. The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
@@ -221,7 +231,7 @@ The image belows shows a failed message of an edit patient command (when no inde
 
 Deletes the specified patient from the address book from the specified patient index.
 
-The image belows shows a successful message of a delete patient command (when no index is specified).
+The image belows shows a successful message of a delete patient command (when a valid index is specified).
 ![Delete patient success](images/patients/4d_Delete_patient_successful.png)
 
 The output failed message of a delete patient command (when no index or invalid index is specified) is similar to when the edit command fails.
@@ -238,7 +248,7 @@ Examples:
 
 ### Adding an appointment: `adda`
 
-Adds an appointment to the address book.
+Adds an appointment to the CogniCare application.
 
 Format: `adda pid/PATIENT_ID sd/START_DATE_TIME ed/END_DATE_TIME [att/ATTEND] [s/SCORE] [ad/APPOINTMENT_DESCRIPTION]`
 
@@ -279,10 +289,10 @@ Shows a list of all appointments in CogniCare. Can be filtered by multiple crite
 Format: `querya [pid/PATIENT_ID] [n/PATIENT_NAME] [aid/APPOINTMENT_ID]`
 
 Examples:
-* `querya` shows all appointments in the address book.
-* `querya pid/1` shows all appointments for the patient with the patientId of 1 in the address book.
-* `querya aid/90` shows the appointment with the appointmentId of 90 in the address book.
-* `querya n/Jer` shows all appointments whose patient's name contains "Jer" in the address book.
+* `querya` shows all appointments in the CogniCare application.
+* `querya pid/1` shows all appointments for the patient with the patientId of 1 in the CogniCare application.
+* `querya aid/90` shows the appointment with the appointmentId of 90 in the CogniCare application.
+* `querya n/Jer` shows all appointments whose patient's name contains "Jer" in the CogniCare application.
 
 The screenshot below show a successful query of all appointments:
 ![5a_Query_appointment_no-parameter_success.png](images%2Fappointments%2F5a_Query_appointment_no-parameter_success.png)
@@ -302,7 +312,7 @@ Examples:
 * `filter sd/2022-12-12 12:00 ed/2022-12-12 14:00` shows all appointments starts or ends in the date time range of 12pm to 2pm on 12 December 2022. Any appointments that starts before 12pm and ends after 2pm will also be shown.
 * `filter sd/2022-12-12 12:00` shows all appointments that starts on or after 12pm on 12 December 2022.
 * `filter ed/2022-12-12 14:00` shows all appointments that ends on or before 2pm on 12 December 2022.
-* `filter` shows all appointments in the address book.
+* `filter` shows all appointments in the CogniCare application.
 
 **Validation**:
 1. START_DATETIME and END_DATETIME
@@ -342,7 +352,7 @@ Examples:
 
 ### Deleting an appointment : `deletea`
 
-Deletes the specified appointment from the address book using the specified appointment index.
+Deletes the specified appointment from the CogniCare application using the specified appointment index.
 
 Format: `deletea INDEX`
 
