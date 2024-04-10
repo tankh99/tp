@@ -87,7 +87,7 @@ CogniCare is a **desktop app for managing most Singaporean patients, optimized f
    
     * `edita 1 pid/3` : Changes appointment index 1 with the patient id 3.
 
-    * `deleteappointment 900` : Deletes the appointment that has the id of 900 (This is different from the natural ordering of the list).
+    * `deletea 3` : Deletes the appointment that has the id of 3 (This is different from the natural ordering of the list).
 
     * `clear` : Deletes all patient information from the CogniCare application.
 
@@ -98,7 +98,7 @@ CogniCare is a **desktop app for managing most Singaporean patients, optimized f
 --------------------------------------------------------------------------------------------------------------------
 ## Overview of GUI
 
-The CogniCare application has three columns displaying from left to right, patient data, appointment data and the average feedback score per patient.
+The CogniCare application has three columns displaying (from left to right) patient data, appointment data and the average feedback score per patient.
 
 ![GUI mockup.png](images%2Fui-mockup%2FGUI%20mockup.png)
 
