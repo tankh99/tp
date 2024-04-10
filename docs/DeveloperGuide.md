@@ -1071,8 +1071,6 @@ The implementation of the CogniCare application was an extremely challenging end
 
 The team-based setting also exposed us to various crucial skills such as improving our working styles to achieve a high level of collaboration. Skillsets that are crucial to a Software Engineer such as reviewing Pull Requests (PRs), and providing and receiving feedback from peers are also learned in the course of the project.
 
-
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Acknowledgements**
