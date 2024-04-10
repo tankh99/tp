@@ -156,14 +156,14 @@ When Khang Hou is deleted, the patient ids are as below:
 
 ### Listing all patients : `queryp`
 
-Shows a list of all patients in the address book.
+Shows a list of all patients in the CogniCare application.
 
 The image shows the successful `queryp` command
 ![Query patient without parameters](images/patients/3c_Query_with_no_parameters_success.png)
 
 ### Listing selected patients that meets specified criterion / criteria : `queryp`
 
-Shows a list of all patients in the address book that matches _ALL_ the conditions that are specified.
+Shows a list of all patients in the CogniCare application that matches _ALL_ the conditions that are specified.
 
 Format: `queryp [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] …​`
 
@@ -191,9 +191,9 @@ Note that the command was entered to demonstrate that the count for the anxiety 
 
 ### Editing a patient : `editp`
 
-Edits an existing patient in the address book.
+Edits an existing patient in the CogniCare application.
 
-Format: `editp PATIENT_ID [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [a/AFFLIATED_WITH]…​`
+Format: `editp PATIENT_ID [n/NAME] [p/PHONE] [e/EMAIL] [a/AFFLIATED_WITH]…​`
 
 * Edits the patient at the specified `addp_ID`. The index refers to the index number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
@@ -238,7 +238,7 @@ Examples:
 
 ### Adding an appointment: `adda`
 
-Adds an appointment to the address book.
+Adds an appointment to the CogniCare application.
 
 Format: `adda pid/PATIENT_ID sd/START_DATE_TIME ed/END_DATE_TIME [att/ATTEND] [s/SCORE] [ad/APPOINTMENT_DESCRIPTION]`
 
@@ -279,10 +279,10 @@ Shows a list of all appointments in CogniCare. Can be filtered by multiple crite
 Format: `querya [pid/PATIENT_ID] [n/PATIENT_NAME] [aid/APPOINTMENT_ID]`
 
 Examples:
-* `querya` shows all appointments in the address book.
-* `querya pid/1` shows all appointments for the patient with the patientId of 1 in the address book.
-* `querya aid/90` shows the appointment with the appointmentId of 90 in the address book.
-* `querya n/Jer` shows all appointments whose patient's name contains "Jer" in the address book.
+* `querya` shows all appointments in the CogniCare application.
+* `querya pid/1` shows all appointments for the patient with the patientId of 1 in the CogniCare application.
+* `querya aid/90` shows the appointment with the appointmentId of 90 in the CogniCare application.
+* `querya n/Jer` shows all appointments whose patient's name contains "Jer" in the CogniCare application.
 
 The screenshot below show a successful query of all appointments:
 ![5a_Query_appointment_no-parameter_success.png](images%2Fappointments%2F5a_Query_appointment_no-parameter_success.png)
@@ -302,7 +302,7 @@ Examples:
 * `filter sd/2022-12-12 12:00 ed/2022-12-12 14:00` shows all appointments starts or ends in the date time range of 12pm to 2pm on 12 December 2022. Any appointments that starts before 12pm and ends after 2pm will also be shown.
 * `filter sd/2022-12-12 12:00` shows all appointments that starts on or after 12pm on 12 December 2022.
 * `filter ed/2022-12-12 14:00` shows all appointments that ends on or before 2pm on 12 December 2022.
-* `filter` shows all appointments in the address book.
+* `filter` shows all appointments in the CogniCare application.
 
 **Validation**:
 1. START_DATETIME and END_DATETIME
@@ -342,7 +342,7 @@ Examples:
 
 ### Deleting an appointment : `deletea`
 
-Deletes the specified appointment from the address book using the specified appointment index.
+Deletes the specified appointment from the CogniCare application using the specified appointment index.
 
 Format: `deletea INDEX`
 
