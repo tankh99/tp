@@ -278,6 +278,19 @@ This enhancement was driven for the need of:
 Command history is a feature that aims to improve the user experience for experienced users by allowing them to quickly
 navigate through their history of commands to make minor changes. Many features were inspired from macOS's Bash shell
 
+Below is a general user flow of the command history
+<puml src="diagrams/CommandHistorySequenceDiagram.puml" alt="Command History sequence diagram" />
+
+**Note** that the above diagram doesn't capture the audio playback feature because it's not a core part of the feature.
+
+And below are the specific behaviours of the command history module
+
+**Undo**
+<puml src="diagrams/command-history/CommandHistoryUndoActivityDiagram.puml" alt="command history undo activity diagram" />
+
+**Redo**
+<puml src="diagrams/command-history/CommandHistoryRedoActivityDiagram.puml" alt="command history redo activity diagram" />
+
 **Implementation**
 An array list was used to store the history of commands and an index to indicate which command is the history currently 
 at.
@@ -291,7 +304,7 @@ There are a few methods used to interact with the command history
    1. Decrements the current command index by 1
    2. If the current command index is already 0, it will play a Boop sound to indicate that there is 
 are no more commands left to undo
-3. **redo()**
+1. **redo()**
    1. Increments the current command index by 1
 
 Below shows expected behaviour of the command history from a series of actions. 
@@ -347,7 +360,6 @@ There are a few key features that this module aims to implement
 1. Using an array list instead of an observable list. However, the GUI was not able to accurately reflect the new appointment list when new appointments were added.
 
 
-======
 ### Filter Appointment Feature
 
 The filter appointment feature allows users to filter appointments based on the date and time of the appointment.
@@ -379,8 +391,15 @@ There are a few key features that this module aims to implement
 
 **Alternatives considered**
 1. Smarter filtering based on the date and time of the appointment. However, this was not implemented as it was not necessary for the current scope of the project.
-### Report Patient Feedback Score Feature
+### Report Patient Feedback Feature
 Report patient feedback score is a feature that averages out the feedback scores of all currently filtered appointment. It allows getting the average scores of appointments within a given date range
+
+The overall data flow of patient feedback data is detailed below by a class diagram. 
+**Note**: This class diagram doesn't represent the command, but rather, how data is stored
+<puml src="diagrams/PatientFeedbackReportClassDiagram.puml" alt="Report Feedback Class Diagram" />
+
+Below is a sequence diagram of the user flow of the report command
+<puml src="diagrams/ReportFeedbackSequenceDiagram.puml" alt="Report Feedback Sequence Diagram" />
 
 **Implementation**
 1. `PatientFeedbackReport` - A model that contains information from both Patient and Appointments. It uses both data to determine which appointments to calculate the average from
