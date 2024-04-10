@@ -12,6 +12,59 @@ As the job climate is worsening, more and more students become afflicted with me
 CogniCare takes care of the load of many tedious tasks such as identifying today's appointments and measuring a patient's satisfication progress levels over a period of time, until they are finally ready for discharge.
 
 <!-- * Table of Contents -->
+## Table of Contents
+1. [Setting up, getting started](#setting-up-getting-started)
+2. [Design](#design)
+   
+    2.1. [Architecture](#architecture)
+   
+    2.2. [UI component](#ui-component)
+
+    2.3. [Logic component](#logic-component)
+
+    2.4. [Model component](#model-component)
+    
+    2.5. [Storage component](#storage-component)
+
+    2.6. [Common classes](#common-classes)
+3. [Implementation](#implementation)
+
+    3.1. [Appointment](#appointment)
+
+    3.2. [Finding contact by different parameters](#finding-contact-by-different-parameters)
+
+    3.3. [Command history](#command-history)
+
+    3.4. [Add appointment feature](#add-appointment-feature)
+
+    3.5. [Filter appointment feature](#filter-appointment-feature)
+
+    3.6. [Report patient feedback feature](#report-patient-feedback-feature)
+
+    3.7. [Create a new patient](#create-a-new-patient)
+
+    3.8. [Edit a patient](#editing-a-current-patient)
+
+    3.9. [Delete a patient](#deleting-an-existing-patient)
+
+    3.10. [Querying for patients](#querying-for-patients)
+4. [Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
+5. [Appendix: Requirements](#appendix-requirements)
+   
+    5.1. [Product scope](#product-scope)
+
+    5.2. [User stories](#user-stories)
+
+    5.3. [Use cases](#use-cases)
+
+    5.4. [Non-Functional Requirements](#non-functional-requirements)
+
+    5.5. [Glossary](#glossary)
+6. [Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)
+7. [Planned Future Enhancements (Beyond v1.4)](#7-planned-future-enhancements-beyond-v14)
+8. [Learning Outcomes](#8-learning-outcomes)
+9. [Acknowledgements](#acknowledgements)
+
 <page-nav-print />
 
 --------------------------------------------------------------------------------------------------------------------
