@@ -54,7 +54,6 @@ public class Patient {
      * Every field must be present and not null.
      */
     public Patient(Name name, Phone phone, Email email, Set<Tag> tags, int studentId, boolean updatedPerson) {
-        // TODO: This method needs a rewrite in v1.3
         // The constructor has an additional boolean variable to make sure that the Java compiler treats
         // it as a totally different constructor.
         // The main difference with (Name name, Phone phone, Email email, Set<Tag> tags, int studentId)
