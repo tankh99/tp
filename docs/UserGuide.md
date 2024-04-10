@@ -9,6 +9,50 @@
 CogniCare is a **desktop app for managing most Singaporean patients, optimized for use via a Command Line Interface** (CLI) while still retaining all the benefits of a Graphical User Interface (GUI). If you can type fast, CogniCare can get your patient management tasks done faster than other traditional GUI apps.
 
 <!-- * Table of Contents -->
+# Table of Contents
+1. [Quick Start](#Quick-start)
+2. [Overview of GUI](#overview-of-gui)
+3. [Features](#Features)
+
+    3.1. [Viewing help](#viewing-help--help)
+
+    3.2. [Adding a patient](#adding-a-patient-addp)
+    
+    3.3. [Listing all patients](#listing-all-patients--queryp)
+
+    3.4. [Listing selected patients](#listing-selected-patients-that-meets-specified-criterion--criteria--queryp)
+
+    3.5. [Viewing top 10 distinct tags](#viewing-top-10-distinct-tags)
+
+    3.6. [Editing a patient](#editing-a-patient--editp)
+
+    3.7. [Deleting a patient](#deleting-a-patient--deletep)
+
+    3.8. [Adding an appointment](#adding-an-appointment-adda)
+
+    3.9. [Listing all appointments](#listing-all-appointments-querya)
+
+    3.10. [Listing selected appointments](#listing-selected-appointments-that-meets-specified-criterion--criteria-querya)
+
+    3.11. [Filtering appointments by date time](#filter-appointments-by-date-time-filter)
+
+    3.12. [Editing an appointment](#editing-an-appointments-edita)
+
+    3.13. [Deleting an appointment](#deleting-an-appointment--deletea)
+
+    3.14. [Reporting patient feedback statistics](#reporting-patient-feedback-statistics-reportf)
+
+    3.15. [Clearing all entries](#clearing-all-entries--clear)
+
+    3.16. [Exiting the program](#exiting-the-program--exit)
+4. [Saving the data](#saving-the-data)
+5. [Editing the data file](#editing-the-data-file)
+6. [Navigating through history of commands](#navigating-through-history-of-commands)
+7. [FAQ](#faq)
+8. [Known issues](#known-issues)
+9. [Command summary](#command-summary)
+
+
 <page-nav-print />
 
 --------------------------------------------------------------------------------------------------------------------
@@ -43,7 +87,7 @@ CogniCare is a **desktop app for managing most Singaporean patients, optimized f
    
     * `edita 1 pid/3` : Changes appointment index 1 with the patient id 3.
 
-    * `deleteappointment 900` : Deletes the appointment that has the id of 900 (This is different from the natural ordering of the list).
+    * `deletea 3` : Deletes the appointment that has the id of 3 (This is different from the natural ordering of the list).
 
     * `clear` : Deletes all patient information from the CogniCare application.
 
@@ -52,7 +96,25 @@ CogniCare is a **desktop app for managing most Singaporean patients, optimized f
 6. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
+## Overview of GUI
 
+The CogniCare application has three columns displaying (from left to right) patient data, appointment data and the average feedback score per patient.
+
+![GUI mockup.png](images%2Fui-mockup%2FGUI%20mockup.png)
+
+(From the left) the first column displays patient details stored in CogniCare. For each patient, their full name, affiliated tags phone number and email will be displayed. 
+
+![name card.jpg](images%2Fui-mockup%2Fname%20card.jpg)
+
+The second column displays appointment details stored in CogniCare. For each appointment, the name of the patient who requested the appointment, appointment timing and notes will be displayed.
+Additionally, it will display `Attended` if the patient has attended the appointment and the given feedback score. `N/A` is displayed if the feedback score is unavailable.
+
+![appointment card.jpg](images%2Fui-mockup%2Fappointment%20card.jpg)
+
+Lastly, the third column displays the name and average feedback score per patient.
+
+![average score card.jpg](images%2Fui-mockup%2Faverage%20score%20card.jpg)
+--------------------------------------------------------------------------------------------------------------------
 ## Features
 
 <box type="info" seamless>
@@ -71,7 +133,7 @@ CogniCare is a **desktop app for managing most Singaporean patients, optimized f
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
+* Extraneous parameters for commands that do not take in parameters (such as `help`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 * If you are using a PDF version of this document, please be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
@@ -262,17 +324,19 @@ Examples:
 
 Adds an appointment to the CogniCare application.
 
-Format: `adda pid/PATIENT_ID sd/START_DATE_TIME ed/END_DATE_TIME [att/ATTEND] [s/SCORE] [ad/APPOINTMENT_DESCRIPTION]`
+Format: `adda pid/PATIENT_ID sd/START_DATETIME ed/END_DATETIME [att/ATTEND] [s/FEEDBACK_SCORE] [ad/APPOINTMENT_DESCRIPTION]`
 
 * Format of date time is yyyy-MM-dd HH:mm.
 * Once the patient is created, the appointment identifier `aid` will be permanently tagged to an appointment, and is not coalesced when other entries are deleted.
 * You may not add two appointments with the same date and time even if they are for different patients.
-* SCORE refers to the rating that the patient gives at the end of each appointment. This score represents their satisfaction levels. The higher satisfaction level, the more likely they are to be discharged
+* FEEDBACK_SCORE refers to the rating that the patient gives at the end of each appointment. This score represents their satisfaction levels. The higher satisfaction level, the more likely they are to be discharged.
+* APPOINTMENT_DESCRIPTION refers to any appointment notes the user wishes to note down.
 
 Examples:
-* `appointment pid/1 d/2022-12-12 12:00`
-* `appointment pid/1 d/2022-12-12 13:00 att/false`
-* `appointment pid/1 d/2022-12-12 14:00 att/true ad/Patient attended the appointment.`
+* `adda pid/1 sd/2024-12-12 12:00 ed/2024-12-12 13:00` adds an appointment for the patient with patient index 1 on 12 December 2024 from 12pm to 1pm.
+* `adda pid/1 sd/2024-12-12 13:00 ed/2024-12-12 14:00 s/5` adds an appointment for the patient with patient index 1 on 12 December 2024 from 1pm to 2pm with a feedback score of 5.
+* `adda pid/1 sd/2024-12-12 14:00 ed/2024-12-12 15:00 att/true s/1 ad/Patient attended the appointment.` adds an appointment for the patient with patient index 1 on 12 December 2024 from 2pm to 3pm
+with an attended status `true`, feedback score of 1 and an appointment description.
 
 The screenshot below shows a successful operation:
 ![add-success.png](images%2Fappointments%2Fadd-success.png)
@@ -282,32 +346,34 @@ The screenshot below shows a failed operation due to another appointment being s
 
 **Validation**:
 1. PATIENT_ID
-   1. No non-existing patient IDs are allowed. Checks are made against the patient list
+   1. No non-existing patient IDs are allowed. Checks are made against the patient list.
    2. Patient ID given must exist in the current patient list.
    3. Patient ID must be a positive integer.
 2. DATE_TIME
-   1. No two appointments can share the exact same date and time, even if they differ by other attributes like different patient IDs
+   1. No two appointments can share the exact same date and time, even if they differ by other attributes like different patient IDs.
    2. The start date and time cannot be before the end date and time.
 3. ATTEND
-   1. Must be either `true` or `false` (case-insensitive)
-4. SCORE
+   1. Must be either `true` or `false` (case-insensitive).
+4. FEEDBACK_SCORE
    1. The score must be between 1 and 5 (inclusive).
 
 ### Listing all appointments: `querya`
 
-Shows a list of all appointments in CogniCare. Can be filtered by multiple criteria.
+Shows a list of all appointments in CogniCare.
 
+The screenshot below show a successful query of all appointments:
+![5a_Query_appointment_no-parameter_success.png](images%2Fappointments%2F5a_Query_appointment_no-parameter_success.png)
+
+### Listing selected appointments that meets specified criterion / criteria: `querya`
+
+Shows a list of appointments in the CogniCare application that matches the criteria.
 
 Format: `querya [pid/PATIENT_ID] [n/PATIENT_NAME] [aid/APPOINTMENT_ID]`
 
 Examples:
-* `querya` shows all appointments in the CogniCare application.
 * `querya pid/1` shows all appointments for the patient with the patientId of 1 in the CogniCare application.
-* `querya aid/90` shows the appointment with the appointmentId of 90 in the CogniCare application.
-* `querya n/Jer` shows all appointments whose patient's name contains "Jer" in the CogniCare application.
-
-The screenshot below show a successful query of all appointments:
-![5a_Query_appointment_no-parameter_success.png](images%2Fappointments%2F5a_Query_appointment_no-parameter_success.png)
+* `querya aid/4` shows the appointment with the appointmentId of 4 in the CogniCare application.
+* `querya n/Tan` shows all appointments whose patient's name contains "Tan" in the CogniCare application.
 
 The screenshot below show a successful query of appointments using patient id:
 ![5b_Query_appointment_with_pid_success.png](images%2Fappointments%2F5b_Query_appointment_with_pid_success.png)
@@ -344,11 +410,11 @@ The screenshot below show a unsuccessful filter appointments due to invalid date
 ![Filter patient failure](images/appointments/filter/7d_Filter_appointment_start_later_than_end_fail-nam.png)
 
 
-### Editing an appointments: `edita`
+### Editing an appointment: `edita`
 
 Edits an appointment in CogniCare using the specified appointment index.
 
-Format: `edita APPOINTMENT_INDEX [pid/PATIENT_ID] [sd/START_DATE_TIME] [ed/END_DATE_TIME] [att/ATTEND] [s/SCORE] [ad/APPOINTMENT_DESCTIPTION]`
+Format: `edita APPOINTMENT_ID [pid/PATIENT_ID] [sd/START_DATETIME] [ed/END_DATETIME] [att/ATTEND] [s/FEEDBACK_SCORE] [ad/APPOINTMENT_DESCTIPTION]`
 
 * Edits the appointment at the specified `APPOINTMENT_ID`. The index refers to the index number shown in the displayed appointment list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
@@ -356,9 +422,9 @@ Format: `edita APPOINTMENT_INDEX [pid/PATIENT_ID] [sd/START_DATE_TIME] [ed/END_D
 * The `APPOINTMENT_ID` will not be changed when you edit an appointment's information.
 
 Examples:
-* `edita 1 pid/1` edits the appointment with appointment index 1 with patient id 2.
-* `edita 1 sd/2024-04-01 10:00` edits the start date and time of the appointment with appointment index 1 to 10am, 1 April 2024.
-* `edita 1 att/true` edits the attended status of the appointment with appointment index 1 to true.
+* `edita 1 pid/2` edits the appointment with appointment index 1 with patient id 2.
+* `edita 1 sd/2021-10-10 10:00` edits the start date and time of the appointment with appointment index 1 to 10am, 10 October 2021.
+* `edita 1 att/false` edits the attended status of the appointment with appointment index 1 to false.
 
 
 ### Deleting an appointment : `deletea`
@@ -372,7 +438,7 @@ Format: `deletea INDEX`
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `querya` followed by `deletea 90` deletes the appointment with the appointmentId of 90 in the address book.
+* `deletea 3` deletes the appointment with the appointmentId of 3 in the address book.
 
 The screenshot below show a successful operation:
 ![6a_Delete_appointment_success.png](images%2Fappointments%2F6a_Delete_appointment_success.png)
@@ -467,10 +533,10 @@ _Details coming soon ..._
 | **Query patients**                                    | `queryp [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] …​`<br> e.g., `queryp n/Jerome p/987 e/example.com​`                                                                                                                   |
 | **Delete patient**                                    | `deletep PATIENT_ID`<br> e.g., `deletep 3`                                                                                                                                                                         |
 | **Edit patient**                                      | `editp PATIENT_ID [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/AFFLIATED_WITH]…​`editp 1 p/91234567 e/johndoe@example.com`                                                                                               |
-| **Add an appointment**                                | `adda pid/PATIENT_ID d/DATE_TIME [att/ATTEND] [ad/APPOINTMENT_DESCRIPTION]`                                                                                                                                        |
+| **Add an appointment**                                | `adda pid/PATIENT_ID sd/START_DATETIME ed/END_DATETIME [att/ATTEND] [s/FEEDBACK_SCORE] [ad/APPOINTMENT_DESCRIPTION]`                                                                                               |
 | **Query appointments**                                | `querya [pid/PATIENT_ID] [n/PATIENT_NAME] [aid/APPOINTMENT_ID]`                                                                                                                                                    |
-| **Delete an appointment**                             | `deletea aid/APPOINTMENT_ID`                                                                                                                                                                                       | 
-| **Edit an appointment**                               | `edita APPOINTMENT_INDEX [pid/PATIENT_ID] [sd/START_DATE_TIME] [ed/END_DATE_TIME] [att/ATTEND] [s/SCORE] [ad/APPOINTMENT_DESCTIPTION]`                                                                             |
+| **Delete an appointment**                             | `deletea APPOINTMENT_ID`                                                                                                                                                                                           | 
+| **Edit an appointment**                               | `edita APPOINTMENT_ID [pid/PATIENT_ID] [sd/START_DATETIME] [ed/ENDDATE_TIME] [att/ATTEND] [s/FEEDBACK_SCORE] [ad/APPOINTMENT_DESCTIPTION]`                                                                         |
 | **Filter appointments by date time**                  | `filter [sd/START_DATETIME] [ed/END_DATETIME]`                                                                                                                                                                     |
 | **Report patient feedback statistics**                | `reportf [sd/DATE] [ed/DATE]`                                                                                                                                                                                      |
 | **Help**                                              | `help`                                                                                                                                                                                                             |                                                                                                                                                                                                           |
