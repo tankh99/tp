@@ -324,7 +324,6 @@ Examples:
 * `filter sd/2022-12-12 12:00 ed/2022-12-12 14:00` shows all appointments starts or ends in the date time range of 12pm to 2pm on 12 December 2022. Any appointments that starts before 12pm and ends after 2pm will also be shown.
 * `filter sd/2022-12-12 12:00` shows all appointments that starts on or after 12pm on 12 December 2022.
 * `filter ed/2022-12-12 14:00` shows all appointments that ends on or before 2pm on 12 December 2022.
-* `filter` shows all appointments in the CogniCare application.
 
 **Validation**:
 1. START_DATETIME and END_DATETIME
@@ -470,9 +469,10 @@ _Details coming soon ..._
 | **Edit patient**                                      | `editp PATIENT_ID [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/AFFLIATED_WITH]…​`editp 1 p/91234567 e/johndoe@example.com`                                                                                               |
 | **Add an appointment**                                | `adda pid/PATIENT_ID d/DATE_TIME [att/ATTEND] [ad/APPOINTMENT_DESCRIPTION]`                                                                                                                                        |
 | **Query appointments**                                | `querya [pid/PATIENT_ID] [n/PATIENT_NAME] [aid/APPOINTMENT_ID]`                                                                                                                                                    |
-| **Delete an appointment**                             | `deletep aid/APPOINTMENT_ID`                                                                                                                                                                                       |
-| **Report patient feedback**                           | `reportf [sd/DATE] [ed/[DATE]]`                                                                                                                                                                                    |
-| **Help**                                              | `help`                                                                                                                                                                                                             |
+| **Delete an appointment**                             | `deletea aid/APPOINTMENT_ID`                                                                                                                                                                                       | 
+| **Edit an appointment**                               | `edita APPOINTMENT_INDEX [pid/PATIENT_ID] [sd/START_DATE_TIME] [ed/END_DATE_TIME] [att/ATTEND] [s/SCORE] [ad/APPOINTMENT_DESCTIPTION]`                                                                             |
+| **Filter appointments by date time**                  | `filter [sd/START_DATETIME] [ed/END_DATETIME]`                                                                                                                                                                     |
+| **Report patient feedback statistics**                | `reportf [sd/DATE] [ed/DATE]`                                                                                                                                                                                      |
+| **Help**                                              | `help`                                                                                                                                                                                                             |                                                                                                                                                                                                           |
 | **Delete all entries from the CogniCare application** | `clear`                                                                                                                                                                                                            |
 | **Exit Application**                                  | `exit`                                                                                                                                                                                                             |
-
