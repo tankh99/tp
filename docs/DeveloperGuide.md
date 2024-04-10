@@ -278,20 +278,33 @@ This enhancement was driven for the need of:
 Command history is a feature that aims to improve the user experience for experienced users by allowing them to quickly
 navigate through their history of commands to make minor changes. Many features were inspired from macOS's Bash shell
 
+Below is a general user flow of the command history
+<puml src="diagrams/CommandHistorySequenceDiagram.puml" alt="Command History sequence diagram" />
+
+**Note** that the above diagram doesn't capture the audio playback feature because it's not a core part of the feature.
+
+And below are the specific behaviours of the command history module
+
+**Undo**
+<puml src="diagrams/command-history/CommandHistoryUndoActivityDiagram.puml" alt="command history undo activity diagram" />
+
+**Redo**
+<puml src="diagrams/command-history/CommandHistoryRedoActivityDiagram.puml" alt="command history redo activity diagram" />
+
 **Implementation**
 An array list was used to store the history of commands and an index to indicate which command is the history currently 
-at. 
-- The list is initialised to have an empty string as the initial element
+at.
+- The list is initialised to have an empty string as the initial element. This is so that our default behaviour of returning an empty string from pressing redo when there is no next command can be easily implemented
 - The current command index defaults to 0
 
 There are a few methods used to interact with the command history
-1. getCurrentCommand()
+1. **getCurrentCommand()**
    1. Gets the command at the current command index
-2. undo()
+2. **undo()**
    1. Decrements the current command index by 1
    2. If the current command index is already 0, it will play a Boop sound to indicate that there is 
 are no more commands left to undo
-3. redo()
+1. **redo()**
    1. Increments the current command index by 1
 
 Below shows expected behaviour of the command history from a series of actions. 
@@ -347,7 +360,6 @@ There are a few key features that this module aims to implement
 1. Using an array list instead of an observable list. However, the GUI was not able to accurately reflect the new appointment list when new appointments were added.
 
 
-======
 ### Filter Appointment Feature
 
 The filter appointment feature allows users to filter appointments based on the date and time of the appointment.
@@ -379,6 +391,44 @@ There are a few key features that this module aims to implement
 
 **Alternatives considered**
 1. Smarter filtering based on the date and time of the appointment. However, this was not implemented as it was not necessary for the current scope of the project.
+### Report Patient Feedback Feature
+Report patient feedback score is a feature that averages out the feedback scores of all currently filtered appointment. It allows getting the average scores of appointments within a given date range
+
+The overall data flow of patient feedback data is detailed below by a class diagram. 
+**Note**: This class diagram doesn't represent the command, but rather, how data is stored
+<puml src="diagrams/PatientFeedbackReportClassDiagram.puml" alt="Report Feedback Class Diagram" />
+
+Below is a sequence diagram of the user flow of the report command
+<puml src="diagrams/ReportFeedbackSequenceDiagram.puml" alt="Report Feedback Sequence Diagram" />
+
+**Implementation**
+1. `PatientFeedbackReport` - A model that contains information from both Patient and Appointments. It uses both data to determine which appointments to calculate the average from
+2. `PatientFeedbackReportList` - Contains a list of patinet feedback reports
+3. `ReportFeedbackCommand` - Reports the average feedback score for a given date range
+4. `ReportFeedbackCommandParser`- Parses ReportFeedbackCommand accordingly
+5. `FeedbackScore` - Contains a nullable Integer field. If it is null, then there is no rating for the appointment yet
+
+**Rationale for Implementation**
+1. High-level structure for `ReportFeedbackCommand`, `ReportFeedbackCommandParser` and `PatientFEedbackReportList` was inspired from previous implementations of similar models
+2. Integer was used for `FeedbackScore` because:
+   1. We did not want to make FeedbackScore compulsory to add when creating an appointment
+   2. The primitive type `int` is not nullable, so we used a wrapper class instead
+3. `PatientFeedbackReport` is different from Appointment and Patient because it holds transient data and is dependent on data from the Patient and Appointment models.
+   1. Therefore, it was decided that the entire list of appointments and a specified patient data should be passed into this object in order to calculate the average feedback score
+4. `PatientFeedbackReportList` does not have any direct list modification methods of its own. It only has a generateReportList function which is called every time there is an update to the list of patients or appointments, e.g. filter, add, edit or delete
+   1. To achieve such reactivity, `generateReportList()` was called at the end of each such function inside `ModelManager`
+
+**Alternatives considered**
+1. `PatientFeedbackReport` - We considered just passing the required fields, however there were a few limitations
+   1. Passing only the Patient name and ID
+      1. We need the name for sorting and UI purposes and we need the patient ID to determine which appointments to select. This resulted in 2 fields from the same object, which could be simplified if we just pass in a single Patient object
+    2. Passing only the patient's list of appointments instead of all appointments
+       1. This quickly proved to be very complex because we would need to filter appointments every time a patient or appointment was updated in the list
+2. `FeedbackScore` data representation
+   1. A string data type was considered to represent the Feedback Score, however, it simply did not make sense logically-speaking, and thus, we used an Integer instead.
+   2. A 0 was considered to represent the null value of a feedback score. This was because we did not have any actually null fields in the previous code base, with FeedbackScore being the only nullable field. However, having 0 represent the null value is confusing and also prone to error, in case someone decided to edit the feedbaCkScore to any other value, e.g. -1
+3. An observer pattern was considered when implementing the `generateReportList()` fucntionality, however, it was scrapped because it was already implemented via the `ObservableList` fields and implementing the pattern fully would not be worth the refactor 
+
 
 ### \[Proposed\] Undo/redo feature
 
@@ -600,7 +650,8 @@ Priorities: High (must have) - `* * * *`, Medium (nice to have) - `* * *`, Low (
 | `* * * *` | Counsellor       | view all appointments for a specified patient             | quickly view all appointments related to a student without having to remember the appointment ID or dates. |
 | `* * * *` | Counsellor       | view patient case logs                                    | understand where I left off with the patient last time.                                                    |
 | `* * * *` | Counsellor       | create patient logs                                       | note down what I went through with the patient during the session.                                         |
-| `* * * *` | Counsellor       | update counselling sessions                               | fix mistakes for a prior counselling session.                                                              |
+| `* * * *` | Counsellor       | update appointments                                       | fix mistakes for a prior appointment.                                                                      |
+| `* * * *` | Counsellor       | track patient feedback scores over time                   | quickly identify which patients need more help.                                                            |
 | `* * *`   | Counsellor       | to categorise / tag my patients                           | patients with more serious issues can be attended to first.                                                |
 | `* * * `  | Counsellor       | know how many patients I am seeing in a week              | better manage my own time and emotions.                                                                    |
 | `* * *`   | Counsellor       | know what mistakes I make when creating patients          | easily understand how to rectify my mistakes                                                               |
@@ -829,10 +880,37 @@ Use case ends.
 
   Use case ends.
 
+**Use case: Report patient feedback over a given time period**
+
+**MSS**
+1. User requests to view all feedback scores from a given start date to a given end date
+2. Feedback scores are updated to get the average of all appontments within the given time period
+
+Use case ends.
+
+**Extensions**
+* 1a. User specifies the start date only
+  * 1a1. All appointments from the specified start date to the end of time are returned
+  
+  Use case resumes from step 2
+* 1b. User specifies the end date only
+  * 1b1. All appointments from the beginning of time to the specified end date are returned
+
+  Use case resumes from step 2
+* 1c. User specifies neither end or start date
+  * 1c1. All appointments are returned
+
+  Use case resumes from step 2
+
+* 1d. Date specified is in an incorrect format
+  * 1d1. Invalid format exception message is shown to the user
+
+  Use case ends
+
 **Use case: Getting the previous command entered**
 
 **MSS**
-1. User types in and executes any command.
+1. User executes any command.
 2. User presses the Up arrow key to view his last command
 3. User modifies his last command
 4. User executes the modified command
@@ -843,11 +921,13 @@ Use case ends.
 **Extension**
 
 * 3a. User modifies the command, and without executing it, presses the Down arrow key, followed by the Up arrow key
-    * 4a1. The command before modification is shown because the modified command was not executed
-* *a. User presses the Up arrow key when there is no previous command
+    * 3a1. The command before modification is shown because the modified command was not executed
+  
+  Use case resumes from step 3
+* 2a. User presses the Up arrow key again
     * *a1. A sound is played indicating that there is no previous command
 
-    Use case ends.
+    Use case resumes from step 3.
 
 **Use case: Getting the next command entered**
 
@@ -861,7 +941,7 @@ Use case ends.
 **Extension**
 
 * *a. User presses the Down arrow key when there is no next command
-    * *b1. An empty string is returned
+    * *a1. An empty string is returned
 
   Use case ends.
 
