@@ -417,8 +417,6 @@ DOWN - Goes to the next command in the history
 
 Note: Upon reaching the start of the history, pressing UP further will play a sound to indicate this fact
 
-![alt text](<images/command-history/command-history.gif>)
-
 ### Archiving data files `[coming in v2.0]`
 
 _Details coming soon ..._

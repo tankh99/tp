@@ -302,7 +302,10 @@ is pointing at.
 - undo - decrements the index
 - redo - increments the index
 
-![](images/command-history/command-history-illustration.jpeg)
+<img 
+  src="images/command-history/command-history-illustration.jpeg" 
+  alt="Command history illustration/"
+  width=480>
 
 **Rationale for implementation**
 There are a few key features that this module aims to implement
