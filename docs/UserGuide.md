@@ -117,6 +117,9 @@ The image below a failure of adding patient due to duplicate email tag.
 3. EMAIL
     1. Should be a valid email address with the form `local-part@domain` where domain is at least 2 letters long
     2. All emails are stored in lowercase by default
+4. AFFILIATED_WITH
+    1. There can be many AFFILIATED_WITH tag specified.
+    2. Each AFFILIATED_WITH tag should be a single word, alphanumerical type, and should not be empty.
 
 <box type="tip" seamless>
 
@@ -199,7 +202,9 @@ Format: `queryp n/rome ​`
 
 Then all patients with "rome" in their names will be returned as well. Similar logic applies for Name, Phone Number and Email address, but not affiliated-with tags.
 
-## Viewing statistics of tagged information
+## Viewing top 10 distinct tags
+> **Note**: You **_do not_** need to enter any command to access this information. This top 10 statistic is automatically updated.
+
 The image shows the (top 10) most popular tags sorted by how many patients with that respective tag.
 Note that the command was entered to demonstrate that the count for the anxiety tag is the same as the ones in the CogniCare application.
 ![Viewing tags statistics](images/patients/3e_Query_via_tags-same_count_as_summary_success.png)
