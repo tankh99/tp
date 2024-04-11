@@ -100,7 +100,7 @@ public class JsonAdaptedAppointment {
         final FeedbackScore modelFeedbackScore = new FeedbackScore(this.feedbackScore);
         final HasAttended modelHasAttended = new HasAttended(hasAttended);
         final AppointmentDescription modelAppointmentDescription = new AppointmentDescription(appointmentDescription);
-        // TODO: Dummy value for ID
+
         return new Appointment(appointmentId, modelStartDateTime,
                 modelEndDateTime, modelPatientId, modelAppointmentDescription, modelHasAttended, modelFeedbackScore);
     }

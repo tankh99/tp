@@ -4,7 +4,7 @@ skinparam ArrowFontStyle plain
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":PatientListParser" as PatientListParser LOGIC_COLOR
+participant ":CommandParser" as CommandParser LOGIC_COLOR
 participant ":EditAppointmentCommandParser" as EditAppointmentCommandParser LOGIC_COLOR
 participant "ead:EditAppointmentDescriptor" as EditAppointmentDescriptor LOGIC_COLOR
 participant "e:EditAppointmentCommand" as EditAppointmentCommand LOGIC_COLOR
@@ -15,51 +15,61 @@ box Model MODEL_COLOR_T1
 participant "m:Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("edita pid/1 aid/1 \nsd/2020-01-01 12:00 ed/2020-01-01 13:00")
+[-> LogicManager : execute("args")
 activate LogicManager
 
-LogicManager -> PatientListParser : parseCommand("edita pid/1 aid/1" + arguments)
-activate PatientListParser
+
+LogicManager -> CommandParser : parseCommand("args")
+activate CommandParser
 
 create EditAppointmentCommandParser
-PatientListParser -> EditAppointmentCommandParser
+CommandParser -> EditAppointmentCommandParser
 activate EditAppointmentCommandParser
 
-EditAppointmentCommandParser --> PatientListParser
+EditAppointmentCommandParser --> CommandParser
 deactivate EditAppointmentCommandParser
 
-PatientListParser -> EditAppointmentCommandParser : parse(arguments)
+
+CommandParser -> EditAppointmentCommandParser : parse(args)
 activate EditAppointmentCommandParser
 
 create EditAppointmentDescriptor
-note right of EditAppointmentDescriptor : Methods in EditPersonDescriptor such as setName and\n setPhone may be used to create a defensive copy \nof the patient that is to be updated.
-EditAppointmentCommandParser -> EditAppointmentDescriptor : new EditPersonDescriptor()
+EditAppointmentCommandParser -> EditAppointmentDescriptor :  EditPersonDescriptor()
 activate EditAppointmentDescriptor
-EditAppointmentDescriptor -> EditAppointmentCommandParser : ead
+EditAppointmentDescriptor -> EditAppointmentCommandParser
 
 deactivate EditAppointmentDescriptor
 create EditAppointmentCommand
-EditAppointmentCommandParser -> EditAppointmentCommand : new EditAppointmentCommand(appointment index, editPersonDescriptor)
+EditAppointmentCommandParser -> EditAppointmentCommand :  EditAppointmentCommand(aid, ead)
 activate EditAppointmentCommand
 EditAppointmentCommand --> EditAppointmentCommandParser
 deactivate EditAppointmentCommand
 
-EditAppointmentCommandParser --> PatientListParser : e
+EditAppointmentCommandParser --> CommandParser : e
 deactivate EditAppointmentCommandParser
 
-PatientListParser --> LogicManager : e
-deactivate PatientListParser
+CommandParser --> LogicManager : e
+deactivate CommandParser
 
-LogicManager -> EditAppointmentCommand : execute
+LogicManager -> EditAppointmentCommand : execute(model)
 activate EditAppointmentCommand
 
-EditAppointmentCommand -> Model : updateFilterAppointmentList
+EditAppointmentCommand -> EditAppointmentCommand : find the matching appointment
+EditAppointmentCommand -> EditAppointmentCommand : createEditedAppointment(ead)
+EditAppointmentCommand -> EditAppointmentCommand : check for validity
+
+EditAppointmentCommand -> Model : setAppointment()
+activate Model
+Model --> EditAppointmentCommand
+deactivate Model
+EditAppointmentCommand -> Model : updateFilterAppointmentList()
 activate Model
 
 Model --> EditAppointmentCommand
 deactivate Model
 
-EditAppointmentCommand -> CommandResult: new CommandResult()
+create CommandResult
+EditAppointmentCommand -> CommandResult:  CommandResult()
 activate CommandResult
 CommandResult --> EditAppointmentCommand: r
 deactivate CommandResult

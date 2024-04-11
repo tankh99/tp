@@ -361,7 +361,7 @@ Command history is a feature that aims to improve the user experience for experi
 navigate through their history of commands to make minor changes. Many features were inspired from macOS's Bash shell
 
 Below is a general user flow of the command history
-<puml src="diagrams/CommandHistorySequenceDiagram.puml" alt="Command History sequence diagram" />
+<puml src="diagrams/command-history/CommandHistorySequenceDiagram.puml" alt="Command History sequence diagram" />
 
 **Note** that the above diagram doesn't capture the audio playback feature because it's not a core part of the feature.
 
@@ -827,7 +827,7 @@ Priorities: High (must have) - `* * * *`, Medium (nice to have) - `* * *`, Low (
   Use case ends.
 
 **Use Case: Edit a Patient**
-<puml src="diagrams/EditPatientSequenceDiagram.puml" width="280" />
+<puml src="diagrams/EditPatientSequenceDiagram.puml"/>
 
 1. User enters command to add a patient with required index and data field to be edited.
 2. CogniCare displays a success message confirming the patient's details have been updated.

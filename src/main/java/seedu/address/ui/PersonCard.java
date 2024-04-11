@@ -49,6 +49,7 @@ public class PersonCard extends UiPart<Region> {
         this.patient = patient;
         id.setText(patient.getSid() + ". ");
         name.setText(patient.getName().fullName);
+        name.setWrapText(true);
         phone.setText(patient.getPhone().value);
         email.setText(patient.getEmail().value);
         patient.getTags().stream()
