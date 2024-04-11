@@ -66,7 +66,6 @@ public class MainApp extends Application {
                 new JsonAppointmentListStorage(userPrefs.getAppointmentListFilePath());
         storage = new StorageManager(patientListStorage, appointmentListStorage, userPrefsStorage);
 
-        // TODO: Probably can inject the tracking of ID here
         model = initModelManager(storage, userPrefs);
 
         logic = new LogicManager(model, storage);
