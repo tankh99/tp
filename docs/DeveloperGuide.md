@@ -670,7 +670,7 @@ _{Explain here how the data archiving feature will be implemented}_
 
 ## Create a new Patient
 
-`AddPatientCommandParser` obtains the values that correspond to the prefixes such as `/p`, `/n`, `/e`, and `/a` which represent phone, name, email address, and alias accordingly.
+`AddPatientCommandParser` obtains the values that correspond to the prefixes such as `p/`, `n/`, `e/`, and `a/` which represent phone, name, email address, and alias accordingly.
 
 This class ensures that
 * The data stored must contain the name, phone, and email address corresponding to their respective format.
@@ -690,9 +690,9 @@ We have considered these alternatives:
 
 
 ## Editing a current Patient
-`EditPatientCommandParser` obtains the patient index and the values that correspond to the prefixes such as `/p`, `/n`, `/e`, and `/a` which represent phone, name, email address, and alias accordingly.
+`EditPatientCommandParser` obtains the patient index and the values that correspond to the prefixes such as `p/`, `n/`, `e/`, and `a/` which represent phone, name, email address, and alias accordingly.
 
-* There can be multiple aliases (`\a`), but `/p`, `/n`, `/e` may only appear once.
+* There can be multiple aliases (`a/`), but `p/`, `n/`, `e/` may only appear once.
 * The patient index is based on the unique ID that is tagged to each patient, and is not the natural ordering of the list.
 * The edited fields are required to have the same validation as creating a new patient.
 
@@ -720,7 +720,7 @@ We have considered these alternatives:
 
 
 ## Querying for Patients
-`ListPatientCommandParser` obtains the values that correspond to the criteria such as `/p`, `/n`, `/e` and `/a` which represent phone, name, email address, and alias(es) accordingly, and combined with an AND logic.
+`ListPatientCommandParser` obtains the values that correspond to the criteria such as `p/`, `n/`, `e/`, and `a/` which represent phone, name, email address, and alias(es) accordingly, and combined with an AND logic.
 
 The command for this operation is `queryp` with at least one or zero parameters. If no parameters (or at least one invalid parameter is passed into the command), the `queryp` command returns all the information of the patients (that is applied without any filters/predicates).
 
@@ -1224,9 +1224,9 @@ Expected Output in the Command Output Box:
 
 ## 6.3 Adding a new patient
 Pre-requisite:
-- There does not exists another patient with the same name (regardless of capitalisation) and spacing, i.e. the names "Jerome Chua" and "jEROmE       CHuA" are considered the same name.
+- There does not exist another patient with the same name (regardless of capitalisation) and spacing, i.e. the names "Jerome Chua" and "jEROmE       CHuA" are considered the same name.
 
-Command: `patient n/John Doe p/98765432 e/johnd@example.com a/Johnny a/owesMoney `
+Command: `addp n/John Doe p/98765432 e/johnd@example.com a/Johnny a/owesMoney `
 - You must specify exactly one of each parameters (in the correct format)
   - `p/`: phone number
   - `n/`: name
@@ -1243,20 +1243,20 @@ Expected Output in the Command Output Box:
 - A message echo-ing the information that you have just entered.
 
 
-## 6.4 Editing a currently created patient
+## Editing a currently created patient
 Pre-requisite:
 - You know the index (`patientId`) of the person that you are trying to edit.
 - There is exactly one ("1") patient stored in the CogniCare application
 
-Command: `edit 26 n/Jerome Chua`
+Command: `editp 26 n/Jerome Chua`
 - You must specify exactly at least one of these parameters (in the correct format)
-  - `/p`: phone number
+  - `p/`: phone number
     - It must match the validation logic also.
-  - `/n`: name
+  - `n/`: name
     - The edited name must not be an existing entry in the CogniCare application. See the Section above for the validation logic.
-  - `/e`: email address
+  - `e/`: email address
     - It must match validation logic too
-  - `/a`: `associated with` the tag
+  - `a/`: `associated with` the tag
 
 Expected Output:
 -  The `ListView` will be updated with the latest patient data.
@@ -1268,12 +1268,12 @@ Expected Output in the CommandBox: `Edited Person: Bernice Yu; Phone: 91234567; 
 > The student identifier that is commonly referred to in this article refers to the student id that is permanently tagged to each student, and is not the index of the natural ordering in the list.
 
 
-## 6.5 Deleting an existing patient
+## Deleting an existing patient
 Pre-requisite:
 - You know the index (`patientId`) of the person that you are trying to delete.
-- There is at exactly one ("1") patient stored in the CogniCare application
+- There is at exactly one ("1") patient stored in the CogniCare application.
 
-Command: `delete 26`
+Command: `deletep 26`
 - You must specify exactly the patient identifier that exists.
 
 Expected Output:
