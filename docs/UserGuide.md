@@ -110,10 +110,10 @@ The image below a failure of adding patient due to duplicate email tag.
     1. No duplicate names are allowed. Names are lowercased and trimmed before duplicate comparison
     2. Please note that special characters are not allowed in this iteration (So, for example, "Jerome S/O Gary" will not be a valid name)
    3. Please note that only English names are allowed at this point, as all Singaporean residents / visitors have an English version of their name.
-2. PHONE_NUMBER
+2. PHONE_NUMBER - We accept only Singaporean numbers as this an application meant for a Singapore-specific context
     1. Should be exactly 3 or 8 digits long which is in a Singaporean phone number format. (For example: 82221234, 91112222 and 999 are valid phone numbers)
     2. Should start with 6, 8 or 9. (We ignore 3 since those are IP Phone Numbers that people wouldn't normally have)
-    3. Note: This simplistic  validation allows for weird numbers like 666, but we allow this anyway since comprehensive number validating is too technically complex
+    3. Note: This simplistic  validation allows for weird numbers like 666, but we allow this anyway since comprehensive number validation would be too technically complex
 3. EMAIL
     1. Should be a valid email address with the form `local-part@domain` where domain is at least 2 letters long
     2. All emails are stored in lowercase by default.
