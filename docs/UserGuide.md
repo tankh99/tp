@@ -288,6 +288,9 @@ Format: `editp PATIENT_ID [n/NAME] [p/PHONE] [e/EMAIL] [a/AFFLIATED_WITH]…​`
 * You can remove all the patient’s tags by typing `a/` without
   specifying any tags after it.
 
+> Tip: Changing patient's name does not automatically update the Appointment's patient names.
+Run `querya` to update the appointments with new information.
+
 Examples:
 *  `editp 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st patient to be `91234567` and `johndoe@example.com` respectively.
 *  `editp 2 n/Betsy Crower a/` Edits the name of the 2nd patient to be `Betsy Crower` and clears all existing tags.
@@ -496,7 +499,8 @@ CogniCare data is saved automatically as a JSON file `[JAR file location]/data/p
 
 **Caution:**
 If your changes to the data file makes its format invalid, CogniCare will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the CogniCare to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+
+Furthermore, certain edits can cause the CogniCare to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Especially, **do not** put `null` anywhere in any of the json files as it will cause the app to not being able to launch. Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
 
 ### Navigating through history of commands
