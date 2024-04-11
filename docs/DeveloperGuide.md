@@ -279,7 +279,7 @@ Command history is a feature that aims to improve the user experience for experi
 navigate through their history of commands to make minor changes. Many features were inspired from macOS's Bash shell
 
 Below is a general user flow of the command history
-<puml src="diagrams/CommandHistorySequenceDiagram.puml" alt="Command History sequence diagram" />
+<puml src="diagrams/command-history/CommandHistorySequenceDiagram.puml" alt="Command History sequence diagram" />
 
 **Note** that the above diagram doesn't capture the audio playback feature because it's not a core part of the feature.
 
