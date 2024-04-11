@@ -552,7 +552,7 @@ We have considered these alternatives:
 ## Editing a current Patient
 `EditPatientCommandParser` obtains the patient index and the values that correspond to the prefixes such as `/p`, `/n`, `/e`, and `/a` which represent phone, name, email address, and alias accordingly.
 
-* There can be multiple aliases (`\a`), but `/p`, `/n`, `/e` may only appear once.
+* There can be multiple affliated-with (`a/`), but `p/`, `n/`, `e/` may only appear once.
 * The patient index is based on the unique ID that is tagged to each patient, and is not the natural ordering of the list.
 * The edited fields are required to have the same validation as creating a new patient.
 
