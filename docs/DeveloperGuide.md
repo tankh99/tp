@@ -254,8 +254,6 @@ The Appointment Description is a String that describes the appointment.
 Appointment are stored in the `Model` component as `AppointmentList` which contains `UniqueAppointmentList` object that is parallel similar to `PatientList` storing `UniquePatientList`. 
 The `Model` component provides methods to add, delete, and retrieve appointments from `AppointmentList`
 
-![Appointment Storage](images/StorageClassDiagram.png)
-
 Appointment List are saved under a separate file `appointments.json` in the data folder, apart from the `patients.json` file that stores the `patientList` data.
 
 
