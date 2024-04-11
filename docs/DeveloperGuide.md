@@ -298,27 +298,29 @@ at.
 - The current command index defaults to 0
 
 There are a few methods used to interact with the command history
-1. **getCurrentCommand()**
-   1. Gets the command at the current command index
-2. **undo()**
-   1. Decrements the current command index by 1
-   2. If the current command index is already 0, it will play a Boop sound to indicate that there is 
-are no more commands left to undo
-1. **redo()**
-   1. Increments the current command index by 1
+1. `getCurrentCommand()` - Gets the command at the current command index
+2. `undo()` - Decrements the current command index by 1
+    * If the current command index is already 0, it will play a Boop sound to indicate that there is are no more commands left to undo
+1. `redo()` - Increments the current command index by 1
 
 Below shows expected behaviour of the command history from a series of actions. 
-- blue underline - denotes where the command index
-is pointing at.
-- initial - the initial state of the command history
-- exec - when any command is executed
-- undo - decrements the index
-- redo - increments the index
+- red text - denotes where the command index
+is currently pointing at.
+- NA - the initial state of the command history
+- `execute(args)` - when any command is executed
+- `undo()` - decrements the index
+- `redo()` - increments the index
 
-<img 
-  src="images/command-history/command-history-illustration.jpeg" 
-  alt="Command history illustration/"
-  width=480>
+Command | Command History
+---|---
+NA | [<span style="color: red;">""</span>]
+`execute("help")` | ["help", <span style="color: red;">""</span>]
+`undo()` | [<span style="color: red;">"help"</span>, ""]
+`undo()` | [<span style="color: red;">"help"</span>, ""]
+`redo()` | ["help", <span style="color: red;">""</span>]
+`redo()` | ["help", <span style="color: red;">""</span>]
+`undo()` | [<span style="color: red;">"help"</span>, ""]
+`execute("query")` | ["help", "query", <span style="color: red;">""</span>]
 
 **Rationale for implementation**
 There are a few key features that this module aims to implement
