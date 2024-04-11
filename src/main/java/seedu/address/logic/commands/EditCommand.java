@@ -67,6 +67,8 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        assert model != null : "Model should not be null.";
+
         List<Patient> lastShownList = model.getFilteredPersonList();
 
         // We try to find the person based on the given studentId.

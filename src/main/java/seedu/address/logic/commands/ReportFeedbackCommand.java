@@ -51,6 +51,7 @@ public class ReportFeedbackCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        assert model != null : "Model should not be null.";
 
         model.updateFilteredAppointmentList(new FilterAppointmentPredicate(
             new StartDateTime(fromDate), new EndDateTime(toDate)));
