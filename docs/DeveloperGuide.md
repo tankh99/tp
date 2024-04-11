@@ -254,8 +254,6 @@ The Appointment Description is a String that describes the appointment.
 Appointment are stored in the `Model` component as `AppointmentList` which contains `UniqueAppointmentList` object that is parallel similar to `PatientList` storing `UniquePatientList`. 
 The `Model` component provides methods to add, delete, and retrieve appointments from `AppointmentList`
 
-![Appointment Storage](images/StorageClassDiagram.png)
-
 Appointment List are saved under a separate file `appointments.json` in the data folder, apart from the `patients.json` file that stores the `patientList` data.
 
 
@@ -456,7 +454,7 @@ There are a few key features that this module aims to implement
 The edit appointment feature allows users to update appointment fields in case of any changes to the appointment details.
 
 Below is the sequence diagram for editing an appointment.
-<puml src="diagrams/EditAppointmentSequenceDiagra.puml" alt="Edit Appointment Sequence Diagram" width="550" />
+<puml src="diagrams/EditAppointmentSequenceDiagram.puml" alt="Edit Appointment Sequence Diagram" width="550" />
 
 **Implementation**
 There are a few classes and methods used to interact with the add appointment command.
@@ -503,6 +501,8 @@ There are a few classes and methods used to interact with the add appointment co
 ### Filter Appointment Feature
 
 The filter appointment feature allows users to filter appointments based on the date and time of the appointment.
+
+<puml scr="diagrams/FilterAppointmentSequenceDiagram.puml" alt="Filter Appointment Sequence Diagram">
 
 **Implementation**
 A predicate was used to filter the list of appointments based on the date and time of the appointment.
@@ -569,6 +569,18 @@ Below is a sequence diagram of the user flow of the report command
    2. A 0 was considered to represent the null value of a feedback score. This was because we did not have any actually null fields in the previous code base, with FeedbackScore being the only nullable field. However, having 0 represent the null value is confusing and also prone to error, in case someone decided to edit the feedbaCkScore to any other value, e.g. -1
 3. An observer pattern was considered when implementing the `generateReportList()` fucntionality, however, it was scrapped because it was already implemented via the `ObservableList` fields and implementing the pattern fully would not be worth the refactor 
 
+### Help Feature
+
+<puml src="diagrams/HelpCommandSequenceDiagram.puml" alt="Help Command Sequence Diagram">
+
+The help feature provides users with an url to user guide online.
+
+Rationale for implementation:
+1. Pop-up window with URL link and a copy button
+
+Alternative considered:
+1. Display list of command directly in dialog
+2. Display a full window with user guide
 
 ### \[Proposed\] Undo/redo feature
 
