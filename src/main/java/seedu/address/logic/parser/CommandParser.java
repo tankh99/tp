@@ -86,9 +86,6 @@ public class CommandParser {
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
-        case FindCommand.COMMAND_WORD:
-            return new FindPatientCommandParser().parse(arguments);
-
         case ListCommand.COMMAND_WORD:
             return new ListPatientCommandParser().parse(arguments);
 
