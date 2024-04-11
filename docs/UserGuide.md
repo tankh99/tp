@@ -9,48 +9,7 @@
 CogniCare is a **desktop app for managing most Singaporean patients, optimized for use via a Command Line Interface** (CLI) while still retaining all the benefits of a Graphical User Interface (GUI). If you can type fast, CogniCare can get your patient management tasks done faster than other traditional GUI apps.
 
 <!-- * Table of Contents -->
-# Table of Contents
-1. [Quick Start](#Quick-start)
-2. [Overview of GUI](#overview-of-gui)
-3. [Features](#Features)
 
-    3.1. [Viewing help](#viewing-help--help)
-
-    3.2. [Adding a patient](#adding-a-patient-addp)
-    
-    3.3. [Listing all patients](#listing-all-patients--queryp)
-
-    3.4. [Listing selected patients](#listing-selected-patients-that-meets-specified-criterion--criteria--queryp)
-
-    3.5. [Viewing top 10 distinct tags](#viewing-top-10-distinct-tags)
-
-    3.6. [Editing a patient](#editing-a-patient--editp)
-
-    3.7. [Deleting a patient](#deleting-a-patient--deletep)
-
-    3.8. [Adding an appointment](#adding-an-appointment-adda)
-
-    3.9. [Listing all appointments](#listing-all-appointments-querya)
-
-    3.10. [Listing selected appointments](#listing-selected-appointments-that-meets-specified-criterion--criteria-querya)
-
-    3.11. [Filtering appointments by date time](#filter-appointments-by-date-time-filter)
-
-    3.12. [Editing an appointment](#editing-an-appointments-edita)
-
-    3.13. [Deleting an appointment](#deleting-an-appointment--deletea)
-
-    3.14. [Reporting patient feedback statistics](#reporting-patient-feedback-statistics-reportf)
-
-    3.15. [Clearing all entries](#clearing-all-entries--clear)
-
-    3.16. [Exiting the program](#exiting-the-program--exit)
-4. [Saving the data](#saving-the-data)
-5. [Editing the data file](#editing-the-data-file)
-6. [Navigating through history of commands](#navigating-through-history-of-commands)
-7. [FAQ](#faq)
-8. [Known issues](#known-issues)
-9. [Command summary](#command-summary)
 
 
 <page-nav-print />
