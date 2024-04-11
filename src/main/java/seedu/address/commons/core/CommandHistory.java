@@ -11,7 +11,7 @@ import seedu.address.commons.util.AudioUtil;
  */
 public class CommandHistory {
     private final List<String> commandHistory;
-    private int currentCommandIndex = -1;
+    private int currentCommandIndex = 0;
 
     /**
      * Initializes the command history with an empty string as the first command.
