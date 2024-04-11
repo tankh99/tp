@@ -3,6 +3,7 @@ package seedu.address.ui;
 import javafx.scene.control.ListCell;
 import seedu.address.model.ReadOnlyPatientList;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.patient.Patient;
 
 /**
  * Custom {@code ListCell} that displays the graphics of a {@code Appointment} using an {@code AppointmentCard}.
@@ -24,8 +25,11 @@ public class AppointmentListViewCell extends ListCell<Appointment> {
             setText(null);
         } else {
             String name = patients.getPersonList().stream()
-                    .filter(patient -> patient.getSid() == appointment.getPatientId().patientId).findFirst()
-                    .get().getName().fullName;
+                    .filter(patient -> patient.getSid() == appointment.getPatientId().patientId)
+                    .findFirst()
+                    .map(patient -> patient.getName().fullName)
+                    .orElse("Deleted Patient");
+
             setGraphic(new AppointmentCard(appointment, name).getRoot());
         }
     }
