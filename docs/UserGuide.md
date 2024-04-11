@@ -6,7 +6,7 @@
 
 # CogniCare User Guide
 
-CogniCare is a **desktop app for managing most Singaporean patients, optimized for use via a Command Line Interface** (CLI) while still retaining all the benefits of a Graphical User Interface (GUI). If you can type fast, CogniCare can get your patient management tasks done faster than other traditional GUI apps.
+CogniCare is a **desktop app for a single-user application for managing most School of Computing (SoC) patients, optimized for use via a Command Line Interface** (CLI) while still retaining all the benefits of a Graphical User Interface (GUI). For fast-typers, CogniCare can get your patient management tasks done faster than other traditional GUI apps.
 
 <!-- * Table of Contents -->
 # Table of Contents

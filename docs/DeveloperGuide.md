@@ -611,18 +611,21 @@ We have considered these alternatives:
 ### Product scope
 
 **Target user profile**:
+Rayson is a career guidance coach at the National University of Singapore (NUS) that is attached to the School of Computing (SoC) to provide computing students with career advice.
 
-This product is for staff at SoC Center for Future Graduates (CFG), and is specifically targeted towards Buck Seng, our target audience. This product aims to help make managing his patients easier
+Recently there are many students that are unable to find an internship resulting in stress amongst the student population. This has led to SoC reducing the internship requirements (such as reducing stipend and allowing flexibility in internship periods). However, Rayson's boss, Aaron, thinks that more support needs to be done for the students.
 
-The following further describes our user
+Therefore, Aaron has launched a new initiative to provide counseling for the computing students. To assist Rayson in managing the large numbers of potential students utilising this service, Aaron has employed the services of our team to allow Rayson to better manage the number of appointments.
 
-* has a need to manage a significant number of contacts due to the large number of students requiring counselling services
-* prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
-* is technically competent
-* is reasonably comfortable using CLI apps
-* only a single user
+Rayson is a technically inclined user (alumni of SoC) that is reasonably comfortable using CLI apps, and has the requirements of:
+
+* having a need to manage a significant number of contacts due to the large number of students requiring counselling services
+* preferring desktop apps over other types
+* being able to type fast
+* preferring typing to mouse interactions
+* being a single-user application.
+
+(Rayson and Aaron are both fictional characters)
 
 **Value proposition**: 
 
