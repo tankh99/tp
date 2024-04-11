@@ -37,17 +37,23 @@ CogniCare takes care of the load of many tedious tasks such as identifying today
 
     3.4. [Add appointment feature](#add-appointment-feature)
 
-    3.5. [Filter appointment feature](#filter-appointment-feature)
+    3.5. [Edit appointment feature](#edit-appointment-feature)
 
-    3.6. [Report patient feedback feature](#report-patient-feedback-feature)
+    3.6. [Delete appointment feature](#delete-appointment-feature)
 
-    3.7. [Create a new patient](#create-a-new-patient)
+    3.7. [Query appointment feature](#query-appointment-feature)
 
-    3.8. [Edit a patient](#editing-a-current-patient)
+    3.8. [Filter appointment feature](#filter-appointment-feature)
 
-    3.9. [Delete a patient](#deleting-an-existing-patient)
+    3.9. [Report patient feedback feature](#report-patient-feedback-feature)
 
-    3.10. [Querying for patients](#querying-for-patients)
+    3.10. [Create a new patient](#create-a-new-patient)
+
+    3.11. [Edit a patient](#editing-a-current-patient)
+
+    3.12. [Delete a patient](#deleting-an-existing-patient)
+
+    3.13. [Querying for patients](#querying-for-patients)
 4. [Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
 5. [Appendix: Requirements](#appendix-requirements)
    
@@ -61,6 +67,29 @@ CogniCare takes care of the load of many tedious tasks such as identifying today
 
     5.5. [Glossary](#glossary)
 6. [Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)
+   
+    6.1. [Launch and Shutdown](#61-launch-and-shutdown)
+
+    6.2. [List all students](#62-list-all-students-without-any-parameters)
+
+    6.3. [List all students which meet selected criteria](#63-list-all-students-meeting-the-selected-one-or-more-criteria)
+
+    6.4. [Adding new patient](#63-adding-a-new-patient)
+
+    6.5. [Editing a patient](#64-editing-a-currently-created-patient)
+
+    6.6. [Deleting a patient](#65-deleting-an-existing-patient)
+
+    6.7. [Adding new appointment](#adding-a-new-appointment)
+
+    6.8. [Editing an appointment](#editing-an-existing-appointment)
+
+    6.9. [Deleting an appointment](#deleting-an-existing-appointment)
+
+    6.10. [Listing all appointments](#listing-all-appointments)
+
+    6.11. [Listing all appointments which meet selected critera](#listing-all-appointments-which-meet-the-selected-one-or-more-criteria)
+
 7. [Planned Future Enhancements (Beyond v1.4)](#7-planned-future-enhancements-beyond-v14)
 8. [Learning Outcomes](#8-learning-outcomes)
 9. [Acknowledgements](#acknowledgements)
@@ -393,17 +422,25 @@ There are a few key features that this module aims to implement
 
 The add appointment feature allows users to create a new appointment and insert them into the application.
 
-**Implementation**
-An observable list was used to store the list of appointments.
-- The list is initialised as an empty list of type appointments in the beginning.
+Below is the add appointment activity diagram.
+<puml src="diagrams/AddAppointmentActivityDiagram.puml" alt="Add Appointment Activity Diagram" />
 
-There are a few methods used to interact with the add appointment command.
-1. AddAppointmentCommand
+**Implementation**
+An observable list is used to store the list of appointments.
+- The list is initialised as an empty list of type appointments in the beginning.
+- A unique identifier is created for each appointment. This identifier is strictly increasing and remains tagged to the appointment (and does not change its order even if other records prior get deleted).
+
+There are a few classes and methods used to interact with the add appointment command.
+1. AddAppointmentCommand Class
    1. Defines add appointment command key word and other error messages.
-   2. Validates the results of the AddAppointmentCommandParser#parse()
-2. AddAppointmentCommandParser#parse()
+2. AddAppointmentCommand#execute()
+   1. Validates the results of the AddAppointmentCommandParser#parse().
+   2. Adds a valid appointment to CogniCare.
+   3. Throws a Command Exception if the appointment returned is invalid. The new appointment is considered valid if there is no
+      appointment with the same patient id, date and time, and the date and time does not overlap with another appointment in CogniCare.
+3. AddAppointmentCommandParser#parse()
    1. Parses the add appointment commands, ensuring that all required parameters are present.
-   2. Returns AddAppointmentCommand
+   2. Returns a new AddAppointmentCommand.
 
 **Rationale for implementation**
 There are a few key features that this module aims to implement
@@ -411,6 +448,56 @@ There are a few key features that this module aims to implement
 
 **Alternatives considered**
 1. Using an array list instead of an observable list. However, the GUI was not able to accurately reflect the new appointment list when new appointments were added.
+2. Using the natural order of the list as the index of the Appointment. To standardise the implementation throughout the application, we decided to adopt the patient list implementation.
+   Therefore, each appointment has a unique identifier that does not change even when the natural order of the list is changed.
+ 
+### Edit Appointment Feature
+
+The edit appointment feature allows users to update appointment fields in case of any changes to the appointment details.
+
+Below is the sequence diagram for editing an appointment.
+<puml src="diagrams/EditAppointmentSequenceDiagra.puml" alt="Edit Appointment Sequence Diagram" width="550" />
+
+**Implementation**
+There are a few classes and methods used to interact with the add appointment command.
+1. EditAppointmentCommand Class
+   1. Defines edit appointment command key word and other error messages.
+2. EditAppointmentCommand#execute()
+   1. Finds the specified appointment to edit. Throws a CommandException if appointment is not found.
+   2. Validates the edited appointment, ensuring that the edited appointment does not exist in CogniCare. Date and time checks are performed as well.
+   3. If there is no error, the specified appointment is updated and a success message is displayed.
+3. EditAppointmentCommandParser#parse()
+   1. Parses the edit appointment command, ensuring that all parameters provided are valid. A ParseException is thrown if there are no parameters specified.
+   2. Creates an edited appointment.
+   3. Returns a new EditAppointmentCommand.
+
+**Rational for implementation**
+1. Users need to be able to update individual appointments in the event that appointment details change.
+2. There are also optional parameters present in the add appointment command that users should be able to update.
+
+### Delete Appointment Feature
+The delete appointment feature allows users to remove appointments from CogniCare.
+
+Below is the activity diagram for deleting an appointment.
+<puml src="diagrams/DeleteAppointmentActivityDiagram.puml" alt="Delete Appointment Activity Diagram" width="550" />
+
+**Implementation**
+There are a few classes and methods used to interact with the add appointment command.
+1. DeleteAppointmentCommand Class
+    1. Defines delete appointment command key word and other error messages.
+2. DeleteAppointmentCommand#execute()
+    1. Finds the specified appointment to delete. Throws a CommandException if appointment is not found.
+    3. If there is no error, the specified appointment is deleted from CogniCare and a success message is displayed.
+3. DeleteAppointmentCommandParser#parse()
+    1. Parses the delete appointment command, ensuring that the provided appointment index is valid.
+       A ParseException is thrown if there are no parameters specified or the appointment index provided is not positive.
+    3. Returns a new DeleteAppointmentCommand.
+
+**Rational for implementation**
+1. Users need to be able to delete individual appointments in the event that appointment an appointment is cancelled.
+
+**Alternative considered**
+1. Command format `deletea aid/APPOINTMENT_INDEX`. The appointment index prefix `aid/` was deemed not necessary as it is very clear that this delete command only applies to appointments.
 
 
 ### Filter Appointment Feature
@@ -706,7 +793,6 @@ Priorities: High (must have) - `* * * *`, Medium (nice to have) - `* * *`, Low (
 | `* * * *` | Counsellor       | update appointments                                       | fix mistakes for a prior appointment.                                                                      |
 | `* * * *` | Counsellor       | track patient feedback scores over time                   | quickly identify which patients need more help.                                                            |
 | `* * *`   | Counsellor       | to categorise / tag my patients                           | patients with more serious issues can be attended to first.                                                |
-| `* * * `  | Counsellor       | know how many patients I am seeing in a week              | better manage my own time and emotions.                                                                    |
 | `* * *`   | Counsellor       | know what mistakes I make when creating patients          | easily understand how to rectify my mistakes                                                               |
 | `* * *`   | Counsellor       | know know what mistakes I make when creating appointments | easily understand how to rectify my mistakes                                                               |
 | `* * *`   | Counsellor       | be able to mark whether a patient attended a session      | properly document patients’ attendance                                                                     |
@@ -1195,6 +1281,106 @@ Expected Output:
 
 Expected Output in the CommandBox: `Deleted Patient: Grace Lim; Phone: 83456789; Email: gracelim@outlook.com; Associated with: [anxiety][stress]`
 -  The `ListView` will be updated with the latest patient data (which removes the deleted patient).
+
+## Adding a new appointment
+Pre-requisite:
+- There does not exist another appointment with the same or overlapping date and time, i.e. if there exists an appointment on 10 October 2021 from 10:10 am to 10:59 am, a new appointment
+that starts or ends between that period cannot be added.
+
+Command: `adda pid/1 sd/2024-04-04 09:00 ed/2024-04-04 10:00 att/true s/5 ad/This is a dummy appointment`
+- You must specify exactly one of each parameter (in the correct format)
+    - `pid/`: patient id
+    - `sd/`: appointment start date and time
+    - `ed/`: appointment end date and time
+- You may specify zero or many of this parameter:
+    - `att/`: attended status
+    - `s/`: feedback score
+    - `ad/`: appointment description
+
+Expected Output:
+- The newly created appointment will have an increased index (as compared to the last created one)
+-  The `ListView` will be updated with the latest appointment data.
+
+Expected Output in the Command Output Box:
+- `New appointment added: (Appointment index); PatientId: 1; Start: 04 Apr 2024, 09:00 am; End: 04 Apr 2024, 10:00 am; Attend: true; Score: 5; Description: This is a dummy appointment`
+- A message echo-ing the information that you have just entered.
+
+> [!Tip]
+> The appointment identifier is permanently tagged to the appointment, and is not the index of the natural ordering in the list. 
+
+## Editing an existing appointment
+Pre-requisite:
+- You know the index (`appointmentId`) of the person that you are trying to edit.
+- There is exactly one ("1") appointment stored in the CogniCare application.
+
+Command: `edita 3 pid/2`
+- You must specify exactly at least one of these parameters (in the correct format)
+    - `pid/`: patient id
+    - `sd/`: appointment start date and time
+    - `ed/`: appointment end date and time
+    - `att/`: attended status
+    - `s/`: feedback score
+    - `ad/`: appointment description
+
+Expected Output:
+-  The `ListView` will be updated with the latest appointment data.
+
+Expected Output in the CommandBox: `Edited Appointment: 3; PatientId: 2; Start: 10 Oct 2021, 12:30 pm; End: 10 Oct 2021, 02:59 pm; Attend: true; Score: 5; Description: Third appointment`
+-  The `ListView` will be updated with the latest appointment data.
+
+> [!REMEMBER]
+> The appointment identifier that is commonly referred to in this article refers to the appointment id that is permanently tagged to each appointment, and is not the index of the natural ordering in the list.
+
+## Deleting an existing appointment
+Pre-requisite:
+- You know the index (`appointmentId`) of the appointment that you are trying to delete.
+- There is at exactly one ("1") appointment stored in the CogniCare application.
+
+Command: `deletea 4`
+- You must specify exactly the appointment identifier that exists.
+
+Expected Output:
+-  The `ListView` will be updated with the latest appointment data.
+
+Expected Output in the CommandBox: `Deleted Appointment: 4; PatientId: 1; Start: 10 Nov 2021, 10:10 am; End: 10 Nov 2021, 10:59 am; Attend: false; Score: 4; Description: Fourth appointment`
+-  The `ListView` will be updated with the latest appointment data (which removes the deleted appointment).
+
+
+## Listing all appointments
+Pre-requisite:
+- There is at least one ("1") appointment stored in the CogniCare application.
+
+Command: `querya`
+- The appointment information in CogniCare will be shown in the item ListView.
+
+Expected Output:
+- All the appointment information will be displayed in the ListView.
+
+Expected Output in the Command Output Box:
+- `Listed all appointments`
+
+> [!TIP]
+> If there are no appointments stored in the Application, then an empty ListView will be displayed.
+
+## Listing all appointments which meet the selected (one or more) criteria
+Pre-requisite:
+- There is at least one ("1") appointment stored in the CogniCare application meeting the requested criterion / criteria.
+
+Command: `querya n/Alex`
+- The appointment information meeting the criteria specified in CogniCare will be displayed in the item ListView.
+- You may specify zero or one of each parameter
+    - `n/`: name
+    - `pid/`: patient index
+    - `aid/`: appointment index
+
+Expected Output:
+- All the patient information with their respective patientId will be displayed in the ListView.
+
+Expected Output in the Command Output Box:
+- `Listed all appointments`
+
+> [!TIP]
+> If there are no appointments stored in the application, or if there are no data that meets the required criteria, an empty ListView will be displayed.
 
 
 ## 7. Planned Future Enhancements (Beyond `v1.4`)
