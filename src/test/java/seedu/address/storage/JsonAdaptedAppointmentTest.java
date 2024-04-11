@@ -50,5 +50,4 @@ public class JsonAdaptedAppointmentTest {
         assertThrows(IllegalValueException.class, expectedMessage, appointment::toModelType);
     }
 
-    //TODO: Add null check
 }

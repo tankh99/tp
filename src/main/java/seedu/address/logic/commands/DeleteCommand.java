@@ -43,7 +43,6 @@ public class DeleteCommand extends Command {
         List<Patient> lastShownList = model.getFilteredPersonList();
         List< Appointment> lastShownAppointmentList = model.getFilteredAppointmentList();
 
-        //  TODO: We possibly don't have to check for this anymore. It either exists or does not.
         if (targetIndex.getZeroBased() >= Patient.getIdTracker()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }

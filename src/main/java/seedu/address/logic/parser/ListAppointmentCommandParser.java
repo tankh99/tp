@@ -49,7 +49,6 @@ public class ListAppointmentCommandParser implements Parser<ListAppointmentComma
 
         if (!hasAtLeastOnePrefixPresent && argMultimap.getPreamble().isEmpty()) {
             // If there is no prefix specified, then display all records.
-            // TODO: Show an error message here.
             return new ListAppointmentCommand(PREDICATE_SHOW_ALL_APPOINTMENTS);
         }
 
