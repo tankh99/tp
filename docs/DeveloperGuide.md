@@ -349,16 +349,16 @@ An observable list is used to store the list of appointments.
 - A unique identifier is created for each appointment. This identifier is strictly increasing and remains tagged to the appointment (and does not change its order even if other records prior get deleted).
 
 There are a few classes and methods used to interact with the add appointment command.
-1. AddAppointmentCommand Class
+1. `AddAppointmentCommand`
    1. Defines add appointment command key word and other error messages.
-2. AddAppointmentCommand#execute()
-   1. Validates the results of the AddAppointmentCommandParser#parse().
+2. `AddAppointmentCommand#execute()`
+   1. Validates the results of the `AddAppointmentCommandParser#parse()`
    2. Adds a valid appointment to CogniCare.
    3. Throws a Command Exception if the appointment returned is invalid. The new appointment is considered valid if there is no
       appointment with the same patient id, date and time, and the date and time does not overlap with another appointment in CogniCare.
-3. AddAppointmentCommandParser#parse()
+3. `AddAppointmentCommandParser#parse()`
    1. Parses the add appointment commands, ensuring that all required parameters are present.
-   2. Returns a new AddAppointmentCommand.
+   2. Returns a new `AddAppointmentCommand.`
 
 **Rationale for implementation**
 There are a few key features that this module aims to implement
@@ -366,7 +366,7 @@ There are a few key features that this module aims to implement
 
 **Alternatives considered**
 1. Using an array list instead of an observable list. However, the GUI was not able to accurately reflect the new appointment list when new appointments were added.
-2. Using the natural order of the list as the index of the Appointment. To standardise the implementation throughout the application, we decided to adopt the patient list implementation.
+2. Using the natural order of the list as the index of the `Appointment`. To standardise the implementation throughout the application, we decided to adopt the patient list implementation.
    Therefore, each appointment has a unique identifier that does not change even when the natural order of the list is changed.
 
 ### Query Appointment Feature
@@ -404,16 +404,16 @@ Below is the sequence diagram for editing an appointment.
 
 **Implementation**
 There are a few classes and methods used to interact with the add appointment command.
-1. EditAppointmentCommand Class
+1. `EditAppointmentCommand`
    1. Defines edit appointment command key word and other error messages.
-2. EditAppointmentCommand#execute()
-   1. Finds the specified appointment to edit. Throws a CommandException if appointment is not found.
+2. `EditAppointmentCommand#execute()`
+   1. Finds the specified appointment to edit. Throws a `CommandException` if appointment is not found.
    2. Validates the edited appointment, ensuring that the edited appointment does not exist in CogniCare. Date and time checks are performed as well.
    3. If there is no error, the specified appointment is updated and a success message is displayed.
-3. EditAppointmentCommandParser#parse()
-   1. Parses the edit appointment command, ensuring that all parameters provided are valid. A ParseException is thrown if there are no parameters specified.
+3. `EditAppointmentCommandParser#parse()`
+   1. Parses the edit appointment command, ensuring that all parameters provided are valid. A `ParseException` is thrown if there are no parameters specified.
    2. Creates an edited appointment.
-   3. Returns a new EditAppointmentCommand.
+   3. Returns a new `EditAppointmentCommand.`
 
 **Rational for implementation**
 1. Users need to be able to update individual appointments in the event that appointment details change.
@@ -427,15 +427,15 @@ Below is the activity diagram for deleting an appointment.
 
 **Implementation**
 There are a few classes and methods used to interact with the add appointment command.
-1. DeleteAppointmentCommand Class
+1. `DeleteAppointmentCommand`
     1. Defines delete appointment command key word and other error messages.
-2. DeleteAppointmentCommand#execute()
-    1. Finds the specified appointment to delete. Throws a CommandException if appointment is not found.
+2. `DeleteAppointmentCommand#execute()`
+    1. Finds the specified appointment to delete. Throws a `CommandException` if appointment is not found.
     3. If there is no error, the specified appointment is deleted from CogniCare and a success message is displayed.
-3. DeleteAppointmentCommandParser#parse()
+3. `DeleteAppointmentCommandParser#parse()`
     1. Parses the delete appointment command, ensuring that the provided appointment index is valid.
-       A ParseException is thrown if there are no parameters specified or the appointment index provided is not positive.
-    3. Returns a new DeleteAppointmentCommand.
+       A `ParseException` is thrown if there are no parameters specified or the appointment index provided is not positive.
+    3. Returns a new `DeleteAppointmentCommand`
 
 **Rational for implementation**
 1. Users need to be able to delete individual appointments in the event that appointment an appointment is cancelled.
