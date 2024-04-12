@@ -271,8 +271,7 @@ This enhancement was driven for the need of:
   - Cons: 
     - Reduce in OOP-ness of the code
     - Hard to scale up, as need to change the whole code base.
-    
-=======
+
 ### Command History
 
 Command history is a feature that aims to improve the user experience for experienced users by allowing them to quickly
@@ -298,27 +297,29 @@ at.
 - The current command index defaults to 0
 
 There are a few methods used to interact with the command history
-1. **getCurrentCommand()**
-   1. Gets the command at the current command index
-2. **undo()**
-   1. Decrements the current command index by 1
-   2. If the current command index is already 0, it will play a Boop sound to indicate that there is 
-are no more commands left to undo
-1. **redo()**
-   1. Increments the current command index by 1
+1. `getCurrentCommand()` - Gets the command at the current command index
+2. `undo()` - Decrements the current command index by 1
+    * If the current command index is already 0, it will play a Boop sound to indicate that there is are no more commands left to undo
+1. `redo()` - Increments the current command index by 1
 
 Below shows expected behaviour of the command history from a series of actions. 
-- blue underline - denotes where the command index
-is pointing at.
-- initial - the initial state of the command history
-- exec - when any command is executed
-- undo - decrements the index
-- redo - increments the index
+- red text - denotes where the command index
+is currently pointing at.
+- NA - the initial state of the command history
+- `execute(args)` - when any command is executed
+- `undo()` - decrements the index
+- `redo()` - increments the index
 
-<img 
-  src="images/command-history/command-history-illustration.jpeg" 
-  alt="Command history illustration/"
-  width=480>
+Command | Command History
+---|---
+NA | [<span style="color: red;">""</span>]
+`execute("help")` | ["help", <span style="color: red;">""</span>]
+`undo()` | [<span style="color: red;">"help"</span>, ""]
+`undo()` | [<span style="color: red;">"help"</span>, ""]
+`redo()` | ["help", <span style="color: red;">""</span>]
+`redo()` | ["help", <span style="color: red;">""</span>]
+`undo()` | [<span style="color: red;">"help"</span>, ""]
+`execute("query")` | ["help", "query", <span style="color: red;">""</span>]
 
 **Rationale for implementation**
 There are a few key features that this module aims to implement
@@ -335,7 +336,6 @@ There are a few key features that this module aims to implement
 1. 2 stacks, one undo and one redo were used at first. However, this had the drawback of not being able to remember commands after undoing and writing a new command.
 2. undo() and redo() both returned the previous and next command respectively - This had a flaw in which the logic of handling the command index became unnecessarily complex as we had to worry about when we incremented/decremented an index. This also made it harder to test the functionality
 
-=======
 ### Add Appointment Feature
 
 The add appointment feature allows users to create a new appointment and insert them into the application.
@@ -349,16 +349,16 @@ An observable list is used to store the list of appointments.
 - A unique identifier is created for each appointment. This identifier is strictly increasing and remains tagged to the appointment (and does not change its order even if other records prior get deleted).
 
 There are a few classes and methods used to interact with the add appointment command.
-1. AddAppointmentCommand Class
+1. `AddAppointmentCommand`
    1. Defines add appointment command key word and other error messages.
-2. AddAppointmentCommand#execute()
-   1. Validates the results of the AddAppointmentCommandParser#parse().
+2. `AddAppointmentCommand#execute()`
+   1. Validates the results of the `AddAppointmentCommandParser#parse()`
    2. Adds a valid appointment to CogniCare.
    3. Throws a Command Exception if the appointment returned is invalid. The new appointment is considered valid if there is no
       appointment with the same patient id, date and time, and the date and time does not overlap with another appointment in CogniCare.
-3. AddAppointmentCommandParser#parse()
+3. `AddAppointmentCommandParser#parse()`
    1. Parses the add appointment commands, ensuring that all required parameters are present.
-   2. Returns a new AddAppointmentCommand.
+   2. Returns a new `AddAppointmentCommand.`
 
 **Rationale for implementation**
 There are a few key features that this module aims to implement
@@ -366,9 +366,35 @@ There are a few key features that this module aims to implement
 
 **Alternatives considered**
 1. Using an array list instead of an observable list. However, the GUI was not able to accurately reflect the new appointment list when new appointments were added.
-2. Using the natural order of the list as the index of the Appointment. To standardise the implementation throughout the application, we decided to adopt the patient list implementation.
+2. Using the natural order of the list as the index of the `Appointment`. To standardise the implementation throughout the application, we decided to adopt the patient list implementation.
    Therefore, each appointment has a unique identifier that does not change even when the natural order of the list is changed.
- 
+
+### Query Appointment Feature
+The query appointment feature allows users to query appointments by specific fields like by patient ID or name or appointment ID. Querying by datetime is done via the filter appointment feature.
+
+Below is the sequence diagram for querying appointments
+
+<puml src="diagrams/QueryAppointmentSequenceDiagram.puml" alt="Query Appointment Sequence Diagram" />
+
+
+And below is the activity diagram when a query command is made
+
+<puml src="diagrams/QueryAppointmentActivityDiagram.puml" alt="Query Appointment Actiity Diagram" />
+
+**Implementation**
+There are a few classes and methods that make this feature work
+1. `ListAppointmentCommand` - Command that is executed
+2. `ListAppointmentCommandParser` - Parses the command and performs the required validation checks
+3. `RelationshipUtil` - In order to check that the specified patient ID is valid, we use a Util class which checks if a patient ID exists in a list of all patients
+
+**Rationale for implementation**
+1. This list command adds a unique validation step that checks for a valid patient ID. The rationale behind this is because of the confusion that would come about by listing out an empty list of appointments are querying by an patient invalid patient ID. For example, if there was no validation and you run `querya pid/999` and you see no appointments, you might assume that there is no appointment with the patient ID of 999, rather than there is no such patient ID in the first place
+   1. Note that patient name is not subject to the same validation because while the existence of a patient ID can be easily verified, the existence of a substring of a name cannot. Furthermore, if you run `querya n/Tom` and no appointments are listed, the conclusion that there is no appointment with the patient named "Tom".
+2. The query command allows for ease and flexibility in querying, while also providing sufficient validation to bolster and not hinder the querying process. This feature helps to streamline the user experience for users who are fast typists and technically-competent.
+
+**Alternatives considered**
+1. Initially, the command was only allowed to query just by patient ID and appointment ID. However, this was found to be too restricting on the user as it is unintuitive for the user to remember IDs over names.
+
 ### Edit Appointment Feature
 
 The edit appointment feature allows users to update appointment fields in case of any changes to the appointment details.
@@ -378,16 +404,16 @@ Below is the sequence diagram for editing an appointment.
 
 **Implementation**
 There are a few classes and methods used to interact with the add appointment command.
-1. EditAppointmentCommand Class
+1. `EditAppointmentCommand`
    1. Defines edit appointment command key word and other error messages.
-2. EditAppointmentCommand#execute()
-   1. Finds the specified appointment to edit. Throws a CommandException if appointment is not found.
+2. `EditAppointmentCommand#execute()`
+   1. Finds the specified appointment to edit. Throws a `CommandException` if appointment is not found.
    2. Validates the edited appointment, ensuring that the edited appointment does not exist in CogniCare. Date and time checks are performed as well.
    3. If there is no error, the specified appointment is updated and a success message is displayed.
-3. EditAppointmentCommandParser#parse()
-   1. Parses the edit appointment command, ensuring that all parameters provided are valid. A ParseException is thrown if there are no parameters specified.
+3. `EditAppointmentCommandParser#parse()`
+   1. Parses the edit appointment command, ensuring that all parameters provided are valid. A `ParseException` is thrown if there are no parameters specified.
    2. Creates an edited appointment.
-   3. Returns a new EditAppointmentCommand.
+   3. Returns a new `EditAppointmentCommand.`
 
 **Rational for implementation**
 1. Users need to be able to update individual appointments in the event that appointment details change.
@@ -401,15 +427,15 @@ Below is the activity diagram for deleting an appointment.
 
 **Implementation**
 There are a few classes and methods used to interact with the add appointment command.
-1. DeleteAppointmentCommand Class
+1. `DeleteAppointmentCommand`
     1. Defines delete appointment command key word and other error messages.
-2. DeleteAppointmentCommand#execute()
-    1. Finds the specified appointment to delete. Throws a CommandException if appointment is not found.
+2. `DeleteAppointmentCommand#execute()`
+    1. Finds the specified appointment to delete. Throws a `CommandException` if appointment is not found.
     3. If there is no error, the specified appointment is deleted from CogniCare and a success message is displayed.
-3. DeleteAppointmentCommandParser#parse()
+3. `DeleteAppointmentCommandParser#parse()`
     1. Parses the delete appointment command, ensuring that the provided appointment index is valid.
-       A ParseException is thrown if there are no parameters specified or the appointment index provided is not positive.
-    3. Returns a new DeleteAppointmentCommand.
+       A `ParseException` is thrown if there are no parameters specified or the appointment index provided is not positive.
+    3. Returns a new `DeleteAppointmentCommand`
 
 **Rational for implementation**
 1. Users need to be able to delete individual appointments in the event that appointment an appointment is cancelled.
