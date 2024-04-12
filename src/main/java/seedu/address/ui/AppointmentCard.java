@@ -48,10 +48,6 @@ public class AppointmentCard extends UiPart<Region> {
         appointmentId.setText(appointment.getAppointmentId() + ". ");
         name.setText(patientName);
 
-        name.setWrapText(true);
-        appointmentDescription.setWrapText(true);
-        appointmentDateTime.setWrapText(true);
-
         String formattedStartDateTime = DateUtil.formatDateTime(appointment.getStartDateTime().getDateTimeValue());
         String formattedEndDateTime = DateUtil.formatDateTime(appointment.getEndDateTime().getDateTimeValue());
         appointmentDateTime.setText(formattedStartDateTime + " - "

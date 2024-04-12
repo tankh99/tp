@@ -33,8 +33,6 @@ public class PatientFeedbackReportCard extends UiPart<Region> {
     public PatientFeedbackReportCard(PatientFeedbackReport pfr) {
         super(FXML);
         name.setText("Name: " + pfr.getPatientName().fullName);
-        name.setWrapText(true);
-
         avgFeedbackScore.managedProperty().bind(avgFeedbackScore.visibleProperty());
         if (pfr.getAvgFeedbackScore() != null) {
             avgFeedbackScore.setText("Avg Score: " + pfr.getAvgFeedbackScore().toString());
