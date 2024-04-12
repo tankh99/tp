@@ -271,8 +271,7 @@ This enhancement was driven for the need of:
   - Cons: 
     - Reduce in OOP-ness of the code
     - Hard to scale up, as need to change the whole code base.
-    
-=======
+
 ### Command History
 
 Command history is a feature that aims to improve the user experience for experienced users by allowing them to quickly
@@ -337,7 +336,6 @@ There are a few key features that this module aims to implement
 1. 2 stacks, one undo and one redo were used at first. However, this had the drawback of not being able to remember commands after undoing and writing a new command.
 2. undo() and redo() both returned the previous and next command respectively - This had a flaw in which the logic of handling the command index became unnecessarily complex as we had to worry about when we incremented/decremented an index. This also made it harder to test the functionality
 
-=======
 ### Add Appointment Feature
 
 The add appointment feature allows users to create a new appointment and insert them into the application.
