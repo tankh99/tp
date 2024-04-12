@@ -368,7 +368,33 @@ There are a few key features that this module aims to implement
 1. Using an array list instead of an observable list. However, the GUI was not able to accurately reflect the new appointment list when new appointments were added.
 2. Using the natural order of the list as the index of the Appointment. To standardise the implementation throughout the application, we decided to adopt the patient list implementation.
    Therefore, each appointment has a unique identifier that does not change even when the natural order of the list is changed.
- 
+
+### Query Appointment Feature
+The query appointment feature allows users to query appointments by specific fields like by patient ID or name or appointment ID. Querying by datetime is done via the filter appointment feature.
+
+Below is the sequence diagram for querying appointments
+
+<puml src="diagrams/QueryAppointmentSequenceDiagram.puml" alt="Query Appointment Sequence Diagram" />
+
+
+And below is the activity diagram when a query command is made
+
+<puml src="diagrams/QueryAppointmentActivityDiagram.puml" alt="Query Appointment Actiity Diagram" />
+
+**Implementation**
+There are a few classes and methods that make this feature work
+1. `ListAppointmentCommand` - Command that is executed
+2. `ListAppointmentCommandParser` - Parses the command and performs the required validation checks
+3. `RelationshipUtil` - In order to check that the specified patient ID is valid, we use a Util class which checks if a patient ID exists in a list of all patients
+
+**Rationale for implementation**
+1. This list command adds a unique validation step that checks for a valid patient ID. The rationale behind this is because of the confusion that would come about by listing out an empty list of appointments are querying by an patient invalid patient ID. For example, if there was no validation and you run `querya pid/999` and you see no appointments, you might assume that there is no appointment with the patient ID of 999, rather than there is no such patient ID in the first place
+   1. Note that patient name is not subject to the same validation because while the existence of a patient ID can be easily verified, the existence of a substring of a name cannot. Furthermore, if you run `querya n/Tom` and no appointments are listed, the conclusion that there is no appointment with the patient named "Tom".
+2. The query command allows for ease and flexibility in querying, while also providing sufficient validation to bolster and not hinder the querying process. This feature helps to streamline the user experience for users who are fast typists and technically-competent.
+
+**Alternatives considered**
+1. Initially, the command was only allowed to query just by patient ID and appointment ID. However, this was found to be too restricting on the user as it is unintuitive for the user to remember IDs over names.
+
 ### Edit Appointment Feature
 
 The edit appointment feature allows users to update appointment fields in case of any changes to the appointment details.
