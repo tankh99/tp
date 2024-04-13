@@ -1063,7 +1063,7 @@ Use case ends.
 5. Should not take more than 25MB of space, including data files during normal usage.
 6. Should consistently save and load data locally so that import data in different devices should return the same application state.
 7. Should respond in less than 5 seconds for any given command.
-8. A new user should be easy to use most of the features with one read from UG.
+8. A new user should be able to make use of most features by reading the UG once.
 
 
 ### Glossary
