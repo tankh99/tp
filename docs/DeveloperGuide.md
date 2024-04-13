@@ -1061,7 +1061,7 @@ Use case ends.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 4. Should work without internet access i.e offline-only.
 5. Should not take more than 25MB of space, including data files during normal usage.
-6. Should consistently save and load data locally so that import data in different devices should return the same application state.
+6. Should consistently save and load data locally so that import these data files in different devices should give the same application state.
 7. Should respond in less than 5 seconds for any given command.
 8. A new user should be able to make use of most features by reading the UG once.
 
