@@ -6,7 +6,7 @@
 
 # CogniCare User Guide
 
-CogniCare is a **desktop app for managing most Singaporean patients, optimized for use via a Command Line Interface** (CLI) while still retaining all the benefits of a Graphical User Interface (GUI). If you can type fast, CogniCare can get your patient management tasks done faster than other traditional GUI apps.
+CogniCare is a **desktop app for a single-user application for managing most School of Computing (SoC) patients, optimized for use via a Command Line Interface** (CLI) while still retaining all the benefits of a Graphical User Interface (GUI). For fast-typers, CogniCare can get your patient management tasks done faster than other traditional GUI apps.
 
 <!-- * Table of Contents -->
 
@@ -506,7 +506,7 @@ _Details coming soon ..._
 | **Add an appointment**                                | `adda pid/PATIENT_ID sd/START_DATETIME ed/END_DATETIME [att/ATTEND] [s/FEEDBACK_SCORE] [ad/APPOINTMENT_DESCRIPTION]`                                                                                               |
 | **Query appointments**                                | `querya [pid/PATIENT_ID] [n/PATIENT_NAME] [aid/APPOINTMENT_ID]`                                                                                                                                                    |
 | **Delete an appointment**                             | `deletea APPOINTMENT_ID`                                                                                                                                                                                           | 
-| **Edit an appointment**                               | `edita APPOINTMENT_ID [pid/PATIENT_ID] [sd/START_DATETIME] [ed/ENDDATE_TIME] [att/ATTEND] [s/FEEDBACK_SCORE] [ad/APPOINTMENT_DESCTIPTION]`                                                                         |
+| **Edit an appointment**                               | `edita APPOINTMENT_ID [pid/PATIENT_ID] [sd/START_DATETIME] [ed/ENDDATE_TIME] [att/ATTEND] [s/FEEDBACK_SCORE] [ad/APPOINTMENT_DESCRIPTION]`                                                                         |
 | **Filter appointments by date time**                  | `filter [sd/START_DATETIME] [ed/END_DATETIME]`                                                                                                                                                                     |
 | **Report patient feedback statistics**                | `reportf [sd/DATE] [ed/DATE]`                                                                                                                                                                                      |
 | **Help**                                              | `help`                                                                                                                                                                                                             |                                                                                                                                                                                                           |

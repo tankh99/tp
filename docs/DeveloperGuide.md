@@ -28,7 +28,7 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 ### Architecture
 
-<puml src="diagrams/ArchitectureDiagram.puml" width="280" />
+<puml src="diagrams/ArchitectureDiagram.puml"/>
 
 The ***Architecture Diagram*** given above explains the high-level design of the App.
 
@@ -53,16 +53,16 @@ The bulk of the app's work is done by the following four components:
 
 The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
-<puml src="diagrams/ArchitectureSequenceDiagram.puml" width="574" />
+<puml src="diagrams/ArchitectureSequenceDiagram.puml"/>
 
 Each of the four main components (also shown in the diagram above),
 
 * defines its *API* in an `interface` with the same name as the Component.
 * implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point.
 
-For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given component through its interface rather than the concrete class (reason: to prevent outside component's being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
+For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given component through its interface rather than the concrete class (reason: to prevent an outside component from being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
 
-<puml src="diagrams/ComponentManagers.puml" width="300" />
+<puml src="diagrams/ComponentManagers.puml"/>
 
 The sections below give more details of each component.
 
@@ -89,7 +89,7 @@ The `UI` component,
 
 Here's a (partial) class diagram of the `Logic` component:
 
-<puml src="diagrams/LogicClassDiagram.puml" width="550"/>
+<puml src="diagrams/LogicClassDiagram.puml"/>
 
 The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("delete 1")` API call as an example.
 
@@ -109,7 +109,7 @@ How the `Logic` component works:
 
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
 
-<puml src="diagrams/ParserClasses.puml" width="600"/>
+<puml src="diagrams/ParserClasses.puml"/>
 
 How the parsing works:
 * When called upon to parse a user command, the `CommandParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `CommandParser` returns back as a `Command` object.
@@ -118,7 +118,7 @@ How the parsing works:
 ### Model component
 **API** : [`Model.java`](https://github.com/AY2324S2-CS2103-F08-2/tp/tree/master/src/main/java/seedu/address/model/Model.java)
 
-<puml src="diagrams/ModelClassDiagram.puml" width="450" />
+<puml src="diagrams/ModelClassDiagram.puml"/>
 
 
 The `Model` component,
@@ -132,7 +132,7 @@ The `Model` component,
 
 **API** : [`Storage.java`](https://github.com/AY2324S2-CS2103-F08-2/tp/tree/master/src/main/java/seedu/address/storage/Storage.java)
 
-<puml src="diagrams/StorageClassDiagram.puml" width="550" />
+<puml src="diagrams/StorageClassDiagram.puml"/>
 
 The `Storage` component,
 * can save both address book data and user preference data in JSON format, and read them back into corresponding objects.
@@ -171,7 +171,7 @@ The Attended Status is a boolean value that indicates whether the patient has at
 The Appointment Description is a String that describes the appointment.
 
 ##### Appointment Storage
-Appointment are stored in the `Model` component as `AppointmentList` which contains `UniqueAppointmentList` object that is parallel similar to `PatientList` storing `UniquePatientList`. 
+Appointments are stored in the `Model` component as `AppointmentList` which contains `UniqueAppointmentList` object that is parallel similar to `PatientList` storing `UniquePatientList`. 
 The `Model` component provides methods to add, delete, and retrieve appointments from `AppointmentList`
 
 Appointment List are saved under a separate file `appointments.json` in the data folder, apart from the `patients.json` file that stores the `patientList` data.
@@ -183,7 +183,7 @@ Appointment List are saved under a separate file `appointments.json` in the data
 
 
 - **Alternative 1: Using Integer ID as the primary key (Current Approach)**
-  - We needed some method to ensure that the patient was unique. The primary solution implemented involves a running integer identifier - and is saved together with each patient. The identifier serves as the primary key for the patient object, similar to how a unique ID in a database ensure each record's uniqueness.
+  - We needed some method to ensure that the patient was unique. The primary solution implemented involves a running integer identifier—and is saved together with each patient. The identifier serves as the primary key for the patient object, similar to how a unique ID in a database ensures each record's uniqueness.
   - This was different to how the AB3 application was originally designed - where the ID followed the natural ordering of the elements in the list.
   - Pros
     - Extremely user-friendly for counsellor as ID is never changed. 
@@ -213,12 +213,12 @@ Appointment List are saved under a separate file `appointments.json` in the data
 **Aspect: Search query with AND constraint**
 ### Finding Contact by different parameters.
 
-<puml src="diagrams/FindPatientSequenceDiagram.puml" width="574" />
+<puml src="diagrams/FindPatientSequenceDiagram.puml"/>
 
 
 In enhancing the search functionality within CogniCare, the implementation of an AND constraint for search queries was paramount. This feature allows counsellors to refine search criteria, leading to more precise and relevant search results. For example, counsellors can search for a patient using a combination of (partial name AND partial phone number AND partial email address). Only parameter is required, the others are optional.
 
-This enhancement was driven for the need of:
+This enhancement was driven by the need of:
 1. Improved Search Accuracy: By allowing multiple criteria to be specified, counsellors can narrow down search results to the most relevant patients (as the SoC cohort is quite large).
 2. Efficiency: Enables quicker access to patient records by reducing the time spent sifting through irrelevant patient information.
 
@@ -604,7 +604,7 @@ Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Sinc
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
-<puml src="diagrams/CommitActivityDiagram.puml" width="250" />
+<puml src="diagrams/CommitActivityDiagram.puml"/>
 
 #### Design considerations:
 
@@ -650,7 +650,7 @@ We have considered these alternatives:
 ## Editing a current Patient
 `EditPatientCommandParser` obtains the patient index and the values that correspond to the prefixes such as `p/`, `n/`, `e/`, and `a/` which represent phone, name, email address, and alias accordingly.
 
-* There can be multiple aliases (`a/`), but `p/`, `n/`, `e/` may only appear once.
+* There can be multiple affliated-with (`a/`), but `p/`, `n/`, `e/` may only appear once.
 * The patient index is based on the unique ID that is tagged to each patient, and is not the natural ordering of the list.
 * The edited fields are required to have the same validation as creating a new patient.
 
@@ -709,18 +709,21 @@ We have considered these alternatives:
 ### Product scope
 
 **Target user profile**:
+Rayson is a career guidance coach at the National University of Singapore (NUS) that is attached to the School of Computing (SoC) to provide computing students with career advice.
 
-This product is for staff at SoC Center for Future Graduates (CFG), and is specifically targeted towards Buck Seng, our target audience. This product aims to help make managing his patients easier
+Recently there are many students that are unable to find an internship resulting in stress amongst the student population. This has led to SoC reducing the internship requirements (such as reducing stipend and allowing flexibility in internship periods). However, Rayson's boss, Aaron, thinks that more support needs to be done for the students.
 
-The following further describes our user
+Therefore, Aaron has launched a new initiative to provide counseling for the computing students. To assist Rayson in managing the large numbers of potential students utilising this service, Aaron has employed the services of our team to allow Rayson to better manage the number of appointments.
 
-* has a need to manage a significant number of contacts due to the large number of students requiring counselling services
-* prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
-* is technically competent
-* is reasonably comfortable using CLI apps
-* only a single user
+Rayson is a technically inclined user (alumni of SoC) that is reasonably comfortable using CLI apps, and has the requirements of:
+
+* having a need to manage a significant number of contacts due to the large number of students requiring counselling services
+* preferring desktop apps over other types
+* being able to type fast
+* preferring typing to mouse interactions
+* being a single-user application.
+
+(Rayson and Aaron are both fictional characters)
 
 **Value proposition**: 
 
@@ -1081,49 +1084,6 @@ Given below are instructions to test the app manually.
 testers are expected to do more *exploratory* testing.
 
 </box>
-
-### Launch and shutdown
-
-1. Initial launch
-
-   1. Download the jar file and copy into an empty folder
-
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
-
-1. Saving window preferences
-
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
-
-   1. Re-launch the app by double-clicking the jar file.<br>
-       Expected: The most recent window size and location is retained.
-
-1. _{ more test cases …​ }_
-
-### Deleting a patient
-
-1. Deleting a patient while all patients are being shown
-
-   1. Prerequisites: List all patients using the `list` command. Multiple patients in the list.
-
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-
-   1. Test case: `delete 0`<br>
-      Expected: No patient is deleted. Error details shown in the status message. Status bar remains the same.
-
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
-
-1. _{ more test cases …​ }_
-
-### Saving data
-
-1. Dealing with missing/corrupted data files
-
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
-
-1. _{ more test cases …​ }_
-
 
 6.0. Manual Testing
 
