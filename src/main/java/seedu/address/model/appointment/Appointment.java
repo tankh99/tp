@@ -9,7 +9,6 @@ import seedu.address.commons.util.ToStringBuilder;
 
 /**
  * Represents an Appointment attached to a Person in PatientList
- * TODO: check if need to enforcing immutable
  */
 public class Appointment implements Comparable<Appointment> {
     public static final String MESSAGE_DATETIME_ALREADY_TAKEN = "There is already an appointment at that time";

@@ -42,8 +42,8 @@ public class ReportFeedbackCommandParser implements Parser<ReportFeedbackCommand
                 argMultimap.getValue(PREFIX_END_DATETIME).get(), false);
         }
 
-        boolean bothDatesPresent = fromDate != null && toDate != null;
-        if (bothDatesPresent && toDate.isBefore(fromDate)) {
+        boolean areBothDatesPresent = fromDate != null && toDate != null;
+        if (areBothDatesPresent && toDate.isBefore(fromDate)) {
             throw new ParseException(Messages.MESSAGE_INVALID_START_END_DATETIME);
         }
         return new ReportFeedbackCommand(fromDate, toDate);

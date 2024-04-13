@@ -46,6 +46,8 @@ public class FilterAppointmentCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireAllNonNull(model, startDateTime, endDateTime);
+        assert model != null : "Model should not be null.";
+
         // Check if startDateTime is before endDateTime
         if (startDateTime.compareTo(endDateTime) > 0) {
             throw new CommandException(Messages.MESSAGE_INVALID_START_END_DATETIME);

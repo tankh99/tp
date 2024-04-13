@@ -54,7 +54,6 @@ public class DeletePatientCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        // TODO: Update test case for the deletion by Sid.
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         Patient patientToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());

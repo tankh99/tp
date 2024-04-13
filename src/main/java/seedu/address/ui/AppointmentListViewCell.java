@@ -24,8 +24,11 @@ public class AppointmentListViewCell extends ListCell<Appointment> {
             setText(null);
         } else {
             String name = patients.getPersonList().stream()
-                    .filter(patient -> patient.getSid() == appointment.getPatientId().patientId).findFirst()
-                    .get().getName().fullName;
+                    .filter(patient -> patient.getSid() == appointment.getPatientId().patientId)
+                    .findFirst()
+                    .map(patient -> patient.getName().fullName)
+                    .orElse("Deleted Patient");
+
             setGraphic(new AppointmentCard(appointment, name).getRoot());
         }
     }

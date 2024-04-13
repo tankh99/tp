@@ -12,7 +12,7 @@ public class HasAttended {
     /**
      * Constructs a {@code HasAttended}.
      *
-     * @param hasAttended A valid attend status.
+     * @param hasAttended A valid attendance status.
      */
     public HasAttended(Boolean hasAttended) {
         this.hasAttended = hasAttended;

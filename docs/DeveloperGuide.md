@@ -12,6 +12,8 @@ As the job climate is worsening, more and more students become afflicted with me
 CogniCare takes care of the load of many tedious tasks such as identifying today's appointments and measuring a patient's satisfication progress levels over a period of time, until they are finally ready for discharge.
 
 <!-- * Table of Contents -->
+
+
 <page-nav-print />
 
 --------------------------------------------------------------------------------------------------------------------
@@ -172,8 +174,6 @@ The Appointment Description is a String that describes the appointment.
 Appointments are stored in the `Model` component as `AppointmentList` which contains `UniqueAppointmentList` object that is parallel similar to `PatientList` storing `UniquePatientList`. 
 The `Model` component provides methods to add, delete, and retrieve appointments from `AppointmentList`
 
-![Appointment Storage](images/StorageClassDiagram.png)
-
 Appointment List are saved under a separate file `appointments.json` in the data folder, apart from the `patients.json` file that stores the `patientList` data.
 
 
@@ -271,15 +271,14 @@ This enhancement was driven by the need of:
   - Cons: 
     - Reduce in OOP-ness of the code
     - Hard to scale up, as need to change the whole code base.
-    
-=======
+
 ### Command History
 
 Command history is a feature that aims to improve the user experience for experienced users by allowing them to quickly
 navigate through their history of commands to make minor changes. Many features were inspired from macOS's Bash shell
 
 Below is a general user flow of the command history
-<puml src="diagrams/CommandHistorySequenceDiagram.puml" alt="Command History sequence diagram" />
+<puml src="diagrams/command-history/CommandHistorySequenceDiagram.puml" alt="Command History sequence diagram" />
 
 **Note** that the above diagram doesn't capture the audio playback feature because it's not a core part of the feature.
 
@@ -298,27 +297,29 @@ at.
 - The current command index defaults to 0
 
 There are a few methods used to interact with the command history
-1. **getCurrentCommand()**
-   1. Gets the command at the current command index
-2. **undo()**
-   1. Decrements the current command index by 1
-   2. If the current command index is already 0, it will play a Boop sound to indicate that there is 
-are no more commands left to undo
-1. **redo()**
-   1. Increments the current command index by 1
+1. `getCurrentCommand()` - Gets the command at the current command index
+2. `undo()` - Decrements the current command index by 1
+    * If the current command index is already 0, it will play a Boop sound to indicate that there is are no more commands left to undo
+1. `redo()` - Increments the current command index by 1
 
 Below shows expected behaviour of the command history from a series of actions. 
-- blue underline - denotes where the command index
-is pointing at.
-- initial - the initial state of the command history
-- exec - when any command is executed
-- undo - decrements the index
-- redo - increments the index
+- red text - denotes where the command index
+is currently pointing at.
+- NA - the initial state of the command history
+- `execute(args)` - when any command is executed
+- `undo()` - decrements the index
+- `redo()` - increments the index
 
-<img 
-  src="images/command-history/command-history-illustration.jpeg" 
-  alt="Command history illustration/"
-  width=480>
+Command | Command History
+---|---
+NA | [<span style="color: red;">""</span>]
+`execute("help")` | ["help", <span style="color: red;">""</span>]
+`undo()` | [<span style="color: red;">"help"</span>, ""]
+`undo()` | [<span style="color: red;">"help"</span>, ""]
+`redo()` | ["help", <span style="color: red;">""</span>]
+`redo()` | ["help", <span style="color: red;">""</span>]
+`undo()` | [<span style="color: red;">"help"</span>, ""]
+`execute("query")` | ["help", "query", <span style="color: red;">""</span>]
 
 **Rationale for implementation**
 There are a few key features that this module aims to implement
@@ -335,22 +336,29 @@ There are a few key features that this module aims to implement
 1. 2 stacks, one undo and one redo were used at first. However, this had the drawback of not being able to remember commands after undoing and writing a new command.
 2. undo() and redo() both returned the previous and next command respectively - This had a flaw in which the logic of handling the command index became unnecessarily complex as we had to worry about when we incremented/decremented an index. This also made it harder to test the functionality
 
-=======
 ### Add Appointment Feature
 
 The add appointment feature allows users to create a new appointment and insert them into the application.
 
-**Implementation**
-An observable list was used to store the list of appointments.
-- The list is initialised as an empty list of type appointments in the beginning.
+Below is the add appointment activity diagram.
+<puml src="diagrams/AddAppointmentActivityDiagram.puml" alt="Add Appointment Activity Diagram" />
 
-There are a few methods used to interact with the add appointment command.
-1. AddAppointmentCommand
+**Implementation**
+An observable list is used to store the list of appointments.
+- The list is initialised as an empty list of type appointments in the beginning.
+- A unique identifier is created for each appointment. This identifier is strictly increasing and remains tagged to the appointment (and does not change its order even if other records prior get deleted).
+
+There are a few classes and methods used to interact with the add appointment command.
+1. `AddAppointmentCommand`
    1. Defines add appointment command key word and other error messages.
-   2. Validates the results of the AddAppointmentCommandParser#parse()
-2. AddAppointmentCommandParser#parse()
+2. `AddAppointmentCommand#execute()`
+   1. Validates the results of the `AddAppointmentCommandParser#parse()`
+   2. Adds a valid appointment to CogniCare.
+   3. Throws a Command Exception if the appointment returned is invalid. The new appointment is considered valid if there is no
+      appointment with the same patient id, date and time, and the date and time does not overlap with another appointment in CogniCare.
+3. `AddAppointmentCommandParser#parse()`
    1. Parses the add appointment commands, ensuring that all required parameters are present.
-   2. Returns AddAppointmentCommand
+   2. Returns a new `AddAppointmentCommand.`
 
 **Rationale for implementation**
 There are a few key features that this module aims to implement
@@ -358,11 +366,89 @@ There are a few key features that this module aims to implement
 
 **Alternatives considered**
 1. Using an array list instead of an observable list. However, the GUI was not able to accurately reflect the new appointment list when new appointments were added.
+2. Using the natural order of the list as the index of the `Appointment`. To standardise the implementation throughout the application, we decided to adopt the patient list implementation.
+   Therefore, each appointment has a unique identifier that does not change even when the natural order of the list is changed.
+
+### Query Appointment Feature
+The query appointment feature allows users to query appointments by specific fields like by patient ID or name or appointment ID. Querying by datetime is done via the filter appointment feature.
+
+Below is the sequence diagram for querying appointments
+
+<puml src="diagrams/QueryAppointmentSequenceDiagram.puml" alt="Query Appointment Sequence Diagram" />
+
+
+And below is the activity diagram when a query command is made
+
+<puml src="diagrams/QueryAppointmentActivityDiagram.puml" alt="Query Appointment Actiity Diagram" />
+
+**Implementation**
+There are a few classes and methods that make this feature work
+1. `ListAppointmentCommand` - Command that is executed
+2. `ListAppointmentCommandParser` - Parses the command and performs the required validation checks
+3. `RelationshipUtil` - In order to check that the specified patient ID is valid, we use a Util class which checks if a patient ID exists in a list of all patients
+
+**Rationale for implementation**
+1. This list command adds a unique validation step that checks for a valid patient ID. The rationale behind this is because of the confusion that would come about by listing out an empty list of appointments are querying by an patient invalid patient ID. For example, if there was no validation and you run `querya pid/999` and you see no appointments, you might assume that there is no appointment with the patient ID of 999, rather than there is no such patient ID in the first place
+   1. Note that patient name is not subject to the same validation because while the existence of a patient ID can be easily verified, the existence of a substring of a name cannot. Furthermore, if you run `querya n/Tom` and no appointments are listed, the conclusion that there is no appointment with the patient named "Tom".
+2. The query command allows for ease and flexibility in querying, while also providing sufficient validation to bolster and not hinder the querying process. This feature helps to streamline the user experience for users who are fast typists and technically-competent.
+
+**Alternatives considered**
+1. Initially, the command was only allowed to query just by patient ID and appointment ID. However, this was found to be too restricting on the user as it is unintuitive for the user to remember IDs over names.
+
+### Edit Appointment Feature
+
+The edit appointment feature allows users to update appointment fields in case of any changes to the appointment details.
+
+Below is the sequence diagram for editing an appointment.
+<puml src="diagrams/EditAppointmentSequenceDiagram.puml" alt="Edit Appointment Sequence Diagram" width="550" />
+
+**Implementation**
+There are a few classes and methods used to interact with the add appointment command.
+1. `EditAppointmentCommand`
+   1. Defines edit appointment command key word and other error messages.
+2. `EditAppointmentCommand#execute()`
+   1. Finds the specified appointment to edit. Throws a `CommandException` if appointment is not found.
+   2. Validates the edited appointment, ensuring that the edited appointment does not exist in CogniCare. Date and time checks are performed as well.
+   3. If there is no error, the specified appointment is updated and a success message is displayed.
+3. `EditAppointmentCommandParser#parse()`
+   1. Parses the edit appointment command, ensuring that all parameters provided are valid. A `ParseException` is thrown if there are no parameters specified.
+   2. Creates an edited appointment.
+   3. Returns a new `EditAppointmentCommand.`
+
+**Rational for implementation**
+1. Users need to be able to update individual appointments in the event that appointment details change.
+2. There are also optional parameters present in the add appointment command that users should be able to update.
+
+### Delete Appointment Feature
+The delete appointment feature allows users to remove appointments from CogniCare.
+
+Below is the activity diagram for deleting an appointment.
+<puml src="diagrams/DeleteAppointmentActivityDiagram.puml" alt="Delete Appointment Activity Diagram" width="550" />
+
+**Implementation**
+There are a few classes and methods used to interact with the add appointment command.
+1. `DeleteAppointmentCommand`
+    1. Defines delete appointment command key word and other error messages.
+2. `DeleteAppointmentCommand#execute()`
+    1. Finds the specified appointment to delete. Throws a `CommandException` if appointment is not found.
+    3. If there is no error, the specified appointment is deleted from CogniCare and a success message is displayed.
+3. `DeleteAppointmentCommandParser#parse()`
+    1. Parses the delete appointment command, ensuring that the provided appointment index is valid.
+       A `ParseException` is thrown if there are no parameters specified or the appointment index provided is not positive.
+    3. Returns a new `DeleteAppointmentCommand`
+
+**Rational for implementation**
+1. Users need to be able to delete individual appointments in the event that appointment an appointment is cancelled.
+
+**Alternative considered**
+1. Command format `deletea aid/APPOINTMENT_INDEX`. The appointment index prefix `aid/` was deemed not necessary as it is very clear that this delete command only applies to appointments.
 
 
 ### Filter Appointment Feature
 
 The filter appointment feature allows users to filter appointments based on the date and time of the appointment.
+
+<puml scr="diagrams/FilterAppointmentSequenceDiagram.puml" alt="Filter Appointment Sequence Diagram">
 
 **Implementation**
 A predicate was used to filter the list of appointments based on the date and time of the appointment.
@@ -429,6 +515,18 @@ Below is a sequence diagram of the user flow of the report command
    2. A 0 was considered to represent the null value of a feedback score. This was because we did not have any actually null fields in the previous code base, with FeedbackScore being the only nullable field. However, having 0 represent the null value is confusing and also prone to error, in case someone decided to edit the feedbaCkScore to any other value, e.g. -1
 3. An observer pattern was considered when implementing the `generateReportList()` fucntionality, however, it was scrapped because it was already implemented via the `ObservableList` fields and implementing the pattern fully would not be worth the refactor 
 
+### Help Feature
+
+<puml src="diagrams/HelpCommandSequenceDiagram.puml" alt="Help Command Sequence Diagram">
+
+The help feature provides users with an url to user guide online.
+
+Rationale for implementation:
+1. Pop-up window with URL link and a copy button
+
+Alternative considered:
+1. Display list of command directly in dialog
+2. Display a full window with user guide
 
 ### \[Proposed\] Undo/redo feature
 
@@ -530,7 +628,7 @@ _{Explain here how the data archiving feature will be implemented}_
 
 ## Create a new Patient
 
-`AddPatientCommandParser` obtains the values that correspond to the prefixes such as `/p`, `/n`, `/e`, and `/a` which represent phone, name, email address, and alias accordingly.
+`AddPatientCommandParser` obtains the values that correspond to the prefixes such as `p/`, `n/`, `e/`, and `a/` which represent phone, name, email address, and alias accordingly.
 
 This class ensures that
 * The data stored must contain the name, phone, and email address corresponding to their respective format.
@@ -550,7 +648,7 @@ We have considered these alternatives:
 
 
 ## Editing a current Patient
-`EditPatientCommandParser` obtains the patient index and the values that correspond to the prefixes such as `/p`, `/n`, `/e`, and `/a` which represent phone, name, email address, and alias accordingly.
+`EditPatientCommandParser` obtains the patient index and the values that correspond to the prefixes such as `p/`, `n/`, `e/`, and `a/` which represent phone, name, email address, and alias accordingly.
 
 * There can be multiple affliated-with (`a/`), but `p/`, `n/`, `e/` may only appear once.
 * The patient index is based on the unique ID that is tagged to each patient, and is not the natural ordering of the list.
@@ -580,7 +678,7 @@ We have considered these alternatives:
 
 
 ## Querying for Patients
-`ListPatientCommandParser` obtains the values that correspond to the criteria such as `/p`, `/n`, `/e` and `/a` which represent phone, name, email address, and alias(es) accordingly, and combined with an AND logic.
+`ListPatientCommandParser` obtains the values that correspond to the criteria such as `p/`, `n/`, `e/`, and `a/` which represent phone, name, email address, and alias(es) accordingly, and combined with an AND logic.
 
 The command for this operation is `queryp` with at least one or zero parameters. If no parameters (or at least one invalid parameter is passed into the command), the `queryp` command returns all the information of the patients (that is applied without any filters/predicates).
 
@@ -651,12 +749,10 @@ Priorities: High (must have) - `* * * *`, Medium (nice to have) - `* * *`, Low (
 | `* * * *` | Counsellor       | delete an appointment for a specific patient              | appointments can be changed in cases of cancellation.                                                      |
 | `* * * *` | Counsellor       | view one appointment for a specified patient              | quickly find and review the appointment notes.                                                             |
 | `* * * *` | Counsellor       | view all appointments for a specified patient             | quickly view all appointments related to a student without having to remember the appointment ID or dates. |
-| `* * * *` | Counsellor       | view patient case logs                                    | understand where I left off with the patient last time.                                                    |
-| `* * * *` | Counsellor       | create patient logs                                       | note down what I went through with the patient during the session.                                         |
+| `* * * *` | Counsellor       | view patient appointment note                                    | understand where I left off with the patient last time.                                                    |                                      |
 | `* * * *` | Counsellor       | update appointments                                       | fix mistakes for a prior appointment.                                                                      |
 | `* * * *` | Counsellor       | track patient feedback scores over time                   | quickly identify which patients need more help.                                                            |
 | `* * *`   | Counsellor       | to categorise / tag my patients                           | patients with more serious issues can be attended to first.                                                |
-| `* * * `  | Counsellor       | know how many patients I am seeing in a week              | better manage my own time and emotions.                                                                    |
 | `* * *`   | Counsellor       | know what mistakes I make when creating patients          | easily understand how to rectify my mistakes                                                               |
 | `* * *`   | Counsellor       | know know what mistakes I make when creating appointments | easily understand how to rectify my mistakes                                                               |
 | `* * *`   | Counsellor       | be able to mark whether a patient attended a session      | properly document patients’ attendance                                                                     |
@@ -963,11 +1059,14 @@ Use case ends.
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
-2.  Should be able to hold up to 1000 patients without a noticeable sluggishness in performance for typical usage.
+2.  Should be able to hold up to 1000 patients and 1000 appointments without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+4. Should work without internet access i.e offline-only.
+5. Should not take more than 25MB of space, including data files during normal usage.
+6. The data should be transferrable from one computer system to another, ensuring that it displays identically on the new system.
+7. Should respond in less than 5 seconds for any given command.
+8. A new user should be able to make use of most features by reading the UG once.
 
-
-*{More to be added}*
 
 ### Glossary
 
@@ -1045,9 +1144,9 @@ Expected Output in the Command Output Box:
 
 ## 6.3 Adding a new patient
 Pre-requisite:
-- There does not exists another patient with the same name (regardless of capitalisation) and spacing, i.e. the names "Jerome Chua" and "jEROmE       CHuA" are considered the same name.
+- There does not exist another patient with the same name (regardless of capitalisation) and spacing, i.e. the names "Jerome Chua" and "jEROmE       CHuA" are considered the same name.
 
-Command: `patient n/John Doe p/98765432 e/johnd@example.com a/Johnny a/owesMoney `
+Command: `addp n/John Doe p/98765432 e/johnd@example.com a/Johnny a/owesMoney `
 - You must specify exactly one of each parameters (in the correct format)
   - `p/`: phone number
   - `n/`: name
@@ -1064,20 +1163,20 @@ Expected Output in the Command Output Box:
 - A message echo-ing the information that you have just entered.
 
 
-## 6.4 Editing a currently created patient
+## Editing a currently created patient
 Pre-requisite:
 - You know the index (`patientId`) of the person that you are trying to edit.
 - There is exactly one ("1") patient stored in the CogniCare application
 
-Command: `edit 26 n/Jerome Chua`
+Command: `editp 26 n/Jerome Chua`
 - You must specify exactly at least one of these parameters (in the correct format)
-  - `/p`: phone number
+  - `p/`: phone number
     - It must match the validation logic also.
-  - `/n`: name
+  - `n/`: name
     - The edited name must not be an existing entry in the CogniCare application. See the Section above for the validation logic.
-  - `/e`: email address
+  - `e/`: email address
     - It must match validation logic too
-  - `/a`: `associated with` the tag
+  - `a/`: `associated with` the tag
 
 Expected Output:
 -  The `ListView` will be updated with the latest patient data.
@@ -1089,12 +1188,12 @@ Expected Output in the CommandBox: `Edited Person: Bernice Yu; Phone: 91234567; 
 > The student identifier that is commonly referred to in this article refers to the student id that is permanently tagged to each student, and is not the index of the natural ordering in the list.
 
 
-## 6.5 Deleting an existing patient
+## Deleting an existing patient
 Pre-requisite:
 - You know the index (`patientId`) of the person that you are trying to delete.
-- There is at exactly one ("1") patient stored in the CogniCare application
+- There is at exactly one ("1") patient stored in the CogniCare application.
 
-Command: `delete 26`
+Command: `deletep 26`
 - You must specify exactly the patient identifier that exists.
 
 Expected Output:
@@ -1102,6 +1201,106 @@ Expected Output:
 
 Expected Output in the CommandBox: `Deleted Patient: Grace Lim; Phone: 83456789; Email: gracelim@outlook.com; Associated with: [anxiety][stress]`
 -  The `ListView` will be updated with the latest patient data (which removes the deleted patient).
+
+## Adding a new appointment
+Pre-requisite:
+- There does not exist another appointment with the same or overlapping date and time, i.e. if there exists an appointment on 10 October 2021 from 10:10 am to 10:59 am, a new appointment
+that starts or ends between that period cannot be added.
+
+Command: `adda pid/1 sd/2024-04-04 09:00 ed/2024-04-04 10:00 att/true s/5 ad/This is a dummy appointment`
+- You must specify exactly one of each parameter (in the correct format)
+    - `pid/`: patient id
+    - `sd/`: appointment start date and time
+    - `ed/`: appointment end date and time
+- You may specify zero or many of this parameter:
+    - `att/`: attended status
+    - `s/`: feedback score
+    - `ad/`: appointment description
+
+Expected Output:
+- The newly created appointment will have an increased index (as compared to the last created one)
+-  The `ListView` will be updated with the latest appointment data.
+
+Expected Output in the Command Output Box:
+- `New appointment added: (Appointment index); PatientId: 1; Start: 04 Apr 2024, 09:00 am; End: 04 Apr 2024, 10:00 am; Attend: true; Score: 5; Description: This is a dummy appointment`
+- A message echo-ing the information that you have just entered.
+
+> [!Tip]
+> The appointment identifier is permanently tagged to the appointment, and is not the index of the natural ordering in the list. 
+
+## Editing an existing appointment
+Pre-requisite:
+- You know the index (`appointmentId`) of the person that you are trying to edit.
+- There is exactly one ("1") appointment stored in the CogniCare application.
+
+Command: `edita 3 pid/2`
+- You must specify exactly at least one of these parameters (in the correct format)
+    - `pid/`: patient id
+    - `sd/`: appointment start date and time
+    - `ed/`: appointment end date and time
+    - `att/`: attended status
+    - `s/`: feedback score
+    - `ad/`: appointment description
+
+Expected Output:
+-  The `ListView` will be updated with the latest appointment data.
+
+Expected Output in the CommandBox: `Edited Appointment: 3; PatientId: 2; Start: 10 Oct 2021, 12:30 pm; End: 10 Oct 2021, 02:59 pm; Attend: true; Score: 5; Description: Third appointment`
+-  The `ListView` will be updated with the latest appointment data.
+
+> [!REMEMBER]
+> The appointment identifier that is commonly referred to in this article refers to the appointment id that is permanently tagged to each appointment, and is not the index of the natural ordering in the list.
+
+## Deleting an existing appointment
+Pre-requisite:
+- You know the index (`appointmentId`) of the appointment that you are trying to delete.
+- There is at exactly one ("1") appointment stored in the CogniCare application.
+
+Command: `deletea 4`
+- You must specify exactly the appointment identifier that exists.
+
+Expected Output:
+-  The `ListView` will be updated with the latest appointment data.
+
+Expected Output in the CommandBox: `Deleted Appointment: 4; PatientId: 1; Start: 10 Nov 2021, 10:10 am; End: 10 Nov 2021, 10:59 am; Attend: false; Score: 4; Description: Fourth appointment`
+-  The `ListView` will be updated with the latest appointment data (which removes the deleted appointment).
+
+
+## Listing all appointments
+Pre-requisite:
+- There is at least one ("1") appointment stored in the CogniCare application.
+
+Command: `querya`
+- The appointment information in CogniCare will be shown in the item ListView.
+
+Expected Output:
+- All the appointment information will be displayed in the ListView.
+
+Expected Output in the Command Output Box:
+- `Listed all appointments`
+
+> [!TIP]
+> If there are no appointments stored in the Application, then an empty ListView will be displayed.
+
+## Listing all appointments which meet the selected (one or more) criteria
+Pre-requisite:
+- There is at least one ("1") appointment stored in the CogniCare application meeting the requested criterion / criteria.
+
+Command: `querya n/Alex`
+- The appointment information meeting the criteria specified in CogniCare will be displayed in the item ListView.
+- You may specify zero or one of each parameter
+    - `n/`: name
+    - `pid/`: patient index
+    - `aid/`: appointment index
+
+Expected Output:
+- All the patient information with their respective patientId will be displayed in the ListView.
+
+Expected Output in the Command Output Box:
+- `Listed all appointments`
+
+> [!TIP]
+> If there are no appointments stored in the application, or if there are no data that meets the required criteria, an empty ListView will be displayed.
 
 
 ## 7. Planned Future Enhancements (Beyond `v1.4`)

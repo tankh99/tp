@@ -9,48 +9,7 @@
 CogniCare is a **desktop app for a single-user application for managing most School of Computing (SoC) patients, optimized for use via a Command Line Interface** (CLI) while still retaining all the benefits of a Graphical User Interface (GUI). For fast-typers, CogniCare can get your patient management tasks done faster than other traditional GUI apps.
 
 <!-- * Table of Contents -->
-# Table of Contents
-1. [Quick Start](#Quick-start)
-2. [Overview of GUI](#overview-of-gui)
-3. [Features](#Features)
 
-    3.1. [Viewing help](#viewing-help--help)
-
-    3.2. [Adding a patient](#adding-a-patient-addp)
-    
-    3.3. [Listing all patients](#listing-all-patients--queryp)
-
-    3.4. [Listing selected patients](#listing-selected-patients-that-meets-specified-criterion--criteria--queryp)
-
-    3.5. [Viewing top 10 distinct tags](#viewing-top-10-distinct-tags)
-
-    3.6. [Editing a patient](#editing-a-patient--editp)
-
-    3.7. [Deleting a patient](#deleting-a-patient--deletep)
-
-    3.8. [Adding an appointment](#adding-an-appointment-adda)
-
-    3.9. [Listing all appointments](#listing-all-appointments-querya)
-
-    3.10. [Listing selected appointments](#listing-selected-appointments-that-meets-specified-criterion--criteria-querya)
-
-    3.11. [Filtering appointments by date time](#filter-appointments-by-date-time-filter)
-
-    3.12. [Editing an appointment](#editing-an-appointments-edita)
-
-    3.13. [Deleting an appointment](#deleting-an-appointment--deletea)
-
-    3.14. [Reporting patient feedback statistics](#reporting-patient-feedback-statistics-reportf)
-
-    3.15. [Clearing all entries](#clearing-all-entries--clear)
-
-    3.16. [Exiting the program](#exiting-the-program--exit)
-4. [Saving the data](#saving-the-data)
-5. [Editing the data file](#editing-the-data-file)
-6. [Navigating through history of commands](#navigating-through-history-of-commands)
-7. [FAQ](#faq)
-8. [Known issues](#known-issues)
-9. [Command summary](#command-summary)
 
 
 <page-nav-print />
@@ -172,17 +131,17 @@ The image below a failure of adding patient due to duplicate email tag.
     1. No duplicate names are allowed. Names are lowercased and trimmed before duplicate comparison
     2. Please note that special characters are not allowed in this iteration (So, for example, "Jerome S/O Gary" will not be a valid name)
    3. Please note that only English names are allowed at this point, as all Singaporean residents / visitors have an English version of their name.
-2. PHONE_NUMBER
+2. PHONE_NUMBER - We accept only Singaporean numbers as this an application meant for a Singapore-specific context
     1. Should be exactly 3 or 8 digits long which is in a Singaporean phone number format. (For example: 82221234, 91112222 and 999 are valid phone numbers)
     2. Should start with 6, 8 or 9. (We ignore 3 since those are IP Phone Numbers that people wouldn't normally have)
-    3. Note: This simplistic  validation allows for weird numbers like 666, but we allow this anyway since comprehensive number validating is too technically complex
+    3. Note: This simplistic  validation allows for weird numbers like 666, but we allow this anyway since comprehensive number validation would be too technically complex
 3. EMAIL
     1. Should be a valid email address with the form `local-part@domain` where domain is at least 2 letters long
     2. All emails are stored in lowercase by default.
     3. It is important to note that the email validation is not very strict and allows for flexibility in the local-part and domain formats.
 4. AFFILIATED_WITH
     1. There can be many AFFILIATED_WITH tag specified.
-    2. Each AFFILIATED_WITH tag should be a single word, alphanumerical type, and should not be empty.
+    2. Each AFFILIATED_WITH tag should be a **single word**, contains only of alphanumerical, and should not be empty.
 
 <box type="tip" seamless>
 
@@ -287,6 +246,9 @@ Format: `editp PATIENT_ID [n/NAME] [p/PHONE] [e/EMAIL] [a/AFFLIATED_WITH]…​`
 * The `patientId` will not be changed when you edit an individual's information.
 * You can remove all the patient’s tags by typing `a/` without
   specifying any tags after it.
+
+> Tip: Changing patient's name does not automatically update the Appointment's patient names.
+Run `querya` to update the appointments with new information.
 
 Examples:
 *  `editp 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st patient to be `91234567` and `johndoe@example.com` respectively.
@@ -496,7 +458,8 @@ CogniCare data is saved automatically as a JSON file `[JAR file location]/data/p
 
 **Caution:**
 If your changes to the data file makes its format invalid, CogniCare will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the CogniCare to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+
+Furthermore, certain edits can cause the CogniCare to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Especially, **do not** put `null` anywhere in any of the json files as it will cause the app to not being able to launch. Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
 
 ### Navigating through history of commands
@@ -520,11 +483,15 @@ _Details coming soon ..._
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous CogniCare home folder.
 
+**Q**: Why are developers so cute and smart?<br>
+**A**: Thanks :thumbsup:
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Known issues
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
+2. Students and Patients are used interchangably.
 
 --------------------------------------------------------------------------------------------------------------------
 
