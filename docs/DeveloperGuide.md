@@ -746,8 +746,7 @@ Priorities: High (must have) - `* * * *`, Medium (nice to have) - `* * *`, Low (
 | `* * * *` | Counsellor       | delete an appointment for a specific patient              | appointments can be changed in cases of cancellation.                                                      |
 | `* * * *` | Counsellor       | view one appointment for a specified patient              | quickly find and review the appointment notes.                                                             |
 | `* * * *` | Counsellor       | view all appointments for a specified patient             | quickly view all appointments related to a student without having to remember the appointment ID or dates. |
-| `* * * *` | Counsellor       | view patient case logs                                    | understand where I left off with the patient last time.                                                    |
-| `* * * *` | Counsellor       | create patient logs                                       | note down what I went through with the patient during the session.                                         |
+| `* * * *` | Counsellor       | view patient appointment note                                    | understand where I left off with the patient last time.                                                    |                                      |
 | `* * * *` | Counsellor       | update appointments                                       | fix mistakes for a prior appointment.                                                                      |
 | `* * * *` | Counsellor       | track patient feedback scores over time                   | quickly identify which patients need more help.                                                            |
 | `* * *`   | Counsellor       | to categorise / tag my patients                           | patients with more serious issues can be attended to first.                                                |
