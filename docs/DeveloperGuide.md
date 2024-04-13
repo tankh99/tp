@@ -1347,6 +1347,10 @@ This section describes the potential enhancements that could be improved in futu
 * Enhancing the graphical user interface to make it more user-friendly, i.e. more usage of the mouse as compared to the keyboard.
 * Enabling localisation support: In future more options will be available for users to set their preferred phone number validation types (i.e. US Phone format), Extended Character Set for Naming validation (so that Chinese / Vietnamese / Tamil, etc names can be supported).
 * More commands to improve the counsellor workflow: As with a typical application, our primary objective is to concentrate collection of patient and appointment data. As we progress, we plan to introduce updates and increase more commands to derive new insights from the data. We appreciate your understanding and patience as we work towards working with the users and making these advanced features available.
+* More valid check for user manual edit features in `json` files. Currently, adding non-legible value like `null` will cause the app to not launch. A future enhancement will include more valid check, allow skipping of non-legible data and noticing user of invalid data upon launching the app.
+
+* Adding ability for the GUI to automatically reflect actual state of data. Currently, after using `editp` command to change name of a patient, the appointment cards in appointment list do not reflect the new name of that patient. Hence, a future enhancement will include changing the flow of how the appointment card is generated, enhancing the interactions between GUI and models and allowing the GUI to reflect the current state of data.
+
 ## 8. Learning Outcomes
 The implementation of the CogniCare application was an extremely challenging endeavour - as we needed to morph and reshape the AB3 application in a team-based setting. The transformation process involved significant alternations and enhancements to reach the new requirements of the application.
 
