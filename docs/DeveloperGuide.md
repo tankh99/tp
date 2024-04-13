@@ -1057,11 +1057,14 @@ Use case ends.
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
-2.  Should be able to hold up to 1000 patients without a noticeable sluggishness in performance for typical usage.
+2.  Should be able to hold up to 1000 patients and 1000 appointments without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+4. Should work without internet access i.e offline-only.
+5. Should not take more than 25MB of space, including data files during normal usage.
+6. Should consistently save and load data locally so that import data in different devices should return the same application state.
+7. Should response in less than 5 seconds for any given command.
+8. A new user should be easy to use most of the features with one read from UG.
 
-
-*{More to be added}*
 
 ### Glossary
 
