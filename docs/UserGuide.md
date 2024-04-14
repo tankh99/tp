@@ -417,21 +417,21 @@ Shows the average feedback score per patient for all appointments given a specif
 Format: `reportf [sd/DATE] [ed/DATE]`
 
 - Note that`sd/` and `ed/` expect dates and not datetimes
-- By default, if either `/sd` or `/ed` are left blank, their values will default to the minimum and maximum datetimes respectively
+- By default, if either `/sd` or `/ed` are left blank, their values will default to the minimum and maximum datetime respectively
 
 **Examples**
 1. `reportf` - Generates a report using all appointments
 ![alt text](<images/reportf/0a_reportf.png>)
-1. `reportf sd/2024-02-18` - Generates a report with all appointments that start from 18 Feb 2024
+1. `reportf sd/2024-02-18` - Generates a report with all appointments that start on 18 Feb 2024
 ![alt text](<images/reportf/0b_reportf_withsd.png>)
 1. `reportf ed/2024-02-20` - Generates a report with all appointments that end before 20 Feb 2024
 ![alt text](<images/reportf/0c_reportf_ed.png>)
-1. `reportf sd/2024-02-18 ed/2024-02-20` - Generates a report with all appointments that start from 18 Feb 2024 and end before 20 Feb 2024.
+1. `reportf sd/2024-02-18 ed/2024-02-20` - Generates a report with all appointments that start on 18 Feb 2024 and end before 20 Feb 2024.
 ![alt text](<images/reportf/0d_reportf_sd_ed.png>)
 
 **Notes**
-1. When filtering using `reportf`, the appointments list is also filtered. This is intended behaviour because the patient feedback report data is entirely dependent on the Patient and Appointment lists.
-2. `reportf` allows for loose date ranges. E.g. there is an appointment from 18 Feb to 20 Feb 2024. Calling `reportf sd/2024-02-19 ed/2024-02-21` will include this report.
+1. When filtering using `reportf`, the appointment list is also filtered. This is the intended behaviour because the patient feedback report data is entirely dependent on the Patient and Appointment lists.
+2. `reportf` allows for loose date ranges. E.g., there is an appointment from 18 Feb to 20 Feb 2024. Calling `reportf sd/2024-02-19 ed/2024-02-21` will include this report.
 
 ### Clearing all entries : `clear`
 
@@ -441,7 +441,7 @@ Format: `clear`
 
 ### Exiting the program : `exit`
 
-Exits the program.
+Exit the program.
 
 Format: `exit`
 
@@ -467,7 +467,7 @@ Press UP or DOWN to navigate your history of written commands.
 UP - Goes to the previous command in the history
 DOWN - Goes to the next command in the history
 
-Note: Upon reaching the start of the history, pressing UP further will play a sound to indicate this fact
+Note: Upon reaching the start of the command history, pressing UP further will play a sound to indicate this fact
 
 
 
@@ -486,7 +486,7 @@ Note: Upon reaching the start of the history, pressing UP further will play a so
 ## Known issues
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
-2. Students and Patients are used interchangably.
+2. Students and Patients are used interchangeably.
 
 --------------------------------------------------------------------------------------------------------------------
 
