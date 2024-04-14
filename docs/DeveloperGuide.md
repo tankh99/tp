@@ -93,7 +93,7 @@ Here's a (partial) class diagram of the `Logic` component:
 
 The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("deletep 1")` API call as an example.
 
-<puml src="diagrams/DeleteSequenceDiagram.puml" alt="Interactions Inside the Logic Component for the `deletep 1` Command" />
+<puml src="diagrams/DeletePatientSequenceDiagram.puml" alt="Interactions Inside the Logic Component for the `deletep 1` Command" />
 
 <box type="info" seamless>
 
@@ -279,7 +279,7 @@ Command history is a feature that aims to improve the user experience for experi
 navigate through their history of commands to make minor changes. Many features were inspired by macOS's Bash shell
 
 Below is a general user flow of the command history
-<puml src="diagrams/command-history/CommandHistorySequenceDiagram.puml" alt="Command History sequence diagram" />
+<puml src="diagrams/command-history/![img.png](img.png)SequenceDiagram.puml" alt="Command History sequence diagram" />
 
 **Note** that the above diagram does not capture the audio playback feature because it's not a core part of the feature.
 
@@ -342,7 +342,7 @@ There are a few key features that this module aims to implement
 The add appointment feature allows users to create a new appointment and insert them into the application.
 
 Below is the add appointment activity diagram.
-<puml src="diagrams/AddAppointmentActivityDiagram.puml" alt="Add Appointment Activity Diagram" />
+<puml src="diagrams/AddAppointmentActivityDiagram.puml" alt="Add AppointArchitment Activity Diagram" />
 
 **Implementation**
 An observable list is used to store the list of appointments.
@@ -378,7 +378,7 @@ Below is the sequence diagram for querying appointments
 <puml src="diagrams/QueryAppointmentSequenceDiagram.puml" alt="Query Appointment Sequence Diagram" />
 
 
-And below is the activity diagram when a query command is made
+And below is the activity diagram when a query appointment command is made
 
 <puml src="diagrams/QueryAppointmentActivityDiagram.puml" alt="Query Appointment Actiity Diagram" />
 

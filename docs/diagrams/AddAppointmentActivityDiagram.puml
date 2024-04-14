@@ -6,21 +6,21 @@ skinparam classBackgroundColor LOGIC_COLOR
 
 start
  :User enters add appointment command;
- if (missing parameters?) then (yes)
+ if (missing parameters?) then ([yes])
     : CogniCare throws a Parse Exception;
     : Error message is displayed;
- else (no)
-    if (all parameters entered correctly?) then (yes)
+ else ([no])
+    if (all parameters entered correctly?) then ([yes])
             :Create a new appointment object;
             :Return a new AddAppointmentCommand;
-            if (new appointment is valid?) then (yes)
+            if (new appointment is valid?) then ([yes])
                 :Appointment is added to CogniCare;
                 :Success message is displayed;
-            else (no)
+            else ([no])
                 :CogniCare throws a Command Exception;
                 :Error message is displayed;
             endif
-        else (no)
+        else ([no])
             : CogniCare throws a Parse Exception;
             : Error message is displayed;
         endif
