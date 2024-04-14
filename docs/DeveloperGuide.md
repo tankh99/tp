@@ -448,7 +448,7 @@ There are a few classes and methods used to interact with the add appointment co
 
 The filter appointment feature allows users to filter appointments based on the date and time of the appointment.
 
-<puml scr="diagrams/FilterAppointmentSequenceDiagram.puml" alt="Filter Appointment Sequence Diagram">
+<puml scr="diagrams/FilterAppointmentSequenceDiagram.puml" alt="Filter Appointment Sequence Diagram"/>
 
 **Implementation**
 A predicate was used to filter the list of appointments based on the date and time of the appointment.
@@ -517,7 +517,7 @@ Below is a sequence diagram of the user flow of the report command
 
 ### Help Feature
 
-<puml src="diagrams/HelpCommandSequenceDiagram.puml" alt="Help Command Sequence Diagram">
+<puml src="diagrams/HelpCommandSequenceDiagram.puml" alt="Help Command Sequence Diagram"/>
 
 The help feature provides users with an url to user guide online.
 
