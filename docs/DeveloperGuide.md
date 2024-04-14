@@ -562,7 +562,8 @@ There are a few key features that this module aims to implement
 Report patient feedback score is a feature that averages out the feedback scores of all currently filtered appointments. It allows getting the average scores of appointments within a given date range
 
 The overall data flow of patient feedback data is detailed below by a class diagram. 
-**Note**: This class diagram doesn't represent the command, but rather, how data is stored
+
+**Note**: This class diagram doesn't represent the command flow, but rather, how patient feedback report data is stored and retrieved
 <puml src="diagrams/PatientFeedbackReportClassDiagram.puml" alt="Report Feedback Class Diagram" />
 
 Below is a sequence diagram of the user flow of the report command
@@ -583,7 +584,7 @@ Below is a sequence diagram of the user flow of the report command
 3. `PatientFeedbackReport` is different from Appointment and Patient because it holds transient data and is dependent on data from the Patient and Appointment models.
    1. Therefore, it was decided that the entire list of appointments and a specified patient data should be passed into this object in order to calculate the average feedback score
 4. `PatientFeedbackReportList` does not have any direct list modification methods of its own. It only has a generateReportList function which is called every time there is an update to the list of patients or appointments, e.g., filter, add, edit or delete
-   1. To achieve such reactivity, `generateReportList()` was called at the end of each such function inside `ModelManager`
+   1. To achieve such reactivity, `generateReportList()` was called at the end of each of such function inside `ModelManager`
 
 **Alternatives considered**
 1. `PatientFeedbackReport` - We considered just passing the required fields; however, there were a few limitations
@@ -605,17 +606,22 @@ navigate through their history of commands to make minor changes. Many features 
 Below is a general user flow of the command history
 <puml src="diagrams/command-history/CommandHistorySequenceDiagram.puml" alt="Command History sequence diagram" />
 
-**Note** that the above diagram doesn't capture the audio playback feature because it's not a core part of the feature.
+**Note** 
+
+that the above diagram doesn't capture the audio playback feature because it's not a core part of the feature.
 
 And below are the specific behaviours of the command history module
 
 **Undo**
+
 <puml src="diagrams/command-history/CommandHistoryUndoActivityDiagram.puml" alt="command history undo activity diagram" />
 
 **Redo**
+
 <puml src="diagrams/command-history/CommandHistoryRedoActivityDiagram.puml" alt="command history redo activity diagram" />
 
 **Implementation**
+
 An array list was used to store the history of commands and an index to indicate which command is the history currently
 at.
 - The list is initialised to have an empty string as the initial element. This is so that our default behaviour of returning an empty string from pressing redo when there is no next command can be easily implemented
@@ -647,7 +653,9 @@ NA | [<span style="color: red;">""</span>]
 `execute("query")` | ["help", "query", <span style="color: red;">""</span>]
 
 **Rationale for implementation**
+
 There are a few key features that this module aims to implement
+
 1. Improved user experience for experienced users
     1. Allow users to modify their past commands in a predictable way
     2. Allow users to easily compare past commands in case of mistakes by pressing up and down
@@ -658,22 +666,25 @@ There are a few key features that this module aims to implement
     1. This aims to model what the command history actually looks like. By doing this, this makes the logic much more straightforward as we don't need to constantly check to return empty string or not
 
 **Alternatives considered**
+
 1. 2 stacks, one undo and one redo were used at first. However, this had the drawback of not being able to remember commands after undoing and writing a new command.
-2. undo() and redo() both returned the previous and next command respectively - This had a flaw in which the logic of handling the command index became unnecessarily complex as we had to worry about when we incremented/decremented an index. This also made it harder to test the functionality
+2. `undo()` and `redo()` both returned the previous and next command respectively - This had a flaw in which the logic of handling the command index became unnecessarily complex as we had to worry about when we incremented/decremented an index. This also made it harder to test the functionality
 
 <!-- @@author vnnamng -->
 ### Help Feature
 
 <puml src="diagrams/HelpCommandSequenceDiagram.puml" alt="Help Command Sequence Diagram"/>
 
-The help feature provides users with an url to the user guide online.
+The help feature provides users with a URL to the user guide online.
 
-Rationale for implementation:
+**Rationale for implementation:**
+
 1. Pop-up window with URL link and a copy button
 
-Alternative considered:
-1. Display list of command directly in dialog
-2. Display a full window with user guide
+**Alternative considered:**
+
+1. Display a list of commands directly in command box
+2. Display a full window with a user guide
 
 <!-- @@author -->
 --------------------------------------------------------------------------------------------------------------------
@@ -722,7 +733,7 @@ CogniCare provides a comprehensive set of features that help streamline especial
 2. Report patient satisfaction levels over a given time period
 3. Updating a patient's data across all their appointments. E.g. Updating a person's phone number or removing the patient and their associated appointments from UI
 
-Furthermore, CogniCare's operations are specialised for technically competent users who type fast, which matches Buck Seng's description.
+Furthermore, CogniCare's operations are specialised for technically competent users who type fast.
 
 ### User stories
 
@@ -730,26 +741,24 @@ Priorities: High (must have) - `* * * *`, Medium (nice to have) - `* * *`, Low (
 
 | Priority  | As a …​          | I want to …​                                              | So that I can…​                                                                                            |
 |-----------|------------------|-----------------------------------------------------------|------------------------------------------------------------------------------------------------------------|
-| `* * * *` | Counsellor       | create new patients                                       | store their data for future sessions.                                                                      |
+| `* * * *` | Counsellor       | create a new patient                                       | store their data for future sessions.                                                                      |
 | `* * * *` | Counsellor       | view patient data                                         | view their contact information and contact them.                                                           |
 | `* * * *` | Counsellor       | delete patient data at a given index                      | discharge the patient.                                                                                     |
-| `* * * *` | Counsellor       | search for a patient                                      | quickly access and review patient status.                                                                  |
-| `* * * *` | Counsellor       | list patient at the given index                           | quickly access patients that come regularly.                                                               |
-| `* * * *` | Counsellor       | schedule appointments                                     | avoid scheduling overlapping appointments with other patients.                                             |
-| `* * * *` | Counsellor       | delete an appointment for a specific patient              | appointments can be changed in cases of cancellation.                                                      |
-| `* * * *` | Counsellor       | view one appointment for a specified patient              | quickly find and review the appointment notes.                                                             |
-| `* * * *` | Counsellor       | view all appointments for a specified patient             | quickly view all appointments related to a student without having to remember the appointment ID or dates. |
-| `* * * *` | Counsellor       | view patient appointment note                             | understand where I left off with the patient last time.                                                    |                                      |
-| `* * * *` | Counsellor       | update appointments                                       | fix mistakes for a prior appointment.                                                                      |
+| `* * * *` | Counsellor       | search for patients                           | quickly access patients that come regularly.                                                               |
+| `* * * *` | Counsellor       | schedule an appointment                                     | avoid scheduling overlapping appointments with other patients.                                             |
+| `* * * *` | Counsellor       | view appointment data              | view appointment data such as appointment description and scores.
+| `* * * *` | Counsellor       | delete an appointment              | remove appointments I accidentally created.                                                      |
+| `* * * *` | Counsellor       | search for all appointments for a specified patient             | quickly view all appointments related to a student without having to remember the appointment ID or dates. |
+| `* * * *` | Counsellor       | search for appointments by time range             | quickly view all appointments within a date range. |
+| `* * * *` | Counsellor       | update appointments                                       | update appointment data after the appointment concluded.                                                                      |
 | `* * * *` | Counsellor       | track patient feedback scores over time                   | quickly identify which patients need more help.                                                            |
 | `* * *`   | Counsellor       | to categorise / tag my patients                           | patients with more serious issues can be attended to first.                                                |
 | `* * *`   | Counsellor       | know what mistakes I make when creating patients          | easily understand how to rectify my mistakes                                                               |
 | `* * *`   | Counsellor       | know know what mistakes I make when creating appointments | easily understand how to rectify my mistakes                                                               |
-| `* * *`   | Counsellor       | be able to mark whether a patient attended a session      | properly document patients’ attendance                                                                     |
 | `* * *`   | New User         | have a help function                                      | so that I know how to use the application.                                                                 |
 | `* *`     | Counsellor       | sort patients based on their priority tag                 | more serious patients can be attended first.                                                               |
 | `* *`     | Experienced User | navigate through my history of written commands           | avoid retyping a command just to make minor modifications to a previous command.                           |
-| `*`       | Experienced User | mass delete patient data                                  | patient data is not compromised.                                                                           |
+| `*`       | Experienced User | mass delete application data                                  | sensitive data is not compromised.                                                                           |
 
 
 ### Use cases
@@ -779,6 +788,7 @@ Priorities: High (must have) - `* * * *`, Medium (nice to have) - `* * *`, Low (
   Use case ends.
 
 **Use Case: Edit a Patient**
+
 **MSS:**
 1. User enters command to add a patient with required index and data field to be edited.
 2. CogniCare displays a success message confirming the patient's details have been updated.
@@ -795,6 +805,7 @@ Use case ends.
   Use case ends.
 
 **Use case: List all / Search for patients meeting selected criteria / criterion**
+
 **MSS:**
 
 1.  User requests to list patients using the specified constraints
@@ -865,7 +876,7 @@ Use case ends.
     * 2b1. CogniCare alerts the user about the clash and prevents the addition.
       Use case ends.
 
-**Use Case: Edit a Patient**
+**Use Case: Edit an Appointment**
 
 **MSS:**
 1. User enters command to edit appointment with required index and data field to be edited.
@@ -883,12 +894,12 @@ Use case ends.
       Use case ends.
   
 
-**Use case: List all / Search for appointment that meet a specific criterion**
+**Use case: Search appointments**
 
 **MSS:**
 
-1. User requests to list all appointments at using a specific criterion.
-2. CogniCare shows a list of appointments that meet the criterion.
+1. User requests to list all appointments at using some criteria.
+2. CogniCare shows a filtered list of appointments that meet the criteria.
 
     Use case ends.
 
@@ -896,20 +907,15 @@ Use case ends.
 
 * 1a. The query has no parameters specified.
 
-    * 1a1. CogniCare returns all information about all appointments (returns the entire AppointmentList).
+    * 1a1. CogniCare returns all appointments (returns the entire AppointmentList).
 
   Use case ends.
 
-* 1b. The query has no parameter value specified.
+* 1b. The query specifies a prefix, but no value, e.g. `querya n/`.
 
     * 1b1. CogniCare shows an error message.
 
   Use case ends.
-
-* 2a. The list is empty.
-
-  Use case ends.
-
 
 **Use case: Delete a specific appointment**
 
@@ -1024,22 +1030,10 @@ Use case ends.
 
 **Extension**
 
-* *a. User presses the Down arrow key when there is no next command
-    * *a1. An empty string is returned
+* 3a. User presses the Down arrow key when there is no next command
+    * 3a1. An empty string is returned
 
   Use case ends.
-
-**Use case: Comparing between 2 commands in history**
-
-**MSS:**
-1. User types in and executes any 2 commands.
-2. User presses the Up arrow key twice to view his first command
-3. User then presses the Down arrow key to view his second command
-4. User alternates the Up and Down arrow key to compare between both commands
-5. User chooses a command to modify and execute
-6. User presses the Up button and sees his last modified command
-
-   Use case ends.
 
 ### Non-Functional Requirements
 
@@ -1068,9 +1062,9 @@ Given below are instructions to test the app manually.
 > testers are expected to do more *exploratory* testing.
 
 
-## 6.0. Manual Testing
+## Manual Testing
 
-## 6.1. Launch and Shutdown
+## Launch and Shutdown
 1. Ensure you have Java `11` or above installed in your Computer.
   1. If you are on macOS on an Apple Silicon System, we recommend that you follow the guide on [CS2103 Course website](https://nus-cs2103-ay2324s2.github.io/website/admin/programmingLanguages.html#programming-language) using the Zulu version `zulu11.50.19-ca-fx-jdk11.0.12-macosx_aarch64.dmg`
   2. If you are on Windows / Intel architecture, most versions of Java 11 should work.
@@ -1082,7 +1076,7 @@ Given below are instructions to test the app manually.
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar cognicare.jar` command to run the application.<br>  
    **Expected**: A GUI containing the sample patient list the below should appear in a few seconds. Note that the app contains some sample data. You may need to re-scale the window size to suit your computer display.
 
-## 6.2 List all students (without any parameters)
+## List all students (without any parameters)
 Pre-requisite:
 - There is at least one ("1") patient stored in the CogniCare application.
 
@@ -1099,7 +1093,7 @@ Expected Output in the Command Output Box:
 > [!TIP]
 > If there are no patients stored in the Application, then an empty ListView will be displayed.
 
-## 6.3 List all students meeting the selected (one or more) criteria
+## List all students meeting the selected (one or more) criteria
 Pre-requisite:
 - There is at least one ("1") patient stored in the CogniCare application meeting the requested criterion / criteria.
 
@@ -1125,7 +1119,7 @@ Expected Output in the Command Output Box:
 
 
 
-## 6.3 Adding a new patient
+## Adding a new patient
 Pre-requisite:
 - There does not exist another patient with the same name (regardless of capitalisation) and spacing, i.e. the names "Jerome Chua" and "jEROmE       CHuA" are considered the same name.
 
@@ -1272,7 +1266,7 @@ Pre-requisite:
 Command: `querya n/Alex`
 - The appointment information meeting the criteria specified in CogniCare will be displayed in the item ListView.
 - You may specify zero or one of each parameter
-    - `n/`: name
+    - `n/`: patient name
     - `pid/`: patient index
     - `aid/`: appointment index
 
@@ -1302,16 +1296,12 @@ Expected Output:
 Expected Output in the Command Output Box:
 - `(n) appointments listed!`
 
-> [!TIP]
-> If there are no appointments stored in the application, or if there is no data that meets the required criteria, an empty ListView will be displayed.
-
-
 ## Generating all patient feedback reports
 Pre-requisite:
 - There is at least one ("1") patient stored in the CogniCare application.
 
 Command: `reportf`
-- The patient feedback report information will be shown in the item ListView.
+- The patient feedback report information for all appointments will be shown in the item ListView.
 
 Expected Output:
 - All the patient feedback report information will be displayed in the ListView.
@@ -1352,10 +1342,10 @@ Expected output:
 2. If there are no newer commands available, pressing the up arrow key will play an audio file to indicate there are no newer commands.
 
 Expected Output in the Command Output Box:
-- The command output box should maintain the last shown success or error message.
+- This feature does not update the command output
 
 
-## 7. Planned Future Enhancements (Beyond `v1.4`)
+## Planned Future Enhancements (Beyond `v1.4`)
 This section describes the potential enhancements that could be improved in future editions of the application.
 * Adding the ability to allow the counselor to secure the application - via a PIN Code feature, and encryption of the JSON file so that data loss does not result in the leakage of highly confidential medical data.
 * Enhancing the graphical user interface to make it more user-friendly, i.e. more usage of the mouse as compared to the keyboard.
@@ -1363,8 +1353,10 @@ This section describes the potential enhancements that could be improved in futu
 * More commands to improve the counsellor workflow: In the initial phase, our primary objective is to concentrate collection of patient and appointment data. As we progress, we plan to introduce updates and increase more commands to derive new insights from the data. We appreciate your understanding and patience as we work towards working with the users and making these advanced features available.
 * More validation checks for when user manually edits `json` files. Currently, adding non-legible value like `null` will cause the app to not launch. A future enhancement will include more validation checks, allow skipping of non-legible data and detecting invalid data upon launching the app.
 * Adding ability for the GUI to automatically reflect actual state of data. Currently, after using `editp` command to change name of a patient, the appointment cards in appointment list do not reflect the new name of that patient. Hence, a future enhancement will include changing the flow of how the appointment card is generated, enhancing the interactions between GUI and models and allowing the GUI to reflect the current state of data.
+* Add more patient reports to allow for greater utilisation of patient data collected, such as patient attendance reports
+* 
 
-## 8. Learning Outcomes
+## Learning Outcomes
 The implementation of the CogniCare application was an extremely challenging endeavour—as we needed to morph and reshape the AB3 application in a team-based setting. The transformation process involved significant alternations and enhancements to reach the new requirements of the application.
 
 The team-based setting also exposed us to various crucial skills such as improving our working styles to achieve a high level of collaboration. Skills that are crucial to a Software Engineer such as reviewing Pull Requests (PRs), and providing and receiving feedback from peers are also learned in the course of the project.
