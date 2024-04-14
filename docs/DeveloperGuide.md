@@ -694,6 +694,12 @@ We have considered these alternatives:
 - Using case-insensitive search: the use of case-insensitive search terms for parameters matching provides a more seamless and more user-friendly experience.
 --------------------------------------------------------------------------------------------------------------------
 
+## Clearing all entries from the CogniCare application
+<puml src="diagrams/ClearCommand.puml"/>
+
+This details how the entries from the CogniCare application are cleared.
+
+
 ## **Documentation, logging, testing, configuration, dev-ops**
 
 * [Documentation guide](Documentation.md)
@@ -711,7 +717,7 @@ We have considered these alternatives:
 **Target user profile**:
 Rayson is a career guidance coach at the National University of Singapore (NUS) that is attached to the School of Computing (SoC) to provide computing students with career advice.
 
-Recently there are many students that are unable to find an internship resulting in stress amongst the student population. This has led to SoC reducing the internship requirements (such as reducing stipend and allowing flexibility in internship periods). However, Rayson's boss, Aaron, thinks that more support needs to be done for the students.
+Recently there are many students that are unable to find an internship resulting in stress amongst the student population. This has led to SoC reducing the internship requirements (such as reducing stipend and allowing flexibility in internship periods). However, Rayson's manager, Aaron, thinks that more support needs to be done for the students.
 
 Therefore, Aaron has launched a new initiative to provide counseling for the computing students. To assist Rayson in managing the large numbers of potential students utilising this service, Aaron has employed the services of our team to allow Rayson to better manage the number of appointments.
 
@@ -723,7 +729,7 @@ Rayson is a technically inclined user (alumni of SoC) that is reasonably comfort
 * preferring typing to mouse interactions
 * being a single-user application.
 
-(Rayson and Aaron are both fictional characters)
+(Remark: Rayson and Aaron are both fictional characters)
 
 **Value proposition**: 
 
