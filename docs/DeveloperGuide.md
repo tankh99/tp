@@ -554,7 +554,7 @@ We have considered these alternatives:
 ## Editing a current Patient
 `EditPatientCommandParser` obtains the patient index and the values that correspond to the prefixes such as `p/`, `n/`, `e/`, and `a/` which represent phone, name, email address, and alias accordingly.
 
-* There can be multiple affliated-with (`a/`), but `p/`, `n/`, `e/` may only appear once.
+* There can be multiple affiliated-with (`a/`), but `p/`, `n/`, `e/` may only appear once.
 * The patient index is based on the unique ID that is tagged to each patient, and is not the natural ordering of the list.
 * The edited fields are required to have the same validation as creating a new patient.
 
@@ -564,13 +564,13 @@ If the constraints are violated, `EditPatientCommandParser` will throw a `ParseE
 Otherwise, if the process is successful, the current `Patient` object corresponding to the respective ID will be updated with the editedInformation.
 
 We have considered these alternatives:
-* Using the name as the primary key instead of the patient ID - may lead to unexpected deletes as there could be a case where the counselor has two patients of the similar name "Tan Ah Kow" and "Tan Ah". Suppose the counselor wants to delete "Tan Ah", and not "Tan Ah Kou" - in this case, the wrong record will be deleted by accident. Using an integer value as the identifier would eliminate this problem and will also makes it much easier for the user to input the commands.
-  * Therefore the workflow would be to search for the respective patient for the respective index via the `queryp` command before editing it.
+* Using the name as the primary key instead of the patient ID - may lead to unexpected deletes as there could be a case where the counselor has two patients of the similar name "Tan Ah Kow" and "Tan Ah". Suppose the counselor wants to delete "Tan Ah", and not "Tan Ah Kou" - in this case, the wrong record will be deleted by accident. Using an integer value as the identifier would eliminate this problem and will also make it much easier for the user to input the commands.
+  * Therefore, the workflow would be to search for the respective patient for the respective index via the `queryp` command before editing it.
 
 ## Deleting an existing patient
 `DeletePatientCommandParser` obtains the patient index that is to be deleted.
 
-* The patient index is based on the unique ID that is tagged to each individual patient and is not the natural ordering of the list.
+* The patient index is based on the unique ID tagged to each individual patient and is not the natural ordering of the list.
 
 If the constraints are violated, `DeletePatientCommandParser` will throw a `ParseException` due to an invalid patient ID passed.
 
@@ -586,15 +586,15 @@ We have considered these alternatives:
 
 The command for this operation is `queryp` with at least one or zero parameters. If no parameters (or at least one invalid parameter is passed into the command), the `queryp` command returns all the information of the patients (that is applied without any filters/predicates).
 
-The `ListPatientCommandParser` first checks for the presence of empty arguments / no prefix being specified. If this criterion is true, then all the patient is returned as normal. As such this class does not throw any exceptions, but just returns all the data in the CogniCare application.
+The `ListPatientCommandParser` first checks for the presence of empty arguments / no prefix being specified. If this criterion is true, then all the patients are returned as normal. As such, this class does not throw any exceptions, but just returns all the data in the CogniCare application.
 
 Otherwise, each of the search terms will be applied to each of the respective fields of the CogniCare application in a case-insensitive format.
 
 
 We have considered these alternatives:
-- User-Forgiveness _versus_ Strict Error Handling: Returning an error message where the command is correct, but illegal parameters are being supplied, then an error message is displayed. We decided against this approach because this will reduce the "user friendliness" of the application as the user would then have the consult the manual / read the error message to resolve the error.
-- Creating a "do-it-all" predicate for the `Patient` class will be less repetitive code as compared to the current approach (`EmailContainsKeywordPredicate.java`, `NameContainsKeywordPredicate.java`, `PhoneContainsKeywordPredicate.java`, `TagContainsKeywordPredicate.java`) which requires more (repetitive code) as compared to making a class such as `StudentContainsKeywordPredicate.java` which would be easier to code - but harder to test and extend in future. Not to mention, this will also increase the difficulty in writing unit tests.
-- Using `AND` logic for combining predicates, instead of `OR` predicate - the reason was that since the values already supported partial word matching (i.e. Searching for `coco` in the String `Coconut` will result in the row being returned). As such, using the `OR` logic will lead to too many rows being returned and therefore confusing to the user.
+- User-Forgiveness _versus_ Strict Error Handling: Returning an error message where the command is correct, but illegal parameters are being supplied, then an error message is displayed. We decided against this approach because this will reduce the "user-friendliness" of the application as the user would then have the consult the manual / read the error message to resolve the error.
+- Creating a "do-it-all" predicate for the `Patient` class will be less repetitive code as compared to the current approach (`EmailContainsKeywordPredicate.java`, `NameContainsKeywordPredicate.java`, `PhoneContainsKeywordPredicate.java`, `TagContainsKeywordPredicate.java`) which requires more (repetitive code) as compared to making a class such as `StudentContainsKeywordPredicate.java` which would be easier to code - but harder to test and extend in the future. Not to mention, this will also increase the difficulty in writing unit tests.
+- Using `AND` logic for combining predicates, instead of `OR` predicate - the reason was that since the values already supported partial word matching (i.e., Searching for `coco` in the String `Coconut` will result in the row being returned). As such, using the `OR` logic will lead to too many rows being returned and therefore confusing to the user.
 - Using case-insensitive search: the use of case-insensitive search terms for parameters matching provides a more seamless and more user-friendly experience.
 --------------------------------------------------------------------------------------------------------------------
 
@@ -653,7 +653,7 @@ Priorities: High (must have) - `* * * *`, Medium (nice to have) - `* * *`, Low (
 | `* * * *` | Counsellor       | delete an appointment for a specific patient              | appointments can be changed in cases of cancellation.                                                      |
 | `* * * *` | Counsellor       | view one appointment for a specified patient              | quickly find and review the appointment notes.                                                             |
 | `* * * *` | Counsellor       | view all appointments for a specified patient             | quickly view all appointments related to a student without having to remember the appointment ID or dates. |
-| `* * * *` | Counsellor       | view patient appointment note                                    | understand where I left off with the patient last time.                                                    |                                      |
+| `* * * *` | Counsellor       | view patient appointment note                             | understand where I left off with the patient last time.                                                    |                                      |
 | `* * * *` | Counsellor       | update appointments                                       | fix mistakes for a prior appointment.                                                                      |
 | `* * * *` | Counsellor       | track patient feedback scores over time                   | quickly identify which patients need more help.                                                            |
 | `* * *`   | Counsellor       | to categorise / tag my patients                           | patients with more serious issues can be attended to first.                                                |
@@ -924,7 +924,7 @@ Use case ends.
 **Extension**
 
 * 3a. User modifies the command, and without executing it, presses the Down arrow key, followed by the Up arrow key
-    * 3a1. The command before modification is shown because the modified command was not executed
+    * 3a1. The command before modification is shown because the modified command is not yet executed
   
   Use case resumes from step 3
 * 2a. User presses the Up arrow key again
@@ -964,8 +964,8 @@ Use case ends.
 
 1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
 2.  Should be able to hold up to 1000 patients and 1000 appointments without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-4. Should work without internet access i.e offline-only.
+3.  A user with an above-average typing speed for regular English text (i.e., not code, not system admin commands) should be able to achieve most of the tasks faster using commands than using the mouse.
+4. Should work without internet access (i.e. offline-only).
 5. Should not take more than 25MB of space, including data files during normal usage.
 6. The data should be transferrable from one computer system to another, ensuring that it displays identically on the new system.
 7. Should respond in less than 5 seconds for any given command.
@@ -1064,7 +1064,7 @@ Expected Output:
 
 Expected Output in the Command Output Box:
 - `New student added: John Doe; Phone: 98765432; Email: johnd@example.com; Associated with: [owesMoney][Johnny]`
-- A message echo-ing the information that you have just entered.
+- A message echoing the information that you have just entered.
 
 
 ## Editing a currently created patient
@@ -1204,7 +1204,7 @@ Expected Output in the Command Output Box:
 - `Listed all appointments`
 
 > [!TIP]
-> If there are no appointments stored in the application, or if there are no data that meets the required criteria, an empty ListView will be displayed.
+> If there are no appointments stored in the application, or if there is no data that meets the required criteria, an empty ListView will be displayed.
 
 
 ## 7. Planned Future Enhancements (Beyond `v1.4`)
@@ -1212,11 +1212,12 @@ This section describes the potential enhancements that could be improved in futu
 * Adding the ability to allow the counselor to secure the application - via a PIN Code feature, and encryption of the JSON file so that data loss does not result in the leakage of highly confidential medical data.
 * Enhancing the graphical user interface to make it more user-friendly, i.e. more usage of the mouse as compared to the keyboard.
 * Enabling localisation support: In future more options will be available for users to set their preferred phone number validation types (i.e. US Phone format), Extended Character Set for Naming validation (so that Chinese / Vietnamese / Tamil, etc names can be supported).
-* More commands to improve the counsellor workflow: As with a typical application, our primary objective is to concentrate collection of patient and appointment data. As we progress, we plan to introduce updates and increase more commands to derive new insights from the data. We appreciate your understanding and patience as we work towards working with the users and making these advanced features available.
-## 8. Learning Outcomes
-The implementation of the CogniCare application was an extremely challenging endeavour - as we needed to morph and reshape the AB3 application in a team-based setting. The transformation process involved significant alternations and enhancements to reach the new requirements of the application.
+* More commands to improve the counsellor workflow: In the initial phase, our primary objective is to concentrate collection of patient and appointment data. As we progress, we plan to introduce updates and increase more commands to derive new insights from the data. We appreciate your understanding and patience as we work towards working with the users and making these advanced features available.
 
-The team-based setting also exposed us to various crucial skills such as improving our working styles to achieve a high level of collaboration. Skillsets that are crucial to a Software Engineer such as reviewing Pull Requests (PRs), and providing and receiving feedback from peers are also learned in the course of the project.
+## 8. Learning Outcomes
+The implementation of the CogniCare application was an extremely challenging endeavour—as we needed to morph and reshape the AB3 application in a team-based setting. The transformation process involved significant alternations and enhancements to reach the new requirements of the application.
+
+The team-based setting also exposed us to various crucial skills such as improving our working styles to achieve a high level of collaboration. Skills that are crucial to a Software Engineer such as reviewing Pull Requests (PRs), and providing and receiving feedback from peers are also learned in the course of the project.
 
 --------------------------------------------------------------------------------------------------------------------
 
