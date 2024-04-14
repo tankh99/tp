@@ -59,20 +59,20 @@ CogniCare is a **desktop app for a single-user application for managing most Sch
 
 The CogniCare application has three columns displaying (from left to right) patient data, appointment data and the average feedback score per patient.
 
-![GUI mockup.png](images%2Fui-mockup%2FGUI%20mockup.png)
+![GUI mockup.png](images/ui-mockup/GUI%20mockup.png)
 
-(From the left) the first column displays patient details stored in CogniCare. For each patient, their full name, affiliated tags phone number and email will be displayed. 
+(From the left) the first column displays patient details stored in CogniCare. For each patient, their full name, affiliated tags, phone number, and email will be displayed. 
 
-![name card.jpg](images%2Fui-mockup%2Fname%20card.jpg)
+![name card.jpg](images/ui-mockup/name%20card.jpg)
 
 The second column displays appointment details stored in CogniCare. For each appointment, the name of the patient who requested the appointment, appointment timing and notes will be displayed.
 Additionally, it will display `Attended` if the patient has attended the appointment and the given feedback score. `N/A` is displayed if the feedback score is unavailable.
 
-![appointment card.jpg](images%2Fui-mockup%2Fappointment%20card.jpg)
+![appointment card.jpg](images/ui-mockup/appointment%20card.jpg)
 
 Lastly, the third column displays the name and average feedback score per patient.
 
-![average score card.jpg](images%2Fui-mockup%2Faverage%20score%20card.jpg)
+![average score card.jpg](images/ui-mockup/average%20score%20card.jpg)
 --------------------------------------------------------------------------------------------------------------------
 ## Features
 
@@ -130,7 +130,7 @@ The image below a failure of adding patient due to duplicate email tag.
 1. NAME
     1. No duplicate names are allowed. Names are lowercased and trimmed before duplicate comparison
     2. Please note that special characters are not allowed in this iteration (So, for example, "Jerome S/O Gary" will not be a valid name)
-   3. Please note that only English names are allowed at this point, as all Singaporean residents / visitors have an English version of their name.
+    3. Please note that only English names are allowed at this point, as all Singaporean residents / visitors have an English version of their name.
 2. PHONE_NUMBER - We accept only Singaporean numbers as this an application meant for a Singapore-specific context
     1. Should be exactly 3 or 8 digits long which is in a Singaporean phone number format. (For example: 82221234, 91112222 and 999 are valid phone numbers)
     2. Should start with 6, 8 or 9. (We ignore 3 since those are IP Phone Numbers that people wouldn't normally have)
@@ -314,9 +314,10 @@ The screenshot below shows a failed operation due to another appointment being s
    1. No non-existing patient IDs are allowed. Checks are made against the patient list.
    2. Patient ID given must exist in the current patient list.
    3. Patient ID must be a positive integer.
-2. DATE_TIME
+2. START_DATETIME and END_DATETIME
    1. No two appointments can share the exact same date and time, even if they differ by other attributes like different patient IDs.
-   2. The start date and time cannot be before the end date and time.
+   2. END_DATETIME must be after START_DATETIME.
+   3. The appointment timing cannot overlap with another existing appointment.
 3. ATTEND
    1. Must be either `true` or `false` (case-insensitive).
 4. FEEDBACK_SCORE
@@ -329,11 +330,13 @@ Shows a list of all appointments in CogniCare.
 The screenshot below show a successful query of all appointments:
 ![5a_Query_appointment_no-parameter_success.png](images%2Fappointments%2F5a_Query_appointment_no-parameter_success.png)
 
-### Listing selected appointments that meets specified criterion / criteria: `querya`
+### Listing selected appointments that meets specified criterion: `querya`
 
 Shows a list of appointments in the CogniCare application that matches the criteria.
 
 Format: `querya [pid/PATIENT_ID] [n/PATIENT_NAME] [aid/APPOINTMENT_ID]`
+
+* The appointment list can only be queried one criterion at a time.
 
 Examples:
 * `querya pid/1` shows all appointments for the patient with the patientId of 1 in the CogniCare application.
@@ -470,10 +473,6 @@ DOWN - Goes to the next command in the history
 
 Note: Upon reaching the start of the history, pressing UP further will play a sound to indicate this fact
 
-### Archiving data files `[coming in v2.0]`
-
-_Details coming soon ..._
-
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -497,18 +496,18 @@ _Details coming soon ..._
 
 ## Command summary
 
-| Action                                                | Format, Examples                                                                                                                                                                                                   |
-|-------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add a patient**                                     | `addp n/NAME p/PHONE_NUMBER e/EMAIL [a/AFFLIATED_WITH]…​` <br> e.g., `addp n/Jerome Chua p/98765432 e/jerome@example.com a/depression` or `addp n/Davinci Lim p/98731122 e/betsycrowe@example.com a/sad a/anxiety` |
-| **Query patients**                                    | `queryp [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] …​`<br> e.g., `queryp n/Jerome p/987 e/example.com​`                                                                                                                   |
-| **Delete patient**                                    | `deletep PATIENT_ID`<br> e.g., `deletep 3`                                                                                                                                                                         |
-| **Edit patient**                                      | `editp PATIENT_ID [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/AFFLIATED_WITH]…​`editp 1 p/91234567 e/johndoe@example.com`                                                                                               |
-| **Add an appointment**                                | `adda pid/PATIENT_ID sd/START_DATETIME ed/END_DATETIME [att/ATTEND] [s/FEEDBACK_SCORE] [ad/APPOINTMENT_DESCRIPTION]`                                                                                               |
-| **Query appointments**                                | `querya [pid/PATIENT_ID] [n/PATIENT_NAME] [aid/APPOINTMENT_ID]`                                                                                                                                                    |
-| **Delete an appointment**                             | `deletea APPOINTMENT_ID`                                                                                                                                                                                           | 
-| **Edit an appointment**                               | `edita APPOINTMENT_ID [pid/PATIENT_ID] [sd/START_DATETIME] [ed/ENDDATE_TIME] [att/ATTEND] [s/FEEDBACK_SCORE] [ad/APPOINTMENT_DESCRIPTION]`                                                                         |
-| **Filter appointments by date time**                  | `filter [sd/START_DATETIME] [ed/END_DATETIME]`                                                                                                                                                                     |
-| **Report patient feedback statistics**                | `reportf [sd/DATE] [ed/DATE]`                                                                                                                                                                                      |
-| **Help**                                              | `help`                                                                                                                                                                                                             |                                                                                                                                                                                                           |
-| **Delete all entries from the CogniCare application** | `clear`                                                                                                                                                                                                            |
-| **Exit Application**                                  | `exit`                                                                                                                                                                                                             |
+| Action                                                | Format, Examples                                                                                                                                                                                                                 |
+|-------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add a patient**                                     | `addp n/NAME p/PHONE_NUMBER e/EMAIL [a/AFFLIATED_WITH]…​` <br> e.g., `addp n/Jerome Chua p/98765432 e/jerome@example.com a/depression` or `addp n/Davinci Lim p/98731122 e/betsycrowe@example.com a/sad a/anxiety`               |
+| **Query patients**                                    | `queryp [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] …​`<br> e.g., `queryp n/Jerome p/987 e/example.com​`                                                                                                                                 |
+| **Delete patient**                                    | `deletep PATIENT_ID`<br> e.g., `deletep 3`                                                                                                                                                                                       |
+| **Edit patient**                                      | `editp PATIENT_ID [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/AFFLIATED_WITH]…​`  <br> e.g., `editp 1 p/91234567 e/johndoe@example.com`                                                                                               |
+| **Add an appointment**                                | `adda pid/PATIENT_ID sd/START_DATETIME ed/END_DATETIME [att/ATTEND] [s/FEEDBACK_SCORE] [ad/APPOINTMENT_DESCRIPTION]` <br> e.g., `adda pid/2 sd/2022-12-12 15:00 ed/2022-12-12 16:00 att/true s/5 ad/This is a dummy appointment` |
+| **Query appointments**                                | `querya [pid/PATIENT_ID] [n/PATIENT_NAME] [aid/APPOINTMENT_ID]` <br> e.g., `querya pid/2`                                                                                                                                        |
+| **Delete an appointment**                             | `deletea APPOINTMENT_ID` <br> e.g., `deletea 1`                                                                                                                                                                                  | 
+| **Edit an appointment**                               | `edita APPOINTMENT_ID [pid/PATIENT_ID] [sd/START_DATETIME] [ed/END_DATETIME] [att/ATTEND] [s/FEEDBACK_SCORE] [ad/APPOINTMENT_DESCRIPTION]` <br> e.g., `edita 1 pid/2`                                                            |
+| **Filter appointments by date time**                  | `filter [sd/START_DATETIME] [ed/END_DATETIME]`  <br> e.g., `filter sd/2022-12-12 12:00`                                                                                                                                          |
+| **Report patient feedback statistics**                | `reportf [sd/DATE] [ed/DATE]` <br> e.g. `reportf sd/2024-02-18`                                                                                                                                                                  |
+| **Help**                                              | `help`                                                                                                                                                                                                                           |                                                                                                                                                                                                           |
+| **Delete all entries from the CogniCare application** | `clear`                                                                                                                                                                                                                          |
+| **Exit Application**                                  | `exit`                                                                                                                                                                                                                           |
