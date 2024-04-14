@@ -29,12 +29,12 @@ CogniCare is a **desktop app for a single-user application for managing most Sch
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
-5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+5. Type the command in the command box and press Enter to execute it. e.g., typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
     * `queryp` : Lists all patients that are stored in the CogniCare application.
 
-    * `addp n/Jerome Chua p/98765432 e/jerome@example.com a/depression` : Adds a contact named `Jerome Chua` to the Address Book who is associated with having "depression".
+    * `addp n/Jerome Chua p/98765432 e/jerome@example.com a/depression` : Adds a contact named `Jerome Chua` to the Address Book who is affiliated-with with having "depression".
 
     * `deletep 903` : Deletes the patient that has the id of 903 (This is different from the natural ordering of the list).
    
@@ -42,13 +42,13 @@ CogniCare is a **desktop app for a single-user application for managing most Sch
    
     * `querya` : Lists all appointments that are stored in CogniCare.
 
-    * `querya pid/2` : List all appointments belonging to patient index 2 that are stored in CogniCare.
+    * `querya pid/2` : List all appointments belonging to patient index 2 that are stored in the CogniCare application.
    
-    * `edita 1 pid/3` : Changes appointment index 1 with the patient id 3.
+    * `edita 1 pid/3` : Changes appointment index 1, from its original patient id to the patient id 3.
 
-    * `deletea 3` : Deletes the appointment that has the id of 3 (This is different from the natural ordering of the list).
+    * `deletea 3` : Deletes the appointment that has the appointment id of 3 (This is different from the natural ordering of the list).
 
-    * `clear` : Deletes all patient information from the CogniCare application.
+    * `clear` : Deletes all patient and appointment information from the CogniCare application.
 
     * `exit` : Exits the app.
 
@@ -81,16 +81,16 @@ Lastly, the third column displays the name and average feedback score per patien
 **Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `addp n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+  e.g., in `addp n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 
 * Items in square brackets are optional.<br>
   e.g. `n/NAME [a/AFFLIATED_WITH]` can be used as `n/Jerome a/depression` or as `n/Jerome`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[a/AFFLIATED_WITH]…​` can be used as ` ` (i.e. 0 times), `a/depressed`, `a/jobless a/sad` etc.
+  e.g. `[a/AFFLIATED_WITH]…​` can be used as ` ` (i.e., 0 times), `a/depressed`, `a/jobless a/sad` etc.
 
 * Parameters can be in any order.<br>
-  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+  e.g., if the command specifies `n/NAME p/PHONE_NUMBER`, then `p/PHONE_NUMBER n/NAME` is also acceptable.
 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
@@ -109,8 +109,6 @@ Format: `help`
 
 ### Adding a patient: `addp`
 
-
-
 Adds a patient to the CogniCare application.
 
 Format: `addp n/NAME p/PHONE_NUMBER e/EMAIL [a/AFFLIATED_WITH]…​`
@@ -120,21 +118,21 @@ The following image shows when command is valid:
 The image below shows a successful addition of patient.
 ![Add patient success](images/patients/2a_Add_patient_success.png)
 
-The image below a failure of adding patient due to missing phone tag.
+The image below shows a failure of adding patient due to missing phone tag.
 ![Add patient failure](images/patients/2bi_Cannot_Add_Patient_Missing_Phone_Tag_failure.png)
 
-The image below a failure of adding patient due to duplicate email tag.
+The image below shows a failure of adding patient due to duplicate email tag.
 ![Add patient failure](images/patients/2bii_Cannot_Add_Patient_Duplicate_Email_Tag_failure.png)
 
 **Validation**:
 1. NAME
-    1. No duplicate names are allowed. Names are lowercased and trimmed before duplicate comparison
+    1. No duplicate names are allowed. Names are lowercase and trimmed (blank space removed) before performing duplicate comparison
     2. Please note that special characters are not allowed in this iteration (So, for example, "Jerome S/O Gary" will not be a valid name)
-    3. Please note that only English names are allowed at this point, as all Singaporean residents / visitors have an English version of their name.
-2. PHONE_NUMBER - We accept only Singaporean numbers as this an application meant for a Singapore-specific context
+    3. Please note that only English names are allowed at this point, as all Singaporean residents / visitors are expected to have an English version of their name.
+2. PHONE_NUMBER - We accept only Singaporean numbers as this is an application meant for a Singapore-specific context
     1. Should be exactly 3 or 8 digits long which is in a Singaporean phone number format. (For example: 82221234, 91112222 and 999 are valid phone numbers)
     2. Should start with 6, 8 or 9. (We ignore 3 since those are IP Phone Numbers that people wouldn't normally have)
-    3. Note: This simplistic  validation allows for weird numbers like 666, but we allow this anyway since comprehensive number validation would be too technically complex
+    3. Note: This simplistic validation allows for weird numbers like 666, but we allow this anyway since comprehensive number validation would be too technically complex
 3. EMAIL
     1. Should be a valid email address with the form `local-part@domain` where domain is at least 2 letters long
     2. All emails are stored in lowercase by default.
@@ -166,7 +164,7 @@ This means that if the CogniCare application initially contained of the patients
 3. Jerome
 ```
 
-When Khang Hou is deleted, the patient ids are as below:
+When Khang Hou (Patient ID 2) is deleted, the patient ids are as below:
 
 ```
 1. Caitlyn
@@ -177,7 +175,7 @@ When Khang Hou is deleted, the patient ids are as below:
 
 <box type="tip" seamless>
 
-**Second Tip:** You may not add two patients with the same name even if they are in different case (i.e. "DAVINCI    Lim" vs "Davinci Lim").
+**Second Tip:** You may not add two patients with the same name even if they are in different case and different whitespace (i.e. "DAVINCI    Lim" vs "Davinci Lim").
 </box>
 
 
@@ -204,7 +202,7 @@ The image shows the successful `queryp` command with all parameters specified.
 ![Query patients with all parameters](images/patients/3a_Query_with_all_parameters_success.png)
 
 
-For example: to find all the "Jerome" that are stored in the CogniCare application, the user may use the command
+For example, to find all the "Jerome" that are stored in the CogniCare application, the user may use the command
 Format: `queryp n/Jerome …​`
 This searches for any patient whose name contains "Jerome", regardless of case. So, it will find "JEROME", "jerome", "Jerome", etc.
 
@@ -212,20 +210,20 @@ The image shows the successful `queryp` command.
 ![Add patient success](images/patients/3b_Query_with_name_only_success.png)
 
 
-For example: to find all the "Jerome"s that are stored in the CogniCare application, have a phone number that contains 987, and email using outlook, the user may use the command
+For example, to find all the "Jerome"-s that are stored in the CogniCare application, have a phone number that contains 987, and containing the domain "example.com"; the user may use the command
 Format: `queryp n/Jerome p/987 e/example.com ​`
 
 The user may also choose to use the command in the following way to view students that have either `depression` OR `anxiety` tag.
 Format: `queryp a/depression a/anxiety ​`
 
 
-For example: to find all the "rome"s that are stored in the CogniCare application.
+For example, to find all the "rome"-s that are stored in the CogniCare application.
 Format: `queryp n/rome ​`
 
 Then all patients with "rome" in their names will be returned as well. Similar logic applies for Name, Phone Number and Email address, but not affiliated-with tags.
 
 ## Viewing top 10 distinct tags
-> **Note**: You **_do not_** need to enter any command to access this information. This top 10 statistic is automatically updated.
+> **Note**: You **_do not_** need to enter any command to access this information. These top 10 statistics are automatically updated.
 
 The image shows the (top 10) most popular tags sorted by how many patients with that respective tag.
 Note that the command was entered to demonstrate that the count for the anxiety tag is the same as the ones in the CogniCare application.
@@ -234,7 +232,7 @@ Note that the command was entered to demonstrate that the count for the anxiety 
 
 ### Editing a patient : `editp`
 
-Edits an existing patient in the CogniCare application at the specified index.
+Edit an existing patient in the CogniCare application at the specified index.
 
 Format: `editp PATIENT_ID [n/NAME] [p/PHONE] [e/EMAIL] [a/AFFLIATED_WITH]…​`
 
@@ -242,7 +240,7 @@ Format: `editp PATIENT_ID [n/NAME] [p/PHONE] [e/EMAIL] [a/AFFLIATED_WITH]…​`
 > Tip: Please take note that 0 is not a valid patient identifier.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the patient will be removed; i.e. adding of tags is not cumulative.
+* When editing tags, the existing tags of the patient will be removed; i.e., adding of tags is not cumulative.
 * The `patientId` will not be changed when you edit an individual's information.
 * You can remove all the patient’s tags by typing `a/` without
   specifying any tags after it.
@@ -251,22 +249,22 @@ Format: `editp PATIENT_ID [n/NAME] [p/PHONE] [e/EMAIL] [a/AFFLIATED_WITH]…​`
 Run `querya` to update the appointments with new information.
 
 Examples:
-*  `editp 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st patient to be `91234567` and `johndoe@example.com` respectively.
-*  `editp 2 n/Betsy Crower a/` Edits the name of the 2nd patient to be `Betsy Crower` and clears all existing tags.
+*  `editp 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the patient with index 1 to be `91234567` and `johndoe@example.com` respectively.
+*  `editp 2 n/Betsy Crower a/` Edits the name of the patient with index 2 to be `Betsy Crower` and clears all existing tags.
 
-The image belows shows a successful message of an edit patient command.
+The image below shows a successful message of an edit patient command.
 ![Edit patient success](images/patients/4a_Edit_student_name_success.png)
 
-The image belows shows a failed message of an edit patient command (when an invalid index is specified).
+The image below shows a failed message of an edit patient command (when an invalid index is specified).
 ![Edit patient success](images/patients/4b_Edit_invalid_index_failure.png)
 
-The image belows shows a failed message of an edit patient command (when no index is specified).
+The image below shows a failed message of an edit patient command (when no index is specified).
 ![Edit patient success](images/patients/4c_Edit_missing_index_failure.png)
 
 
 ### Deleting a patient : `deletep`
 
-Deletes the specified patient from the address book from the specified patient index.
+Delete the specified patient from the address book from the specified patient index.
 
 Format: `deletep INDEX`
 
@@ -275,10 +273,10 @@ Format: `deletep INDEX`
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `deletep 90` deletes the patient with the patientId of 90 in the address book.
+* `list` followed by `deletep 90` deletes the patient with the patientId of 90 in the CogniCare application.
 
 
-The image belows shows a successful message of a delete patient command (when a valid index is specified).
+The image below shows a successful message of a delete patient command (when a valid index is specified).
 ![Delete patient success](images/patients/4d_Delete_patient_successful.png)
 
 The output failed message of a delete patient command (when no index or invalid index is specified) is similar to when the edit command fails.
@@ -294,7 +292,7 @@ Format: `adda pid/PATIENT_ID sd/START_DATETIME ed/END_DATETIME [att/ATTEND] [s/F
 * Format of date time is yyyy-MM-dd HH:mm.
 * Once the patient is created, the appointment identifier `aid` will be permanently tagged to an appointment, and is not coalesced when other entries are deleted.
 * You may not add two appointments with the same date and time even if they are for different patients.
-* FEEDBACK_SCORE refers to the rating that the patient gives at the end of each appointment. This score represents their satisfaction levels. The higher satisfaction level, the more likely they are to be discharged.
+* FEEDBACK_SCORE refers to the rating that the patient gives at the end of each appointment. This score represents their satisfaction levels. The higher the satisfaction level, the more likely they are to be discharged.
 * APPOINTMENT_DESCRIPTION refers to any appointment notes the user wishes to note down.
 
 Examples:
@@ -327,35 +325,33 @@ The screenshot below shows a failed operation due to another appointment being s
 
 Shows a list of all appointments in CogniCare.
 
-The screenshot below show a successful query of all appointments:
+The screenshot below shows a successful query of all appointments:
 ![5a_Query_appointment_no-parameter_success.png](images%2Fappointments%2F5a_Query_appointment_no-parameter_success.png)
 
-### Listing selected appointments that meets specified criterion: `querya`
+### Listing selected appointments that meets specified criteria: `querya`
 
 Shows a list of appointments in the CogniCare application that matches the criteria.
 
 Format: `querya [pid/PATIENT_ID] [n/PATIENT_NAME] [aid/APPOINTMENT_ID]`
 
-* The appointment list can only be queried one criterion at a time.
-
 Examples:
-* `querya pid/1` shows all appointments for the patient with the patientId of 1 in the CogniCare application.
+* `querya pid/1` shows all appointments for the patient with the patient id of 1 in the CogniCare application.
 * `querya aid/4` shows the appointment with the appointmentId of 4 in the CogniCare application.
 * `querya n/Tan` shows all appointments whose patient's name contains "Tan" in the CogniCare application.
 
-The screenshot below show a successful query of appointments using patient id:
+The screenshot below shows a successful query of appointments using patient id:
 ![5b_Query_appointment_with_pid_success.png](images%2Fappointments%2F5b_Query_appointment_with_pid_success.png)
 
 ### Filter appointments by date time: `filter`
 
-Show list of appointments in a specific date time range. This includes the appointments that starts or ends in the date time range or appointments that starts before and ends after the date time range.
+Show a list of appointments in a specific date time range. This includes the appointments that starts or ends in the date time range or appointments that starts before and ends after the date time range.
 
 Format: `filter [sd/START_DATETIME] [ed/END_DATETIME]`
 
 Both `START_DATETIME` and `END_DATETIME` are optional. If only `START_DATETIME` is provided, all appointments that starts on or after the `START_DATETIME` will be shown. If only `END_DATETIME` is provided, all appointments that ends on or before the `END_DATETIME` will be shown.
 
 Examples:
-* `filter sd/2022-12-12 12:00 ed/2022-12-12 14:00` shows all appointments starts or ends in the date time range of 12pm to 2pm on 12 December 2022. Any appointments that starts before 12pm and ends after 2pm will also be shown.
+* `filter sd/2022-12-12 12:00 ed/2022-12-12 14:00` shows all appointments that starts or ends in the date time range of 12pm to 2pm on 12 December 2022. Any appointments that starts before 12pm and ends after 2pm will also be shown.
 * `filter sd/2022-12-12 12:00` shows all appointments that starts on or after 12pm on 12 December 2022.
 * `filter ed/2022-12-12 14:00` shows all appointments that ends on or before 2pm on 12 December 2022.
 
@@ -364,7 +360,7 @@ Examples:
    1. Must be in the format of yyyy-MM-dd HH:mm.
    2. END_DATETIME must be after START_DATETIME.
 
-The screenshot below show a successful filter appointments using both date time range:
+The screenshot below shows a successful filter appointments using both date time range:
 ![Filter patient with start and end date](images/appointments/filter/7a_Filter_appointment_start_end_success-nam.png)
 
 The screenshots below show a successful filter appointments using one date time range:
