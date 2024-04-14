@@ -109,7 +109,7 @@ Format: `help`
 
 ### Adding a patient: `addp`
 
-Adds a patient to the CogniCare application.
+Add a patient to the CogniCare application.
 
 Format: `addp n/NAME p/PHONE_NUMBER e/EMAIL [a/AFFLIATED_WITH]…​`
 
@@ -124,11 +124,18 @@ The image below shows a failure of adding patient due to missing phone tag.
 The image below shows a failure of adding patient due to duplicate email tag.
 ![Add patient failure](images/patients/2bii_Cannot_Add_Patient_Duplicate_Email_Tag_failure.png)
 
+
 **Validation**:
 1. NAME
     1. No duplicate names are allowed. Names are lowercase and trimmed (blank space removed) before performing duplicate comparison
     2. Please note that special characters are not allowed in this iteration (So, for example, "Jerome S/O Gary" will not be a valid name)
     3. Please note that only English names are allowed at this point, as all Singaporean residents / visitors are expected to have an English version of their name.
+
+> Remark:
+> It is important to note that Singapore names are only allowed to be **54-characters** in length. [Read More](https://www.asiaone.com/singapore/new-name-new-me-more-opt-change). The reason why we allow an extended input (>54 characters) is because some users may choose to have nickname appended to their official name. Hence, the front part of the name would not be hidden in the GUI.
+
+
+
 2. PHONE_NUMBER - We accept only Singaporean numbers as this is an application meant for a Singapore-specific context
     1. Should be exactly 3 or 8 digits long which is in a Singaporean phone number format. (For example: 82221234, 91112222 and 999 are valid phone numbers)
     2. Should start with 6, 8 or 9. (We ignore 3 since those are IP Phone Numbers that people wouldn't normally have)
