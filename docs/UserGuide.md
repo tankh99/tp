@@ -309,7 +309,7 @@ Examples:
 with an attended status `true`, feedback score of 1 and an appointment description.
 
 The screenshot below shows a successful operation:
-![add-success.png](images%2Fappointments%2Fadd-success.png)
+![add-success.png](images/appointments/add-success.png)
 
 The screenshot below shows a failed operation due to another appointment being scheduled for the same date and time:
 ![add-invalid.png](images%2Fappointments%2Fadd-invalid.png)
