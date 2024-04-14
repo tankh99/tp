@@ -1294,13 +1294,82 @@ Command: `querya n/Alex`
     - `aid/`: appointment index
 
 Expected Output:
-- All the patient information with their respective patientId will be displayed in the ListView.
+- All the appointment information with their respective appointmentId will be displayed in the ListView.
 
 Expected Output in the Command Output Box:
-- `Listed all appointments`
+- `(n) appointments listed!`
 
 > [!TIP]
 > If there are no appointments stored in the application, or if there are no data that meets the required criteria, an empty ListView will be displayed.
+
+
+## Filtering appointments which fall in a specific date range
+Pre-requisite:
+- There is at least one ("1") appointment stored in the CogniCare application meeting the requested criterion / criteria.
+
+Command: `filter sd/2021-10-10 12:00`
+- The appointment information meeting the criteria specified in CogniCare will be displayed in the item ListView.
+- You may specify zero or one of each parameter
+    - `sd/`: start date and time
+    - `ed/`: end date and time
+
+Expected Output:
+- All the appointment information with their respective appointmentId will be displayed in the ListView.
+
+Expected Output in the Command Output Box:
+- `(n) appointments listed!`
+
+> [!TIP]
+> If there are no appointments stored in the application, or if there are no data that meets the required criteria, an empty ListView will be displayed.
+
+
+## Generating all patient feedback reports
+Pre-requisite:
+- There is at least one ("1") patient stored in the CogniCare application.
+
+Command: `reportf`
+- The patient feedback report information will be shown in the item ListView.
+
+Expected Output:
+- All the patient feedback report information will be displayed in the ListView.
+
+Expected Output in the Command Output Box:
+- `Generated patient feedback report from the beginning of time to the end of time`
+
+
+## Generating patient feedback reports within a certain timeframe
+Pre-requisite:
+- There is at least one ("1") patient stored in the CogniCare application.
+
+Command: `reportf sd/2021-10-11`
+- The patient feedback report information meeting the criteria specified in CogniCare will be displayed in the item ListView.
+- You may specify zero or one of each parameter
+    - `sd/`: start date
+    - `ed/`: end date
+
+Expected Output:
+- All the patient feedback report information will be displayed in the ListView.
+
+Expected Output in the Command Output Box:
+- `Generated patient feedback report from 11 Oct 2021 to the end of time`
+
+>[!NOTE]
+> The `reportf` command only requires the start and/or end date in the format `yyyy-MM-dd`. This command does not take in any time.
+
+## Command History
+Pre-requisite:
+- Ensure that the device sound is not muted.
+
+Testing method:
+1. Enter commands (valid or invalid) into the application.
+2. Press the up and down arrow keys to traverse through past commands.
+
+Expected output:
+1. If the application reaches the very first command entered, pressing the down arrow key will clear the command box.
+2. If there are no newer commands available, pressing the up arrow key will play an audio file to indicate there are no newer commands.
+
+Expected Output in the Command Output Box:
+- The command output box should maintain the last shown success or error message.
 
 
 ## 7. Planned Future Enhancements (Beyond `v1.4`)
