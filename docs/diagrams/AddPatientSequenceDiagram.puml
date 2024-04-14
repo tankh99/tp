@@ -34,7 +34,7 @@ CommandParser -> AddPatientCommandParser : parse(args)
 activate AddPatientCommandParser
 
 create Patient
-AddPatientCommandParser -> Patient : 
+AddPatientCommandParser -> Patient
 activate Patient
 Patient -> AddPatientCommandParser
 
