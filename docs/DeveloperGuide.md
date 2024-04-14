@@ -7,9 +7,9 @@
 # CogniCare Developer Guide
 
 ## About CogniCare
-As the job climate is worsening, more and more students become afflicted with mental health conditions due to not being able to find a job. This results in an increased workload from a larger number of patients to manage and appointments to schedule. CogniCare is a patient management system, designed to take care of SoC students who suffer from various mental health issues and concerns due to being unable to find internships or jobs.
+As the job climate is worsening, more and more students are not being able to find a job, and increasingly affiliated with mental health issues. This results in an increased workload from a larger number of patients to manage and appointments to schedule. CogniCare is a patient management system, designed to take care of SoC students who suffer from various mental health issues and concerns due to being unable to find internships or jobs.
 
-CogniCare takes care of the load of many tedious tasks such as identifying today's appointments and measuring a patient's satisfication progress levels over a period of time, until they are finally ready for discharge.
+CogniCare takes care of the load of many tedious tasks such as identifying today's appointments and measuring a patient's satisfaction progress levels over a period of time, until they are finally ready for discharge.
 
 <!-- * Table of Contents -->
 
@@ -32,7 +32,7 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 The ***Architecture Diagram*** given above explains the high-level design of the App.
 
-Given below is a quick overview of main components and how they interact with each other.
+Given below is a quick overview of the main components and how they interact with each other.
 
 **Main components of the architecture**
 
@@ -51,7 +51,7 @@ The bulk of the app's work is done by the following four components:
 
 **How the architecture components interact with each other**
 
-The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `deletep 1`.
 
 <puml src="diagrams/ArchitectureSequenceDiagram.puml"/>
 
@@ -74,7 +74,7 @@ The **API** of this component is specified in [`Ui.java`](https://github.com/AY2
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
-The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2324S2-CS2103-F08-2/tp/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2324S2-CS2103-F08-2/tp/tree/master/src/main/resources/view/MainWindow.fxml)
+The `UI` component uses the JavaFx UI framework. The layout of these UI parts is defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2324S2-CS2103-F08-2/tp/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2324S2-CS2103-F08-2/tp/tree/master/src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
 
@@ -91,9 +91,9 @@ Here's a (partial) class diagram of the `Logic` component:
 
 <puml src="diagrams/LogicClassDiagram.puml"/>
 
-The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("delete 1")` API call as an example.
+The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("deletep 1")` API call as an example.
 
-<puml src="diagrams/DeleteSequenceDiagram.puml" alt="Interactions Inside the Logic Component for the `delete 1` Command" />
+<puml src="diagrams/DeletePatientSequenceDiagram.puml" alt="Interactions Inside the Logic Component for the `deletep 1` Command" />
 
 <box type="info" seamless>
 
@@ -102,9 +102,9 @@ The sequence diagram below illustrates the interactions within the `Logic` compo
 
 How the `Logic` component works:
 
-1. When `Logic` is called upon to execute a command, the command is passed to a `CommandParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
-1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is executed by the `LogicManager`.
-2. The command can communicate with the `Model` when it is executed (e.g. to delete a patient).<br>
+1. When `Logic` is called upon to execute a command, the command is passed to a `CommandParser` object which in turn creates a parser that matches the command (e.g., `DeletePatientCommandParser`) and uses it to parse the command.
+1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeletePatientCommand`) which is executed by the `LogicManager`.
+2. The command can communicate with the `Model` when it is executed (e.g., to delete a patient).<br>
 3. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
@@ -112,8 +112,8 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 <puml src="diagrams/ParserClasses.puml"/>
 
 How the parsing works:
-* When called upon to parse a user command, the `CommandParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `CommandParser` returns back as a `Command` object.
-* All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
+* When called upon to parse a user command, the `CommandParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddPatientCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddPatientCommand`) which the `CommandParser` returns back as a `Command` object.
+* All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g., during testing.
 
 ### Model component
 **API** : [`Model.java`](https://github.com/AY2324S2-CS2103-F08-2/tp/tree/master/src/main/java/seedu/address/model/Model.java)
@@ -123,8 +123,8 @@ How the parsing works:
 
 The `Model` component,
 
-* stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
-* stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the address book data i.e., all `Patient` objects (which are contained in a `UniquePersonList` object).
+* stores the currently 'selected' `Patient` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Patient>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
@@ -136,7 +136,7 @@ The `Model` component,
 
 The `Storage` component,
 * can save both address book data and user preference data in JSON format, and read them back into corresponding objects.
-* inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
+* inherits from both `AppointmentListStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
 ### Common classes
@@ -153,7 +153,7 @@ This section describes some noteworthy details on how certain features are imple
 ### Appointment
 #### Implementation
 ##### Appointment Classes
-Appointment is a new feature that was added to the app. It is a new entity that is related to a `Patient`. An `Appointment` object has the following attributes:
+Appointment is a new feature added to the app. It is a new entity that is related to a `Patient`. An `Appointment` object has the following attributes:
 - Appointment ID
 - Appointment Date Time
 - Patient ID
@@ -174,7 +174,7 @@ The Appointment Description is a String that describes the appointment.
 Appointments are stored in the `Model` component as `AppointmentList` which contains `UniqueAppointmentList` object that is parallel similar to `PatientList` storing `UniquePatientList`. 
 The `Model` component provides methods to add, delete, and retrieve appointments from `AppointmentList`
 
-Appointment List are saved under a separate file `appointments.json` in the data folder, apart from the `patients.json` file that stores the `patientList` data.
+Appointment List are saved under a separate file `appointmentList.json` in the data folder, apart from the `patientList.json` file that stores the `patientList` data.
 
 
 #### Design Considerations
@@ -184,27 +184,28 @@ Appointment List are saved under a separate file `appointments.json` in the data
 
 - **Alternative 1: Using Integer ID as the primary key (Current Approach)**
   - We needed some method to ensure that the patient was unique. The primary solution implemented involves a running integer identifier—and is saved together with each patient. The identifier serves as the primary key for the patient object, similar to how a unique ID in a database ensures each record's uniqueness.
-  - This was different to how the AB3 application was originally designed - where the ID followed the natural ordering of the elements in the list.
+  - This was different to how the AB3 application was originally designed—where the ID followed the natural ordering of the elements in the list.
   - Pros
     - Extremely user-friendly for counsellor as ID is never changed. 
-      - Potentially patient can even be issued a member card starting that patient ID.
+      - A member card displaying the patient ID could potentially be issued to patients.
+
   - Cons
     - Difficult to implement.
     - There will be "holes" in the sequential ID when records are deleted.
 
 - **Alternative 2: Using Name as the primary key**
-  - This approach was quickly deemed unsuitable due to the high probability of name duplication. While names are an important identifier, there is a great risk of collision (i.e. Jack Tan vs Jack Tan Ah Kou). While this method is sufficient for a non-mission critical address book, our CogniCare application must try to reduce the likeliness of errors occurring.
+  - This approach was quickly deemed unsuitable due to the high probability of name duplication. While names are an important identifier, there is a great risk of collision (i.e. "Jack Tan" versus "Jack Tan Ah Kou"). While this method is sufficient for a non-mission critical address book, our CogniCare application aims to reduce error occurrence.
   - Pros
-    - Extremely user friendly
+    - Extremely intuitive for a counselor to type in the patient's name
   - Cons
-    - Commands will be extremely long; and difficult to type.
-    - Counsellor will need to remember exactly how the full name is spelt.
-    - May select the wrong patient (i.e. Jack Tan vs Jack Tan Ah Kou).
+    - Commands will be extremely long; and challenging to type.
+    - Counselor will need to remember exactly how the full name is spelt.
+    - May select the wrong patient (i.e., "Jack Tan" versus "Jack Tan Ah Kou").
     
 - **Alternative 3: Using Natural Ordering of the names in CogniCare application (AB3 approach)**
-  - As we initially strived for a design where the patientId was used like a Foreign Key in the Appointments object, the ID changing would mean that the data integrity for Appointments class would be compromised
+  - As we initially strove for a design where the patient identifier to be used like a Foreign Key in the Appointments object, the inconsistent ID would mean that the data integrity for Appointments class would be compromised.
   - Pros
-    - Easy to implement
+    - Easy to implement (AB3 has already implemented it.)
   - Cons
     - Data Integrity of Appointments will be compromised
     - Every time a patient is deleted, the subsequent IDs will be coalesced.
@@ -215,11 +216,10 @@ Appointment List are saved under a separate file `appointments.json` in the data
 
 <puml src="diagrams/FindPatientSequenceDiagram.puml"/>
 
-
-In enhancing the search functionality within CogniCare, the implementation of an AND constraint for search queries was paramount. This feature allows counsellors to refine search criteria, leading to more precise and relevant search results. For example, counsellors can search for a patient using a combination of (partial name AND partial phone number AND partial email address). Only parameter is required, the others are optional.
+In enhancing the search functionality within CogniCare, the implementation of an AND constraint for search queries was paramount. This feature allows counsellors to refine search criteria, leading to more precise and relevant search results. For example, a counsellor can search for a patient using a combination of parameters (partial name AND partial phone number AND partial email address). It is to note that only parameter is required; the others are optional.
 
 This enhancement was driven by the need of:
-1. Improved Search Accuracy: By allowing multiple criteria to be specified, counsellors can narrow down search results to the most relevant patients (as the SoC cohort is quite large).
+1. Improved Search Accuracy: By allowing multiple criteria to be specified, counsellors can narrow down search results to the most relevant patients (as the SoC cohort is large).
 2. Efficiency: Enables quicker access to patient records by reducing the time spent sifting through irrelevant patient information.
 
 **Single Criterion Search (AB3 Approach)**: The original AB3 approach of allowing search based on a single criterion was found to be too limiting for the different needs of patient management in CogniCare.
@@ -232,13 +232,13 @@ This enhancement was driven by the need of:
     - Easier to implement.
     - This is the implementation that take inspires from DBMS auto-increment.
     - Consistency in appointment ID.
-    - Easier to store as a separate file for appointments storage.
+    - Easier to store as a separate file for appointment storage.
   - Cons: Confusion for users who expect appointment ID to increase one by one.
   - Mitigation: Ensure that the appointment ID is unique.
   
 - **Alternative 2 (AB3 choice):** No fixed appointment ID. AppointmentID is relative to the Appointment view.
   - Pros: More flexible for users.
-  - Cons: More complex to implement. May lead to inconsistencies between appointments.
+  - Cons: More complex to implement. It may lead to inconsistencies between appointments.
 
 **Aspect: Where to store appointments locally**
 - **Alternative 1 (current choice):** Store appointments in a separate file.
@@ -246,10 +246,11 @@ This enhancement was driven by the need of:
   - Cons: 
     - More complex to manage two separate files.
     - Time complexity to carry out command with appointments as it has to read the whole list of appointments.
-  - Risks: May lead to inconsistencies between the two files in regard to ids.
+  - Risks: 
+    - May lead to inconsistencies between the two files in regard to ids.
   - Mitigation: Ensure that both files are updated together.
   
-- **Alternative 2:** Store appointments as a field in the `Patient` class. Hence, all appointments data will be stored in the same file as the `patientList`.
+- **Alternative 2:** Store appointments as a field in the `Patient` class. Hence, all appointment data will be stored in the same file as the `patientList`.
   - Pros: Easier to manage a single file.
   - Cons: 
     - May lead to a more complex data structure.
@@ -261,9 +262,9 @@ This enhancement was driven by the need of:
 - **Alternative 1 (current choice):** Store appointments as a `AppointmentList` in `Model`.
   - Pros: 
     - Easier to design since it is similar to `patientList` implementation.
-    - If we want to add more Object for Model, this will be the default implementation
+    - If we want to add more Objects for Model, this will be the default implementation
   - Cons:
-    - Adding extra layer of OOP abstraction.
+    - Adding an extra layer of OOP abstraction.
     - May lead to performance issues when reading/writing data (more prone to crashing issues).
 
 - **Alternative 2:** Store appointments as a list of `Appointment` objects in `patientList`.
@@ -275,12 +276,12 @@ This enhancement was driven by the need of:
 ### Command History
 
 Command history is a feature that aims to improve the user experience for experienced users by allowing them to quickly
-navigate through their history of commands to make minor changes. Many features were inspired from macOS's Bash shell
+navigate through their history of commands to make minor changes. Many features were inspired by macOS's Bash shell
 
 Below is a general user flow of the command history
 <puml src="diagrams/command-history/CommandHistorySequenceDiagram.puml" alt="Command History sequence diagram" />
 
-**Note** that the above diagram doesn't capture the audio playback feature because it's not a core part of the feature.
+**Note** that the above diagram does not capture the audio playback feature because it's not a core part of the feature.
 
 And below are the specific behaviours of the command history module
 
@@ -310,31 +311,31 @@ is currently pointing at.
 - `undo()` - decrements the index
 - `redo()` - increments the index
 
-Command | Command History
----|---
-NA | [<span style="color: red;">""</span>]
-`execute("help")` | ["help", <span style="color: red;">""</span>]
-`undo()` | [<span style="color: red;">"help"</span>, ""]
-`undo()` | [<span style="color: red;">"help"</span>, ""]
-`redo()` | ["help", <span style="color: red;">""</span>]
-`redo()` | ["help", <span style="color: red;">""</span>]
-`undo()` | [<span style="color: red;">"help"</span>, ""]
-`execute("query")` | ["help", "query", <span style="color: red;">""</span>]
+| Command            | Command History                                        |
+|--------------------|--------------------------------------------------------|
+| NA                 | [<span style="color: red;">""</span>]                  |
+| `execute("help")`  | ["help", <span style="color: red;">""</span>]          |
+| `undo()`           | [<span style="color: red;">"help"</span>, ""]          |
+| `undo()`           | [<span style="color: red;">"help"</span>, ""]          |
+| `redo()`           | ["help", <span style="color: red;">""</span>]          |
+| `redo()`           | ["help", <span style="color: red;">""</span>]          |
+| `undo()`           | [<span style="color: red;">"help"</span>, ""]          |
+| `execute("query")` | ["help", "query", <span style="color: red;">""</span>] |
 
 **Rationale for implementation**
 There are a few key features that this module aims to implement
 1. Improved user experience for experienced users
    1. Allow users to modify their past commands in a predictable way
-   2. Allow users to easily compare past commands in case of mistakes by pressing up and down
+   2. Allow users to easily compare past commands in case of mistakes by pressing up and down keyboard key
 2. Mimicking bash shell features
    1. Playing a sound to indicate that there are no more commands left to undo
    2. Empty the input box when there are no more commands left to redo
 3. Default empty string in list
-   1. This aims to model what the command history actually looks like. By doing this, this makes the logic much more straightforward as we don't need to constantly check to return empty string or not
+   1. This aims to model what the command history actually looks like. By doing this, this makes the logic much more straightforward as we do not need to constantly check to return empty string or not
 
 **Alternatives considered**
-1. 2 stacks, one undo and one redo were used at first. However, this had the drawback of not being able to remember commands after undoing and writing a new command.
-2. undo() and redo() both returned the previous and next command respectively - This had a flaw in which the logic of handling the command index became unnecessarily complex as we had to worry about when we incremented/decremented an index. This also made it harder to test the functionality
+1. Two stacks, one undo and one redo were used at first. However, this had the drawback of not being able to remember commands after undo-ing and writing a new command.
+2. undo() and redo() both returned the previous and next command respectively—This had a flaw in which the logic of handling the command index became unnecessarily complex as we had to worry about when we incremented/decremented an index. This also made it harder to test the functionality
 
 ### Add Appointment Feature
 
@@ -350,7 +351,7 @@ An observable list is used to store the list of appointments.
 
 There are a few classes and methods used to interact with the add appointment command.
 1. `AddAppointmentCommand`
-   1. Defines add appointment command key word and other error messages.
+   1. Define add appointment command key word and other error messages.
 2. `AddAppointmentCommand#execute()`
    1. Validates the results of the `AddAppointmentCommandParser#parse()`
    2. Adds a valid appointment to CogniCare.
@@ -370,16 +371,16 @@ There are a few key features that this module aims to implement
    Therefore, each appointment has a unique identifier that does not change even when the natural order of the list is changed.
 
 ### Query Appointment Feature
-The query appointment feature allows users to query appointments by specific fields like by patient ID or name or appointment ID. Querying by datetime is done via the filter appointment feature.
+The query appointment feature allows users to query appointments by specific fields through the use of patient ID or name or appointment ID. Querying by datetime is done via the filter appointment feature.
 
 Below is the sequence diagram for querying appointments
 
 <puml src="diagrams/QueryAppointmentSequenceDiagram.puml" alt="Query Appointment Sequence Diagram" />
 
 
-And below is the activity diagram when a query command is made
+And below is the activity diagram when a query appointment command is made
 
-<puml src="diagrams/QueryAppointmentActivityDiagram.puml" alt="Query Appointment Actiity Diagram" />
+<puml src="diagrams/QueryAppointmentActivityDiagram.puml" alt="Query Appointment Activity Diagram" />
 
 **Implementation**
 There are a few classes and methods that make this feature work
@@ -388,7 +389,7 @@ There are a few classes and methods that make this feature work
 3. `RelationshipUtil` - In order to check that the specified patient ID is valid, we use a Util class which checks if a patient ID exists in a list of all patients
 
 **Rationale for implementation**
-1. This list command adds a unique validation step that checks for a valid patient ID. The rationale behind this is because of the confusion that would come about by listing out an empty list of appointments are querying by an patient invalid patient ID. For example, if there was no validation and you run `querya pid/999` and you see no appointments, you might assume that there is no appointment with the patient ID of 999, rather than there is no such patient ID in the first place
+1. This list command adds a unique validation step that checks for a valid patient ID. The rationale behind this is because of the confusion that would come about by listing out an empty list of appointments are querying with an invalid patient ID. For example, if there was no validation, and you run `querya pid/999` and you see no appointments, you might assume that there is no appointment with the patient ID of 999, rather than there is no such patient ID in the first place
    1. Note that patient name is not subject to the same validation because while the existence of a patient ID can be easily verified, the existence of a substring of a name cannot. Furthermore, if you run `querya n/Tom` and no appointments are listed, the conclusion that there is no appointment with the patient named "Tom".
 2. The query command allows for ease and flexibility in querying, while also providing sufficient validation to bolster and not hinder the querying process. This feature helps to streamline the user experience for users who are fast typists and technically-competent.
 
@@ -430,12 +431,12 @@ There are a few classes and methods used to interact with the add appointment co
 1. `DeleteAppointmentCommand`
     1. Defines delete appointment command key word and other error messages.
 2. `DeleteAppointmentCommand#execute()`
-    1. Finds the specified appointment to delete. Throws a `CommandException` if appointment is not found.
-    3. If there is no error, the specified appointment is deleted from CogniCare and a success message is displayed.
+    1. Find the specified appointment to delete. Throws a `CommandException` if appointment is not found.
+    2. If there is no error, the specified appointment is deleted from CogniCare and a success message is displayed.
 3. `DeleteAppointmentCommandParser#parse()`
     1. Parses the delete appointment command, ensuring that the provided appointment index is valid.
        A `ParseException` is thrown if there are no parameters specified or the appointment index provided is not positive.
-    3. Returns a new `DeleteAppointmentCommand`
+    2. Returns a new `DeleteAppointmentCommand`
 
 **Rational for implementation**
 1. Users need to be able to delete individual appointments in the event that appointment an appointment is cancelled.
@@ -457,7 +458,7 @@ Criteria for filtering appointments:
 - `EndDateTime` the appointment is after or at (>=) the specific `endDateTime` of the predicate
   There are a few methods used to interact with the filter appointment command.
 1. `FilterAppointmentCommand`
-   1. Defines filter appointment command key word and other error messages.
+   1. Define filter appointment command key word and other error messages.
    2. Validates the results of the `FilterAppointmentCommandParser#parse()`
 2. `FilterAppointmentCommandParser#parse()`
    1. Parses the filter appointment commands, ensuring that all required parameters are present.
@@ -478,7 +479,7 @@ There are a few key features that this module aims to implement
 **Alternatives considered**
 1. Smarter filtering based on the date and time of the appointment. However, this was not implemented as it was not necessary for the current scope of the project.
 ### Report Patient Feedback Feature
-Report patient feedback score is a feature that averages out the feedback scores of all currently filtered appointment. It allows getting the average scores of appointments within a given date range
+Report patient feedback score is a feature that averages out the feedback scores of all currently filtered appointments. It allows getting the average scores of appointments within a given date range
 
 The overall data flow of patient feedback data is detailed below by a class diagram. 
 **Note**: This class diagram doesn't represent the command, but rather, how data is stored
@@ -501,25 +502,25 @@ Below is a sequence diagram of the user flow of the report command
    2. The primitive type `int` is not nullable, so we used a wrapper class instead
 3. `PatientFeedbackReport` is different from Appointment and Patient because it holds transient data and is dependent on data from the Patient and Appointment models.
    1. Therefore, it was decided that the entire list of appointments and a specified patient data should be passed into this object in order to calculate the average feedback score
-4. `PatientFeedbackReportList` does not have any direct list modification methods of its own. It only has a generateReportList function which is called every time there is an update to the list of patients or appointments, e.g. filter, add, edit or delete
+4. `PatientFeedbackReportList` does not have any direct list modification methods of its own. It only has a generateReportList function which is called every time there is an update to the list of patients or appointments, e.g., filter, add, edit or delete
    1. To achieve such reactivity, `generateReportList()` was called at the end of each such function inside `ModelManager`
 
 **Alternatives considered**
-1. `PatientFeedbackReport` - We considered just passing the required fields, however there were a few limitations
+1. `PatientFeedbackReport` - We considered just passing the required fields; however, there were a few limitations
    1. Passing only the Patient name and ID
-      1. We need the name for sorting and UI purposes and we need the patient ID to determine which appointments to select. This resulted in 2 fields from the same object, which could be simplified if we just pass in a single Patient object
+      1. We need the name for sorting and UI purposes, and we need the patient ID to determine which appointments to select. This resulted in 2 fields from the same object, which could be simplified if we just pass in a single Patient object
     2. Passing only the patient's list of appointments instead of all appointments
        1. This quickly proved to be very complex because we would need to filter appointments every time a patient or appointment was updated in the list
 2. `FeedbackScore` data representation
    1. A string data type was considered to represent the Feedback Score, however, it simply did not make sense logically-speaking, and thus, we used an Integer instead.
-   2. A 0 was considered to represent the null value of a feedback score. This was because we did not have any actually null fields in the previous code base, with FeedbackScore being the only nullable field. However, having 0 represent the null value is confusing and also prone to error, in case someone decided to edit the feedbaCkScore to any other value, e.g. -1
+   2. A 0 was considered to represent the null value of a feedback score. This was because we did not have any actually null fields in the previous code base, with FeedbackScore being the only nullable field. However, having 0 represent the null value is confusing and also prone to error; in case someone decided to edit the feedbaCkScore to any other value, e.g. -1
 3. An observer pattern was considered when implementing the `generateReportList()` fucntionality, however, it was scrapped because it was already implemented via the `ObservableList` fields and implementing the pattern fully would not be worth the refactor 
 
 ### Help Feature
 
 <puml src="diagrams/HelpCommandSequenceDiagram.puml" alt="Help Command Sequence Diagram">
 
-The help feature provides users with an url to user guide online.
+The help feature provides users with an url to the user guide online.
 
 Rationale for implementation:
 1. Pop-up window with URL link and a copy button
@@ -527,103 +528,6 @@ Rationale for implementation:
 Alternative considered:
 1. Display list of command directly in dialog
 2. Display a full window with user guide
-
-### \[Proposed\] Undo/redo feature
-
-#### Proposed Implementation
-
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
-
-* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-<puml src="diagrams/UndoRedoState0.puml" alt="UndoRedoState0" />
-
-Step 2. The user executes `delete 5` command to delete the 5th patient in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-<puml src="diagrams/UndoRedoState1.puml" alt="UndoRedoState1" />
-
-Step 3. The user executes `add n/David …​` to add a new patient. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-<puml src="diagrams/UndoRedoState2.puml" alt="UndoRedoState2" />
-
-<box type="info" seamless>
-
-**Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-</box>
-
-Step 4. The user now decides that adding the patient was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-<puml src="diagrams/UndoRedoState3.puml" alt="UndoRedoState3" />
-a
-
-<box type="info" seamless>
-
-**Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
-
-</box>
-
-The following sequence diagram shows how an undo operation goes through the `Logic` component:
-
-<puml src="diagrams/UndoSequenceDiagram-Logic.puml" alt="UndoSequenceDiagram-Logic" />
-
-<box type="info" seamless>
-
-**Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</box>
-
-Similarly, how an undo operation goes through the `Model` component is shown below:
-
-<puml src="diagrams/UndoSequenceDiagram-Model.puml" alt="UndoSequenceDiagram-Model" />
-
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-<box type="info" seamless>
-
-**Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-</box>
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-<puml src="diagrams/UndoRedoState4.puml" alt="UndoRedoState4" />
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
-
-<puml src="diagrams/UndoRedoState5.puml" alt="UndoRedoState5" />
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-<puml src="diagrams/CommitActivityDiagram.puml"/>
-
-#### Design considerations:
-
-**Aspect: How undo & redo executes:**
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-  * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
-
-* **Alternative 2:** Individual command knows how to undo/redo by
-  itself.
-  * Pros: Will use less memory (e.g. for `delete`, just save the patient being deleted).
-  * Cons: We must ensure that the implementation of each individual command are correct.
-
-_{more aspects and alternatives to be added}_
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
 
 
 ## Create a new Patient
@@ -650,7 +554,7 @@ We have considered these alternatives:
 ## Editing a current Patient
 `EditPatientCommandParser` obtains the patient index and the values that correspond to the prefixes such as `p/`, `n/`, `e/`, and `a/` which represent phone, name, email address, and alias accordingly.
 
-* There can be multiple affliated-with (`a/`), but `p/`, `n/`, `e/` may only appear once.
+* There can be multiple affiliated-with (`a/`), but `p/`, `n/`, `e/` may only appear once.
 * The patient index is based on the unique ID that is tagged to each patient, and is not the natural ordering of the list.
 * The edited fields are required to have the same validation as creating a new patient.
 
@@ -660,13 +564,13 @@ If the constraints are violated, `EditPatientCommandParser` will throw a `ParseE
 Otherwise, if the process is successful, the current `Patient` object corresponding to the respective ID will be updated with the editedInformation.
 
 We have considered these alternatives:
-* Using the name as the primary key instead of the patient ID - may lead to unexpected deletes as there could be a case where the counselor has two patients of the similar name "Tan Ah Kow" and "Tan Ah". Suppose the counselor wants to delete "Tan Ah", and not "Tan Ah Kou" - in this case, the wrong record will be deleted by accident. Using an integer value as the identifier would eliminate this problem and will also makes it much easier for the user to input the commands.
-  * Therefore the workflow would be to search for the respective patient for the respective index via the `queryp` command before editing it.
+* Using the name as the primary key instead of the patient ID - may lead to unexpected deletes as there could be a case where the counselor has two patients of the similar name "Tan Ah Kow" and "Tan Ah". Suppose the counselor wants to delete "Tan Ah", and not "Tan Ah Kou" - in this case, the wrong record will be deleted by accident. Using an integer value as the identifier would eliminate this problem and will also make it much easier for the user to input the commands.
+  * Therefore, the workflow would be to search for the respective patient for the respective index via the `queryp` command before editing it.
 
 ## Deleting an existing patient
 `DeletePatientCommandParser` obtains the patient index that is to be deleted.
 
-* The patient index is based on the unique ID that is tagged to each individual patient and is not the natural ordering of the list.
+* The patient index is based on the unique ID tagged to each individual patient and is not the natural ordering of the list.
 
 If the constraints are violated, `DeletePatientCommandParser` will throw a `ParseException` due to an invalid patient ID passed.
 
@@ -682,15 +586,15 @@ We have considered these alternatives:
 
 The command for this operation is `queryp` with at least one or zero parameters. If no parameters (or at least one invalid parameter is passed into the command), the `queryp` command returns all the information of the patients (that is applied without any filters/predicates).
 
-The `ListPatientCommandParser` first checks for the presence of empty arguments / no prefix being specified. If this criterion is true, then all the patient is returned as normal. As such this class does not throw any exceptions, but just returns all the data in the CogniCare application.
+The `ListPatientCommandParser` first checks for the presence of empty arguments / no prefix being specified. If this criterion is true, then all the patients are returned as normal. As such, this class does not throw any exceptions, but just returns all the data in the CogniCare application.
 
 Otherwise, each of the search terms will be applied to each of the respective fields of the CogniCare application in a case-insensitive format.
 
 
 We have considered these alternatives:
-- User-Forgiveness _versus_ Strict Error Handling: Returning an error message where the command is correct, but illegal parameters are being supplied, then an error message is displayed. We decided against this approach because this will reduce the "user friendliness" of the application as the user would then have the consult the manual / read the error message to resolve the error.
-- Creating a "do-it-all" predicate for the `Patient` class will be less repetitive code as compared to the current approach (`EmailContainsKeywordPredicate.java`, `NameContainsKeywordPredicate.java`, `PhoneContainsKeywordPredicate.java`, `TagContainsKeywordPredicate.java`) which requires more (repetitive code) as compared to making a class such as `StudentContainsKeywordPredicate.java` which would be easier to code - but harder to test and extend in future. Not to mention, this will also increase the difficulty in writing unit tests.
-- Using `AND` logic for combining predicates, instead of `OR` predicate - the reason was that since the values already supported partial word matching (i.e. Searching for `coco` in the String `Coconut` will result in the row being returned). As such, using the `OR` logic will lead to too many rows being returned and therefore confusing to the user.
+- User-Forgiveness _versus_ Strict Error Handling: Returning an error message where the command is correct, but illegal parameters are being supplied, then an error message is displayed. We decided against this approach because this will reduce the "user-friendliness" of the application as the user would then have the consult the manual / read the error message to resolve the error.
+- Creating a "do-it-all" predicate for the `Patient` class will be less repetitive code as compared to the current approach (`EmailContainsKeywordPredicate.java`, `NameContainsKeywordPredicate.java`, `PhoneContainsKeywordPredicate.java`, `TagContainsKeywordPredicate.java`) which requires more (repetitive code) as compared to making a class such as `StudentContainsKeywordPredicate.java` which would be easier to code - but harder to test and extend in the future. Not to mention, this will also increase the difficulty in writing unit tests.
+- Using `AND` logic for combining predicates, instead of `OR` predicate - the reason was that since the values already supported partial word matching (i.e., Searching for `coco` in the String `Coconut` will result in the row being returned). As such, using the `OR` logic will lead to too many rows being returned and therefore confusing to the user.
 - Using case-insensitive search: the use of case-insensitive search terms for parameters matching provides a more seamless and more user-friendly experience.
 --------------------------------------------------------------------------------------------------------------------
 
@@ -755,7 +659,7 @@ Priorities: High (must have) - `* * * *`, Medium (nice to have) - `* * *`, Low (
 | `* * * *` | Counsellor       | delete an appointment for a specific patient              | appointments can be changed in cases of cancellation.                                                      |
 | `* * * *` | Counsellor       | view one appointment for a specified patient              | quickly find and review the appointment notes.                                                             |
 | `* * * *` | Counsellor       | view all appointments for a specified patient             | quickly view all appointments related to a student without having to remember the appointment ID or dates. |
-| `* * * *` | Counsellor       | view patient appointment note                                    | understand where I left off with the patient last time.                                                    |                                      |
+| `* * * *` | Counsellor       | view patient appointment note                             | understand where I left off with the patient last time.                                                    |                                      |
 | `* * * *` | Counsellor       | update appointments                                       | fix mistakes for a prior appointment.                                                                      |
 | `* * * *` | Counsellor       | track patient feedback scores over time                   | quickly identify which patients need more help.                                                            |
 | `* * *`   | Counsellor       | to categorise / tag my patients                           | patients with more serious issues can be attended to first.                                                |
@@ -1026,7 +930,7 @@ Use case ends.
 **Extension**
 
 * 3a. User modifies the command, and without executing it, presses the Down arrow key, followed by the Up arrow key
-    * 3a1. The command before modification is shown because the modified command was not executed
+    * 3a1. The command before modification is shown because the modified command is not yet executed
   
   Use case resumes from step 3
 * 2a. User presses the Up arrow key again
@@ -1066,8 +970,8 @@ Use case ends.
 
 1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
 2.  Should be able to hold up to 1000 patients and 1000 appointments without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-4. Should work without internet access i.e offline-only.
+3.  A user with an above-average typing speed for regular English text (i.e., not code, not system admin commands) should be able to achieve most of the tasks faster using commands than using the mouse.
+4. Should work without internet access (i.e. offline-only).
 5. Should not take more than 25MB of space, including data files during normal usage.
 6. The data should be transferrable from one computer system to another, ensuring that it displays identically on the new system.
 7. Should respond in less than 5 seconds for any given command.
@@ -1166,7 +1070,7 @@ Expected Output:
 
 Expected Output in the Command Output Box:
 - `New student added: John Doe; Phone: 98765432; Email: johnd@example.com; Associated with: [owesMoney][Johnny]`
-- A message echo-ing the information that you have just entered.
+- A message echoing the information that you have just entered.
 
 
 ## Editing a currently created patient
@@ -1326,7 +1230,7 @@ Expected Output in the Command Output Box:
 - `(n) appointments listed!`
 
 > [!TIP]
-> If there are no appointments stored in the application, or if there are no data that meets the required criteria, an empty ListView will be displayed.
+> If there are no appointments stored in the application, or if there is no data that meets the required criteria, an empty ListView will be displayed.
 
 
 ## Generating all patient feedback reports
@@ -1383,15 +1287,14 @@ This section describes the potential enhancements that could be improved in futu
 * Adding the ability to allow the counselor to secure the application - via a PIN Code feature, and encryption of the JSON file so that data loss does not result in the leakage of highly confidential medical data.
 * Enhancing the graphical user interface to make it more user-friendly, i.e. more usage of the mouse as compared to the keyboard.
 * Enabling localisation support: In future more options will be available for users to set their preferred phone number validation types (i.e. US Phone format), Extended Character Set for Naming validation (so that Chinese / Vietnamese / Tamil, etc names can be supported).
-* More commands to improve the counsellor workflow: As with a typical application, our primary objective is to concentrate collection of patient and appointment data. As we progress, we plan to introduce updates and increase more commands to derive new insights from the data. We appreciate your understanding and patience as we work towards working with the users and making these advanced features available.
+* More commands to improve the counsellor workflow: In the initial phase, our primary objective is to concentrate collection of patient and appointment data. As we progress, we plan to introduce updates and increase more commands to derive new insights from the data. We appreciate your understanding and patience as we work towards working with the users and making these advanced features available.
 * More validation checks for when user manually edits `json` files. Currently, adding non-legible value like `null` will cause the app to not launch. A future enhancement will include more validation checks, allow skipping of non-legible data and detecting invalid data upon launching the app.
-
 * Adding ability for the GUI to automatically reflect actual state of data. Currently, after using `editp` command to change name of a patient, the appointment cards in appointment list do not reflect the new name of that patient. Hence, a future enhancement will include changing the flow of how the appointment card is generated, enhancing the interactions between GUI and models and allowing the GUI to reflect the current state of data.
 
 ## 8. Learning Outcomes
-The implementation of the CogniCare application was an extremely challenging endeavour - as we needed to morph and reshape the AB3 application in a team-based setting. The transformation process involved significant alternations and enhancements to reach the new requirements of the application.
+The implementation of the CogniCare application was an extremely challenging endeavour—as we needed to morph and reshape the AB3 application in a team-based setting. The transformation process involved significant alternations and enhancements to reach the new requirements of the application.
 
-The team-based setting also exposed us to various crucial skills such as improving our working styles to achieve a high level of collaboration. Skillsets that are crucial to a Software Engineer such as reviewing Pull Requests (PRs), and providing and receiving feedback from peers are also learned in the course of the project.
+The team-based setting also exposed us to various crucial skills such as improving our working styles to achieve a high level of collaboration. Skills that are crucial to a Software Engineer such as reviewing Pull Requests (PRs), and providing and receiving feedback from peers are also learned in the course of the project.
 
 --------------------------------------------------------------------------------------------------------------------
 
