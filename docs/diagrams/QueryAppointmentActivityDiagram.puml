@@ -22,7 +22,8 @@ else ( [no duplicate parameters])
                 :CogniCare throws a Parse Exception;
                 :Error message is displayed;
             else( [prefix(es) are valid])
-                :Filter list by prefix(es) \nand return filtered list;
+                :Filter list by prefix(es);
+                :Return filtered appointments;
             endif
         endif
     endif
