@@ -360,30 +360,30 @@ Examples:
    1. Must be in the format of yyyy-MM-dd HH:mm.
    2. END_DATETIME must be after START_DATETIME.
 
-The screenshot below shows a successful filter appointments using both date time range:
+The screenshot below shows a successful filter appointment command using both date time range:
 ![Filter patient with start and end date](images/appointments/filter/7a_Filter_appointment_start_end_success-nam.png)
 
-The screenshots below show a successful filter appointments using one date time range:
+The screenshots below show a successful filter appointment command using one date time range:
 ![Filter patient with start](images/appointments/filter/7b_Filter_appointment_start_success-nam.png)
 
 ![Filter patient with end](images/appointments/filter/7c_Filter_appointment_end_success-nam.png)
 
 
-The screenshot below show a unsuccessful filter appointments due to invalid date time range:
+The screenshot below shows an unsuccessful filter appointment command due to invalid date time range:
 
 ![Filter patient failure](images/appointments/filter/7d_Filter_appointment_start_later_than_end_fail-nam.png)
 
 
 ### Editing an appointment: `edita`
 
-Edits an appointment in CogniCare using the specified appointment index.
+Edit an appointment in CogniCare using the specified appointment index.
 
 Format: `edita APPOINTMENT_ID [pid/PATIENT_ID] [sd/START_DATETIME] [ed/END_DATETIME] [att/ATTEND] [s/FEEDBACK_SCORE] [ad/APPOINTMENT_DESCTIPTION]`
 
 * Edits the appointment at the specified `APPOINTMENT_ID`. The index refers to the index number shown in the displayed appointment list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* The `APPOINTMENT_ID` will not be changed when you edit an appointment's information.
+* The `APPOINTMENT_ID` will not be changed when you edit the appointment's information.
 
 Examples:
 * `edita 1 pid/2` edits the appointment with appointment index 1 with patient id 2.
@@ -393,7 +393,7 @@ Examples:
 
 ### Deleting an appointment : `deletea`
 
-Deletes the specified appointment from the CogniCare application using the specified appointment index.
+Delete the specified appointment from the CogniCare application using the specified appointment index.
 
 Format: `deletea INDEX`
 
@@ -404,10 +404,10 @@ Format: `deletea INDEX`
 Examples:
 * `deletea 3` deletes the appointment with the appointmentId of 3 in the address book.
 
-The screenshot below show a successful operation:
+The screenshot below shows a successful operation:
 ![6a_Delete_appointment_success.png](images%2Fappointments%2F6a_Delete_appointment_success.png)
 
-The screenshot below show a failed operation due to invalid appointment index:
+The screenshot below shows a failed operation due to invalid appointment index:
 ![6b_Delete_appointment_failure.png](images%2Fappointments%2F6b_Delete_appointment_failure.png)
 
 ### Reporting Patient Feedback Statistics: `reportf`
