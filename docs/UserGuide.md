@@ -128,7 +128,7 @@ The image below a failure of adding patient due to duplicate email tag.
 
 **Validation**:
 1. NAME
-    1. No duplicate names are allowed. Names are lowercased and trimmed before duplicate comparison
+    1. No duplicate names are allowed. Names are lowercased and trimmed before duplicate comparison. Names are trimmed, both inner and outer whitespace. This means that `  Khang Hou` and `khang    hou  ` are both treated as the same name
     2. Please note that special characters are not allowed in this iteration (So, for example, "Jerome S/O Gary" will not be a valid name)
     3. Please note that only English names are allowed at this point, as all Singaporean residents / visitors have an English version of their name.
 2. PHONE_NUMBER - We accept only Singaporean numbers as this an application meant for a Singapore-specific context
@@ -312,15 +312,16 @@ The screenshot below shows a failed operation due to another appointment being s
 **Validation**:
 1. PATIENT_ID
    1. No non-existing patient IDs are allowed. Checks are made against the patient list.
-   2. Patient ID given must exist in the current patient list.
-   3. Patient ID must be a positive integer.
+   2. Patient ID must be a positive integer.
 2. START_DATETIME and END_DATETIME
    1. No two appointments can share the exact same date and time, even if they differ by other attributes like different patient IDs.
-   2. END_DATETIME must be after START_DATETIME.
-   3. The appointment timing cannot overlap with another existing appointment.
-3. ATTEND
+      - Note the exception to this is when the appointment's start and end times are tbe same as we allow boundary values to be touching each other, as long as they're not crossing each other.
+   2. The start date and time cannot be before the end date and time. 
+   3. END_DATETIME must be after START_DATETIME.
+   4. The appointment timing cannot overlap with another existing appointment.
+1. ATTEND
    1. Must be either `true` or `false` (case-insensitive).
-4. FEEDBACK_SCORE
+2. FEEDBACK_SCORE
    1. The score must be between 1 and 5 (inclusive).
 
 ### Listing all appointments: `querya`
