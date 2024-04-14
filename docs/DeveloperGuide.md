@@ -527,7 +527,7 @@ There are a few classes and methods used to interact with the delete appointment
 
 The filter appointment feature allows users to filter appointments based on the date and time of the appointment.
 
-<puml scr="diagrams/FilterAppointmentSequenceDiagram.puml" alt="Filter Appointment Sequence Diagram">
+<puml scr="diagrams/FilterAppointmentSequenceDiagram.puml" alt="Filter Appointment Sequence Diagram"/>
 
 **Implementation**
 A predicate was used to filter the list of appointments based on the date and time of the appointment.
@@ -664,7 +664,7 @@ There are a few key features that this module aims to implement
 <!-- @@author vnnamng -->
 ### Help Feature
 
-<puml src="diagrams/HelpCommandSequenceDiagram.puml" alt="Help Command Sequence Diagram">
+<puml src="diagrams/HelpCommandSequenceDiagram.puml" alt="Help Command Sequence Diagram"/>
 
 The help feature provides users with an url to the user guide online.
 
