@@ -482,7 +482,7 @@ Below is the sequence diagram for editing an appointment.
 <puml src="diagrams/EditAppointmentSequenceDiagram.puml" alt="Edit Appointment Sequence Diagram" width="550" />
 
 **Implementation**
-There are a few classes and methods used to interact with the add appointment command.
+There are a few classes and methods used to interact with the edit appointment command.
 1. `EditAppointmentCommand`
    1. Defines edit appointment command key word and other error messages.
 2. `EditAppointmentCommand#execute()`
@@ -505,7 +505,7 @@ Below is the activity diagram for deleting an appointment.
 <puml src="diagrams/DeleteAppointmentActivityDiagram.puml" alt="Delete Appointment Activity Diagram" />
 
 **Implementation**
-There are a few classes and methods used to interact with the add appointment command.
+There are a few classes and methods used to interact with the delete appointment command.
 1. `DeleteAppointmentCommand`
     1. Defines delete appointment command key word and other error messages.
 2. `DeleteAppointmentCommand#execute()`
