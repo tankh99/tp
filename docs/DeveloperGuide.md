@@ -37,8 +37,8 @@ Given below is a quick overview of the main components and how they interact wit
 **Main components of the architecture**
 
 **`Main`** (consisting of classes [`Main`](https://github.com/AY2324S2-CS2103-F08-2/tp/tree/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/AY2324S2-CS2103-F08-2/tp/tree/master/src/main/java/seedu/address/MainApp.java)) is in charge of the app launch and shut down.
-* At app launch, it initializes the other components in the correct sequence, and connects them up with each other.
-* At shut down, it shuts down the other components and invokes cleanup methods where necessary.
+* At app launch, it initializes the other components in the correct sequence and connects them up with each other.
+* At shutdown, it shuts down the other components and invokes cleanup methods where necessary.
 
 The bulk of the app's work is done by the following four components:
 
@@ -74,7 +74,7 @@ The **API** of this component is specified in [`Ui.java`](https://github.com/AY2
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
-The `UI` component uses the JavaFx UI framework. The layout of these UI parts is defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2324S2-CS2103-F08-2/tp/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2324S2-CS2103-F08-2/tp/tree/master/src/main/resources/view/MainWindow.fxml)
+The `UI` component uses the JavaFX UI framework. The layout of these UI parts is defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2324S2-CS2103-F08-2/tp/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2324S2-CS2103-F08-2/tp/tree/master/src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
 
@@ -177,7 +177,7 @@ The Appointment Description is a String that describes the appointment.
 Appointments are stored in the `Model` component as `AppointmentList` which contains `UniqueAppointmentList` object that is parallel similar to `PatientList` storing `UniquePatientList`. 
 The `Model` component provides methods to add, delete, and retrieve appointments from `AppointmentList`
 
-Appointment List are saved under a separate file `appointmentList.json` in the data folder, apart from the `patientList.json` file that stores the `patientList` data.
+Appointment List is saved under a separate file `appointmentList.json` in the data folder, apart from the `patientList.json` file that stores the `patientList` data.
 
 
 #### Design Considerations
@@ -186,10 +186,10 @@ Appointment List are saved under a separate file `appointmentList.json` in the d
 
 
 - **Alternative 1: Using Integer ID as the primary key (Current Approach)**
-  - We needed some method to ensure that the patient was unique. The primary solution implemented involves a running integer identifier—and is saved together with each patient. The identifier serves as the primary key for the patient object, similar to how a unique ID in a database ensures each record's uniqueness.
-  - This was different to how the AB3 application was originally designed—where the ID followed the natural ordering of the elements in the list.
+  - We needed some method to ensure that the patient was unique. The primary solution implemented involves a running integer identifier—which is saved together with each patient. The identifier serves as the primary key for the patient object, similar to how a unique ID in a database ensures each record's uniqueness.
+  - This was different from how the AB3 application was originally designed—where the ID followed the natural ordering of the elements in the list.
   - Pros
-    - Extremely user-friendly for counsellor as ID is never changed. 
+    - Extremely user-friendly for counsellors as ID is never changed. 
       - A member card displaying the patient ID could potentially be issued to patients.
 
   - Cons
@@ -202,7 +202,7 @@ Appointment List are saved under a separate file `appointmentList.json` in the d
     - Extremely intuitive for a counselor to type in the patient's name
   - Cons
     - Commands will be extremely long; and challenging to type.
-    - Counselor will need to remember exactly how the full name is spelt.
+    - The counselor will need to remember exactly how the full name is spelt.
     - May select the wrong patient (i.e., "Jack Tan" versus "Jack Tan Ah Kou").
     
 - **Alternative 3: Using Natural Ordering of the names in CogniCare application (AB3 approach)**
@@ -219,9 +219,9 @@ Appointment List are saved under a separate file `appointmentList.json` in the d
 
 <puml src="diagrams/FindPatientSequenceDiagram.puml"/>
 
-In enhancing the search functionality within CogniCare, the implementation of an AND constraint for search queries was paramount. This feature allows counsellors to refine search criteria, leading to more precise and relevant search results. For example, a counsellor can search for a patient using a combination of parameters (partial name AND partial phone number AND partial email address). It is to note that only parameter is required; the others are optional.
+In enhancing the search functionality within CogniCare, the implementation of an AND constraint for search queries was paramount. This feature allows counsellors to refine search criteria, leading to more precise and relevant search results. For example, a counsellor can search for a patient using a combination of parameters (partial name AND partial phone number AND partial email address). It is to note that only one parameter is required; the others are optional.
 
-This enhancement was driven by the need of:
+This enhancement was driven by the need for:
 1. Improved Search Accuracy: By allowing multiple criteria to be specified, counsellors can narrow down search results to the most relevant patients (as the SoC cohort is large).
 2. Efficiency: Enables quicker access to patient records by reducing the time spent sifting through irrelevant patient information.
 
@@ -233,7 +233,7 @@ This enhancement was driven by the need of:
 - **Alternative 1 (current choice):** Generate auto-increasing fixed appointment ID when creating a new appointment. Fail commands that attempt to set the appointment ID still increase the appointment ID.
   - Pros: 
     - Easier to implement.
-    - This is the implementation that take inspires from DBMS auto-increment.
+    - This is the implementation that takes inspiration from DBMS auto-increment.
     - Consistency in appointment ID.
     - Easier to store as a separate file for appointment storage.
   - Cons: Confusion for users who expect appointment ID to increase one by one.
@@ -248,9 +248,9 @@ This enhancement was driven by the need of:
   - Pros: Easier to manage appointments separately from patients.
   - Cons: 
     - More complex to manage two separate files.
-    - Time complexity to carry out command with appointments as it has to read the whole list of appointments.
+    - Time complexity to carry out commands with appointments as it has to read the whole list of appointments.
   - Risks: 
-    - May lead to inconsistencies between the two files in regard to ids.
+    - May lead to inconsistencies between the two files with regard to ids.
   - Mitigation: Ensure that both files are updated together.
   
 - **Alternative 2:** Store appointments as a field in the `Patient` class. Hence, all appointment data will be stored in the same file as the `patientList`.
@@ -265,7 +265,7 @@ This enhancement was driven by the need of:
 - **Alternative 1 (current choice):** Store appointments as a `AppointmentList` in `Model`.
   - Pros: 
     - Easier to design since it is similar to `patientList` implementation.
-    - If we want to add more Objects for Model, this will be the default implementation
+    - If we want to add more Objects for the Model, this will be the default implementation
   - Cons:
     - Adding an extra layer of OOP abstraction.
     - May lead to performance issues when reading/writing data (more prone to crashing issues).
@@ -274,13 +274,13 @@ This enhancement was driven by the need of:
   - Pros: Easier to manage appointments as a list.
   - Cons: 
     - Reduce in OOP-ness of the code
-    - Hard to scale up, as need to change the whole code base.
+    - Hard to scale up, as we need to change the whole code base.
 
     
 <!-- @@author Jerome-j -->
-## Adding a new Patient
+## Adding a New Patient
 
-The add patient feature is modified from the original AB3 which allows users to register new students as user and insert them into the application.
+The add patient feature is modified from the original AB3 which allows users to register new students as users and insert them into the application.
 
 The add patient sequence diagram is displayed below:
 
@@ -304,11 +304,11 @@ Otherwise, if the process is successful, a new `Patient` object will be created 
 
 There are a few notable classes and methods that are used to interact with the add patient command:
 1. `AddPatientCommand`:
-   1. Defines the add appointment command keywords and other error messages.
+   1. Defines the add patient command keywords and other error messages.
 2. `AddPatientCommand#execute()`
    1. Validates the results for `AddPatientCommandParser#parse()`
    2. If the results are valid, then the specified patient will be added to the CogniCare application.
-   3. Throws a `CommandException` if the specified appointment is invalid. The new patient is only considered valid if it satisfies storing the required information in the required format.
+   3. Throws a `CommandException` if the specified patient is invalid. The new patient is only considered valid if it satisfies storing the required information in the required format.
 
 
 **Alternatives Considered**
@@ -324,7 +324,7 @@ The diagram below shows the sequence diagram for querying patients:
 
 The command for this operation is `queryp` with at least one or zero parameters. If no parameters (or at least one invalid parameter is passed into the command), the `queryp` command returns all the information of the patients (that is applied without any filters/predicates).
 
-The `ListPatientCommandParser` first checks for the presence of empty arguments / no prefix being specified. If this criterion is true, then all the patients are returned as normal. As such, this class does not throw any exceptions, but just returns all the data in the CogniCare application even if the command is malformed (but reaches the `ListPatientCommandParser`).
+The `ListPatientCommandParser` first checks for the presence of empty arguments / no prefix being specified. If this criterion is true, then all the patients are returned as normal. As such, this class does not throw any exceptions but just returns all the data in the CogniCare application even if the command is malformed (but reaches the `ListPatientCommandParser`).
 
 Otherwise, each of the search terms will be applied to each of the respective fields of the CogniCare application in a case-insensitive format.
 
@@ -338,11 +338,11 @@ Otherwise, each of the search terms will be applied to each of the respective fi
 - User-Forgiveness _versus_ Strict Error Handling: Returning an error message where the command is correct, but illegal parameters are being supplied, then an error message is displayed. We decided against this approach because this will reduce the "user friendliness" of the application as the user would then have the consult the manual / read the error message to resolve the error.
 - Creating a "do-it-all" predicate for the `Patient` class will be less repetitive code as compared to the current approach (`EmailContainsKeywordPredicate.java`, `NameContainsKeywordPredicate.java`, `PhoneContainsKeywordPredicate.java`, `TagContainsKeywordPredicate.java`) which requires more (repetitive code) as compared to making a class such as `StudentContainsKeywordPredicate.java` which would be easier to code - but harder to test and extend in future. Not to mention, this will also increase the difficulty in writing unit tests.
 - Using `AND` logic for combining predicates, instead of `OR` predicate - the reason was that since the values already supported partial word matching (i.e. Searching for `coco` in the String `Coconut` will result in the row being returned). As such, using the `OR` logic will lead to too many rows being returned and therefore confusing to the user.
-- Using case-insensitive search: the use of case-insensitive search terms for parameters matching provides a more seamless and more user-friendly experience.
+- Using case-insensitive search: the use of case-insensitive search terms for parameter matching provides a more seamless and more user-friendly experience.
 
 
 ## Editing a current Patient
-The edit command allows a user to update a patient's information if they re-locate, change phone numbers, change email address, etc.
+The edit command allows a user to update a patient's information if they relocate, change phone numbers, change email address, etc.
 
 The diagram below shows the sequence diagram for editing a patient: 
 
@@ -350,31 +350,31 @@ The diagram below shows the sequence diagram for editing a patient:
 
 `EditPatientCommandParser` obtains the patient index and the values that correspond to the prefixes such as `p/`, `n/`, `e/`, and `a/` which represent phone, name, email address, and alias accordingly.
 
-* There can be multiple affliated-with (`a/`), but `p/`, `n/`, `e/` may only appear once.
+* There can be multiple affiliated-with (`a/`), but `p/`, `n/`, `e/` may only appear once.
 * The patient index is based on the unique ID that is tagged to each patient, and is not the natural ordering of the list.
 * The edited fields are required to have the same validation as creating a new patient.
 
 
-If the constraints are violated, `EditPatientCommandParser` will throw a `ParseException` due to invalid patient ID or invalid parameter being parsed.
+If the constraints are violated, `EditPatientCommandParser` will throw a `ParseException` due to an invalid patient ID or invalid parameter being parsed.
 
-Otherwise, if the process is successful, the current `Patient` object corresponding to the respective ID will be updated with the editedInformation.
+Otherwise, if the process is successful, the current `Patient` object corresponding to the respective ID will be updated with the edited information.
 
 
 **Implementation**  
 There are a few classes and methods used to interact with the edit patient command.
 1. `EditPatientCommand`
-    1. Defines the edit patient command key word and other error messages.
+    1. Defines the edit patient command keyword and other error messages.
 2. `EditPatientCommand#execute()`
     1. Finds the specified patient to edit. Throws a `CommandException` if the patient is not found, or if an invalid index is specified.
     2. Validates the edited Patient, ensuring that the edited Person's name does not exist in CogniCare. Validation checks are performed on the fields as well.
     3. If there is no error, the specified patient is updated and a success message is displayed.
 3. `EditPatientCommandParser#parse()`
     1. Parses the edit patient command, ensuring that all parameters provided are valid. A `ParseException` is thrown if there are no parameters specified.
-    2. Create an edited appointment.
+    2. Create an edited patient.
     3. Returns a new `EditPatientCommand`.  
 
 **Alternatives Considered**
-* Using the name as the primary key instead of the patient ID - may lead to unexpected deletes as there could be a case where the counselor has two patients of the similar name "Tan Ah Kow" and "Tan Ah". Suppose the counselor wants to delete "Tan Ah", and not "Tan Ah Kou" - in this case, the wrong record will be deleted by accident. Using an integer value as the identifier would eliminate this problem and will also makes it much easier for the user to input the commands.
+* Using the name as the primary key instead of the patient ID - may lead to unexpected deletes as there could be a case where the counselor has two patients of the similar name "Tan Ah Kow" and "Tan Ah". Suppose the counselor wants to delete "Tan Ah", not "Tan Ah Kou" - in this case, the wrong record will be accidentally deleted. Using an integer value as the identifier would eliminate this problem and will also make it much easier for the user to input the commands.
     * Therefore the workflow would be to search for the respective patient for the respective index via the `queryp` command before editing it.
 
 ## Deleting an existing patient
@@ -397,10 +397,10 @@ Otherwise, if the process is successful, the current `Patient` object correspond
 **Implementation**  
 There are a few classes and methods used to interact with the delete patient command.
 1. `DeletePatientCommand`
-    1. Defines delete patient command key word and other error messages.
+    1. Defines delete patient command keyword and other error messages.
 2. `DeletePatientCommand#execute()`
-    1. Find the specified patient to delete. Throws a `CommandException` if appointment is not found.
-    2. If there is no error, the specified appointment is deleted from CogniCare and a success message is displayed.
+    1. Find the specified patient to delete. Throws a `CommandException` if the patient is not found.
+    2. If there is no error, the specified patient is deleted from CogniCare and a success message is displayed.
 3. `DeletePatientCommand#parse()`
     1. If the constraints are violated, `DeletePatientCommandParser` will throw a `ParseException` due to an invalid patient ID passed.
      2. Returns a new `DeletePatientCommand`
@@ -427,12 +427,12 @@ An observable list is used to store the list of appointments.
 
 There are a few classes and methods used to interact with the add appointment command.
 1. `AddAppointmentCommand`
-   1. Define add appointment command key word and other error messages.
+   1. Define add appointment command keyword and other error messages.
 2. `AddAppointmentCommand#execute()`
    1. Validates the results of the `AddAppointmentCommandParser#parse()`
    2. Adds a valid appointment to CogniCare.
    3. Throws a Command Exception if the appointment returned is invalid. The new appointment is considered valid if there is no
-      appointment with the same patient id, date and time, and the date and time does not overlap with another appointment in CogniCare.
+      appointment with the same patient id, date, and time, and the date and time do not overlap with another appointment in CogniCare.
 3. `AddAppointmentCommandParser#parse()`
    1. Parses the add appointment commands, ensuring that all required parameters are present.
    2. Returns a new `AddAppointmentCommand.`
@@ -468,7 +468,7 @@ There are a few classes and methods that make this feature work
 **Rationale for implementation**
 1. This list command adds a unique validation step that checks for a valid patient ID. The rationale behind this is because of the confusion that would come about by listing out an empty list of appointments are querying with an invalid patient ID. For example, if there was no validation, and you run `querya pid/999` and you see no appointments, you might assume that there is no appointment with the patient ID of 999, rather than there is no such patient ID in the first place
    1. Note that patient name is not subject to the same validation because while the existence of a patient ID can be easily verified, the existence of a substring of a name cannot. Furthermore, if you run `querya n/Tom` and no appointments are listed, this concludes that there is no appointment with the patient named "Tom".
-2. The query command allows for ease and flexibility in querying, while also providing sufficient validation to bolster and not hinder the querying process. This feature helps to streamline the user experience for users who are fast typists and technically-competent.
+2. The query command allows for ease and flexibility in querying, while also providing sufficient validation to bolster and not hinder the querying process. This feature helps to streamline the user experience for users who are fast typists and technically competent.
 
 **Alternatives considered**
 1. Initially, the command was only allowed to query just by patient ID and appointment ID. However, this was found to be too restricting on the user as it is unintuitive for the user to remember IDs over names.
@@ -484,9 +484,9 @@ Below is the sequence diagram for editing an appointment.
 **Implementation**
 There are a few classes and methods used to interact with the edit appointment command.
 1. `EditAppointmentCommand`
-   1. Define edit appointment command key word and other error messages.
+   1. Define edit appointment command keyword and other error messages.
 2. `EditAppointmentCommand#execute()`
-   1. Finds the specified appointment to edit. Throws a `CommandException` if appointment is not found.
+   1. Finds the specified appointment to edit. Throws a `CommandException` if the appointment is not found.
    2. Validates the edited appointment, ensuring that the edited appointment does not exist in CogniCare. Date and time checks are performed as well.
    3. If there is no error, the specified appointment is updated and a success message is displayed.
 3. `EditAppointmentCommandParser#parse()`
@@ -507,9 +507,9 @@ Below is the activity diagram for deleting an appointment.
 **Implementation**
 There are a few classes and methods used to interact with the delete appointment command.
 1. `DeleteAppointmentCommand`
-    1. Defines delete appointment command key word and other error messages.
+    1. Defines delete appointment command keyword and other error messages.
 2. `DeleteAppointmentCommand#execute()`
-    1. Find the specified appointment to delete. Throws a `CommandException` if appointment is not found.
+    1. Find the specified appointment to delete. Throws a `CommandException` if the appointment is not found.
     2. If there is no error, the specified appointment is deleted from CogniCare and a success message is displayed.
 3. `DeleteAppointmentCommandParser#parse()`
     1. Parses the delete appointment command, ensuring that the provided appointment index is valid.
@@ -536,14 +536,14 @@ Criteria for filtering appointments:
 - `EndDateTime` the appointment is after or at (>=) the specific `endDateTime` of the predicate
   There are a few methods used to interact with the filter appointment command.
 1. `FilterAppointmentCommand`
-   1. Define filter appointment command key word and other error messages.
+   1. Define filter appointment command keyword and other error messages.
    2. Validates the results of the `FilterAppointmentCommandParser#parse()`
 2. `FilterAppointmentCommandParser#parse()`
    1. Parses the filter appointment commands, ensuring that all required parameters are present.
-   2. Check if the start date and time is before the end date and time.
+   2. Check if the start date and time happen before the end date and time.
    3. Returns FilterAppointmentCommand
 3. `ParserUtil#parseDateTime()`
-   1. Parses the date and time of the appointment, ensuring correct format
+   1. Parses the date and time of the appointment, ensuring the correct format
 4. `ParserUtil#parseEndDateTime()` and `ParserUtil#parseStartDateTime()`
    1. Parses the start and end date and time of the appointment, ensuring correct format from calling `ParserUtil#parseDateTime()`
 
@@ -561,7 +561,7 @@ There are a few key features that this module aims to implement
 ### Report Patient Feedback Feature
 Report patient feedback score is a feature that averages out the feedback scores of all currently filtered appointments. It allows getting the average scores of appointments within a given date range
 
-The overall data flow of patient feedback data is detailed below by a class diagram. 
+The overall data flow of patient feedback data is detailed below using a class diagram. 
 
 **Note**: This class diagram doesn't represent the command flow, but rather, how patient feedback report data is stored and retrieved
 <puml src="diagrams/PatientFeedbackReportClassDiagram.puml" alt="Report Feedback Class Diagram" />
@@ -570,8 +570,8 @@ Below is a sequence diagram of the user flow of the report command
 <puml src="diagrams/ReportFeedbackSequenceDiagram.puml" alt="Report Feedback Sequence Diagram" />
 
 **Implementation**
-1. `PatientFeedbackReport` - A model that contains information from both Patient and Appointments. It uses both data to determine which appointments to calculate the average from
-2. `PatientFeedbackReportList` - Contains a list of patinet feedback reports
+1. `PatientFeedbackReport` - A model that contains information from both Patients and Appointments. It uses both data to determine which appointments to calculate the average from
+2. `PatientFeedbackReportList` - Contains a list of patient feedback reports
 3. `ReportFeedbackCommand` - Reports the average feedback score for a given date range
 4. `ReportFeedbackCommandParser`- Parses ReportFeedbackCommand accordingly
 5. `FeedbackScore` - Contains a nullable Integer field. If it is null, then there is no rating for the appointment yet
@@ -582,9 +582,9 @@ Below is a sequence diagram of the user flow of the report command
    1. We did not want to make FeedbackScore compulsory to add when creating an appointment
    2. The primitive type `int` is not nullable, so we used a wrapper class instead
 3. `PatientFeedbackReport` is different from Appointment and Patient because it holds transient data and is dependent on data from the Patient and Appointment models.
-   1. Therefore, it was decided that the entire list of appointments and a specified patient data should be passed into this object in order to calculate the average feedback score
+   1. Therefore, it was decided that the entire list of appointments and specified patient data should be passed into this object in order to calculate the average feedback score
 4. `PatientFeedbackReportList` does not have any direct list modification methods of its own. It only has a generateReportList function which is called every time there is an update to the list of patients or appointments, e.g., filter, add, edit or delete
-   1. To achieve such reactivity, `generateReportList()` was called at the end of each of such function inside `ModelManager`
+   1. To achieve such reactivity, `generateReportList()` was called at the end of each of such functions inside `ModelManager`
 
 **Alternatives considered**
 1. `PatientFeedbackReport` - We considered just passing the required fields; however, there were a few limitations
@@ -594,14 +594,14 @@ Below is a sequence diagram of the user flow of the report command
        1. This quickly proved to be very complex because we would need to filter appointments every time a patient or appointment was updated in the list
 2. `FeedbackScore` data representation
    1. A string data type was considered to represent the Feedback Score, however, it simply did not make sense logically-speaking, and thus, we used an Integer instead.
-   2. A 0 was considered to represent the null value of a feedback score. This was because we did not have any actually null fields in the previous code base, with FeedbackScore being the only nullable field. However, having 0 represent the null value is confusing and also prone to error; in case someone decided to edit the feedbaCkScore to any other value, e.g. -1
-3. An observer pattern was considered when implementing the `generateReportList()` fucntionality, however, it was scrapped because it was already implemented via the `ObservableList` fields and implementing the pattern fully would not be worth the refactor 
+   2. A 0 was considered to represent the null value of a feedback score. This was because we did not have any null fields in the previous code base, with FeedbackScore being the only nullable field. However, having 0 represent the null value is confusing and also prone to error; in case someone decides to edit the feedbackScore to any other value, e.g. -1
+3. An observer pattern was considered when implementing the `generateReportList()` functionality, however, it was scrapped because it was already implemented via the `ObservableList` fields and implementing the pattern fully would not be worth the refactor 
 
 <!-- @@author tankh99 -->
 ### Command History
 
 Command history is a feature that aims to improve the user experience for experienced users by allowing them to quickly
-navigate through their history of commands to make minor changes. Many features were inspired from macOS's Bash shell
+navigate through their history of commands to make minor changes. Many features were inspired by macOS's Bash shell
 
 Below is a general user flow of the command history
 <puml src="diagrams/command-history/CommandHistorySequenceDiagram.puml" alt="Command History sequence diagram" />
@@ -633,7 +633,7 @@ There are a few methods used to interact with the command history
     * If the current command index is already 0, it will play a Boop sound to indicate that there is are no more commands left to undo
 1. `redo()` - Increments the current command index by 1
 
-Below shows expected behaviour of the command history from a series of actions.
+Below shows the expected behaviour of the command history from a series of actions.
 - red text - denotes where the command index
   is currently pointing at.
 - NA - the initial state of the command history
@@ -662,8 +662,8 @@ There are a few key features that this module aims to implement
 2. Mimicking bash shell features
     1. Playing a sound to indicate that there are no more commands left to undo
     2. Empty the input box when there are no more commands left to redo
-3. Default empty string in list
-    1. This aims to model what the command history actually looks like. By doing this, this makes the logic much more straightforward as we don't need to constantly check to return empty string or not
+3. Default empty string in the list
+    1. This aims to model what the command history looks like. By doing this, this makes the logic much more straightforward as we don't need to constantly check to return an empty string or not
 
 **Alternatives considered**
 
@@ -679,11 +679,11 @@ The help feature provides users with a URL to the user guide online.
 
 **Rationale for implementation:**
 
-1. Pop-up window with URL link and a copy button
+1. Pop-up window with a URL link and a copy button
 
 **Alternative considered:**
 
-1. Display a list of commands directly in command box
+1. Display a list of commands directly in the command box
 2. Display a full window with a user guide
 
 <!-- @@author -->
@@ -710,15 +710,15 @@ This details how the entries from the CogniCare application are cleared.
 ### Product scope
 
 **Target user profile**:
-Rayson is a career guidance coach at the National University of Singapore (NUS) that is attached to the School of Computing (SoC) to provide computing students with career advice.
+Rayson is a career guidance coach at the National University of Singapore (NUS) and is attached to the School of Computing (SoC) to provide computing students with career advice.
 
 Recently there are many students that are unable to find an internship resulting in stress amongst the student population. This has led to SoC reducing the internship requirements (such as reducing stipend and allowing flexibility in internship periods). However, Rayson's manager, Aaron, thinks that more support needs to be done for the students.
 
-Therefore, Aaron has launched a new initiative to provide counseling for the computing students. To assist Rayson in managing the large numbers of potential students utilising this service, Aaron has employed the services of our team to allow Rayson to better manage the number of appointments.
+Therefore, Aaron has launched a new initiative to provide counseling for computing students. To assist Rayson in managing the large number of potential students utilising this service, Aaron has employed the services of our team to allow Rayson to better manage the number of appointments.
 
-Rayson is a technically inclined user (alumni of SoC) that is reasonably comfortable using CLI apps, and has the requirements of:
+Rayson is a technically inclined user (alumni of SoC) who is reasonably comfortable using CLI apps, and has the requirements of:
 
-* having a need to manage a significant number of contacts due to the large number of students requiring counselling services
+* needing to manage a significant number of contacts due to the large number of students requiring counselling services
 * preferring desktop apps over other types
 * being able to type fast
 * preferring typing to mouse interactions
@@ -731,7 +731,7 @@ Rayson is a technically inclined user (alumni of SoC) that is reasonably comfort
 CogniCare provides a comprehensive set of features that help streamline especially tedious tasks such as:
 1. Looking up what appointments are there in a given time period to clear up the schedule
 2. Report patient satisfaction levels over a given time period
-3. Updating a patient's data across all their appointments. E.g. Updating a person's phone number or removing the patient and their associated appointments from UI
+3. Updating a patient's data across all their appointments. E.g. Updating a person's phone number or removing the patient and their associated appointments from the UI
 
 Furthermore, CogniCare's operations are specialised for technically competent users who type fast.
 
@@ -768,19 +768,19 @@ Priorities: High (must have) - `* * * *`, Medium (nice to have) - `* * *`, Low (
 **Use case: Add a Patient**
 
 **MSS:**
-1. User enters command to add a patient with all mandatory information (Name, Email, Phone Number). Associated with is optional.
-2. CogniCare validates the information are valid.
+1. The user enters the command to add a patient with all mandatory information (Name, Email, Phone Number). Associated with is optional.
+2. CogniCare validates the information is valid.
 3. CogniCare saves the new patient information.
 4. CogniCare displays a success message confirming that the new patient has been added.
 
 **Extensions**
 
 * 1a. Required fields are left blank, or fields do not meet the specified format.
-  * 1a1. CogniCare displays error message associated with the relevant missing field (i.e. Phone number error message for missing phone number field)
+  * 1a1. CogniCare displays an error message associated with the relevant missing field (i.e. Phone number error message for missing phone number field)
     Use case ends
 
 * 2a. Required fields are invalid (i.e. Phone Number does not meet SG format)
-  * 2a1. CogniCare displays error message associated with the relevant erroneous field (i.e. Phone number error message for invalid phone number field)
+  * 2a1. CogniCare displays an error message associated with the relevant erroneous field (i.e. Phone number error message for invalid phone number field)
     Use case ends
   
 * 2b. Patient with the same name (regardless of case sensitivity and whitespace) already exists.
@@ -790,7 +790,7 @@ Priorities: High (must have) - `* * * *`, Medium (nice to have) - `* * *`, Low (
 **Use Case: Edit a Patient**
 
 **MSS:**
-1. User enters command to add a patient with required index and data field to be edited.
+1. The user enters a command to add a patient with the required index and data field to be edited.
 2. CogniCare displays a success message confirming the patient's details have been updated.
 Use case ends.
 
