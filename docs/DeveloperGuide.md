@@ -484,7 +484,7 @@ Below is the sequence diagram for editing an appointment.
 **Implementation**
 There are a few classes and methods used to interact with the edit appointment command.
 1. `EditAppointmentCommand`
-   1. Defines edit appointment command key word and other error messages.
+   1. Define edit appointment command key word and other error messages.
 2. `EditAppointmentCommand#execute()`
    1. Finds the specified appointment to edit. Throws a `CommandException` if appointment is not found.
    2. Validates the edited appointment, ensuring that the edited appointment does not exist in CogniCare. Date and time checks are performed as well.
