@@ -32,7 +32,7 @@ CogniCare is a **desktop app for a single-user application for managing most Sch
 5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-    * `queryp` : Lists all patients that are stored in CogniCare.
+    * `queryp` : Lists all patients that are stored in the CogniCare application.
 
     * `addp n/Jerome Chua p/98765432 e/jerome@example.com a/depression` : Adds a contact named `Jerome Chua` to the Address Book who is associated with having "depression".
 
