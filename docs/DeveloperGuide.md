@@ -380,7 +380,7 @@ Below is the sequence diagram for querying appointments
 
 And below is the activity diagram when a query appointment command is made
 
-<puml src="diagrams/QueryAppointmentActivityDiagram.puml" alt="Query Appointment Actiity Diagram" />
+<puml src="diagrams/QueryAppointmentActivityDiagram.puml" alt="Query Appointment Activity Diagram" />
 
 **Implementation**
 There are a few classes and methods that make this feature work
