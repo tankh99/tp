@@ -184,27 +184,28 @@ Appointment List are saved under a separate file `appointmentKist.json` in the d
 
 - **Alternative 1: Using Integer ID as the primary key (Current Approach)**
   - We needed some method to ensure that the patient was unique. The primary solution implemented involves a running integer identifier—and is saved together with each patient. The identifier serves as the primary key for the patient object, similar to how a unique ID in a database ensures each record's uniqueness.
-  - This was different to how the AB3 application was originally designed - where the ID followed the natural ordering of the elements in the list.
+  - This was different to how the AB3 application was originally designed—where the ID followed the natural ordering of the elements in the list.
   - Pros
     - Extremely user-friendly for counsellor as ID is never changed. 
-      - Potentially patient can even be issued a member card starting that patient ID.
+      - A member card displaying the patient ID could potentially be issued to patients.
+
   - Cons
     - Difficult to implement.
     - There will be "holes" in the sequential ID when records are deleted.
 
 - **Alternative 2: Using Name as the primary key**
-  - This approach was quickly deemed unsuitable due to the high probability of name duplication. While names are an important identifier, there is a great risk of collision (i.e. Jack Tan vs Jack Tan Ah Kou). While this method is sufficient for a non-mission critical address book, our CogniCare application must try to reduce the likeliness of errors occurring.
+  - This approach was quickly deemed unsuitable due to the high probability of name duplication. While names are an important identifier, there is a great risk of collision (i.e. "Jack Tan" versus "Jack Tan Ah Kou"). While this method is sufficient for a non-mission critical address book, our CogniCare application aims to reduce error occurrence.
   - Pros
-    - Extremely user friendly
+    - Extremely intuitive for a counselor to type in the patient's name
   - Cons
-    - Commands will be extremely long; and difficult to type.
-    - Counsellor will need to remember exactly how the full name is spelt.
-    - May select the wrong patient (i.e. Jack Tan vs Jack Tan Ah Kou).
+    - Commands will be extremely long; and challenging to type.
+    - Counselor will need to remember exactly how the full name is spelt.
+    - May select the wrong patient (i.e., "Jack Tan" versus "Jack Tan Ah Kou").
     
 - **Alternative 3: Using Natural Ordering of the names in CogniCare application (AB3 approach)**
-  - As we initially strived for a design where the patientId was used like a Foreign Key in the Appointments object, the ID changing would mean that the data integrity for Appointments class would be compromised
+  - As we initially strove for a design where the patient identifier to be used like a Foreign Key in the Appointments object, the inconsistent ID would mean that the data integrity for Appointments class would be compromised.
   - Pros
-    - Easy to implement
+    - Easy to implement (AB3 has already implemented it.)
   - Cons
     - Data Integrity of Appointments will be compromised
     - Every time a patient is deleted, the subsequent IDs will be coalesced.
@@ -215,11 +216,10 @@ Appointment List are saved under a separate file `appointmentKist.json` in the d
 
 <puml src="diagrams/FindPatientSequenceDiagram.puml"/>
 
-
-In enhancing the search functionality within CogniCare, the implementation of an AND constraint for search queries was paramount. This feature allows counsellors to refine search criteria, leading to more precise and relevant search results. For example, counsellors can search for a patient using a combination of (partial name AND partial phone number AND partial email address). Only parameter is required, the others are optional.
+In enhancing the search functionality within CogniCare, the implementation of an AND constraint for search queries was paramount. This feature allows counsellors to refine search criteria, leading to more precise and relevant search results. For example, a counsellor can search for a patient using a combination of parameters (partial name AND partial phone number AND partial email address). It is to note that only parameter is required; the others are optional.
 
 This enhancement was driven by the need of:
-1. Improved Search Accuracy: By allowing multiple criteria to be specified, counsellors can narrow down search results to the most relevant patients (as the SoC cohort is quite large).
+1. Improved Search Accuracy: By allowing multiple criteria to be specified, counsellors can narrow down search results to the most relevant patients (as the SoC cohort is large).
 2. Efficiency: Enables quicker access to patient records by reducing the time spent sifting through irrelevant patient information.
 
 **Single Criterion Search (AB3 Approach)**: The original AB3 approach of allowing search based on a single criterion was found to be too limiting for the different needs of patient management in CogniCare.
@@ -232,13 +232,13 @@ This enhancement was driven by the need of:
     - Easier to implement.
     - This is the implementation that take inspires from DBMS auto-increment.
     - Consistency in appointment ID.
-    - Easier to store as a separate file for appointments storage.
+    - Easier to store as a separate file for appointment storage.
   - Cons: Confusion for users who expect appointment ID to increase one by one.
   - Mitigation: Ensure that the appointment ID is unique.
   
 - **Alternative 2 (AB3 choice):** No fixed appointment ID. AppointmentID is relative to the Appointment view.
   - Pros: More flexible for users.
-  - Cons: More complex to implement. May lead to inconsistencies between appointments.
+  - Cons: More complex to implement. It may lead to inconsistencies between appointments.
 
 **Aspect: Where to store appointments locally**
 - **Alternative 1 (current choice):** Store appointments in a separate file.
@@ -246,10 +246,11 @@ This enhancement was driven by the need of:
   - Cons: 
     - More complex to manage two separate files.
     - Time complexity to carry out command with appointments as it has to read the whole list of appointments.
-  - Risks: May lead to inconsistencies between the two files in regard to ids.
+  - Risks: 
+    - May lead to inconsistencies between the two files in regard to ids.
   - Mitigation: Ensure that both files are updated together.
   
-- **Alternative 2:** Store appointments as a field in the `Patient` class. Hence, all appointments data will be stored in the same file as the `patientList`.
+- **Alternative 2:** Store appointments as a field in the `Patient` class. Hence, all appointment data will be stored in the same file as the `patientList`.
   - Pros: Easier to manage a single file.
   - Cons: 
     - May lead to a more complex data structure.
@@ -261,9 +262,9 @@ This enhancement was driven by the need of:
 - **Alternative 1 (current choice):** Store appointments as a `AppointmentList` in `Model`.
   - Pros: 
     - Easier to design since it is similar to `patientList` implementation.
-    - If we want to add more Object for Model, this will be the default implementation
+    - If we want to add more Objects for Model, this will be the default implementation
   - Cons:
-    - Adding extra layer of OOP abstraction.
+    - Adding an extra layer of OOP abstraction.
     - May lead to performance issues when reading/writing data (more prone to crashing issues).
 
 - **Alternative 2:** Store appointments as a list of `Appointment` objects in `patientList`.
@@ -275,12 +276,12 @@ This enhancement was driven by the need of:
 ### Command History
 
 Command history is a feature that aims to improve the user experience for experienced users by allowing them to quickly
-navigate through their history of commands to make minor changes. Many features were inspired from macOS's Bash shell
+navigate through their history of commands to make minor changes. Many features were inspired by macOS's Bash shell
 
 Below is a general user flow of the command history
 <puml src="diagrams/command-history/CommandHistorySequenceDiagram.puml" alt="Command History sequence diagram" />
 
-**Note** that the above diagram doesn't capture the audio playback feature because it's not a core part of the feature.
+**Note** that the above diagram does not capture the audio playback feature because it's not a core part of the feature.
 
 And below are the specific behaviours of the command history module
 
@@ -310,31 +311,31 @@ is currently pointing at.
 - `undo()` - decrements the index
 - `redo()` - increments the index
 
-Command | Command History
----|---
-NA | [<span style="color: red;">""</span>]
-`execute("help")` | ["help", <span style="color: red;">""</span>]
-`undo()` | [<span style="color: red;">"help"</span>, ""]
-`undo()` | [<span style="color: red;">"help"</span>, ""]
-`redo()` | ["help", <span style="color: red;">""</span>]
-`redo()` | ["help", <span style="color: red;">""</span>]
-`undo()` | [<span style="color: red;">"help"</span>, ""]
-`execute("query")` | ["help", "query", <span style="color: red;">""</span>]
+| Command            | Command History                                        |
+|--------------------|--------------------------------------------------------|
+| NA                 | [<span style="color: red;">""</span>]                  |
+| `execute("help")`  | ["help", <span style="color: red;">""</span>]          |
+| `undo()`           | [<span style="color: red;">"help"</span>, ""]          |
+| `undo()`           | [<span style="color: red;">"help"</span>, ""]          |
+| `redo()`           | ["help", <span style="color: red;">""</span>]          |
+| `redo()`           | ["help", <span style="color: red;">""</span>]          |
+| `undo()`           | [<span style="color: red;">"help"</span>, ""]          |
+| `execute("query")` | ["help", "query", <span style="color: red;">""</span>] |
 
 **Rationale for implementation**
 There are a few key features that this module aims to implement
 1. Improved user experience for experienced users
    1. Allow users to modify their past commands in a predictable way
-   2. Allow users to easily compare past commands in case of mistakes by pressing up and down
+   2. Allow users to easily compare past commands in case of mistakes by pressing up and down keyboard key
 2. Mimicking bash shell features
    1. Playing a sound to indicate that there are no more commands left to undo
    2. Empty the input box when there are no more commands left to redo
 3. Default empty string in list
-   1. This aims to model what the command history actually looks like. By doing this, this makes the logic much more straightforward as we don't need to constantly check to return empty string or not
+   1. This aims to model what the command history actually looks like. By doing this, this makes the logic much more straightforward as we do not need to constantly check to return empty string or not
 
 **Alternatives considered**
-1. 2 stacks, one undo and one redo were used at first. However, this had the drawback of not being able to remember commands after undoing and writing a new command.
-2. undo() and redo() both returned the previous and next command respectively - This had a flaw in which the logic of handling the command index became unnecessarily complex as we had to worry about when we incremented/decremented an index. This also made it harder to test the functionality
+1. Two stacks, one undo and one redo were used at first. However, this had the drawback of not being able to remember commands after undo-ing and writing a new command.
+2. undo() and redo() both returned the previous and next command respectively—This had a flaw in which the logic of handling the command index became unnecessarily complex as we had to worry about when we incremented/decremented an index. This also made it harder to test the functionality
 
 ### Add Appointment Feature
 
@@ -350,7 +351,7 @@ An observable list is used to store the list of appointments.
 
 There are a few classes and methods used to interact with the add appointment command.
 1. `AddAppointmentCommand`
-   1. Defines add appointment command key word and other error messages.
+   1. Define add appointment command key word and other error messages.
 2. `AddAppointmentCommand#execute()`
    1. Validates the results of the `AddAppointmentCommandParser#parse()`
    2. Adds a valid appointment to CogniCare.
@@ -370,7 +371,7 @@ There are a few key features that this module aims to implement
    Therefore, each appointment has a unique identifier that does not change even when the natural order of the list is changed.
 
 ### Query Appointment Feature
-The query appointment feature allows users to query appointments by specific fields like by patient ID or name or appointment ID. Querying by datetime is done via the filter appointment feature.
+The query appointment feature allows users to query appointments by specific fields through the use of patient ID or name or appointment ID. Querying by datetime is done via the filter appointment feature.
 
 Below is the sequence diagram for querying appointments
 
@@ -388,7 +389,7 @@ There are a few classes and methods that make this feature work
 3. `RelationshipUtil` - In order to check that the specified patient ID is valid, we use a Util class which checks if a patient ID exists in a list of all patients
 
 **Rationale for implementation**
-1. This list command adds a unique validation step that checks for a valid patient ID. The rationale behind this is because of the confusion that would come about by listing out an empty list of appointments are querying by an patient invalid patient ID. For example, if there was no validation and you run `querya pid/999` and you see no appointments, you might assume that there is no appointment with the patient ID of 999, rather than there is no such patient ID in the first place
+1. This list command adds a unique validation step that checks for a valid patient ID. The rationale behind this is because of the confusion that would come about by listing out an empty list of appointments are querying by a patient invalid patient ID. For example, if there was no validation, and you run `querya pid/999` and you see no appointments, you might assume that there is no appointment with the patient ID of 999, rather than there is no such patient ID in the first place
    1. Note that patient name is not subject to the same validation because while the existence of a patient ID can be easily verified, the existence of a substring of a name cannot. Furthermore, if you run `querya n/Tom` and no appointments are listed, the conclusion that there is no appointment with the patient named "Tom".
 2. The query command allows for ease and flexibility in querying, while also providing sufficient validation to bolster and not hinder the querying process. This feature helps to streamline the user experience for users who are fast typists and technically-competent.
 
@@ -430,12 +431,12 @@ There are a few classes and methods used to interact with the add appointment co
 1. `DeleteAppointmentCommand`
     1. Defines delete appointment command key word and other error messages.
 2. `DeleteAppointmentCommand#execute()`
-    1. Finds the specified appointment to delete. Throws a `CommandException` if appointment is not found.
-    3. If there is no error, the specified appointment is deleted from CogniCare and a success message is displayed.
+    1. Find the specified appointment to delete. Throws a `CommandException` if appointment is not found.
+    2. If there is no error, the specified appointment is deleted from CogniCare and a success message is displayed.
 3. `DeleteAppointmentCommandParser#parse()`
     1. Parses the delete appointment command, ensuring that the provided appointment index is valid.
        A `ParseException` is thrown if there are no parameters specified or the appointment index provided is not positive.
-    3. Returns a new `DeleteAppointmentCommand`
+    2. Returns a new `DeleteAppointmentCommand`
 
 **Rational for implementation**
 1. Users need to be able to delete individual appointments in the event that appointment an appointment is cancelled.
@@ -457,7 +458,7 @@ Criteria for filtering appointments:
 - `EndDateTime` the appointment is after or at (>=) the specific `endDateTime` of the predicate
   There are a few methods used to interact with the filter appointment command.
 1. `FilterAppointmentCommand`
-   1. Defines filter appointment command key word and other error messages.
+   1. Define filter appointment command key word and other error messages.
    2. Validates the results of the `FilterAppointmentCommandParser#parse()`
 2. `FilterAppointmentCommandParser#parse()`
    1. Parses the filter appointment commands, ensuring that all required parameters are present.
@@ -478,7 +479,7 @@ There are a few key features that this module aims to implement
 **Alternatives considered**
 1. Smarter filtering based on the date and time of the appointment. However, this was not implemented as it was not necessary for the current scope of the project.
 ### Report Patient Feedback Feature
-Report patient feedback score is a feature that averages out the feedback scores of all currently filtered appointment. It allows getting the average scores of appointments within a given date range
+Report patient feedback score is a feature that averages out the feedback scores of all currently filtered appointments. It allows getting the average scores of appointments within a given date range
 
 The overall data flow of patient feedback data is detailed below by a class diagram. 
 **Note**: This class diagram doesn't represent the command, but rather, how data is stored
@@ -501,25 +502,25 @@ Below is a sequence diagram of the user flow of the report command
    2. The primitive type `int` is not nullable, so we used a wrapper class instead
 3. `PatientFeedbackReport` is different from Appointment and Patient because it holds transient data and is dependent on data from the Patient and Appointment models.
    1. Therefore, it was decided that the entire list of appointments and a specified patient data should be passed into this object in order to calculate the average feedback score
-4. `PatientFeedbackReportList` does not have any direct list modification methods of its own. It only has a generateReportList function which is called every time there is an update to the list of patients or appointments, e.g. filter, add, edit or delete
+4. `PatientFeedbackReportList` does not have any direct list modification methods of its own. It only has a generateReportList function which is called every time there is an update to the list of patients or appointments, e.g., filter, add, edit or delete
    1. To achieve such reactivity, `generateReportList()` was called at the end of each such function inside `ModelManager`
 
 **Alternatives considered**
-1. `PatientFeedbackReport` - We considered just passing the required fields, however there were a few limitations
+1. `PatientFeedbackReport` - We considered just passing the required fields; however, there were a few limitations
    1. Passing only the Patient name and ID
-      1. We need the name for sorting and UI purposes and we need the patient ID to determine which appointments to select. This resulted in 2 fields from the same object, which could be simplified if we just pass in a single Patient object
+      1. We need the name for sorting and UI purposes, and we need the patient ID to determine which appointments to select. This resulted in 2 fields from the same object, which could be simplified if we just pass in a single Patient object
     2. Passing only the patient's list of appointments instead of all appointments
        1. This quickly proved to be very complex because we would need to filter appointments every time a patient or appointment was updated in the list
 2. `FeedbackScore` data representation
    1. A string data type was considered to represent the Feedback Score, however, it simply did not make sense logically-speaking, and thus, we used an Integer instead.
-   2. A 0 was considered to represent the null value of a feedback score. This was because we did not have any actually null fields in the previous code base, with FeedbackScore being the only nullable field. However, having 0 represent the null value is confusing and also prone to error, in case someone decided to edit the feedbaCkScore to any other value, e.g. -1
+   2. A 0 was considered to represent the null value of a feedback score. This was because we did not have any actually null fields in the previous code base, with FeedbackScore being the only nullable field. However, having 0 represent the null value is confusing and also prone to error; in case someone decided to edit the feedbaCkScore to any other value, e.g. -1
 3. An observer pattern was considered when implementing the `generateReportList()` fucntionality, however, it was scrapped because it was already implemented via the `ObservableList` fields and implementing the pattern fully would not be worth the refactor 
 
 ### Help Feature
 
 <puml src="diagrams/HelpCommandSequenceDiagram.puml" alt="Help Command Sequence Diagram">
 
-The help feature provides users with an url to user guide online.
+The help feature provides users with an url to the user guide online.
 
 Rationale for implementation:
 1. Pop-up window with URL link and a copy button
@@ -527,103 +528,6 @@ Rationale for implementation:
 Alternative considered:
 1. Display list of command directly in dialog
 2. Display a full window with user guide
-
-### \[Proposed\] Undo/redo feature
-
-#### Proposed Implementation
-
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
-
-* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-<puml src="diagrams/UndoRedoState0.puml" alt="UndoRedoState0" />
-
-Step 2. The user executes `delete 5` command to delete the 5th patient in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-<puml src="diagrams/UndoRedoState1.puml" alt="UndoRedoState1" />
-
-Step 3. The user executes `add n/David …​` to add a new patient. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-<puml src="diagrams/UndoRedoState2.puml" alt="UndoRedoState2" />
-
-<box type="info" seamless>
-
-**Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-</box>
-
-Step 4. The user now decides that adding the patient was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-<puml src="diagrams/UndoRedoState3.puml" alt="UndoRedoState3" />
-a
-
-<box type="info" seamless>
-
-**Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
-
-</box>
-
-The following sequence diagram shows how an undo operation goes through the `Logic` component:
-
-<puml src="diagrams/UndoSequenceDiagram-Logic.puml" alt="UndoSequenceDiagram-Logic" />
-
-<box type="info" seamless>
-
-**Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</box>
-
-Similarly, how an undo operation goes through the `Model` component is shown below:
-
-<puml src="diagrams/UndoSequenceDiagram-Model.puml" alt="UndoSequenceDiagram-Model" />
-
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-<box type="info" seamless>
-
-**Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-</box>
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-<puml src="diagrams/UndoRedoState4.puml" alt="UndoRedoState4" />
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
-
-<puml src="diagrams/UndoRedoState5.puml" alt="UndoRedoState5" />
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-<puml src="diagrams/CommitActivityDiagram.puml"/>
-
-#### Design considerations:
-
-**Aspect: How undo & redo executes:**
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-  * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
-
-* **Alternative 2:** Individual command knows how to undo/redo by
-  itself.
-  * Pros: Will use less memory (e.g. for `delete`, just save the patient being deleted).
-  * Cons: We must ensure that the implementation of each individual command are correct.
-
-_{more aspects and alternatives to be added}_
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
 
 
 ## Create a new Patient
