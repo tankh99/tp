@@ -484,7 +484,7 @@ Below is the sequence diagram for editing an appointment.
 **Implementation**
 There are a few classes and methods used to interact with the edit appointment command.
 1. `EditAppointmentCommand`
-   1. Defines edit appointment command key word and other error messages.
+   1. Define edit appointment command key word and other error messages.
 2. `EditAppointmentCommand#execute()`
    1. Finds the specified appointment to edit. Throws a `CommandException` if appointment is not found.
    2. Validates the edited appointment, ensuring that the edited appointment does not exist in CogniCare. Date and time checks are performed as well.
@@ -527,7 +527,7 @@ There are a few classes and methods used to interact with the delete appointment
 
 The filter appointment feature allows users to filter appointments based on the date and time of the appointment.
 
-<puml scr="diagrams/FilterAppointmentSequenceDiagram.puml" alt="Filter Appointment Sequence Diagram">
+<puml scr="diagrams/FilterAppointmentSequenceDiagram.puml" alt="Filter Appointment Sequence Diagram"/>
 
 **Implementation**
 A predicate was used to filter the list of appointments based on the date and time of the appointment.
@@ -664,7 +664,7 @@ There are a few key features that this module aims to implement
 <!-- @@author vnnamng -->
 ### Help Feature
 
-<puml src="diagrams/HelpCommandSequenceDiagram.puml" alt="Help Command Sequence Diagram">
+<puml src="diagrams/HelpCommandSequenceDiagram.puml" alt="Help Command Sequence Diagram"/>
 
 The help feature provides users with an url to the user guide online.
 
