@@ -598,6 +598,12 @@ We have considered these alternatives:
 - Using case-insensitive search: the use of case-insensitive search terms for parameters matching provides a more seamless and more user-friendly experience.
 --------------------------------------------------------------------------------------------------------------------
 
+## Clearing all entries from the CogniCare application
+<puml src="diagrams/ClearCommand.puml"/>
+
+This details how the entries from the CogniCare application are cleared.
+
+
 ## **Documentation, logging, testing, configuration, dev-ops**
 
 * [Documentation guide](Documentation.md)
@@ -615,7 +621,7 @@ We have considered these alternatives:
 **Target user profile**:
 Rayson is a career guidance coach at the National University of Singapore (NUS) that is attached to the School of Computing (SoC) to provide computing students with career advice.
 
-Recently there are many students that are unable to find an internship resulting in stress amongst the student population. This has led to SoC reducing the internship requirements (such as reducing stipend and allowing flexibility in internship periods). However, Rayson's boss, Aaron, thinks that more support needs to be done for the students.
+Recently there are many students that are unable to find an internship resulting in stress amongst the student population. This has led to SoC reducing the internship requirements (such as reducing stipend and allowing flexibility in internship periods). However, Rayson's manager, Aaron, thinks that more support needs to be done for the students.
 
 Therefore, Aaron has launched a new initiative to provide counseling for the computing students. To assist Rayson in managing the large numbers of potential students utilising this service, Aaron has employed the services of our team to allow Rayson to better manage the number of appointments.
 
@@ -627,7 +633,7 @@ Rayson is a technically inclined user (alumni of SoC) that is reasonably comfort
 * preferring typing to mouse interactions
 * being a single-user application.
 
-(Rayson and Aaron are both fictional characters)
+(Remark: Rayson and Aaron are both fictional characters)
 
 **Value proposition**: 
 
@@ -1198,13 +1204,82 @@ Command: `querya n/Alex`
     - `aid/`: appointment index
 
 Expected Output:
-- All the patient information with their respective patientId will be displayed in the ListView.
+- All the appointment information with their respective appointmentId will be displayed in the ListView.
 
 Expected Output in the Command Output Box:
-- `Listed all appointments`
+- `(n) appointments listed!`
+
+> [!TIP]
+> If there are no appointments stored in the application, or if there are no data that meets the required criteria, an empty ListView will be displayed.
+
+
+## Filtering appointments which fall in a specific date range
+Pre-requisite:
+- There is at least one ("1") appointment stored in the CogniCare application meeting the requested criterion / criteria.
+
+Command: `filter sd/2021-10-10 12:00`
+- The appointment information meeting the criteria specified in CogniCare will be displayed in the item ListView.
+- You may specify zero or one of each parameter
+    - `sd/`: start date and time
+    - `ed/`: end date and time
+
+Expected Output:
+- All the appointment information with their respective appointmentId will be displayed in the ListView.
+
+Expected Output in the Command Output Box:
+- `(n) appointments listed!`
 
 > [!TIP]
 > If there are no appointments stored in the application, or if there is no data that meets the required criteria, an empty ListView will be displayed.
+
+
+## Generating all patient feedback reports
+Pre-requisite:
+- There is at least one ("1") patient stored in the CogniCare application.
+
+Command: `reportf`
+- The patient feedback report information will be shown in the item ListView.
+
+Expected Output:
+- All the patient feedback report information will be displayed in the ListView.
+
+Expected Output in the Command Output Box:
+- `Generated patient feedback report from the beginning of time to the end of time`
+
+
+## Generating patient feedback reports within a certain timeframe
+Pre-requisite:
+- There is at least one ("1") patient stored in the CogniCare application.
+
+Command: `reportf sd/2021-10-11`
+- The patient feedback report information meeting the criteria specified in CogniCare will be displayed in the item ListView.
+- You may specify zero or one of each parameter
+    - `sd/`: start date
+    - `ed/`: end date
+
+Expected Output:
+- All the patient feedback report information will be displayed in the ListView.
+
+Expected Output in the Command Output Box:
+- `Generated patient feedback report from 11 Oct 2021 to the end of time`
+
+>[!NOTE]
+> The `reportf` command only requires the start and/or end date in the format `yyyy-MM-dd`. This command does not take in any time.
+
+## Command History
+Pre-requisite:
+- Ensure that the device sound is not muted.
+
+Testing method:
+1. Enter commands (valid or invalid) into the application.
+2. Press the up and down arrow keys to traverse through past commands.
+
+Expected output:
+1. If the application reaches the very first command entered, pressing the down arrow key will clear the command box.
+2. If there are no newer commands available, pressing the up arrow key will play an audio file to indicate there are no newer commands.
+
+Expected Output in the Command Output Box:
+- The command output box should maintain the last shown success or error message.
 
 
 ## 7. Planned Future Enhancements (Beyond `v1.4`)
@@ -1213,6 +1288,8 @@ This section describes the potential enhancements that could be improved in futu
 * Enhancing the graphical user interface to make it more user-friendly, i.e. more usage of the mouse as compared to the keyboard.
 * Enabling localisation support: In future more options will be available for users to set their preferred phone number validation types (i.e. US Phone format), Extended Character Set for Naming validation (so that Chinese / Vietnamese / Tamil, etc names can be supported).
 * More commands to improve the counsellor workflow: In the initial phase, our primary objective is to concentrate collection of patient and appointment data. As we progress, we plan to introduce updates and increase more commands to derive new insights from the data. We appreciate your understanding and patience as we work towards working with the users and making these advanced features available.
+* More validation checks for when user manually edits `json` files. Currently, adding non-legible value like `null` will cause the app to not launch. A future enhancement will include more validation checks, allow skipping of non-legible data and detecting invalid data upon launching the app.
+* Adding ability for the GUI to automatically reflect actual state of data. Currently, after using `editp` command to change name of a patient, the appointment cards in appointment list do not reflect the new name of that patient. Hence, a future enhancement will include changing the flow of how the appointment card is generated, enhancing the interactions between GUI and models and allowing the GUI to reflect the current state of data.
 
 ## 8. Learning Outcomes
 The implementation of the CogniCare application was an extremely challenging endeavour—as we needed to morph and reshape the AB3 application in a team-based setting. The transformation process involved significant alternations and enhancements to reach the new requirements of the application.
