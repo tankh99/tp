@@ -215,7 +215,7 @@ Appointment List are saved under a separate file `appointmentList.json` in the d
 
 
 **Aspect: Search query with AND constraint**
-### Finding Contact by different parameters.
+### Querying Patients by different parameters.
 
 <puml src="diagrams/FindPatientSequenceDiagram.puml"/>
 
@@ -225,9 +225,9 @@ This enhancement was driven by the need of:
 1. Improved Search Accuracy: By allowing multiple criteria to be specified, counsellors can narrow down search results to the most relevant patients (as the SoC cohort is large).
 2. Efficiency: Enables quicker access to patient records by reducing the time spent sifting through irrelevant patient information.
 
-**Single Criterion Search (AB3 Approach)**: The original AB3 approach of allowing search based on a single criterion was found to be too limiting for the different needs of patient management in CogniCare.
+**Alternative 1: Single Criterion Search (AB3 Approach)**: The original AB3 approach of allowing search based on a single criterion was found to be too limiting for the different needs of patient management in CogniCare.
 
-**Search Query with OR Constraint:** While also considered, this approach was determined to potentially yield too broad of a search result, undermining the efficiency desired in retrieving patient record.
+**Alternative 2: Search Query with OR Constraint:** While also considered, this approach was determined to potentially yield too broad of a search result, undermining the efficiency desired in retrieving patient record.
 
 **Aspect: Appointment ID**
 - **Alternative 1 (current choice):** Generate auto-increasing fixed appointment ID when creating a new appointment. Fail commands that attempt to set the appointment ID still increase the appointment ID.
@@ -278,8 +278,15 @@ This enhancement was driven by the need of:
 
     
 <!-- @@author Jerome-j -->
-## Create a new Patient
+## Adding a new Patient
 
+The add patient feature is modified from the original AB3 which allows users to register new students as user and insert them into the application.
+
+The add patient sequence diagram is displayed below:
+
+<puml src="diagrams/AddPatientSequenceDiagram.puml" alt="Add Patient Sequence Diagram"/>  
+
+**Implementation**: An observable list is used to store the list of appointments.
 `AddPatientCommandParser` obtains the values that correspond to the prefixes such as `p/`, `n/`, `e/`, and `a/` which represent phone, name, email address, and alias accordingly.
 
 This class ensures that
@@ -293,12 +300,54 @@ If the constraints are violated, `AddPatientCommandParser` will throw a `ParseEx
 
 Otherwise, if the process is successful, a new `Patient` object will be created to add the patient to the CongiCare application.
 
-We have considered these alternatives:
+
+
+There are a few notable classes and methods that are used to interact with the add patient command:
+1. `AddPatientCommand`:
+   1. Defines the add appointment command keywords and other error messages.
+2. `AddPatientCommand#execute()`
+   1. Validates the results for `AddPatientCommandParser#parse()`
+   2. If the results are valid, then the specified patient will be added to the CogniCare application.
+   3. Throws a `CommandException` if the specified appointment is invalid. The new patient is only considered valid if it satisfies storing the required information in the required format.
+
+
+**Alternatives Considered**
 * Using the natural order of the list as the index of the Person. This is sub-optimal as holes in the records may lead to unexpected behaviour when handling the appointments. For example, consider a list with 3 patients. If the second patient is deleted, then the 3rd patient becomes the 2nd patient. This will be confusing for the user. Therefore, we sought to seek a solution to ensure that the studentId always remains unique.
 * Completely re-writing AB3's addressbook. This is not practical as our functionalities and use-case is similar to the use case of the AB3 application.
 
 
+## Querying for Patients
+The query patient command allows users to search for patients based on the given criteria. It makes use of the `ListPatientCommandParser` which obtains the values that correspond to the criteria such as `p/`, `n/`, `e/`, and `a/` which represent phone, name, email address, and alias(es) accordingly, and combined with an `AND` logic.
+
+The diagram below shows the sequence diagram for querying patients:
+<puml src="diagrams/FindPatientSequenceDiagram.puml" alt="Query Patient Sequence Diagram" />
+
+The command for this operation is `queryp` with at least one or zero parameters. If no parameters (or at least one invalid parameter is passed into the command), the `queryp` command returns all the information of the patients (that is applied without any filters/predicates).
+
+The `ListPatientCommandParser` first checks for the presence of empty arguments / no prefix being specified. If this criterion is true, then all the patients are returned as normal. As such, this class does not throw any exceptions, but just returns all the data in the CogniCare application even if the command is malformed (but reaches the `ListPatientCommandParser`).
+
+Otherwise, each of the search terms will be applied to each of the respective fields of the CogniCare application in a case-insensitive format.
+
+**Implementation** There are a few notable features and methods that enable this feature.
+
+1. ListPatientCommand - Command that is executed
+2. ListPatientCommandParser - Parses the command and performs the required validation checks
+
+
+**Alternatives Considered**
+- User-Forgiveness _versus_ Strict Error Handling: Returning an error message where the command is correct, but illegal parameters are being supplied, then an error message is displayed. We decided against this approach because this will reduce the "user friendliness" of the application as the user would then have the consult the manual / read the error message to resolve the error.
+- Creating a "do-it-all" predicate for the `Patient` class will be less repetitive code as compared to the current approach (`EmailContainsKeywordPredicate.java`, `NameContainsKeywordPredicate.java`, `PhoneContainsKeywordPredicate.java`, `TagContainsKeywordPredicate.java`) which requires more (repetitive code) as compared to making a class such as `StudentContainsKeywordPredicate.java` which would be easier to code - but harder to test and extend in future. Not to mention, this will also increase the difficulty in writing unit tests.
+- Using `AND` logic for combining predicates, instead of `OR` predicate - the reason was that since the values already supported partial word matching (i.e. Searching for `coco` in the String `Coconut` will result in the row being returned). As such, using the `OR` logic will lead to too many rows being returned and therefore confusing to the user.
+- Using case-insensitive search: the use of case-insensitive search terms for parameters matching provides a more seamless and more user-friendly experience.
+
+
 ## Editing a current Patient
+The edit command allows a user to update a patient's information if they re-locate, change phone numbers, change email address, etc.
+
+The diagram below shows the sequence diagram for editing a patient: 
+
+<puml src="diagrams/EditPatientSequenceDiagram.puml" alt="Edit Patient Sequence Diagram" />
+
 `EditPatientCommandParser` obtains the patient index and the values that correspond to the prefixes such as `p/`, `n/`, `e/`, and `a/` which represent phone, name, email address, and alias accordingly.
 
 * There can be multiple affliated-with (`a/`), but `p/`, `n/`, `e/` may only appear once.
@@ -310,39 +359,58 @@ If the constraints are violated, `EditPatientCommandParser` will throw a `ParseE
 
 Otherwise, if the process is successful, the current `Patient` object corresponding to the respective ID will be updated with the editedInformation.
 
-We have considered these alternatives:
+
+**Implementation**  
+There are a few classes and methods used to interact with the edit patient command.
+1. `EditPatientCommand`
+    1. Defines the edit patient command key word and other error messages.
+2. `EditPatientCommand#execute()`
+    1. Finds the specified patient to edit. Throws a `CommandException` if the patient is not found, or if an invalid index is specified.
+    2. Validates the edited Patient, ensuring that the edited Person's name does not exist in CogniCare. Validation checks are performed on the fields as well.
+    3. If there is no error, the specified patient is updated and a success message is displayed.
+3. `EditPatientCommandParser#parse()`
+    1. Parses the edit patient command, ensuring that all parameters provided are valid. A `ParseException` is thrown if there are no parameters specified.
+    2. Create an edited appointment.
+    3. Returns a new `EditPatientCommand`.  
+
+**Alternatives Considered**
 * Using the name as the primary key instead of the patient ID - may lead to unexpected deletes as there could be a case where the counselor has two patients of the similar name "Tan Ah Kow" and "Tan Ah". Suppose the counselor wants to delete "Tan Ah", and not "Tan Ah Kou" - in this case, the wrong record will be deleted by accident. Using an integer value as the identifier would eliminate this problem and will also makes it much easier for the user to input the commands.
     * Therefore the workflow would be to search for the respective patient for the respective index via the `queryp` command before editing it.
 
 ## Deleting an existing patient
+
+The diagram below shows the sequence diagram for querying patients: 
+<puml src="diagrams/DeletePatientSequenceDiagram.puml" alt="Delete Patient Sequence Diagram" />
+
+The delete patients feature allows users to remove patients from CogniCare (whether it is for privacy reasons etc).
+
+The diagram below shows the sequence diagram for deleting patients: <puml src="diagrams/DeletePatientSequenceDiagram.puml" alt="Delete Patient Sequence Diagram" />
+
 `DeletePatientCommandParser` obtains the patient index that is to be deleted.
 
 * The patient index is based on the unique ID that is tagged to each individual patient and is not the natural ordering of the list.
 
-If the constraints are violated, `DeletePatientCommandParser` will throw a `ParseException` due to an invalid patient ID passed.
 
-Otherwise, if the process is successful, the current `Patient` object corresponding to the respective ID will be updated with the deleted patient information containing the phone, email, and respective alias information.
+Otherwise, if the process is successful, the current `Patient` object corresponding to the respective ID will be updated with the deleted patient information containing the phone, email, and respective affiliated-with information.
 
-We have considered these alternatives:
+
+**Implementation**  
+There are a few classes and methods used to interact with the delete patient command.
+1. `DeletePatientCommand`
+    1. Defines delete patient command key word and other error messages.
+2. `DeletePatientCommand#execute()`
+    1. Find the specified patient to delete. Throws a `CommandException` if appointment is not found.
+    2. If there is no error, the specified appointment is deleted from CogniCare and a success message is displayed.
+3. `DeletePatientCommand#parse()`
+    1. If the constraints are violated, `DeletePatientCommandParser` will throw a `ParseException` due to an invalid patient ID passed.
+     2. Returns a new `DeletePatientCommand`
+
+
+**Alternatives Considered**
 * A confirmation dialog when deleting the patients. We decided to not go with this approach as this drastically reduces the speed which the user makes use of the application.
 * Deleting the student using the natural order of the list may also result in unintended deletions.
 
 
-## Querying for Patients
-`ListPatientCommandParser` obtains the values that correspond to the criteria such as `p/`, `n/`, `e/`, and `a/` which represent phone, name, email address, and alias(es) accordingly, and combined with an AND logic.
-
-The command for this operation is `queryp` with at least one or zero parameters. If no parameters (or at least one invalid parameter is passed into the command), the `queryp` command returns all the information of the patients (that is applied without any filters/predicates).
-
-The `ListPatientCommandParser` first checks for the presence of empty arguments / no prefix being specified. If this criterion is true, then all the patient is returned as normal. As such this class does not throw any exceptions, but just returns all the data in the CogniCare application.
-
-Otherwise, each of the search terms will be applied to each of the respective fields of the CogniCare application in a case-insensitive format.
-
-
-We have considered these alternatives:
-- User-Forgiveness _versus_ Strict Error Handling: Returning an error message where the command is correct, but illegal parameters are being supplied, then an error message is displayed. We decided against this approach because this will reduce the "user friendliness" of the application as the user would then have the consult the manual / read the error message to resolve the error.
-- Creating a "do-it-all" predicate for the `Patient` class will be less repetitive code as compared to the current approach (`EmailContainsKeywordPredicate.java`, `NameContainsKeywordPredicate.java`, `PhoneContainsKeywordPredicate.java`, `TagContainsKeywordPredicate.java`) which requires more (repetitive code) as compared to making a class such as `StudentContainsKeywordPredicate.java` which would be easier to code - but harder to test and extend in future. Not to mention, this will also increase the difficulty in writing unit tests.
-- Using `AND` logic for combining predicates, instead of `OR` predicate - the reason was that since the values already supported partial word matching (i.e. Searching for `coco` in the String `Coconut` will result in the row being returned). As such, using the `OR` logic will lead to too many rows being returned and therefore confusing to the user.
-- Using case-insensitive search: the use of case-insensitive search terms for parameters matching provides a more seamless and more user-friendly experience.
 
 <!-- @@author caitlyntang -->
 ### Add Appointment Feature
@@ -399,7 +467,7 @@ There are a few classes and methods that make this feature work
 
 **Rationale for implementation**
 1. This list command adds a unique validation step that checks for a valid patient ID. The rationale behind this is because of the confusion that would come about by listing out an empty list of appointments are querying with an invalid patient ID. For example, if there was no validation, and you run `querya pid/999` and you see no appointments, you might assume that there is no appointment with the patient ID of 999, rather than there is no such patient ID in the first place
-   1. Note that patient name is not subject to the same validation because while the existence of a patient ID can be easily verified, the existence of a substring of a name cannot. Furthermore, if you run `querya n/Tom` and no appointments are listed, the conclusion that there is no appointment with the patient named "Tom".
+   1. Note that patient name is not subject to the same validation because while the existence of a patient ID can be easily verified, the existence of a substring of a name cannot. Furthermore, if you run `querya n/Tom` and no appointments are listed, this concludes that there is no appointment with the patient named "Tom".
 2. The query command allows for ease and flexibility in querying, while also providing sufficient validation to bolster and not hinder the querying process. This feature helps to streamline the user experience for users who are fast typists and technically-competent.
 
 **Alternatives considered**
@@ -414,9 +482,9 @@ Below is the sequence diagram for editing an appointment.
 <puml src="diagrams/EditAppointmentSequenceDiagram.puml" alt="Edit Appointment Sequence Diagram" width="550" />
 
 **Implementation**
-There are a few classes and methods used to interact with the add appointment command.
+There are a few classes and methods used to interact with the edit appointment command.
 1. `EditAppointmentCommand`
-   1. Defines edit appointment command key word and other error messages.
+   1. Define edit appointment command key word and other error messages.
 2. `EditAppointmentCommand#execute()`
    1. Finds the specified appointment to edit. Throws a `CommandException` if appointment is not found.
    2. Validates the edited appointment, ensuring that the edited appointment does not exist in CogniCare. Date and time checks are performed as well.
@@ -437,7 +505,7 @@ Below is the activity diagram for deleting an appointment.
 <puml src="diagrams/DeleteAppointmentActivityDiagram.puml" alt="Delete Appointment Activity Diagram" />
 
 **Implementation**
-There are a few classes and methods used to interact with the add appointment command.
+There are a few classes and methods used to interact with the delete appointment command.
 1. `DeleteAppointmentCommand`
     1. Defines delete appointment command key word and other error messages.
 2. `DeleteAppointmentCommand#execute()`
