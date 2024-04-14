@@ -809,7 +809,7 @@ Use case ends.
 **MSS:**
 
 1.  User requests to list patients using the specified constraints
-2.  CogniCare shows a list of patients that meets the criteria
+2.  CogniCare shows a list of patients that meet the criteria
 
     Use case ends.
 
@@ -817,7 +817,7 @@ Use case ends.
 
 * 1a. The query has no parameters specified.
 
-    * 1a1. CogniCare returns all information about all patient (returns the entire AddressBook).
+    * 1a1. CogniCare returns all information about all patients (returns the entire PatientList).
     
     Use case ends.
 
@@ -838,12 +838,12 @@ Use case ends.
 
 1.  User requests to delete a patient at the given index.
 2.  CogniCare deletes the patient.
-3.  CogniCare displays a successful message stating that the deletion was successful and displays information of deleted patient.
+3.  CogniCare displays a successful message stating that the deletion was successful and displays information of the deleted patient.
     Use case ends.
 
 **Extensions**
 
-* 1a. The query has missing Id parameter.
+* 1a. The query has a missing Id parameter.
     * 1a1. CogniCare displays an error message that the index is invalid. (No deletion is done)
 
     Use case ends.
@@ -857,19 +857,19 @@ Use case ends.
 **Use case: Add an Appointment**
 
 **MSS:**
-1. User enters command to add an appointment with all mandatory information.
-2. CogniCare validates the information are valid.
+1. The user enters the command to add an appointment with all mandatory information.
+2. CogniCare validates the information is valid.
 3. CogniCare saves the new appointment information.
 4. CogniCare displays a success message confirming that the new appointment has been added.
 
 **Extensions**
 
 * 1a. Required fields are left blank, or fields do not meet the specified format.
-    * 1a1. CogniCare displays error message associated with the relevant missing field.
+    * 1a1. CogniCare displays an error message associated with the relevant missing field.
       Use case ends
 
 * 2a. Required fields are invalid
-    * 2a1. CogniCare displays error message associated with the relevant erroneous field
+    * 2a1. CogniCare displays an error message associated with the relevant erroneous field
       Use case ends
 
 * 2b. Appointment timing clashes with an existing appointment.
@@ -898,7 +898,7 @@ Use case ends.
 
 **MSS:**
 
-1. User requests to list all appointments at using some criteria.
+1. User requests to list all appointments using some criteria.
 2. CogniCare shows a filtered list of appointments that meet the criteria.
 
     Use case ends.
@@ -972,7 +972,7 @@ Use case ends.
 
 **MSS:**
 1. User requests to view all feedback scores from a given start date to a given end date
-2. Feedback scores are updated to get the average of all appontments within the given time period
+2. Feedback scores are updated to get the average of all appointments within the given time period
 
 Use case ends.
 
@@ -987,12 +987,12 @@ Use case ends.
 
   Use case resumes from step 2
 
-* 1c. User specifies neither end or start date
+* 1c. User specifies neither the end or the start date
   * 1c1. All appointments are returned
 
   Use case resumes from step 2
 
-* 1d. Date specified is in an incorrect format
+* 1d. The date specified is in an incorrect format
   * 1d1. Invalid format exception message is shown to the user
 
   Use case ends
@@ -1039,7 +1039,7 @@ Use case ends.
 
 1. Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
 2. Should be able to hold up to 1000 patients and 1000 appointments without a noticeable sluggishness in performance for typical usage.
-3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+3. A user with above-average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 4. Should work without internet access i.e. offline-only.
 5. Should not take more than 25MB of space, including data files during normal usage.
 6. The data should be transferable from one computer system to another, ensuring that it displays identically on the new system.
@@ -1059,13 +1059,13 @@ Given below are instructions to test the app manually.
 
 
 > **Note:** These instructions only provide a starting point for testers to work on;
-> testers are expected to do more *exploratory* testing.
+> Testers are expected to do more *exploratory* testing.
 
 
 ## Manual Testing
 
 ## Launch and Shutdown
-1. Ensure you have Java `11` or above installed in your Computer.
+1. Ensure you have Java `11` or above installed on your Computer.
   1. If you are on macOS on an Apple Silicon System, we recommend that you follow the guide on [CS2103 Course website](https://nus-cs2103-ay2324s2.github.io/website/admin/programmingLanguages.html#programming-language) using the Zulu version `zulu11.50.19-ca-fx-jdk11.0.12-macosx_aarch64.dmg`
   2. If you are on Windows / Intel architecture, most versions of Java 11 should work.
 
@@ -1074,7 +1074,7 @@ Given below are instructions to test the app manually.
 3. Copy the file to the folder you want to use as the _home folder_ for your CogniCare application.
 
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar cognicare.jar` command to run the application.<br>  
-   **Expected**: A GUI containing the sample patient list the below should appear in a few seconds. Note that the app contains some sample data. You may need to re-scale the window size to suit your computer display.
+   **Expected**: A GUI containing the sample patient list below should appear in a few seconds. Note that the app contains some sample data. You may need to re-scale the window size to suit your computer display.
 
 ## List all students (without any parameters)
 Pre-requisite:
@@ -1099,11 +1099,11 @@ Pre-requisite:
 
 Command: `queryp n/Jerome p/123 `
 - The patient information meeting the criteria specified in CogniCare will be displayed in the item ListView.
-- You may specify zero or one of each parameters
+- You may specify zero or one of each parameter
   - `p/`: phone number
   - `n/`: name
   - `e/`: email address
-- You may specify zero or many this parameter:
+- You may specify zero or many these parameters:
   - `a/`: `associated with` tag
     - Consider the use-case as such, `queryp a/depression`
 
@@ -1124,11 +1124,11 @@ Pre-requisite:
 - There does not exist another patient with the same name (regardless of capitalisation) and spacing, i.e. the names "Jerome Chua" and "jEROmE       CHuA" are considered the same name.
 
 Command: `addp n/John Doe p/98765432 e/johnd@example.com a/Johnny a/owesMoney `
-- You must specify exactly one of each parameters (in the correct format)
+- You must specify exactly one of each parameter (in the correct format)
   - `p/`: phone number
   - `n/`: name
   - `e/`: email address
-- You may specify zero or many of this parameter:
+- You may specify zero or many of these parameters:
   - `a/`: `associated with` tag
 
 Expected Output:
@@ -1162,13 +1162,13 @@ Expected Output in the CommandBox: `Edited Person: Bernice Yu; Phone: 91234567; 
 -  The `ListView` will be updated with the latest patient data.
 
 > [!TIP]
-> The student identifier that is commonly referred to in this article refers to the student id that is permanently tagged to each student, and is not the index of the natural ordering in the list.
+> The student identifier that is commonly referred to in this article refers to the student id that is permanently tagged to each student and is not the index of the natural ordering in the list.
 
 
 ## Deleting an existing patient
 Pre-requisite:
 - You know the index (`patientId`) of the person that you are trying to delete.
-- There is at exactly one ("1") patient stored in the CogniCare application.
+- There is exactly one ("1") patient stored in the CogniCare application.
 
 Command: `deletep 26`
 - You must specify exactly the patient identifier that exists.
@@ -1189,7 +1189,7 @@ Command: `adda pid/1 sd/2024-04-04 09:00 ed/2024-04-04 10:00 att/true s/5 ad/Thi
     - `pid/`: patient id
     - `sd/`: appointment start date and time
     - `ed/`: appointment end date and time
-- You may specify zero or many of this parameter:
+- You may specify zero or many of these parameters:
     - `att/`: attended status
     - `s/`: feedback score
     - `ad/`: appointment description
@@ -1200,10 +1200,10 @@ Expected Output:
 
 Expected Output in the Command Output Box:
 - `New appointment added: (Appointment index); PatientId: 1; Start: 04 Apr 2024, 09:00 am; End: 04 Apr 2024, 10:00 am; Attend: true; Score: 5; Description: This is a dummy appointment`
-- A message echo-ing the information that you have just entered.
+- A message echoing the information that you have just entered.
 
 > [!Tip]
-> The appointment identifier is permanently tagged to the appointment, and is not the index of the natural ordering in the list. 
+> The appointment identifier is permanently tagged to the appointment and is not the index of the natural ordering in the list. 
 
 ## Editing an existing appointment
 Pre-requisite:
@@ -1231,7 +1231,7 @@ Expected Output in the CommandBox: `Edited Appointment: 3; PatientId: 2; Start: 
 ## Deleting an existing appointment
 Pre-requisite:
 - You know the index (`appointmentId`) of the appointment that you are trying to delete.
-- There is at exactly one ("1") appointment stored in the CogniCare application.
+- There is exactly one ("1") appointment stored in the CogniCare application.
 
 Command: `deletea 4`
 - You must specify exactly the appointment identifier that exists.
@@ -1280,7 +1280,7 @@ Expected Output in the Command Output Box:
 > If there are no appointments stored in the application, or if there are no data that meets the required criteria, an empty ListView will be displayed.
 
 
-## Filtering appointments which fall in a specific date range
+## Filtering appointments that fall in a specific date range
 Pre-requisite:
 - There is at least one ("1") appointment stored in the CogniCare application meeting the requested criterion / criteria.
 
@@ -1331,7 +1331,7 @@ Expected Output in the Command Output Box:
 
 ## Command History
 Pre-requisite:
-- Ensure that the device sound is not muted.
+- Ensure that the device's sound is not muted.
 
 Testing method:
 1. Enter a few valid commands into the application.
@@ -1349,15 +1349,15 @@ Expected Output in the Command Output Box:
 This section describes the potential enhancements that could be improved in future editions of the application.
 * Adding the ability to allow the counselor to secure the application - via a PIN Code feature, and encryption of the JSON file so that data loss does not result in the leakage of highly confidential medical data.
 * Enhancing the graphical user interface to make it more user-friendly, i.e. more usage of the mouse as compared to the keyboard.
-* Enabling localisation support: In future more options will be available for users to set their preferred phone number validation types (i.e. US Phone format), Extended Character Set for Naming validation (so that Chinese / Vietnamese / Tamil, etc names can be supported).
-* More commands to improve the counsellor workflow: In the initial phase, our primary objective is to concentrate collection of patient and appointment data. As we progress, we plan to introduce updates and increase more commands to derive new insights from the data. We appreciate your understanding and patience as we work towards working with the users and making these advanced features available.
-* More validation checks for when user manually edits `json` files. Currently, adding non-legible value like `null` will cause the app to not launch. A future enhancement will include more validation checks, allow skipping of non-legible data and detecting invalid data upon launching the app.
-* Adding ability for the GUI to automatically reflect actual state of data. Currently, after using `editp` command to change name of a patient, the appointment cards in appointment list do not reflect the new name of that patient. Hence, a future enhancement will include changing the flow of how the appointment card is generated, enhancing the interactions between GUI and models and allowing the GUI to reflect the current state of data.
+* Enabling localisation support: In the future more options will be available for users to set their preferred phone number validation types (i.e. US Phone format), Extended Character Set for Naming validation (so that Chinese / Vietnamese / Tamil, etc names can be supported).
+* More commands to improve the counsellor workflow: In the initial phase, our primary objective is to concentrate the collection of patient and appointment data. As we progress, we plan to introduce updates and increase more commands to derive new insights from the data. We appreciate your understanding and patience as we work towards working with the users and making these advanced features available.
+* More validation checks for when the user manually edits `JSON` files. Currently, adding non-legible value like `null` will cause the app to not launch. A future enhancement will include more validation checks, allowing skipping of non-legible data and detecting invalid data upon launching the app.
+* Adding the ability for the GUI to automatically reflect the actual state of data. Currently, after using `editp` command to change the name of a patient, the appointment cards in the appointment list do not reflect the new name of that patient. Hence, a future enhancement will include changing the flow of how the appointment card is generated, enhancing the interactions between GUI and models, and allowing the GUI to reflect the current state of data.
 * Add more patient reports to allow for greater utilisation of patient data collected, such as patient attendance reports
 * 
 
 ## Learning Outcomes
-The implementation of the CogniCare application was an extremely challenging endeavour—as we needed to morph and reshape the AB3 application in a team-based setting. The transformation process involved significant alternations and enhancements to reach the new requirements of the application.
+The implementation of the CogniCare application was an extremely challenging endeavor—as we needed to morph and reshape the AB3 application in a team-based setting. The transformation process involved significant alternations and enhancements to reach the new requirements of the application.
 
 The team-based setting also exposed us to various crucial skills such as improving our working styles to achieve a high level of collaboration. Skills that are crucial to a Software Engineer such as reviewing Pull Requests (PRs), and providing and receiving feedback from peers are also learned in the course of the project.
 
