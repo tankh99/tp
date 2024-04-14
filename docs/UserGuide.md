@@ -18,7 +18,7 @@ CogniCare is a **desktop app for a single-user application for managing most Sch
 
 ## Quick start
 
-1. Ensure you have Java `11` or above installed in your Computer.
+1. Ensure you have Java `11` or above installed on your Computer.
     1. If you are on macOS on an Apple Silicon System, we recommend that you follow the guide on [CS2103 Course website](https://nus-cs2103-ay2324s2.github.io/website/admin/programmingLanguages.html#programming-language) using the Zulu version `zulu11.50.19-ca-fx-jdk11.0.12-macosx_aarch64.dmg`
 
 2. Download the latest `cognicare.jar` from [here](https://github.com/AY2324S2-CS2103-F08-2/tp/releases).
@@ -26,7 +26,7 @@ CogniCare is a **desktop app for a single-user application for managing most Sch
 3. Copy the file to the folder you want to use as the _home folder_ for your CogniCare application.
 
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar cognicare.jar` command to run the application.<br>
-   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+   A GUI similar to the one below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
 5. Type the command in the command box and press Enter to execute it. e.g., typing **`help`** and pressing Enter will open the help window.<br>
@@ -34,7 +34,7 @@ CogniCare is a **desktop app for a single-user application for managing most Sch
 
     * `queryp` : Lists all patients that are stored in the CogniCare application.
 
-    * `addp n/Jerome Chua p/98765432 e/jerome@example.com a/depression` : Adds a contact named `Jerome Chua` to the Address Book who is affiliated-with with having "depression".
+    * `addp n/Jerome Chua p/98765432 e/jerome@example.com a/depression` : Adds a contact named `Jerome Chua` to the Address Book who is affiliated with having "depression".
 
     * `deletep 903` : Deletes the patient that has the id of 903 (This is different from the natural ordering of the list).
    
@@ -42,9 +42,9 @@ CogniCare is a **desktop app for a single-user application for managing most Sch
    
     * `querya` : Lists all appointments that are stored in CogniCare.
 
-    * `querya pid/2` : List all appointments belonging to patient index 2 that are stored in the CogniCare application.
+    * `querya pid/2` : List all appointments belonging to patient index 2 that is stored in the CogniCare application.
    
-    * `edita 1 pid/3` : Changes appointment index 1, from its original patient id to the patient id 3.
+    * `edita 1 pid/3` : Changes appointment index 1, from its original patient id to patient id 3.
 
     * `deletea 3` : Deletes the appointment that has the appointment id of 3 (This is different from the natural ordering of the list).
 
@@ -57,7 +57,7 @@ CogniCare is a **desktop app for a single-user application for managing most Sch
 --------------------------------------------------------------------------------------------------------------------
 ## Overview of GUI
 
-The CogniCare application has three columns displaying (from left to right) patient data, appointment data and the average feedback score per patient.
+The CogniCare application has three columns displaying (from left to right) patient data, appointment data, and the average feedback score per patient.
 
 ![GUI mockup.png](images/ui-mockup/GUI%20mockup.png)
 
@@ -65,7 +65,7 @@ The CogniCare application has three columns displaying (from left to right) pati
 
 ![name card.jpg](images/ui-mockup/name%20card.jpg)
 
-The second column displays appointment details stored in CogniCare. For each appointment, the name of the patient who requested the appointment, appointment timing and notes will be displayed.
+The second column displays appointment details stored in CogniCare. For each appointment, the name of the patient who requested the appointment, appointment timing, and notes will be displayed.
 Additionally, it will display `Attended` if the patient has attended the appointment and the given feedback score. `N/A` is displayed if the feedback score is unavailable.
 
 ![appointment card.jpg](images/ui-mockup/appointment%20card.jpg)
@@ -81,21 +81,21 @@ Lastly, the third column displays the name and average feedback score per patien
 **Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g., in `addp n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+  e.g., in `addp n/NAME`, `NAME` is a parameter that can be used as `add n/John Doe`.
 
 * Items in square brackets are optional.<br>
   e.g. `n/NAME [a/AFFLIATED_WITH]` can be used as `n/Jerome a/depression` or as `n/Jerome`.
 
-* Items with `…`​ after them can be used multiple times including zero times.<br>
+* Items with `…`​ after can be used multiple times including zero times.<br>
   e.g. `[a/AFFLIATED_WITH]…​` can be used as ` ` (i.e., 0 times), `a/depressed`, `a/jobless a/sad` etc.
 
 * Parameters can be in any order.<br>
   e.g., if the command specifies `n/NAME p/PHONE_NUMBER`, then `p/PHONE_NUMBER n/NAME` is also acceptable.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `exit` and `clear`) will be ignored.<br>
+* Extraneous parameters for commands that do not take in parameters (such as `help`, `exit`, and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
-* If you are using a PDF version of this document, please be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+* If you are using a PDF version of this document, please be careful when copying and pasting commands that span multiple lines as space characters surrounding line breaks may be omitted when copied over to the application.
   </box>
 
 ### Viewing help : `help`
@@ -113,40 +113,40 @@ Add a patient to the CogniCare application.
 
 Format: `addp n/NAME p/PHONE_NUMBER e/EMAIL [a/AFFLIATED_WITH]…​`
 
-The following image shows when command is valid:
+The following image shows when the command is valid:
 
-The image below shows a successful addition of patient.
+The image below shows a successful addition of a patient.
 ![Add patient success](images/patients/2a_Add_patient_success.png)
 
-The image below shows a failure of adding patient due to missing phone tag.
+The image below shows a failure to add a patient due to a missing phone tag.
 ![Add patient failure](images/patients/2bi_Cannot_Add_Patient_Missing_Phone_Tag_failure.png)
 
-The image below shows a failure of adding patient due to duplicate email tag.
+The image below shows a failure to add a patient due to a duplicate email tag.
 ![Add patient failure](images/patients/2bii_Cannot_Add_Patient_Duplicate_Email_Tag_failure.png)
 
 
 **Validation**:
 1. NAME
-    1. No duplicate names are allowed. Names are lowercase and trimmed (blank space removed) before performing duplicate comparison
+    1. No duplicate names are allowed. Names are lowercase and trimmed (blank space removed) before performing the duplicate comparison
     2. Please note that special characters are not allowed in this iteration (So, for example, "Jerome S/O Gary" will not be a valid name)
-    3. Please note that only English names are allowed at this point, as all Singaporean residents / visitors are expected to have an English version of their name.
+    3. Please note that only English names are allowed at this point, as all Singaporean residents/visitors are expected to have an English version of their name.
 
 > Remark:
-> It is important to note that Singapore names are only allowed to be **54-characters** in length. [Read More](https://www.asiaone.com/singapore/new-name-new-me-more-opt-change). The reason why we allow an extended input (>54 characters) is because some users may choose to have nickname appended to their official name. Hence, the front part of the name would not be hidden in the GUI.
+> It is important to note that Singapore names are only allowed to be **54-characters** in length. [Read More](https://www.asiaone.com/singapore/new-name-new-me-more-opt-change). The reason why we allow an extended input (>54 characters) is because some exchange students may choose to have a nickname appended to their official name. Hence, the front part of the name would not be hidden in the GUI.
 
 
 
 2. PHONE_NUMBER - We accept only Singaporean numbers as this is an application meant for a Singapore-specific context
-    1. Should be exactly 3 or 8 digits long which is in a Singaporean phone number format. (For example: 82221234, 91112222 and 999 are valid phone numbers)
+    1. Should be exactly 3 or 8 digits long which is in a Singaporean phone number format. (For example: 82221234, 91112222, and 999 are valid phone numbers)
     2. Should start with 6, 8 or 9. (We ignore 3 since those are IP Phone Numbers that people wouldn't normally have)
     3. Note: This simplistic validation allows for weird numbers like 666, but we allow this anyway since comprehensive number validation would be too technically complex
 3. EMAIL
-    1. Should be a valid email address with the form `local-part@domain` where domain is at least 2 letters long
+    1. Should be a valid email address with the form `local-part@domain` where the domain is at least 2 letters long
     2. All emails are stored in lowercase by default.
-    3. It is important to note that the email validation is not very strict and allows for flexibility in the local-part and domain formats.
+    3. It is important to note that email validation is not very strict and allows for flexibility in the local-part and domain formats.
 4. AFFILIATED_WITH
-    1. There can be many AFFILIATED_WITH tag specified.
-    2. Each AFFILIATED_WITH tag should be a **single word**, contains only of alphanumerical, and should not be empty.
+    1. There can be many AFFILIATED_WITH tags specified.
+    2. Each AFFILIATED_WITH tag should be a **single word**, contain only alphanumerical, and should not be empty.
 
 <box type="tip" seamless>
 
@@ -164,7 +164,7 @@ Examples:
 and is not coalesced when other entries are deleted.
 This is similar to SQL database behaviour where the auto-increment primary key goes on to the next value even if the transaction has failed. [Read more](https://stackoverflow.com/questions/10108593/mysql-autoincrement-value-increases-even-when-insertion-fails-due-to-error)
 
-This means that if the CogniCare application initially contained of the patients
+This means that if the CogniCare application initially contained the patients
 ```
 1. Caitlyn
 2. Khang Hou
@@ -182,7 +182,7 @@ When Khang Hou (Patient ID 2) is deleted, the patient ids are as below:
 
 <box type="tip" seamless>
 
-**Second Tip:** You may not add two patients with the same name even if they are in different case and different whitespace (i.e. "DAVINCI    Lim" vs "Davinci Lim").
+**Second Tip:** You may not add two patients with the same name even if they are in a different case and different whitespace (i.e. "DAVINCI    Lim" vs "Davinci Lim").
 </box>
 
 
@@ -193,7 +193,7 @@ Shows a list of all patients in the CogniCare application.
 The image shows the successful `queryp` command
 ![Query patient without parameters](images/patients/3c_Query_with_no_parameters_success.png)
 
-### Listing selected patients that meets specified criterion / criteria : `queryp`
+### Listing selected patients that meet specified criterion / criteria : `queryp`
 
 Shows a list of all patients in the CogniCare application that matches the criteria.
 
@@ -202,7 +202,7 @@ Format: `queryp [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/AFFLIATED_WITH]…​`
 * Case-Insensitive, partial search: The queryp command supports partial matching for the "Name", "Phone Number", and "Email" fields, allowing for flexibility in executing search queries. This means the `queryp` command can find entries that contain the specified pattern anywhere within these fields, regardless of whether the letters are uppercase or lowercase. However, it is important to note that partial matching is not supported for Tags.
 * Search Logic:
   * AND Logic for Different Criteria: When different criteria are used in a single `queryp` command (e.g., name, phone number, email), CogniCare will return the list of patients that meets all those criteria. For example, when you search for a patient with a specific name, phone number, and email address, only patients who match all these details will be shown in the results.
-  * OR Logic for Tags: However, when you specify more than one tag in the command, the application interprets this as an OR condition. This means CogniCare will return the list patients who have any of the tags specified. For example, using `queryp a/depression a/anxiety` will return the list of patients who are tagged with either depression or anxiety (or both).
+  * OR Logic for Tags: However, when you specify more than one tag in the command, the application interprets this as an OR condition. This means CogniCare will return the list of patients who have any of the tags specified. For example, using `queryp a/depression a/anxiety` will return the list of patients who are tagged with either depression or anxiety (or both).
 
 
 The image shows the successful `queryp` command with all parameters specified.
@@ -227,9 +227,9 @@ Format: `queryp a/depression a/anxiety ​`
 For example, to find all the "rome"-s that are stored in the CogniCare application.
 Format: `queryp n/rome ​`
 
-Then all patients with "rome" in their names will be returned as well. Similar logic applies for Name, Phone Number and Email address, but not affiliated-with tags.
+Then all patients with "rome" in their names will be returned as well. Similar logic applies for Name, Phone Number and Email address, but not for the affiliated-with tags.
 
-## Viewing top 10 distinct tags
+## Viewing the top 10 distinct tags
 > **Note**: You **_do not_** need to enter any command to access this information. These top 10 statistics are automatically updated.
 
 The image shows the (top 10) most popular tags sorted by how many patients with that respective tag.
@@ -252,7 +252,7 @@ Format: `editp PATIENT_ID [n/NAME] [p/PHONE] [e/EMAIL] [a/AFFLIATED_WITH]…​`
 * You can remove all the patient’s tags by typing `a/` without
   specifying any tags after it.
 
-> Tip: Changing patient's name does not automatically update the Appointment's patient names.
+> Tip: Changing the patient's name does not automatically update the Appointment's patient names.
 Run `querya` to update the appointments with new information.
 
 Examples:
@@ -317,7 +317,7 @@ The screenshot below shows a failed operation due to another appointment being s
 **Validation**:
 1. PATIENT_ID
    1. No non-existing patient IDs are allowed. Checks are made against the patient list.
-   2. Patient ID given must exist in the current patient list.
+   2. The patient ID given must exist in the current patient list.
    3. Patient ID must be a positive integer.
 2. START_DATETIME and END_DATETIME
    1. No two appointments can share the exact same date and time, even if they differ by other attributes like different patient IDs.
@@ -335,7 +335,7 @@ Shows a list of all appointments in CogniCare.
 The screenshot below shows a successful query of all appointments:
 ![5a_Query_appointment_no-parameter_success.png](images%2Fappointments%2F5a_Query_appointment_no-parameter_success.png)
 
-### Listing selected appointments that meets specified criteria: `querya`
+### Listing selected appointments that meet specified criteria: `querya`
 
 Shows a list of appointments in the CogniCare application that matches the criteria.
 
@@ -351,15 +351,15 @@ The screenshot below shows a successful query of appointments using patient id:
 
 ### Filter appointments by date time: `filter`
 
-Show a list of appointments in a specific date time range. This includes the appointments that starts or ends in the date time range or appointments that starts before and ends after the date time range.
+Show a list of appointments in a specific date and time range. This includes the appointments that start or end in the date time range or appointments that start before and end after the date time range.
 
 Format: `filter [sd/START_DATETIME] [ed/END_DATETIME]`
 
-Both `START_DATETIME` and `END_DATETIME` are optional. If only `START_DATETIME` is provided, all appointments that starts on or after the `START_DATETIME` will be shown. If only `END_DATETIME` is provided, all appointments that ends on or before the `END_DATETIME` will be shown.
+Both `START_DATETIME` and `END_DATETIME` are optional. If only `START_DATETIME` is provided, all appointments that start on or after the `START_DATETIME` will be shown. If only `END_DATETIME` is provided, all appointments that ends on or before the `END_DATETIME` will be shown.
 
 Examples:
-* `filter sd/2022-12-12 12:00 ed/2022-12-12 14:00` shows all appointments that starts or ends in the date time range of 12pm to 2pm on 12 December 2022. Any appointments that starts before 12pm and ends after 2pm will also be shown.
-* `filter sd/2022-12-12 12:00` shows all appointments that starts on or after 12pm on 12 December 2022.
+* `filter sd/2022-12-12 12:00 ed/2022-12-12 14:00` shows all appointments that start or end in the date time range of 12pm to 2pm on 12 December 2022. Any appointments that start before 12pm and end after 2pm will also be shown.
+* `filter sd/2022-12-12 12:00` shows all appointments that start on or after 12pm on 12 December 2022.
 * `filter ed/2022-12-12 14:00` shows all appointments that ends on or before 2pm on 12 December 2022.
 
 **Validation**:
@@ -463,12 +463,12 @@ CogniCare data is saved automatically as a JSON file `[JAR file location]/data/p
 <box type="warning" seamless>
 
 **Caution:**
-If your changes to the data file makes its format invalid, CogniCare will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
+If your changes to the data file make its format invalid, CogniCare will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
 
-Furthermore, certain edits can cause the CogniCare to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Especially, **do not** put `null` anywhere in any of the json files as it will cause the app to not being able to launch. Therefore, edit the data file only if you are confident that you can update it correctly.
+Furthermore, certain edits can cause the CogniCare application to behave in unexpected ways (e.g. if a value entered is outside the acceptable range). Especially, **do not** put `null` anywhere in any of the JSON files as it will cause the app to not be able to launch. Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
 
-### Navigating through history of commands
+### Navigating through the history of commands
 Press UP or DOWN to navigate your history of written commands. 
 
 UP - Goes to the previous command in the history
@@ -483,7 +483,7 @@ Note: Upon reaching the start of the command history, pressing UP further will p
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous CogniCare home folder.
+**A**: Install the app on the other computer and overwrite the empty data file it creates with the file that contains the data of your previous CogniCare home folder.
 
 **Q**: Why are developers so cute and smart?<br>
 **A**: Thanks :thumbsup:
