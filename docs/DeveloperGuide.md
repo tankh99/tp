@@ -1091,7 +1091,7 @@ Expected Output in the Command Output Box:
 </box>
 
 
-### List all students meeting the selected (one or more) criteria
+### List all patients meeting the selected (one or more) criteria
 Pre-requisite:
 - There is at least one ("1") patient stored in the CogniCare application meeting the requested criterion / criteria.
 
