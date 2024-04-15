@@ -38,6 +38,7 @@ deactivate ReportFeedbackCommand
 
 ReportFeedbackCommandParser --> CommandParser
 deactivate ReportFeedbackCommandParser
+ReportFeedbackCommandParser -[hidden]-> CommandParser
 destroy ReportFeedbackCommandParser
 
 CommandParser --> LogicManager: command
@@ -60,6 +61,5 @@ deactivate CommandResult
 
 ReportFeedbackCommand --> LogicManager: result
 deactivate ReportFeedbackCommand
-' destroy ReportFeedbackCommand
 [<-- LogicManager : return filtered patient\n feedback reports
 @enduml
