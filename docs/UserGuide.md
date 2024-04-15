@@ -374,12 +374,12 @@ Show a list of appointments in a specific date and time range. This includes the
 
 Format: `filter [sd/START_DATETIME] [ed/END_DATETIME]`
 
-Both `START_DATETIME` and `END_DATETIME` are optional. If only `START_DATETIME` is provided, all appointments that start on or after the `START_DATETIME` will be shown. If only `END_DATETIME` is provided, all appointments that ends on or before the `END_DATETIME` will be shown.
+Both `START_DATETIME` and `END_DATETIME` are optional. If only `START_DATETIME` is provided, all appointments that end on or after the `START_DATETIME` will be shown. If only `END_DATETIME` is provided, all appointments that start on or before the `END_DATETIME` will be shown.
 
 Examples:
-* `filter sd/2022-12-12 12:00 ed/2022-12-12 14:00` shows all appointments that start or end in the date time range of 12pm to 2pm on 12 December 2022. Any appointments that start before 12pm and end after 2pm will also be shown.
-* `filter sd/2022-12-12 12:00` shows all appointments that start on or after 12pm on 12 December 2022.
-* `filter ed/2022-12-12 14:00` shows all appointments that ends on or before 2pm on 12 December 2022.
+* `filter sd/2022-12-12 12:00 ed/2022-12-12 14:00` shows all appointments that start or end in the date time range of 12pm to 2pm on 12 December 2022. 
+* `filter sd/2022-12-12 12:00` shows all appointments that end on or after 12pm on 12 December 2022. 
+* `filter ed/2022-12-12 14:00` shows all appointments that start on or before 2pm on 12 December 2022. 
 
 **Validation**:
 1. START_DATETIME and END_DATETIME
