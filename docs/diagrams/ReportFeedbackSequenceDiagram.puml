@@ -61,6 +61,5 @@ deactivate CommandResult
 
 ReportFeedbackCommand --> LogicManager
 deactivate ReportFeedbackCommand
-destroy ReportFeedbackCommand
 [<-- LogicManager : return filtered patient\n feedback reports
 @enduml
