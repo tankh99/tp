@@ -1160,7 +1160,7 @@ Expected Output in the CommandBox: `Edited Person: Bernice Yu; Phone: 91234567; 
 -  The `ListView` will be updated with the latest patient data.
 
 <box type="tip" seamless>
-**Tip:** The student identifier that is commonly referred to in this article refers to the student id that is permanently tagged to each student and is not the index of the natural ordering in the list.
+**Tip:** The patient identifier that is commonly referred to in this article refers to the patient id that is permanently tagged to each patient and is not the index of the natural ordering in the list.
 </box>
 
 
