@@ -438,7 +438,7 @@ Shows the average feedback score per patient for all appointments given a specif
 Format: `reportf [sd/DATE] [ed/DATE]`
 
 - Note that`sd/` and `ed/` expect dates and not datetimes
-- By default, if either `/sd` or `/ed` are left blank, their values will default to the minimum and maximum datetime respectively
+- By default, if either `sd/` or `ed/` are left blank, their values will default to the minimum and maximum datetime respectively
 
 **Examples**
 1. `reportf` - Generates a report using all appointments
@@ -482,11 +482,11 @@ If your changes to the data file make its format invalid, CogniCare will discard
 Furthermore, certain edits can cause the CogniCare application to behave in unexpected ways (e.g. if a value entered is outside the acceptable range). Especially, **do not** put `null` anywhere in any of the JSON files as it will cause the app to not be able to launch. Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
 
-### Navigating through the history of commands
-Press UP or DOWN to navigate your history of written commands. 
+### Navigating through the history of successful commands
+Press `UP` or `DOWN` keyboard key to navigate your history of successful commands. 
 
-UP - Goes to the previous command in the history
-DOWN - Goes to the next command in the history
+- UP - Goes to the previous command in the history
+- DOWN - Goes to the next command in the history
 
 Note: Upon reaching the start of the command history, pressing UP further will play a sound to indicate this fact
 
