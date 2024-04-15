@@ -23,7 +23,7 @@ LogicManager -> CommandParser : parseCommand(args)
 activate CommandParser
 
 create AddPatientCommandParser
-CommandParser -> AddPatientCommandParser : AddPatientCommandParser()
+CommandParser -> AddPatientCommandParser
 activate AddPatientCommandParser
 
 AddPatientCommandParser --> CommandParser
@@ -34,7 +34,7 @@ CommandParser -> AddPatientCommandParser : parse(args)
 activate AddPatientCommandParser
 
 create Patient
-AddPatientCommandParser -> Patient : Patient()
+AddPatientCommandParser -> Patient
 activate Patient
 Patient -> AddPatientCommandParser
 

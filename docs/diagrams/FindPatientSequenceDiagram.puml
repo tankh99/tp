@@ -20,7 +20,7 @@ LogicManager -> CommandParser : parseCommand(args)
 activate CommandParser
 
 create ListPatientCommandParser
-CommandParser -> ListPatientCommandParser : ListPatientCommandParser()
+CommandParser -> ListPatientCommandParser
 activate ListPatientCommandParser
 
 ListPatientCommandParser --> CommandParser
@@ -30,8 +30,8 @@ CommandParser -> ListPatientCommandParser : parse(args)
 activate ListPatientCommandParser
 
 create ListPatientCommand
-ListPatientCommandParser -> ListPatientCommand : ListPatientCommand()
-note right of ListPatientCommandParser : Details of how predicates are combined \nare simplified for the sake of diagramming.
+ListPatientCommandParser -> ListPatientCommand
+note left of ListPatientCommandParser : Details of how predicates are combined \nare simplified for the sake of diagramming.
 activate ListPatientCommand
 
 ListPatientCommand --> ListPatientCommandParser :
@@ -39,8 +39,6 @@ deactivate ListPatientCommand
 
 ListPatientCommandParser --> CommandParser
 deactivate ListPatientCommandParser
-'Hidden arrow to position the destroy marker below the end of the activation bar.
-ListPatientCommandParser -[hidden]-> CommandParser
 destroy ListPatientCommandParser
 
 CommandParser --> LogicManager
@@ -49,7 +47,7 @@ deactivate CommandParser
 LogicManager -> ListPatientCommand : execute(model)
 activate ListPatientCommand
 
-ListPatientCommand -> Model : updateFilteredPatientList(pred)
+ListPatientCommand -> Model : filter patients
 activate Model
 
 Model --> ListPatientCommand
