@@ -494,7 +494,7 @@ Note: Upon reaching the start of the command history, pressing UP further will p
 
 --------------------------------------------------------------------------------------------------------------------
 
-## FAQ
+## Frequently Asked Questions (FAQ)
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app on the other computer and overwrite the empty data file it creates with the file that contains the data of your previous CogniCare home folder.
