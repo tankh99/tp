@@ -787,18 +787,19 @@ Priorities: High (must have) - `* * * *`, Medium (nice to have) - `* * *`, Low (
 **Use Case: Edit a Patient**
 
 **MSS:**
-1. The user enters a command to add a patient with the required index and data field to be edited.
-2. CogniCare displays a success message confirming the patient's details have been updated.
+1. The user runs the `queryp` command to list all patients
+2. The user enters a command to add a patient with the required index and data field to be edited.
+3. CogniCare displays a success message confirming the patient's details have been updated.
 Use case ends.
 
 
 **Extensions**
-* 1a. The patient identifier does not match any patient in the system.
-  * 1a1. CogniCare displays an error message that the patient was not found.
+* 2a. The patient identifier does not match any patient in the system.
+  * 2a1. CogniCare displays an error message that the patient was not found.
   Use case ends.
 
-* 2a. Required data fields are left blank or data is in the incorrect format.
-  * 2a1. CogniCare displays an error message indicating what needs to be corrected or filled in, including the specific requirements for the phone number and email format.
+* 3a. Required data fields are left blank or data is in the incorrect format.
+  * 3a1. CogniCare displays an error message indicating what needs to be corrected or filled in, including the specific requirements for the phone number and email format.
   Use case ends.
 
 **Use case: List all / Search for patients meeting selected criteria / criterion**
@@ -832,21 +833,21 @@ Use case ends.
 **Use case: Delete a patient**
 
 **MSS:**
-
-1.  User requests to delete a patient at the given index.
-2.  CogniCare deletes the patient.
-3.  CogniCare displays a successful message stating that the deletion was successful and displays information of the deleted patient.
+1. The user runs the `queryp` command to list all patients
+2. User requests to delete a patient at the given index.
+3. CogniCare deletes the patient.
+4. CogniCare displays a successful message stating that the deletion was successful and displays information of the deleted patient.
     Use case ends.
 
 **Extensions**
 
-* 1a. The query has a missing Id parameter.
-    * 1a1. CogniCare displays an error message that the index is invalid. (No deletion is done)
+* 2a. The query has a missing Id parameter.
+    * 2a1. CogniCare displays an error message that the index is invalid. (No deletion is done)
 
     Use case ends.
 
-* 1b. The patient index is invalid. 
-   * 1b1. CogniCare displays an error message that the index is invalid. (No deletion is done)
+* 2b. The patient index is invalid. 
+   * 2b1. CogniCare displays an error message that the index is invalid. (No deletion is done)
 
   Use case ends.
 
@@ -876,17 +877,18 @@ Use case ends.
 **Use Case: Edit an Appointment**
 
 **MSS:**
-1. User enters command to edit appointment with required index and data field to be edited.
-2. CogniCare displays a success message confirming the appointment details have been updated.
+1. The user runs the `querya` command to list all appointments.
+2. User enters command to edit appointment with required index and data field to be edited.
+3. CogniCare displays a success message confirming the appointment details have been updated.
    Use case ends.
 
 
 **Extensions**
-* 1a. The appointment identifier does not match any appointment in the system.
+* 2a. The appointment identifier does not match any appointment in the system.
     * 1a1. CogniCare displays an error message that the appointment was not found.
       Use case ends.
 
-* 2a. Required data fields are left blank or data is in the incorrect format.
+* 3a. Required data fields are left blank or data is in the incorrect format.
     * 2a1. CogniCare displays an error message indicating what needs to be corrected or filled in.
       Use case ends.
   
@@ -917,23 +919,23 @@ Use case ends.
 **Use case: Delete a specific appointment**
 
 **MSS:**
-
-1. User requests to delete an appointment at the given appointment index.
-2. CogniCare deletes the appointment.
+1. The user runs the `querya` command to list all appointments.
+2. User requests to delete an appointment at the given appointment index.
+3. CogniCare deletes the appointment.
 
     Use case ends.
 
 **Extensions**
 
-* 1a. The query has missing parameters
+* 2a. The query has missing parameters
 
-    * 1a1. CogniCare shows an error message.
+    * 2a1. CogniCare shows an error message.
     
   Use case ends.
 
-* 1b. The appointment index is invalid.
+* 2b. The appointment index is invalid.
   
-  * 1b1. CogniCare displays an error message that the index is invalid. (No deletion is done)
+  * 2b1. CogniCare displays an error message that the index is invalid. (No deletion is done)
 
 Use case ends.
 
