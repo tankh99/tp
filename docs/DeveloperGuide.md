@@ -376,9 +376,6 @@ There are a few classes and methods used to interact with the edit patient comma
 
 ### Deleting an existing patient
 
-The diagram below shows the sequence diagram for querying patients: 
-<puml src="diagrams/DeletePatientSequenceDiagram.puml" alt="Delete Patient Sequence Diagram" />
-
 The delete patients feature allows users to remove patients from CogniCare (whether it is for privacy reasons etc).
 
 The diagram below shows the sequence diagram for deleting patients: <puml src="diagrams/DeletePatientSequenceDiagram.puml" alt="Delete Patient Sequence Diagram" />
@@ -574,7 +571,7 @@ Below is a sequence diagram of the user flow of the report command
 5. `FeedbackScore` - Contains a nullable Integer field. If it is null, then there is no rating for the appointment yet
 
 **Rationale for Implementation**
-1. High-level structure for `ReportFeedbackCommand`, `ReportFeedbackCommandParser` and `PatientFEedbackReportList` was inspired from previous implementations of similar models
+1. High-level structure for `ReportFeedbackCommand`, `ReportFeedbackCommandParser` and `PatientFeedbackReportList` was inspired from previous implementations of similar models
 2. Integer was used for `FeedbackScore` because:
    1. We did not want to make FeedbackScore compulsory to add when creating an appointment
    2. The primitive type `int` is not nullable, so we used a wrapper class instead
