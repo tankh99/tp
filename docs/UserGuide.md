@@ -450,9 +450,9 @@ Format: `reportf [sd/START_DATE] [ed/END_DATE]`
 **Examples**
 1. `reportf` - Generates a report using all appointments
 ![alt text](<images/reportf/0a_reportf.png>)
-1. `reportf sd/2024-02-18` - Generates a report with all appointments that start on 18 Feb 2024 00:00
+1. `reportf sd/2024-02-18` - Generates a report with all appointments that start on or before 18 Feb 2024 00:00
 ![alt text](<images/reportf/0b_reportf_withsd.png>)
-1. `reportf ed/2024-02-20` - Generates a report with all appointments that end before 20 Feb 2024 23:59
+1. `reportf ed/2024-02-20` - Generates a report with all appointments that end on or before 20 Feb 2024 23:59
 ![alt text](<images/reportf/0c_reportf_ed.png>)
 1. `reportf sd/2024-02-18 ed/2024-02-20` - Generates a report with all appointments that start on 18 Feb 2024 and end before 20 Feb 2024.
 ![alt text](<images/reportf/0d_reportf_sd_ed.png>)
