@@ -318,7 +318,7 @@ Format: `adda pid/PATIENT_ID sd/START_DATETIME ed/END_DATETIME [att/ATTEND] [s/F
 * Format of date time is yyyy-MM-dd HH:mm.
 * Once the patient is created, the appointment identifier `aid` will be permanently tagged to an appointment, and is not coalesced when other entries are deleted.
 * You may not add two appointments with the same date and time even if they are for different patients.
-* FEEDBACK_SCORE refers to the rating that the patient gives at the end of each appointment. This score represents their satisfaction levels. The higher the satisfaction level, the more likely they are to be discharged.
+* FEEDBACK_SCORE refers to the rating that the patient gives at the end of each appointment. This score represents their satisfaction levels. The higher the satisfaction level, the better.
 * APPOINTMENT_DESCRIPTION refers to any appointment notes the user wishes to note down.
 
 Examples:
@@ -341,9 +341,7 @@ The screenshot below shows a failed operation due to another appointment being s
 2. START_DATETIME and END_DATETIME
    1. No two appointments can share the exact same date and time, even if they differ by other attributes like different patient IDs.
       - Note the exception to this is when the appointment's start and end times are tbe same as we allow boundary values to be touching each other, as long as they're not crossing each other.
-   2. The start date and time cannot be before the end date and time. 
-   3. END_DATETIME must be after START_DATETIME.
-   4. The appointment timing cannot overlap with another existing appointment.
+   2. END_DATETIME must be after START_DATETIME.
 1. ATTEND
    1. Must be either `true` or `false` (case-insensitive).
 2. FEEDBACK_SCORE
@@ -442,17 +440,19 @@ The screenshot below shows a failed operation due to invalid appointment index:
 
 Shows the average feedback score per patient for all appointments given a specified date range.
 
-Format: `reportf [sd/DATE] [ed/DATE]`
+Format: `reportf [sd/START_DATE] [ed/END_DATE]`
 
+- `sd/` filters all appointments that end on or after START_DATE
+- `ed/` filters all appointments that start on or before END_DATE
 - Note that`sd/` and `ed/` expect dates and not datetimes
 - By default, if either `sd/` or `ed/` are left blank, their values will default to the minimum and maximum datetime respectively
 
 **Examples**
 1. `reportf` - Generates a report using all appointments
 ![alt text](<images/reportf/0a_reportf.png>)
-1. `reportf sd/2024-02-18` - Generates a report with all appointments that start on 18 Feb 2024
+1. `reportf sd/2024-02-18` - Generates a report with all appointments that start on or before 18 Feb 2024 00:00
 ![alt text](<images/reportf/0b_reportf_withsd.png>)
-1. `reportf ed/2024-02-20` - Generates a report with all appointments that end before 20 Feb 2024
+1. `reportf ed/2024-02-20` - Generates a report with all appointments that end on or before 20 Feb 2024 23:59
 ![alt text](<images/reportf/0c_reportf_ed.png>)
 1. `reportf sd/2024-02-18 ed/2024-02-20` - Generates a report with all appointments that start on 18 Feb 2024 and end before 20 Feb 2024.
 ![alt text](<images/reportf/0d_reportf_sd_ed.png>)
@@ -514,7 +514,7 @@ Note: Upon reaching the start of the command history, pressing UP further will p
 ## Known issues
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
-2. Students and Patients are used interchangeably.
+2. Students and Patients are terms used interchangeably.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -531,7 +531,7 @@ Note: Upon reaching the start of the command history, pressing UP further will p
 | **Delete an appointment**                             | `deletea APPOINTMENT_ID` <br> e.g., `deletea 1`                                                                                                                                                                                  | 
 | **Edit an appointment**                               | `edita APPOINTMENT_ID [pid/PATIENT_ID] [sd/START_DATETIME] [ed/END_DATETIME] [att/ATTEND] [s/FEEDBACK_SCORE] [ad/APPOINTMENT_DESCRIPTION]` <br> e.g., `edita 1 pid/2`                                                            |
 | **Filter appointments by date time**                  | `filter [sd/START_DATETIME] [ed/END_DATETIME]`  <br> e.g., `filter sd/2022-12-12 12:00`                                                                                                                                          |
-| **Report patient feedback statistics**                | `reportf [sd/DATE] [ed/DATE]` <br> e.g. `reportf sd/2024-02-18`                                                                                                                                                                  |
+| **Report patient feedback statistics**                | `reportf [sd/START_DATE] [ed/END_DATE]` <br> e.g. `reportf sd/2024-02-18`                                                                                                                                                                  |
 | **Help**                                              | `help`                                                                                                                                                                                                                           |                                                                                                                                                                                                           |
 | **Delete all entries from the CogniCare application** | `clear`                                                                                                                                                                                                                          |
 | **Exit Application**                                  | `exit`                                                                                                                                                                                                                           |
