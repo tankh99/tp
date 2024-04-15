@@ -39,6 +39,7 @@ deactivate ListPatientCommand
 
 ListPatientCommandParser --> CommandParser
 deactivate ListPatientCommandParser
+ListPatientCommandParser -[hidden]-> CommandParser
 destroy ListPatientCommandParser
 
 CommandParser --> LogicManager

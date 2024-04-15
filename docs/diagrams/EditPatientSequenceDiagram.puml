@@ -47,6 +47,7 @@ deactivate EditPatientCommand
 
 EditPatientCommandParser --> CommandParser : return
 deactivate EditPatientCommandParser
+EditPatientCommandParser -[hidden]-> CommandParser
 destroy EditPatientCommandParser
 
 CommandParser --> LogicManager : d
