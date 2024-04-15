@@ -1366,4 +1366,4 @@ The team-based setting also exposed us to various crucial skills such as improvi
 ## **Acknowledgements**
 
 Code base adapted from [Address Book Level-3](https://github.com/nus-cs2103-AY2324S2/tp)
-Git Copilot was used as an autocomplete tool to assist in writing parts of the documentation and diagrams by Nam.
+Git Copilot was used as an autocomplete tool to assist in writing parts of the documentation and diagrams by @vnnamng.
