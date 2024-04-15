@@ -10,7 +10,8 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
- * Contains auto-specific code
+ * Contains auto-specific code.
+ * Code adapted from https://www.codejava.net/coding/how-to-play-back-audio-in-java-with-examples
  */
 public class AudioUtil {
 

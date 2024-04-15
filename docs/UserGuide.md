@@ -32,6 +32,9 @@ CogniCare is a **desktop app for a single-user application for managing most Sch
 5. Type the command in the command box and press Enter to execute it. e.g., typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
+
+    * `edita 1 pid/3` : Changes appointment index 1, from its original patient id to patient id 3.
+
     * `queryp` : Lists all patients that are stored in the CogniCare application.
 
     * `addp n/Jerome Chua p/98765432 e/jerome@example.com a/depression` : Adds a contact named `Jerome Chua` to the Address Book who is affiliated with having "depression".
@@ -43,8 +46,6 @@ CogniCare is a **desktop app for a single-user application for managing most Sch
     * `querya` : Lists all appointments that are stored in CogniCare.
 
     * `querya pid/2` : List all appointments belonging to patient index 2 that is stored in the CogniCare application.
-   
-    * `edita 1 pid/3` : Changes appointment index 1, from its original patient id to patient id 3.
 
     * `deletea 3` : Deletes the appointment that has the appointment id of 3 (This is different from the natural ordering of the list).
 
@@ -229,10 +230,10 @@ Format: `queryp n/rome ​`
 
 Then all patients with "rome" in their names will be returned as well. Similar logic applies for Name, Phone Number and Email address, but not for the affiliated-with tags.
 
-## Viewing the top 10 distinct tags
+### Viewing the top 10 distinct affiliated-with tags
 > **Note**: You **_do not_** need to enter any command to access this information. These top 10 statistics are automatically updated.
 
-The image shows the (top 10) most popular tags sorted by how many patients with that respective tag.
+The image shows the (top 10) most popular tags sorted by how many patients with that respective affiliated-with tags.
 Note that the command was entered to demonstrate that the count for the anxiety tag is the same as the ones in the CogniCare application.
 ![Viewing tags statistics](images/patients/3e_Query_via_tags-same_count_as_summary_success.png)
 
@@ -247,13 +248,24 @@ Format: `editp PATIENT_ID [n/NAME] [p/PHONE] [e/EMAIL] [a/AFFLIATED_WITH]…​`
 > Tip: Please take note that 0 is not a valid patient identifier.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the patient will be removed; i.e., adding of tags is not cumulative.
+* When editing affiliated-with tags, the existing affiliated-with tags of the patient will be removed; i.e., adding of affiliated-with tags is not cumulative.
 * The `patientId` will not be changed when you edit an individual's information.
-* You can remove all the patient’s tags by typing `a/` without
-  specifying any tags after it.
+* You can remove all the patient’s affiliated-with tags by typing `a/` without
+  specifying any affiliated-with tags after it.
 
-> Tip: Changing the patient's name does not automatically update the Appointment's patient names.
+
+
+<box type="tip" seamless>
+
+**Tip:**: Changing the patient's name does not automatically update the Appointment's patient names.
 Run `querya` to update the appointments with new information.
+</box>
+
+
+<box type="tip" seamless>
+
+**Tip:** Please make sure that you only edit the patients that are visible to you on the GUI. The same applies for the Appointments.
+</box>
 
 Examples:
 *  `editp 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the patient with index 1 to be `91234567` and `johndoe@example.com` respectively.
@@ -280,7 +292,7 @@ Format: `deletep INDEX`
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `deletep 90` deletes the patient with the patientId of 90 in the CogniCare application.
+* `queryp` followed by `deletep 90` deletes the patient with the patientId of 90 in the CogniCare application.
 
 
 The image below shows a successful message of a delete patient command (when a valid index is specified).
@@ -328,7 +340,7 @@ The screenshot below shows a failed operation due to another appointment being s
 1. ATTEND
    1. Must be either `true` or `false` (case-insensitive).
 2. FEEDBACK_SCORE
-   1. The score must be between 1 and 5 (inclusive).
+   1. The score must be an integer between 1 and 5 (inclusive).
 
 ### Listing all appointments: `querya`
 
@@ -338,7 +350,7 @@ The screenshot below shows a successful query of all appointments:
 ![5a_Query_appointment_no-parameter_success.png](images%2Fappointments%2F5a_Query_appointment_no-parameter_success.png)
 
 ### Listing selected appointments that meet specified criteria: `querya`
-
+=
 Shows a list of appointments in the CogniCare application that matches the criteria.
 
 Format: `querya [pid/PATIENT_ID] [n/PATIENT_NAME] [aid/APPOINTMENT_ID]`
@@ -426,7 +438,7 @@ Shows the average feedback score per patient for all appointments given a specif
 Format: `reportf [sd/DATE] [ed/DATE]`
 
 - Note that`sd/` and `ed/` expect dates and not datetimes
-- By default, if either `/sd` or `/ed` are left blank, their values will default to the minimum and maximum datetime respectively
+- By default, if either `sd/` or `ed/` are left blank, their values will default to the minimum and maximum datetime respectively
 
 **Examples**
 1. `reportf` - Generates a report using all appointments
@@ -470,11 +482,11 @@ If your changes to the data file make its format invalid, CogniCare will discard
 Furthermore, certain edits can cause the CogniCare application to behave in unexpected ways (e.g. if a value entered is outside the acceptable range). Especially, **do not** put `null` anywhere in any of the JSON files as it will cause the app to not be able to launch. Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
 
-### Navigating through the history of commands
-Press UP or DOWN to navigate your history of written commands. 
+### Navigating through the history of successful commands
+Press `UP` or `DOWN` keyboard key to navigate your history of successful commands. 
 
-UP - Goes to the previous command in the history
-DOWN - Goes to the next command in the history
+- UP - Goes to the previous command in the history
+- DOWN - Goes to the next command in the history
 
 Note: Upon reaching the start of the command history, pressing UP further will play a sound to indicate this fact
 
@@ -482,7 +494,7 @@ Note: Upon reaching the start of the command history, pressing UP further will p
 
 --------------------------------------------------------------------------------------------------------------------
 
-## FAQ
+## Frequently Asked Questions (FAQ)
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app on the other computer and overwrite the empty data file it creates with the file that contains the data of your previous CogniCare home folder.
@@ -504,7 +516,7 @@ Note: Upon reaching the start of the command history, pressing UP further will p
 | Action                                                | Format, Examples                                                                                                                                                                                                                 |
 |-------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Add a patient**                                     | `addp n/NAME p/PHONE_NUMBER e/EMAIL [a/AFFLIATED_WITH]…​` <br> e.g., `addp n/Jerome Chua p/98765432 e/jerome@example.com a/depression` or `addp n/Davinci Lim p/98731122 e/betsycrowe@example.com a/sad a/anxiety`               |
-| **Query patients**                                    | `queryp [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] …​`<br> e.g., `queryp n/Jerome p/987 e/example.com​`                                                                                                                                 |
+| **Query patients**                                    | `queryp [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/AFFLIATED_WITH]…​`<br> e.g., `queryp n/Jerome p/987 e/example.com​`                                                                                                               |
 | **Delete patient**                                    | `deletep PATIENT_ID`<br> e.g., `deletep 3`                                                                                                                                                                                       |
 | **Edit patient**                                      | `editp PATIENT_ID [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/AFFLIATED_WITH]…​`  <br> e.g., `editp 1 p/91234567 e/johndoe@example.com`                                                                                               |
 | **Add an appointment**                                | `adda pid/PATIENT_ID sd/START_DATETIME ed/END_DATETIME [att/ATTEND] [s/FEEDBACK_SCORE] [ad/APPOINTMENT_DESCRIPTION]` <br> e.g., `adda pid/2 sd/2022-12-12 15:00 ed/2022-12-12 16:00 att/true s/5 ad/This is a dummy appointment` |

@@ -215,9 +215,6 @@ Appointment List is saved under a separate file `appointmentList.json` in the da
 
 
 **Aspect: Search query with AND constraint**
-### Querying Patients by different parameters.
-
-<puml src="diagrams/FindPatientSequenceDiagram.puml"/>
 
 In enhancing the search functionality within CogniCare, the implementation of an AND constraint for search queries was paramount. This feature allows counsellors to refine search criteria, leading to more precise and relevant search results. For example, a counsellor can search for a patient using a combination of parameters (partial name AND partial phone number AND partial email address). It is to note that only one parameter is required; the others are optional.
 
@@ -278,7 +275,7 @@ This enhancement was driven by the need for:
 
     
 <!-- @@author Jerome-j -->
-## Adding a New Patient
+### Adding a New Patient
 
 The add patient feature is modified from the original AB3 which allows users to register new students as users and insert them into the application.
 
@@ -316,7 +313,7 @@ There are a few notable classes and methods that are used to interact with the a
 * Completely re-writing AB3's addressbook. This is not practical as our functionalities and use-case is similar to the use case of the AB3 application.
 
 
-## Querying for Patients
+### Querying for Patients
 The query patient command allows users to search for patients based on the given criteria. It makes use of the `ListPatientCommandParser` which obtains the values that correspond to the criteria such as `p/`, `n/`, `e/`, and `a/` which represent phone, name, email address, and alias(es) accordingly, and combined with an `AND` logic.
 
 The diagram below shows the sequence diagram for querying patients:
@@ -341,7 +338,7 @@ Otherwise, each of the search terms will be applied to each of the respective fi
 - Using case-insensitive search: the use of case-insensitive search terms for parameter matching provides a more seamless and more user-friendly experience.
 
 
-## Editing a current Patient
+### Editing a current Patient
 The edit command allows a user to update a patient's information if they relocate, change phone numbers, change email address, etc.
 
 The diagram below shows the sequence diagram for editing a patient: 
@@ -377,10 +374,7 @@ There are a few classes and methods used to interact with the edit patient comma
 * Using the name as the primary key instead of the patient ID - may lead to unexpected deletes as there could be a case where the counselor has two patients of the similar name "Tan Ah Kow" and "Tan Ah". Suppose the counselor wants to delete "Tan Ah", not "Tan Ah Kou" - in this case, the wrong record will be accidentally deleted. Using an integer value as the identifier would eliminate this problem and will also make it much easier for the user to input the commands.
     * Therefore the workflow would be to search for the respective patient for the respective index via the `queryp` command before editing it.
 
-## Deleting an existing patient
-
-The diagram below shows the sequence diagram for querying patients: 
-<puml src="diagrams/DeletePatientSequenceDiagram.puml" alt="Delete Patient Sequence Diagram" />
+### Deleting an existing patient
 
 The delete patients feature allows users to remove patients from CogniCare (whether it is for privacy reasons etc).
 
@@ -391,7 +385,7 @@ The diagram below shows the sequence diagram for deleting patients: <puml src="d
 * The patient index is based on the unique ID that is tagged to each individual patient and is not the natural ordering of the list.
 
 
-Otherwise, if the process is successful, the current `Patient` object corresponding to the respective ID will be updated with the deleted patient information containing the phone, email, and respective affiliated-with information.
+Otherwise, if the process is successful, the current `Patient` object corresponding to the respective ID will be updated with the deleted patient information containing the phone, email, respective affiliated-with, and linked appointment information.
 
 
 **Implementation**  
@@ -577,7 +571,7 @@ Below is a sequence diagram of the user flow of the report command
 5. `FeedbackScore` - Contains a nullable Integer field. If it is null, then there is no rating for the appointment yet
 
 **Rationale for Implementation**
-1. High-level structure for `ReportFeedbackCommand`, `ReportFeedbackCommandParser` and `PatientFEedbackReportList` was inspired from previous implementations of similar models
+1. High-level structure for `ReportFeedbackCommand`, `ReportFeedbackCommandParser` and `PatientFeedbackReportList` was inspired from previous implementations of similar models
 2. Integer was used for `FeedbackScore` because:
    1. We did not want to make FeedbackScore compulsory to add when creating an appointment
    2. The primitive type `int` is not nullable, so we used a wrapper class instead
@@ -739,26 +733,25 @@ Furthermore, CogniCare's operations are specialised for technically competent us
 
 Priorities: High (must have) - `* * * *`, Medium (nice to have) - `* * *`, Low (unlikely to have) - `* *`, Not essential (implement only if got time) - ` * `
 
-| Priority  | As a …​          | I want to …​                                              | So that I can…​                                                                                            |
-|-----------|------------------|-----------------------------------------------------------|------------------------------------------------------------------------------------------------------------|
-| `* * * *` | Counsellor       | create a new patient                                       | store their data for future sessions.                                                                      |
-| `* * * *` | Counsellor       | view patient data                                         | view their contact information and contact them.                                                           |
-| `* * * *` | Counsellor       | delete patient data at a given index                      | discharge the patient.                                                                                     |
-| `* * * *` | Counsellor       | search for patients                           | quickly access patients that come regularly.                                                               |
-| `* * * *` | Counsellor       | schedule an appointment                                     | avoid scheduling overlapping appointments with other patients.                                             |
-| `* * * *` | Counsellor       | view appointment data              | view appointment data such as appointment description and scores.
-| `* * * *` | Counsellor       | delete an appointment              | remove appointments I accidentally created.                                                      |
-| `* * * *` | Counsellor       | search for all appointments for a specified patient             | quickly view all appointments related to a student without having to remember the appointment ID or dates. |
-| `* * * *` | Counsellor       | search for appointments by time range             | quickly view all appointments within a date range. |
-| `* * * *` | Counsellor       | update appointments                                       | update appointment data after the appointment concluded.                                                                      |
-| `* * * *` | Counsellor       | track patient feedback scores over time                   | quickly identify which patients need more help.                                                            |
-| `* * *`   | Counsellor       | to categorise / tag my patients                           | patients with more serious issues can be attended to first.                                                |
-| `* * *`   | Counsellor       | know what mistakes I make when creating patients          | easily understand how to rectify my mistakes                                                               |
-| `* * *`   | Counsellor       | know know what mistakes I make when creating appointments | easily understand how to rectify my mistakes                                                               |
-| `* * *`   | New User         | have a help function                                      | so that I know how to use the application.                                                                 |
-| `* *`     | Counsellor       | sort patients based on their priority tag                 | more serious patients can be attended first.                                                               |
-| `* *`     | Experienced User | navigate through my history of written commands           | avoid retyping a command just to make minor modifications to a previous command.                           |
-| `*`       | Experienced User | mass delete application data                                  | sensitive data is not compromised.                                                                           |
+| Priority  | As a …​          | I want to …​                                         | So that I can…​                                                                                            |
+|-----------|------------------|------------------------------------------------------|------------------------------------------------------------------------------------------------------------|
+| `* * * *` | Counsellor       | create a new patient                                 | store their data for future sessions.                                                                      |
+| `* * * *` | Counsellor       | view patient data                                    | view their contact information and contact them.                                                           |
+| `* * * *` | Counsellor       | delete patient data at a given index                 | discharge the patient.                                                                                     |
+| `* * * *` | Counsellor       | search for patients                                  | quickly access patients that come regularly.                                                               |
+| `* * * *` | Counsellor       | schedule an appointment                              | avoid scheduling overlapping appointments with other patients.                                             |
+| `* * * *` | Counsellor       | view appointment data                                | view appointment data such as appointment description and scores.                                          |
+| `* * * *` | Counsellor       | delete an appointment                                | remove appointments I accidentally created.                                                                |
+| `* * * *` | Counsellor       | search for all appointments for a specified patient  | quickly view all appointments related to a student without having to remember the appointment ID or dates. |
+| `* * * *` | Counsellor       | search for appointments by time range                | quickly view all appointments within a date range.                                                         |
+| `* * * *` | Counsellor       | update appointments                                  | update appointment data after the appointment concluded.                                                   |
+| `* * * *` | Counsellor       | track patient feedback scores over time              | quickly identify which patients need more help.                                                            |
+| `* * *`   | Counsellor       | to categorise / tag my patients                      | patients with more serious issues can be attended to first.                                                |
+| `* * *`   | Counsellor       | know what mistakes I make when creating patients     | easily understand how to rectify my mistakes                                                               |
+| `* * *`   | Counsellor       | know what mistakes I make when creating appointments | easily understand how to rectify my mistakes                                                               |
+| `* * *`   | New User         | have a help function                                 | so that I know how to use the application.                                                                 |
+| `* *`     | Experienced User | navigate through my history of successful commands   | avoid retyping a command just to make minor modifications to a previous command.                           |
+| `*`       | Experienced User | mass delete application data                         | sensitive data is not compromised.                                                                         |
 
 
 ### Use cases
@@ -790,18 +783,19 @@ Priorities: High (must have) - `* * * *`, Medium (nice to have) - `* * *`, Low (
 **Use Case: Edit a Patient**
 
 **MSS:**
-1. The user enters a command to add a patient with the required index and data field to be edited.
-2. CogniCare displays a success message confirming the patient's details have been updated.
+1. The user runs the `queryp` command to list all patients
+2. The user enters a command to add a patient with the required index and data field to be edited.
+3. CogniCare displays a success message confirming the patient's details have been updated.
 Use case ends.
 
 
 **Extensions**
-* 1a. The patient identifier does not match any patient in the system.
-  * 1a1. CogniCare displays an error message that the patient was not found.
+* 2a. The patient identifier does not match any patient in the system.
+  * 2a1. CogniCare displays an error message that the patient was not found.
   Use case ends.
 
-* 2a. Required data fields are left blank or data is in the incorrect format.
-  * 2a1. CogniCare displays an error message indicating what needs to be corrected or filled in, including the specific requirements for the phone number and email format.
+* 3a. Required data fields are left blank or data is in the incorrect format.
+  * 3a1. CogniCare displays an error message indicating what needs to be corrected or filled in, including the specific requirements for the phone number and email format.
   Use case ends.
 
 **Use case: List all / Search for patients meeting selected criteria / criterion**
@@ -835,21 +829,21 @@ Use case ends.
 **Use case: Delete a patient**
 
 **MSS:**
-
-1.  User requests to delete a patient at the given index.
-2.  CogniCare deletes the patient.
-3.  CogniCare displays a successful message stating that the deletion was successful and displays information of the deleted patient.
+1. The user runs the `queryp` command to list all patients
+2. User requests to delete a patient at the given index.
+3. CogniCare deletes the patient.
+4. CogniCare displays a successful message stating that the deletion was successful and displays information of the deleted patient.
     Use case ends.
 
 **Extensions**
 
-* 1a. The query has a missing Id parameter.
-    * 1a1. CogniCare displays an error message that the index is invalid. (No deletion is done)
+* 2a. The query has a missing Id parameter.
+    * 2a1. CogniCare displays an error message that the index is invalid. (No deletion is done)
 
     Use case ends.
 
-* 1b. The patient index is invalid. 
-   * 1b1. CogniCare displays an error message that the index is invalid. (No deletion is done)
+* 2b. The patient index is invalid. 
+   * 2b1. CogniCare displays an error message that the index is invalid. (No deletion is done)
 
   Use case ends.
 
@@ -879,17 +873,18 @@ Use case ends.
 **Use Case: Edit an Appointment**
 
 **MSS:**
-1. User enters command to edit appointment with required index and data field to be edited.
-2. CogniCare displays a success message confirming the appointment details have been updated.
+1. The user runs the `querya` command to list all appointments.
+2. User enters command to edit appointment with required index and data field to be edited.
+3. CogniCare displays a success message confirming the appointment details have been updated.
    Use case ends.
 
 
 **Extensions**
-* 1a. The appointment identifier does not match any appointment in the system.
+* 2a. The appointment identifier does not match any appointment in the system.
     * 1a1. CogniCare displays an error message that the appointment was not found.
       Use case ends.
 
-* 2a. Required data fields are left blank or data is in the incorrect format.
+* 3a. Required data fields are left blank or data is in the incorrect format.
     * 2a1. CogniCare displays an error message indicating what needs to be corrected or filled in.
       Use case ends.
   
@@ -920,23 +915,23 @@ Use case ends.
 **Use case: Delete a specific appointment**
 
 **MSS:**
-
-1. User requests to delete an appointment at the given appointment index.
-2. CogniCare deletes the appointment.
+1. The user runs the `querya` command to list all appointments.
+2. User requests to delete an appointment at the given appointment index.
+3. CogniCare deletes the appointment.
 
     Use case ends.
 
 **Extensions**
 
-* 1a. The query has missing parameters
+* 2a. The query has missing parameters
 
-    * 1a1. CogniCare shows an error message.
+    * 2a1. CogniCare shows an error message.
     
   Use case ends.
 
-* 1b. The appointment index is invalid.
+* 2b. The appointment index is invalid.
   
-  * 1b1. CogniCare displays an error message that the index is invalid. (No deletion is done)
+  * 2b1. CogniCare displays an error message that the index is invalid. (No deletion is done)
 
 Use case ends.
 
@@ -1010,14 +1005,15 @@ Use case ends.
 
 **Extension**
 
+* 2a. User presses the Up arrow key again
+    * 2a1. A sound is played indicating that there is no previous command
+
+  Use case resumes from step 3.
+
 * 3a. User modifies the command, and without executing it, presses the Down arrow key, followed by the Up arrow key
     * 3a1. The command before modification is shown because the modified command is not yet executed
   
   Use case resumes from step 3
-* 2a. User presses the Up arrow key again
-    * *a1. A sound is played indicating that there is no previous command
-
-    Use case resumes from step 3.
 
 **Use case: Getting the next command entered**
 
@@ -1061,10 +1057,7 @@ Given below are instructions to test the app manually.
 > **Note:** These instructions only provide a starting point for testers to work on;
 > Testers are expected to do more *exploratory* testing.
 
-
-## Manual Testing
-
-## Launch and Shutdown
+### Launch and Shutdown
 1. Ensure you have Java `11` or above installed on your Computer.
   1. If you are on macOS on an Apple Silicon System, we recommend that you follow the guide on [CS2103 Course website](https://nus-cs2103-ay2324s2.github.io/website/admin/programmingLanguages.html#programming-language) using the Zulu version `zulu11.50.19-ca-fx-jdk11.0.12-macosx_aarch64.dmg`
   2. If you are on Windows / Intel architecture, most versions of Java 11 should work.
@@ -1076,7 +1069,7 @@ Given below are instructions to test the app manually.
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar cognicare.jar` command to run the application.<br>  
    **Expected**: A GUI containing the sample patient list below should appear in a few seconds. Note that the app contains some sample data. You may need to re-scale the window size to suit your computer display.
 
-## List all students (without any parameters)
+### List all students (without any parameters)
 Pre-requisite:
 - There is at least one ("1") patient stored in the CogniCare application.
 
@@ -1089,11 +1082,13 @@ Expected Output:
 Expected Output in the Command Output Box:
 - `Listed all persons`
 
+<box type="tip" seamless>
 
-> [!TIP]
-> If there are no patients stored in the Application, then an empty ListView will be displayed.
+**Tip:** If there are no patients stored in the Application, then an empty ListView will be displayed.
+</box>
 
-## List all students meeting the selected (one or more) criteria
+
+### List all patients meeting the selected (one or more) criteria
 Pre-requisite:
 - There is at least one ("1") patient stored in the CogniCare application meeting the requested criterion / criteria.
 
@@ -1113,13 +1108,13 @@ Expected Output:
 Expected Output in the Command Output Box:
 - `Listed all persons`
 
+<box type="tip" seamless>
 
-> [!TIP]
-> If there are no patients stored in the Application, or if there are no data that meets the required criteria,  an empty ListView will be displayed
+**Tip:** If there are no patients stored in the Application, or if there are no data that meets the required criteria, an empty ListView will be displayed
+</box>
 
 
-
-## Adding a new patient
+### Adding a new patient
 Pre-requisite:
 - There does not exist another patient with the same name (regardless of capitalisation) and spacing, i.e. the names "Jerome Chua" and "jEROmE       CHuA" are considered the same name.
 
@@ -1140,7 +1135,7 @@ Expected Output in the Command Output Box:
 - A message echoing the information that you have just entered.
 
 
-## Editing a currently created patient
+### Editing a currently created patient
 Pre-requisite:
 - You know the index (`patientId`) of the person that you are trying to edit.
 - There is exactly one ("1") patient stored in the CogniCare application
@@ -1161,11 +1156,12 @@ Expected Output:
 Expected Output in the CommandBox: `Edited Person: Bernice Yu; Phone: 91234567; Email: johndoe@example.com; Associated with: [jobless][anxiety]`
 -  The `ListView` will be updated with the latest patient data.
 
-> [!TIP]
-> The student identifier that is commonly referred to in this article refers to the student id that is permanently tagged to each student and is not the index of the natural ordering in the list.
+<box type="tip" seamless>
+**Tip:** The patient identifier that is commonly referred to in this article refers to the patient id that is permanently tagged to each patient and is not the index of the natural ordering in the list.
+</box>
 
 
-## Deleting an existing patient
+### Deleting an existing patient
 Pre-requisite:
 - You know the index (`patientId`) of the person that you are trying to delete.
 - There is exactly one ("1") patient stored in the CogniCare application.
@@ -1179,7 +1175,7 @@ Expected Output:
 Expected Output in the CommandBox: `Deleted Patient: Grace Lim; Phone: 83456789; Email: gracelim@outlook.com; Associated with: [anxiety][stress]`
 -  The `ListView` will be updated with the latest patient data (which removes the deleted patient).
 
-## Adding a new appointment
+### Adding a new appointment
 Pre-requisite:
 - There does not exist another appointment with the same or overlapping date and time, i.e. if there exists an appointment on 10 October 2021 from 10:10 am to 10:59 am, a new appointment
 that starts or ends between that period cannot be added.
@@ -1202,10 +1198,11 @@ Expected Output in the Command Output Box:
 - `New appointment added: (Appointment index); PatientId: 1; Start: 04 Apr 2024, 09:00 am; End: 04 Apr 2024, 10:00 am; Attend: true; Score: 5; Description: This is a dummy appointment`
 - A message echoing the information that you have just entered.
 
-> [!Tip]
-> The appointment identifier is permanently tagged to the appointment and is not the index of the natural ordering in the list. 
+<box type="tip" seamless>
+**Tip:** The appointment identifier is permanently tagged to the appointment and is not the index of the natural ordering in the list.
+</box>
 
-## Editing an existing appointment
+### Editing an existing appointment
 Pre-requisite:
 - You know the index (`appointmentId`) of the person that you are trying to edit.
 - There is exactly one ("1") appointment stored in the CogniCare application.
@@ -1228,7 +1225,7 @@ Expected Output in the CommandBox: `Edited Appointment: 3; PatientId: 2; Start: 
 > [!REMEMBER]
 > The appointment identifier that is commonly referred to in this article refers to the appointment id that is permanently tagged to each appointment, and is not the index of the natural ordering in the list.
 
-## Deleting an existing appointment
+### Deleting an existing appointment
 Pre-requisite:
 - You know the index (`appointmentId`) of the appointment that you are trying to delete.
 - There is exactly one ("1") appointment stored in the CogniCare application.
@@ -1243,7 +1240,7 @@ Expected Output in the CommandBox: `Deleted Appointment: 4; PatientId: 1; Start:
 -  The `ListView` will be updated with the latest appointment data (which removes the deleted appointment).
 
 
-## Listing all appointments
+### Listing all appointments
 Pre-requisite:
 - There is at least one ("1") appointment stored in the CogniCare application.
 
@@ -1256,10 +1253,11 @@ Expected Output:
 Expected Output in the Command Output Box:
 - `Listed all appointments`
 
-> [!TIP]
-> If there are no appointments stored in the Application, then an empty ListView will be displayed.
+<box type="tip" seamless>
+**Tip:** If there are no appointments stored in the Application, then an empty ListView will be displayed.
+</box>
 
-## Listing all appointments which meet the selected (one or more) criteria
+### Listing all appointments which meet the selected (one or more) criteria
 Pre-requisite:
 - There is at least one ("1") appointment stored in the CogniCare application meeting the requested criterion / criteria.
 
@@ -1276,11 +1274,11 @@ Expected Output:
 Expected Output in the Command Output Box:
 - `(n) appointments listed!`
 
-> [!TIP]
-> If there are no appointments stored in the application, or if there are no data that meets the required criteria, an empty ListView will be displayed.
+<box type="tip" seamless>
+**Tip:** If there are no appointments stored in the application, or if there are no data that meets the required criteria, an empty ListView will be displayed.
+</box>
 
-
-## Filtering appointments that fall in a specific date range
+### Filtering appointments that fall in a specific date range
 Pre-requisite:
 - There is at least one ("1") appointment stored in the CogniCare application meeting the requested criterion / criteria.
 
@@ -1296,7 +1294,7 @@ Expected Output:
 Expected Output in the Command Output Box:
 - `(n) appointments listed!`
 
-## Generating all patient feedback reports
+### Generating all patient feedback reports
 Pre-requisite:
 - There is at least one ("1") patient stored in the CogniCare application.
 
@@ -1310,7 +1308,7 @@ Expected Output in the Command Output Box:
 - `Generated patient feedback report from the beginning of time to the end of time`
 
 
-## Generating patient feedback reports within a certain timeframe
+### Generating patient feedback reports within a certain timeframe
 Pre-requisite:
 - There is at least one ("1") patient stored in the CogniCare application.
 
@@ -1329,7 +1327,7 @@ Expected Output in the Command Output Box:
 >[!NOTE]
 > The `reportf` command only requires the start and/or end date in the format `yyyy-MM-dd`. This command does not take in any time.
 
-## Command History
+### Command History
 Pre-requisite:
 - Ensure that the device's sound is not muted.
 
@@ -1354,7 +1352,6 @@ This section describes the potential enhancements that could be improved in futu
 * More validation checks for when the user manually edits `JSON` files. Currently, adding non-legible value like `null` will cause the app to not launch. A future enhancement will include more validation checks, allowing skipping of non-legible data and detecting invalid data upon launching the app.
 * Adding the ability for the GUI to automatically reflect the actual state of data. Currently, after using `editp` command to change the name of a patient, the appointment cards in the appointment list do not reflect the new name of that patient. Hence, a future enhancement will include changing the flow of how the appointment card is generated, enhancing the interactions between GUI and models, and allowing the GUI to reflect the current state of data.
 * Add more patient reports to allow for greater utilisation of patient data collected, such as patient attendance reports
-* 
 
 ## Learning Outcomes
 The implementation of the CogniCare application was an extremely challenging endeavour as we needed to morph and reshape the AB3 application in a team-based setting. The transformation process involved significant alternations and enhancements to reach the new requirements of the application.
@@ -1366,3 +1363,4 @@ The team-based setting also exposed us to various crucial skills such as improvi
 ## **Acknowledgements**
 
 Code base adapted from [Address Book Level-3](https://github.com/nus-cs2103-AY2324S2/tp)
+GitHub Copilot was used as an autocomplete tool to assist in writing parts of the documentation and diagrams by @vnnamng, @tankh99.
