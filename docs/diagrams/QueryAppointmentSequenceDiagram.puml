@@ -57,6 +57,5 @@ deactivate CommandResult
 
 ListAppointmentCommand --> LogicManager
 deactivate ListAppointmentCommand
-destroy ListAppointmentCommand
 [<-- LogicManager : return filtered appointments
 @enduml

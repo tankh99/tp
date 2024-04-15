@@ -21,7 +21,7 @@ LogicManager -> CommandParser : parseCommand(args)
 activate CommandParser
 
 create EditPatientCommandParser
-CommandParser -> EditPatientCommandParser
+CommandParser -> EditPatientCommandParser : EditPatientCommandParser()
 activate EditPatientCommandParser
 
 EditPatientCommandParser --> CommandParser
@@ -32,7 +32,7 @@ activate EditPatientCommandParser
 
 create EditPersonDescriptor
 note right of EditPersonDescriptor : Methods in EditPersonDescriptor such as setName and\n setPhone may be used to create a defensive copy \nof the patient that is to be updated.
-EditPatientCommandParser -> EditPersonDescriptor
+EditPatientCommandParser -> EditPersonDescriptor : EditPersonDescriptor()
 activate EditPersonDescriptor
 EditPersonDescriptor -> EditPatientCommandParser
 
