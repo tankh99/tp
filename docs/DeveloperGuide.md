@@ -527,7 +527,7 @@ There are a few classes and methods used to interact with the delete appointment
 
 The filter appointment feature allows users to filter appointments based on the date and time of the appointment.
 
-<puml scr="diagrams/FilterAppointmentSequenceDiagram.puml" alt="Filter Appointment Sequence Diagram"/>
+<puml src="diagrams/FilterAppointmentSequenceDiagram.puml" alt="Filter Appointment Sequence Diagram"/>
 
 **Implementation**
 A predicate was used to filter the list of appointments based on the date and time of the appointment.
