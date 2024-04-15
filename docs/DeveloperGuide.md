@@ -215,9 +215,6 @@ Appointment List is saved under a separate file `appointmentList.json` in the da
 
 
 **Aspect: Search query with AND constraint**
-### Querying Patients by different parameters.
-
-<puml src="diagrams/FindPatientSequenceDiagram.puml"/>
 
 In enhancing the search functionality within CogniCare, the implementation of an AND constraint for search queries was paramount. This feature allows counsellors to refine search criteria, leading to more precise and relevant search results. For example, a counsellor can search for a patient using a combination of parameters (partial name AND partial phone number AND partial email address). It is to note that only one parameter is required; the others are optional.
 
