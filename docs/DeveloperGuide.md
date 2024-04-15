@@ -278,7 +278,7 @@ This enhancement was driven by the need for:
 
     
 <!-- @@author Jerome-j -->
-## Adding a New Patient
+### Adding a New Patient
 
 The add patient feature is modified from the original AB3 which allows users to register new students as users and insert them into the application.
 
@@ -316,7 +316,7 @@ There are a few notable classes and methods that are used to interact with the a
 * Completely re-writing AB3's addressbook. This is not practical as our functionalities and use-case is similar to the use case of the AB3 application.
 
 
-## Querying for Patients
+### Querying for Patients
 The query patient command allows users to search for patients based on the given criteria. It makes use of the `ListPatientCommandParser` which obtains the values that correspond to the criteria such as `p/`, `n/`, `e/`, and `a/` which represent phone, name, email address, and alias(es) accordingly, and combined with an `AND` logic.
 
 The diagram below shows the sequence diagram for querying patients:
@@ -341,7 +341,7 @@ Otherwise, each of the search terms will be applied to each of the respective fi
 - Using case-insensitive search: the use of case-insensitive search terms for parameter matching provides a more seamless and more user-friendly experience.
 
 
-## Editing a current Patient
+### Editing a current Patient
 The edit command allows a user to update a patient's information if they relocate, change phone numbers, change email address, etc.
 
 The diagram below shows the sequence diagram for editing a patient: 
@@ -377,7 +377,7 @@ There are a few classes and methods used to interact with the edit patient comma
 * Using the name as the primary key instead of the patient ID - may lead to unexpected deletes as there could be a case where the counselor has two patients of the similar name "Tan Ah Kow" and "Tan Ah". Suppose the counselor wants to delete "Tan Ah", not "Tan Ah Kou" - in this case, the wrong record will be accidentally deleted. Using an integer value as the identifier would eliminate this problem and will also make it much easier for the user to input the commands.
     * Therefore the workflow would be to search for the respective patient for the respective index via the `queryp` command before editing it.
 
-## Deleting an existing patient
+### Deleting an existing patient
 
 The diagram below shows the sequence diagram for querying patients: 
 <puml src="diagrams/DeletePatientSequenceDiagram.puml" alt="Delete Patient Sequence Diagram" />
@@ -391,7 +391,7 @@ The diagram below shows the sequence diagram for deleting patients: <puml src="d
 * The patient index is based on the unique ID that is tagged to each individual patient and is not the natural ordering of the list.
 
 
-Otherwise, if the process is successful, the current `Patient` object corresponding to the respective ID will be updated with the deleted patient information containing the phone, email, and respective affiliated-with information.
+Otherwise, if the process is successful, the current `Patient` object corresponding to the respective ID will be updated with the deleted patient information containing the phone, email, respective affiliated-with, and linked appointment information.
 
 
 **Implementation**  
@@ -1010,14 +1010,15 @@ Use case ends.
 
 **Extension**
 
+* 2a. User presses the Up arrow key again
+    * 2a1. A sound is played indicating that there is no previous command
+
+  Use case resumes from step 3.
+
 * 3a. User modifies the command, and without executing it, presses the Down arrow key, followed by the Up arrow key
     * 3a1. The command before modification is shown because the modified command is not yet executed
   
   Use case resumes from step 3
-* 2a. User presses the Up arrow key again
-    * *a1. A sound is played indicating that there is no previous command
-
-    Use case resumes from step 3.
 
 **Use case: Getting the next command entered**
 
@@ -1061,10 +1062,7 @@ Given below are instructions to test the app manually.
 > **Note:** These instructions only provide a starting point for testers to work on;
 > Testers are expected to do more *exploratory* testing.
 
-
-## Manual Testing
-
-## Launch and Shutdown
+### Launch and Shutdown
 1. Ensure you have Java `11` or above installed on your Computer.
   1. If you are on macOS on an Apple Silicon System, we recommend that you follow the guide on [CS2103 Course website](https://nus-cs2103-ay2324s2.github.io/website/admin/programmingLanguages.html#programming-language) using the Zulu version `zulu11.50.19-ca-fx-jdk11.0.12-macosx_aarch64.dmg`
   2. If you are on Windows / Intel architecture, most versions of Java 11 should work.
@@ -1076,7 +1074,7 @@ Given below are instructions to test the app manually.
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar cognicare.jar` command to run the application.<br>  
    **Expected**: A GUI containing the sample patient list below should appear in a few seconds. Note that the app contains some sample data. You may need to re-scale the window size to suit your computer display.
 
-## List all students (without any parameters)
+### List all students (without any parameters)
 Pre-requisite:
 - There is at least one ("1") patient stored in the CogniCare application.
 
@@ -1093,7 +1091,7 @@ Expected Output in the Command Output Box:
 > [!TIP]
 > If there are no patients stored in the Application, then an empty ListView will be displayed.
 
-## List all students meeting the selected (one or more) criteria
+### List all students meeting the selected (one or more) criteria
 Pre-requisite:
 - There is at least one ("1") patient stored in the CogniCare application meeting the requested criterion / criteria.
 
@@ -1119,7 +1117,7 @@ Expected Output in the Command Output Box:
 
 
 
-## Adding a new patient
+### Adding a new patient
 Pre-requisite:
 - There does not exist another patient with the same name (regardless of capitalisation) and spacing, i.e. the names "Jerome Chua" and "jEROmE       CHuA" are considered the same name.
 
@@ -1140,7 +1138,7 @@ Expected Output in the Command Output Box:
 - A message echoing the information that you have just entered.
 
 
-## Editing a currently created patient
+### Editing a currently created patient
 Pre-requisite:
 - You know the index (`patientId`) of the person that you are trying to edit.
 - There is exactly one ("1") patient stored in the CogniCare application
@@ -1165,7 +1163,7 @@ Expected Output in the CommandBox: `Edited Person: Bernice Yu; Phone: 91234567; 
 > The student identifier that is commonly referred to in this article refers to the student id that is permanently tagged to each student and is not the index of the natural ordering in the list.
 
 
-## Deleting an existing patient
+### Deleting an existing patient
 Pre-requisite:
 - You know the index (`patientId`) of the person that you are trying to delete.
 - There is exactly one ("1") patient stored in the CogniCare application.
@@ -1179,7 +1177,7 @@ Expected Output:
 Expected Output in the CommandBox: `Deleted Patient: Grace Lim; Phone: 83456789; Email: gracelim@outlook.com; Associated with: [anxiety][stress]`
 -  The `ListView` will be updated with the latest patient data (which removes the deleted patient).
 
-## Adding a new appointment
+### Adding a new appointment
 Pre-requisite:
 - There does not exist another appointment with the same or overlapping date and time, i.e. if there exists an appointment on 10 October 2021 from 10:10 am to 10:59 am, a new appointment
 that starts or ends between that period cannot be added.
@@ -1205,7 +1203,7 @@ Expected Output in the Command Output Box:
 > [!Tip]
 > The appointment identifier is permanently tagged to the appointment and is not the index of the natural ordering in the list. 
 
-## Editing an existing appointment
+### Editing an existing appointment
 Pre-requisite:
 - You know the index (`appointmentId`) of the person that you are trying to edit.
 - There is exactly one ("1") appointment stored in the CogniCare application.
@@ -1228,7 +1226,7 @@ Expected Output in the CommandBox: `Edited Appointment: 3; PatientId: 2; Start: 
 > [!REMEMBER]
 > The appointment identifier that is commonly referred to in this article refers to the appointment id that is permanently tagged to each appointment, and is not the index of the natural ordering in the list.
 
-## Deleting an existing appointment
+### Deleting an existing appointment
 Pre-requisite:
 - You know the index (`appointmentId`) of the appointment that you are trying to delete.
 - There is exactly one ("1") appointment stored in the CogniCare application.
@@ -1243,7 +1241,7 @@ Expected Output in the CommandBox: `Deleted Appointment: 4; PatientId: 1; Start:
 -  The `ListView` will be updated with the latest appointment data (which removes the deleted appointment).
 
 
-## Listing all appointments
+### Listing all appointments
 Pre-requisite:
 - There is at least one ("1") appointment stored in the CogniCare application.
 
@@ -1259,7 +1257,7 @@ Expected Output in the Command Output Box:
 > [!TIP]
 > If there are no appointments stored in the Application, then an empty ListView will be displayed.
 
-## Listing all appointments which meet the selected (one or more) criteria
+### Listing all appointments which meet the selected (one or more) criteria
 Pre-requisite:
 - There is at least one ("1") appointment stored in the CogniCare application meeting the requested criterion / criteria.
 
@@ -1280,7 +1278,7 @@ Expected Output in the Command Output Box:
 > If there are no appointments stored in the application, or if there are no data that meets the required criteria, an empty ListView will be displayed.
 
 
-## Filtering appointments that fall in a specific date range
+### Filtering appointments that fall in a specific date range
 Pre-requisite:
 - There is at least one ("1") appointment stored in the CogniCare application meeting the requested criterion / criteria.
 
@@ -1296,7 +1294,7 @@ Expected Output:
 Expected Output in the Command Output Box:
 - `(n) appointments listed!`
 
-## Generating all patient feedback reports
+### Generating all patient feedback reports
 Pre-requisite:
 - There is at least one ("1") patient stored in the CogniCare application.
 
@@ -1310,7 +1308,7 @@ Expected Output in the Command Output Box:
 - `Generated patient feedback report from the beginning of time to the end of time`
 
 
-## Generating patient feedback reports within a certain timeframe
+### Generating patient feedback reports within a certain timeframe
 Pre-requisite:
 - There is at least one ("1") patient stored in the CogniCare application.
 
@@ -1329,7 +1327,7 @@ Expected Output in the Command Output Box:
 >[!NOTE]
 > The `reportf` command only requires the start and/or end date in the format `yyyy-MM-dd`. This command does not take in any time.
 
-## Command History
+### Command History
 Pre-requisite:
 - Ensure that the device's sound is not muted.
 
