@@ -376,9 +376,6 @@ There are a few classes and methods used to interact with the edit patient comma
 
 ### Deleting an existing patient
 
-The diagram below shows the sequence diagram for querying patients: 
-<puml src="diagrams/DeletePatientSequenceDiagram.puml" alt="Delete Patient Sequence Diagram" />
-
 The delete patients feature allows users to remove patients from CogniCare (whether it is for privacy reasons etc).
 
 The diagram below shows the sequence diagram for deleting patients: <puml src="diagrams/DeletePatientSequenceDiagram.puml" alt="Delete Patient Sequence Diagram" />
@@ -574,7 +571,7 @@ Below is a sequence diagram of the user flow of the report command
 5. `FeedbackScore` - Contains a nullable Integer field. If it is null, then there is no rating for the appointment yet
 
 **Rationale for Implementation**
-1. High-level structure for `ReportFeedbackCommand`, `ReportFeedbackCommandParser` and `PatientFEedbackReportList` was inspired from previous implementations of similar models
+1. High-level structure for `ReportFeedbackCommand`, `ReportFeedbackCommandParser` and `PatientFeedbackReportList` was inspired from previous implementations of similar models
 2. Integer was used for `FeedbackScore` because:
    1. We did not want to make FeedbackScore compulsory to add when creating an appointment
    2. The primitive type `int` is not nullable, so we used a wrapper class instead
@@ -1350,7 +1347,6 @@ This section describes the potential enhancements that could be improved in futu
 * More validation checks for when the user manually edits `JSON` files. Currently, adding non-legible value like `null` will cause the app to not launch. A future enhancement will include more validation checks, allowing skipping of non-legible data and detecting invalid data upon launching the app.
 * Adding the ability for the GUI to automatically reflect the actual state of data. Currently, after using `editp` command to change the name of a patient, the appointment cards in the appointment list do not reflect the new name of that patient. Hence, a future enhancement will include changing the flow of how the appointment card is generated, enhancing the interactions between GUI and models, and allowing the GUI to reflect the current state of data.
 * Add more patient reports to allow for greater utilisation of patient data collected, such as patient attendance reports
-* 
 
 ## Learning Outcomes
 The implementation of the CogniCare application was an extremely challenging endeavour as we needed to morph and reshape the AB3 application in a team-based setting. The transformation process involved significant alternations and enhancements to reach the new requirements of the application.
