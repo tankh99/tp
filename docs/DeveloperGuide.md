@@ -1347,7 +1347,6 @@ This section describes the potential enhancements that could be improved in futu
 * More validation checks for when the user manually edits `JSON` files. Currently, adding non-legible value like `null` will cause the app to not launch. A future enhancement will include more validation checks, allowing skipping of non-legible data and detecting invalid data upon launching the app.
 * Adding the ability for the GUI to automatically reflect the actual state of data. Currently, after using `editp` command to change the name of a patient, the appointment cards in the appointment list do not reflect the new name of that patient. Hence, a future enhancement will include changing the flow of how the appointment card is generated, enhancing the interactions between GUI and models, and allowing the GUI to reflect the current state of data.
 * Add more patient reports to allow for greater utilisation of patient data collected, such as patient attendance reports
-* 
 
 ## Learning Outcomes
 The implementation of the CogniCare application was an extremely challenging endeavour as we needed to morph and reshape the AB3 application in a team-based setting. The transformation process involved significant alternations and enhancements to reach the new requirements of the application.
