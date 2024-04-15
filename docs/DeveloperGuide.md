@@ -1082,11 +1082,13 @@ Expected Output:
 Expected Output in the Command Output Box:
 - `Listed all persons`
 
+<box type="tip" seamless>
 
-> [!TIP]
-> If there are no patients stored in the Application, then an empty ListView will be displayed.
+**Tip:** If there are no patients stored in the Application, then an empty ListView will be displayed.
+</box>
 
-### List all students meeting the selected (one or more) criteria
+
+### List all patients meeting the selected (one or more) criteria
 Pre-requisite:
 - There is at least one ("1") patient stored in the CogniCare application meeting the requested criterion / criteria.
 
@@ -1106,10 +1108,10 @@ Expected Output:
 Expected Output in the Command Output Box:
 - `Listed all persons`
 
+<box type="tip" seamless>
 
-> [!TIP]
-> If there are no patients stored in the Application, or if there are no data that meets the required criteria,  an empty ListView will be displayed
-
+**Tip:** If there are no patients stored in the Application, or if there are no data that meets the required criteria, an empty ListView will be displayed
+</box>
 
 
 ### Adding a new patient
@@ -1154,8 +1156,9 @@ Expected Output:
 Expected Output in the CommandBox: `Edited Person: Bernice Yu; Phone: 91234567; Email: johndoe@example.com; Associated with: [jobless][anxiety]`
 -  The `ListView` will be updated with the latest patient data.
 
-> [!TIP]
-> The student identifier that is commonly referred to in this article refers to the student id that is permanently tagged to each student and is not the index of the natural ordering in the list.
+<box type="tip" seamless>
+**Tip:** The patient identifier that is commonly referred to in this article refers to the patient id that is permanently tagged to each patient and is not the index of the natural ordering in the list.
+</box>
 
 
 ### Deleting an existing patient
@@ -1195,8 +1198,9 @@ Expected Output in the Command Output Box:
 - `New appointment added: (Appointment index); PatientId: 1; Start: 04 Apr 2024, 09:00 am; End: 04 Apr 2024, 10:00 am; Attend: true; Score: 5; Description: This is a dummy appointment`
 - A message echoing the information that you have just entered.
 
-> [!Tip]
-> The appointment identifier is permanently tagged to the appointment and is not the index of the natural ordering in the list. 
+<box type="tip" seamless>
+**Tip:** The appointment identifier is permanently tagged to the appointment and is not the index of the natural ordering in the list.
+</box>
 
 ### Editing an existing appointment
 Pre-requisite:
@@ -1249,8 +1253,9 @@ Expected Output:
 Expected Output in the Command Output Box:
 - `Listed all appointments`
 
-> [!TIP]
-> If there are no appointments stored in the Application, then an empty ListView will be displayed.
+<box type="tip" seamless>
+**Tip:** If there are no appointments stored in the Application, then an empty ListView will be displayed.
+</box>
 
 ### Listing all appointments which meet the selected (one or more) criteria
 Pre-requisite:
@@ -1269,9 +1274,9 @@ Expected Output:
 Expected Output in the Command Output Box:
 - `(n) appointments listed!`
 
-> [!TIP]
-> If there are no appointments stored in the application, or if there are no data that meets the required criteria, an empty ListView will be displayed.
-
+<box type="tip" seamless>
+**Tip:** If there are no appointments stored in the application, or if there are no data that meets the required criteria, an empty ListView will be displayed.
+</box>
 
 ### Filtering appointments that fall in a specific date range
 Pre-requisite:

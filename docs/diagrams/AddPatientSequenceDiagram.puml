@@ -50,6 +50,7 @@ AddPatientCommandParser --> CommandParser : e
 deactivate AddPatientCommandParser
 AddPatientCommandParser -[hidden]-> CommandParser
 destroy AddPatientCommandParser
+
 CommandParser --> LogicManager : e
 deactivate CommandParser
 
