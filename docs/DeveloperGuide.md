@@ -758,7 +758,7 @@ Priorities: High (must have) - `* * * *`, Medium (nice to have) - `* * *`, Low (
 
 (For all use cases below, the **System** is the `CogniCare` application and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Add a Patient**
+**Use case: UC01 - Add a Patient**
 
 **MSS:**
 1. The user enters the command to add a patient with all mandatory information (Name, Email, Phone Number). Associated with is optional.
@@ -780,16 +780,22 @@ Priorities: High (must have) - `* * * *`, Medium (nice to have) - `* * *`, Low (
   * 2b1. CogniCare alerts the user about the duplicate name and prevents the addition.
   Use case ends.
 
-**Use Case: Edit a Patient**
+**Use Case: UC02 - Edit a Patient**
 
 **MSS:**
-1. The user runs the `queryp` command to list all patients
+1. The user list patients with certain criteria or no criteria.
 2. The user enters a command to add a patient with the required index and data field to be edited.
 3. CogniCare displays a success message confirming the patient's details have been updated.
 Use case ends.
 
 
 **Extensions**
+* 1a. There are no patients in the system
+  Use case ends.
+
+* 1b. There is no patients that matches the criteria
+  Use case ends.
+
 * 2a. The patient identifier does not match any patient in the system.
   * 2a1. CogniCare displays an error message that the patient was not found.
   Use case ends.
@@ -798,7 +804,7 @@ Use case ends.
   * 3a1. CogniCare displays an error message indicating what needs to be corrected or filled in, including the specific requirements for the phone number and email format.
   Use case ends.
 
-**Use case: List all / Search for patients meeting selected criteria / criterion**
+**Use case: UC03 - List all / Search for patients meeting selected criteria / criterion**
 
 **MSS:**
 
@@ -826,16 +832,21 @@ Use case ends.
 
   Use case ends.
 
-**Use case: Delete a patient**
+**Use case: UC04 - Delete a patient**
 
 **MSS:**
-1. The user runs the `queryp` command to list all patients
+1. The user list patients with certain criteria or no criteria.
 2. User requests to delete a patient at the given index.
 3. CogniCare deletes the patient.
 4. CogniCare displays a successful message stating that the deletion was successful and displays information of the deleted patient.
     Use case ends.
 
 **Extensions**
+* 1a. There are no patients in the system
+  Use case ends.
+
+* 1b. There is no patients that matches the criteria
+  Use case ends.
 
 * 2a. The query has a missing Id parameter.
     * 2a1. CogniCare displays an error message that the index is invalid. (No deletion is done)
@@ -848,7 +859,7 @@ Use case ends.
   Use case ends.
 
 
-**Use case: Add an Appointment**
+**Use case: UC05 - Add an Appointment**
 
 **MSS:**
 1. The user enters the command to add an appointment with all mandatory information.
@@ -870,16 +881,22 @@ Use case ends.
     * 2b1. CogniCare alerts the user about the clash and prevents the addition.
       Use case ends.
 
-**Use Case: Edit an Appointment**
+**Use Case: UC06 - Edit an Appointment**
 
 **MSS:**
-1. The user runs the `querya` command to list all appointments.
+1. The user list appointments with certain criteria or no criteria.
 2. User enters command to edit appointment with required index and data field to be edited.
 3. CogniCare displays a success message confirming the appointment details have been updated.
    Use case ends.
 
 
 **Extensions**
+* 1a. There are no appointments in the system
+  Use case ends.
+
+* 1b. There is no appointments that matches the criteria
+  Use case ends.
+
 * 2a. The appointment identifier does not match any appointment in the system.
     * 1a1. CogniCare displays an error message that the appointment was not found.
       Use case ends.
@@ -889,7 +906,7 @@ Use case ends.
       Use case ends.
   
 
-**Use case: Search appointments**
+**Use case: UC07 - Search appointments**
 
 **MSS:**
 
@@ -912,16 +929,21 @@ Use case ends.
 
   Use case ends.
 
-**Use case: Delete a specific appointment**
+**Use case: UC08 - Delete a specific appointment**
 
 **MSS:**
-1. The user runs the `querya` command to list all appointments.
+1. User lists appointments with certain criteria or no criteria.
 2. User requests to delete an appointment at the given appointment index.
 3. CogniCare deletes the appointment.
 
     Use case ends.
 
 **Extensions**
+* 1a. There are no patients in the system
+  Use case ends.
+
+* 1b. There is no patients that matches the criteria
+  Use case ends.
 
 * 2a. The query has missing parameters
 
@@ -935,7 +957,7 @@ Use case ends.
 
 Use case ends.
 
-**Use case: Filter appointment in a date time range**
+**Use case: UC09 - Filter appointment in a date time range**
 
 **MSS:**
 
@@ -963,7 +985,7 @@ Use case ends.
   Use case ends.
 
 
-**Use case: Report patient feedback over a given time period**
+**Use case: UC09 - Report patient feedback over a given time period**
 
 **MSS:**
 1. User requests to view all feedback scores from a given start date to a given end date
@@ -992,7 +1014,7 @@ Use case ends.
 
   Use case ends
 
-**Use case: Getting the previous command entered**
+**Use case: UC10 - Getting the previous command entered**
 
 **MSS:**
 1. User executes any command.
@@ -1015,7 +1037,7 @@ Use case ends.
   
   Use case resumes from step 3
 
-**Use case: Getting the next command entered**
+**Use case: UC11 - Getting the next command entered**
 
 **MSS:**
 1. User types in and executes any 2 commands.
