@@ -40,14 +40,15 @@ Patient -> AddPatientCommandParser
 
 deactivate Patient
 create AddPatientCommand
-AddPatientCommandParser -> AddPatientCommand : new AddPatientCommand(patient)
+AddPatientCommandParser -> AddPatientCommand
 activate AddPatientCommand
 AddPatientCommand --> AddPatientCommandParser
 deactivate AddPatientCommand
 
+
 AddPatientCommandParser --> CommandParser : e
 deactivate AddPatientCommandParser
-
+destroy AddPatientCommandParser
 CommandParser --> LogicManager : e
 deactivate CommandParser
 
