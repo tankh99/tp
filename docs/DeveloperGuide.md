@@ -790,11 +790,6 @@ Use case ends.
 
 
 **Extensions**
-* 1a. There are no patients in the system
-  Use case ends.
-
-* 1b. There is no patients that matches the criteria
-  Use case ends.
 
 * 2a. The patient identifier does not match any patient in the system.
   * 2a1. CogniCare displays an error message that the patient was not found.
@@ -842,11 +837,6 @@ Use case ends.
     Use case ends.
 
 **Extensions**
-* 1a. There are no patients in the system
-  Use case ends.
-
-* 1b. There is no patients that matches the criteria
-  Use case ends.
 
 * 2a. The query has a missing Id parameter.
     * 2a1. CogniCare displays an error message that the index is invalid. (No deletion is done)
@@ -891,11 +881,6 @@ Use case ends.
 
 
 **Extensions**
-* 1a. There are no appointments in the system
-  Use case ends.
-
-* 1b. There is no appointments that matches the criteria
-  Use case ends.
 
 * 2a. The appointment identifier does not match any appointment in the system.
     * 1a1. CogniCare displays an error message that the appointment was not found.
@@ -939,11 +924,6 @@ Use case ends.
     Use case ends.
 
 **Extensions**
-* 1a. There are no patients in the system
-  Use case ends.
-
-* 1b. There is no patients that matches the criteria
-  Use case ends.
 
 * 2a. The query has missing parameters
 
