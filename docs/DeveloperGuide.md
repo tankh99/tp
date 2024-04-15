@@ -265,7 +265,7 @@ This enhancement was driven by the need for:
 - **Alternative 1 (current choice):** Store appointments as a `AppointmentList` in `Model`.
   - Pros: 
     - Easier to design since it is similar to `patientList` implementation.
-    - If we want to add more Objects for the Model, this will be the default implementation
+    - If we want to add more Models, this will be the default implementation
   - Cons:
     - Adding an extra layer of OOP abstraction.
     - May lead to performance issues when reading/writing data (more prone to crashing issues).
