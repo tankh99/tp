@@ -20,7 +20,7 @@ LogicManager -> CommandParser : parseCommand(args)
 activate CommandParser
 
 create ListPatientCommandParser
-CommandParser -> ListPatientCommandParser
+CommandParser -> ListPatientCommandParser : ListPatientCommandParser()
 activate ListPatientCommandParser
 
 ListPatientCommandParser --> CommandParser
@@ -30,7 +30,7 @@ CommandParser -> ListPatientCommandParser : parse(args)
 activate ListPatientCommandParser
 
 create ListPatientCommand
-ListPatientCommandParser -> ListPatientCommand
+ListPatientCommandParser -> ListPatientCommand : ListPatientCommand()
 note right of ListPatientCommandParser : Details of how predicates are combined \nare simplified for the sake of diagramming.
 activate ListPatientCommand
 

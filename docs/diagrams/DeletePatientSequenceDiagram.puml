@@ -49,10 +49,16 @@ deactivate CommandParser
 LogicManager -> DeletePatientCommand : execute(model)
 activate DeletePatientCommand
 
-DeletePatientCommand -> Model : deletePerson()
-Model --> DeletePatientCommand: person to delete
-DeletePatientCommand -> Model : delete appointments related to person
 
+DeletePatientCommand -> Model : deletePerson()
+activate Model
+Model --> DeletePatientCommand
+deactivate Model
+
+
+DeletePatientCommand -> Model : delete appointments related to person
+activate Model
+deactivate Model
 create CommandResult
 DeletePatientCommand -> CommandResult
 activate CommandResult
