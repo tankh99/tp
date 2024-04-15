@@ -21,6 +21,7 @@ CogniCare is a **desktop app for a single-user application for managing most Sch
 1. Ensure you have Java `11` or above installed on your Computer.
     1. If you are on macOS on an Apple Silicon System, we recommend that you follow the guide on [CS2103 Course website](https://nus-cs2103-ay2324s2.github.io/website/admin/programmingLanguages.html#programming-language) using the Zulu version `zulu11.50.19-ca-fx-jdk11.0.12-macosx_aarch64.dmg`
 
+
 2. Download the latest `cognicare.jar` from [here](https://github.com/AY2324S2-CS2103-F08-2/tp/releases).
 
 3. Copy the file to the folder you want to use as the _home folder_ for your CogniCare application.
@@ -52,6 +53,7 @@ CogniCare is a **desktop app for a single-user application for managing most Sch
     * `clear` : Deletes all patient and appointment information from the CogniCare application.
 
     * `exit` : Exits the app.
+
 
 6. Refer to the [Features](#features) below for details of each command.
 
@@ -245,7 +247,12 @@ Edit an existing patient in the CogniCare application at the specified index.
 Format: `editp PATIENT_ID [n/NAME] [p/PHONE] [e/EMAIL] [a/AFFLIATED_WITH]…​`
 
 * Edits the patient at the specified `PATIENT_ID`. The index refers to the unique identifier number shown in the displayed patient list. The index **must be a positive integer** 1, 2, 3, …​
-> Tip: Please take note that 0 is not a valid patient identifier.
+
+<box type="tip" seamless>
+
+**Tip:** Please take note that 0 is not a valid patient identifier.
+</box>
+
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing affiliated-with tags, the existing affiliated-with tags of the patient will be removed; i.e., adding of affiliated-with tags is not cumulative.
@@ -257,7 +264,7 @@ Format: `editp PATIENT_ID [n/NAME] [p/PHONE] [e/EMAIL] [a/AFFLIATED_WITH]…​`
 
 <box type="tip" seamless>
 
-**Tip:**: Changing the patient's name does not automatically update the Appointment's patient names.
+**Tip:** Changing the patient's name does not automatically update the Appointment's patient names.
 Run `querya` to update the appointments with new information.
 </box>
 
@@ -350,7 +357,7 @@ The screenshot below shows a successful query of all appointments:
 ![5a_Query_appointment_no-parameter_success.png](images%2Fappointments%2F5a_Query_appointment_no-parameter_success.png)
 
 ### Listing selected appointments that meet specified criteria: `querya`
-=
+
 Shows a list of appointments in the CogniCare application that matches the criteria.
 
 Format: `querya [pid/PATIENT_ID] [n/PATIENT_NAME] [aid/APPOINTMENT_ID]`
