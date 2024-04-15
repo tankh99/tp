@@ -985,7 +985,7 @@ Use case ends.
   Use case ends.
 
 
-**Use case: UC09 - Report patient feedback over a given time period**
+**Use case: UC10 - Report patient feedback over a given time period**
 
 **MSS:**
 1. User requests to view all feedback scores from a given start date to a given end date
@@ -1014,7 +1014,7 @@ Use case ends.
 
   Use case ends
 
-**Use case: UC10 - Getting the previous command entered**
+**Use case: UC11 - Getting the previous command entered**
 
 **MSS:**
 1. User executes any command.
@@ -1037,7 +1037,7 @@ Use case ends.
   
   Use case resumes from step 3
 
-**Use case: UC11 - Getting the next command entered**
+**Use case: UC12 - Getting the next command entered**
 
 **MSS:**
 1. User types in and executes any 2 commands.
