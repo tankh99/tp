@@ -1083,8 +1083,7 @@ Expected Output in the Command Output Box:
 - `Listed all persons`
 
 <box type="tip" seamless>
-
-**Tip:** If there are no patients stored in the Application, then an empty ListView will be displayed.
+If there are no patients stored in the Application, then an empty ListView will be displayed.
 </box>
 
 
@@ -1109,8 +1108,7 @@ Expected Output in the Command Output Box:
 - `Listed all persons`
 
 <box type="tip" seamless>
-
-**Tip:** If there are no patients stored in the Application, or if there are no data that meets the required criteria, an empty ListView will be displayed
+If there are no patients stored in the Application, or if there are no data that meets the required criteria, an empty ListView will be displayed
 </box>
 
 
@@ -1157,7 +1155,7 @@ Expected Output in the CommandBox: `Edited Person: Bernice Yu; Phone: 91234567; 
 -  The `ListView` will be updated with the latest patient data.
 
 <box type="tip" seamless>
-**Tip:** The patient identifier that is commonly referred to in this article refers to the patient id that is permanently tagged to each patient and is not the index of the natural ordering in the list.
+The patient identifier that is commonly referred to in this article refers to the patient id that is permanently tagged to each patient and is not the index of the natural ordering in the list.
 </box>
 
 
@@ -1199,7 +1197,7 @@ Expected Output in the Command Output Box:
 - A message echoing the information that you have just entered.
 
 <box type="tip" seamless>
-**Tip:** The appointment identifier is permanently tagged to the appointment and is not the index of the natural ordering in the list.
+The appointment identifier is permanently tagged to the appointment and is not the index of the natural ordering in the list.
 </box>
 
 ### Editing an existing appointment
@@ -1254,7 +1252,7 @@ Expected Output in the Command Output Box:
 - `Listed all appointments`
 
 <box type="tip" seamless>
-**Tip:** If there are no appointments stored in the Application, then an empty ListView will be displayed.
+If there are no appointments stored in the Application, then an empty ListView will be displayed.
 </box>
 
 ### Listing all appointments which meet the selected (one or more) criteria
@@ -1275,7 +1273,7 @@ Expected Output in the Command Output Box:
 - `(n) appointments listed!`
 
 <box type="tip" seamless>
-**Tip:** If there are no appointments stored in the application, or if there are no data that meets the required criteria, an empty ListView will be displayed.
+If there are no appointments stored in the application, or if there are no data that meets the required criteria, an empty ListView will be displayed.
 </box>
 
 ### Filtering appointments that fall in a specific date range
