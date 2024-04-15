@@ -26,6 +26,103 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 ## **Design**
 
+### Design Considerations
+**Aspect: Patient ID**
+- In any system that manages individual records, it is critical to ensure that we are able to distinguish between entities (which are patients) in our case.
+
+
+- **Alternative 1: Using Integer ID as the primary key (Current Approach)**
+  - We needed some method to ensure that the patient was unique. The primary solution implemented involves a running integer identifier—which is saved together with each patient. The identifier serves as the primary key for the patient object, similar to how a unique ID in a database ensures each record's uniqueness.
+  - This was different from how the AB3 application was originally designed—where the ID followed the natural ordering of the elements in the list.
+  - Pros
+    - Extremely user-friendly for counsellors as ID is never changed. 
+      - A member card displaying the patient ID could potentially be issued to patients.
+
+  - Cons
+    - Difficult to implement.
+    - There will be "holes" in the sequential ID when records are deleted.
+
+- **Alternative 2: Using Name as the primary key**
+  - This approach was quickly deemed unsuitable due to the high probability of name duplication. While names are an important identifier, there is a great risk of collision (i.e. "Jack Tan" versus "Jack Tan Ah Kou"). While this method is sufficient for a non-mission critical address book, our CogniCare application aims to reduce error occurrence.
+  - Pros
+    - Extremely intuitive for a counselor to type in the patient's name
+  - Cons
+    - Commands will be extremely long; and challenging to type.
+    - The counselor will need to remember exactly how the full name is spelt.
+    - May select the wrong patient (i.e., "Jack Tan" versus "Jack Tan Ah Kou").
+    
+- **Alternative 3: Using Natural Ordering of the names in CogniCare application (AB3 approach)**
+  - As we initially strove for a design where the patient identifier to be used like a Foreign Key in the Appointments object, the inconsistent ID would mean that the data integrity for Appointments class would be compromised.
+  - Pros
+    - Easy to implement (AB3 has already implemented it.)
+  - Cons
+    - Data Integrity of Appointments will be compromised
+    - Every time a patient is deleted, the subsequent IDs will be coalesced.
+
+
+**Aspect: Search query with AND constraint**
+
+In enhancing the search functionality within CogniCare, the implementation of an AND constraint for search queries was paramount. This feature allows counsellors to refine search criteria, leading to more precise and relevant search results. For example, a counsellor can search for a patient using a combination of parameters (partial name AND partial phone number AND partial email address). It is to note that only one parameter is required; the others are optional.
+
+This enhancement was driven by the need for:
+1. Improved Search Accuracy: By allowing multiple criteria to be specified, counsellors can narrow down search results to the most relevant patients (as the SoC cohort is large).
+2. Efficiency: Enables quicker access to patient records by reducing the time spent sifting through irrelevant patient information.
+
+- **Alternative 1: Single Criterion Search (AB3 Approach)**: The original AB3 approach of allowing search based on a single criterion was found to be too limiting for the different needs of patient management in CogniCare.
+
+- **Alternative 2: Search Query with OR Constraint:** While also considered, this approach was determined to potentially yield too broad of a search result, undermining the efficiency desired in retrieving patient record.
+
+**Aspect: Appointment ID**
+- **Alternative 1 (current choice):** Generate auto-increasing fixed appointment ID when creating a new appointment. Fail commands that attempt to set the appointment ID still increase the appointment ID.
+  - Pros: 
+    - Easier to implement.
+    - This is the implementation that takes inspiration from DBMS auto-increment.
+    - Consistency in appointment ID.
+    - Easier to store as a separate file for appointment storage.
+  - Cons: Confusion for users who expect appointment ID to increase one by one.
+  - Mitigation: Ensure that the appointment ID is unique.
+  
+- **Alternative 2 (AB3 choice):** No fixed appointment ID. AppointmentID is relative to the Appointment view.
+  - Pros: More flexible for users.
+  - Cons: More complex to implement. It may lead to inconsistencies between appointments.
+
+**Aspect: Where to store appointments locally**
+- **Alternative 1 (current choice):** Store appointments in a separate file.
+  - Pros: Easier to manage appointments separately from patients.
+  - Cons: 
+    - More complex to manage two separate files.
+    - Time complexity to carry out commands with appointments as it has to read the whole list of appointments.
+  - Risks: 
+    - May lead to inconsistencies between the two files with regard to ids.
+  - Mitigation: Ensure that both files are updated together.
+  
+- **Alternative 2:** Store appointments as a field in the `Patient` class. Hence, all appointment data will be stored in the same file as the `patientList`.
+  - Pros: Easier to manage a single file.
+  - Cons: 
+    - May lead to a more complex data structure.
+    - Delete a patient will cascade delete all appointments.
+  - Risks: May lead to performance issues when reading/writing data.
+  - Mitigation: Optimize the data structure for reading/writing data.
+
+**Aspect: How to store appointments**
+- **Alternative 1 (current choice):** Store appointments as a `AppointmentList` in `Model`.
+  - Pros: 
+    - Easier to design since it is similar to `patientList` implementation.
+    - If we want to add more Models, this will be the default implementation
+  - Cons:
+    - Adding an extra layer of OOP abstraction.
+    - May lead to performance issues when reading/writing data (more prone to crashing issues).
+
+- **Alternative 2:** Store appointments as a list of `Appointment` objects in `patientList`.
+  - Pros: Easier to manage appointments as a list.
+  - Cons: 
+    - Reduce in OOP-ness of the code
+    - Hard to scale up, as we need to change the whole code base.
+
+    
+<!-- @@author Jerome-j -->
+
+
 ### Architecture
 
 <puml src="diagrams/ArchitectureDiagram.puml"/>
@@ -150,9 +247,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 
-### Appointment
-#### Implementation
-##### Appointment Classes
+### Appointment Classes
 Appointment is a new feature added to the app. It is a new entity that is related to a `Patient`. An `Appointment` object has the following attributes:
 - Appointment ID
 - Appointment Start and End Date Time
@@ -173,108 +268,12 @@ The Feedback Score is an integer value from 1 to 5 (inclusive) that indicates pa
 
 The Appointment Description is a String that describes the appointment.
 
-##### Appointment Storage
+### Appointment Storage
 Appointments are stored in the `Model` component as `AppointmentList` which contains `UniqueAppointmentList` object that is parallel similar to `PatientList` storing `UniquePatientList`. 
 The `Model` component provides methods to add, delete, and retrieve appointments from `AppointmentList`
 
 Appointment List is saved under a separate file `appointmentList.json` in the data folder, apart from the `patientList.json` file that stores the `patientList` data.
 
-
-#### Design Considerations
-**Aspect: Patient ID**
-- In any system that manages individual records, it is critical to ensure that we are able to distinguish between entities (which are patients) in our case.
-
-
-- **Alternative 1: Using Integer ID as the primary key (Current Approach)**
-  - We needed some method to ensure that the patient was unique. The primary solution implemented involves a running integer identifier—which is saved together with each patient. The identifier serves as the primary key for the patient object, similar to how a unique ID in a database ensures each record's uniqueness.
-  - This was different from how the AB3 application was originally designed—where the ID followed the natural ordering of the elements in the list.
-  - Pros
-    - Extremely user-friendly for counsellors as ID is never changed. 
-      - A member card displaying the patient ID could potentially be issued to patients.
-
-  - Cons
-    - Difficult to implement.
-    - There will be "holes" in the sequential ID when records are deleted.
-
-- **Alternative 2: Using Name as the primary key**
-  - This approach was quickly deemed unsuitable due to the high probability of name duplication. While names are an important identifier, there is a great risk of collision (i.e. "Jack Tan" versus "Jack Tan Ah Kou"). While this method is sufficient for a non-mission critical address book, our CogniCare application aims to reduce error occurrence.
-  - Pros
-    - Extremely intuitive for a counselor to type in the patient's name
-  - Cons
-    - Commands will be extremely long; and challenging to type.
-    - The counselor will need to remember exactly how the full name is spelt.
-    - May select the wrong patient (i.e., "Jack Tan" versus "Jack Tan Ah Kou").
-    
-- **Alternative 3: Using Natural Ordering of the names in CogniCare application (AB3 approach)**
-  - As we initially strove for a design where the patient identifier to be used like a Foreign Key in the Appointments object, the inconsistent ID would mean that the data integrity for Appointments class would be compromised.
-  - Pros
-    - Easy to implement (AB3 has already implemented it.)
-  - Cons
-    - Data Integrity of Appointments will be compromised
-    - Every time a patient is deleted, the subsequent IDs will be coalesced.
-
-
-**Aspect: Search query with AND constraint**
-
-In enhancing the search functionality within CogniCare, the implementation of an AND constraint for search queries was paramount. This feature allows counsellors to refine search criteria, leading to more precise and relevant search results. For example, a counsellor can search for a patient using a combination of parameters (partial name AND partial phone number AND partial email address). It is to note that only one parameter is required; the others are optional.
-
-This enhancement was driven by the need for:
-1. Improved Search Accuracy: By allowing multiple criteria to be specified, counsellors can narrow down search results to the most relevant patients (as the SoC cohort is large).
-2. Efficiency: Enables quicker access to patient records by reducing the time spent sifting through irrelevant patient information.
-
-**Alternative 1: Single Criterion Search (AB3 Approach)**: The original AB3 approach of allowing search based on a single criterion was found to be too limiting for the different needs of patient management in CogniCare.
-
-**Alternative 2: Search Query with OR Constraint:** While also considered, this approach was determined to potentially yield too broad of a search result, undermining the efficiency desired in retrieving patient record.
-
-**Aspect: Appointment ID**
-- **Alternative 1 (current choice):** Generate auto-increasing fixed appointment ID when creating a new appointment. Fail commands that attempt to set the appointment ID still increase the appointment ID.
-  - Pros: 
-    - Easier to implement.
-    - This is the implementation that takes inspiration from DBMS auto-increment.
-    - Consistency in appointment ID.
-    - Easier to store as a separate file for appointment storage.
-  - Cons: Confusion for users who expect appointment ID to increase one by one.
-  - Mitigation: Ensure that the appointment ID is unique.
-  
-- **Alternative 2 (AB3 choice):** No fixed appointment ID. AppointmentID is relative to the Appointment view.
-  - Pros: More flexible for users.
-  - Cons: More complex to implement. It may lead to inconsistencies between appointments.
-
-**Aspect: Where to store appointments locally**
-- **Alternative 1 (current choice):** Store appointments in a separate file.
-  - Pros: Easier to manage appointments separately from patients.
-  - Cons: 
-    - More complex to manage two separate files.
-    - Time complexity to carry out commands with appointments as it has to read the whole list of appointments.
-  - Risks: 
-    - May lead to inconsistencies between the two files with regard to ids.
-  - Mitigation: Ensure that both files are updated together.
-  
-- **Alternative 2:** Store appointments as a field in the `Patient` class. Hence, all appointment data will be stored in the same file as the `patientList`.
-  - Pros: Easier to manage a single file.
-  - Cons: 
-    - May lead to a more complex data structure.
-    - Delete a patient will cascade delete all appointments.
-  - Risks: May lead to performance issues when reading/writing data.
-  - Mitigation: Optimize the data structure for reading/writing data.
-
-**Aspect: How to store appointments**
-- **Alternative 1 (current choice):** Store appointments as a `AppointmentList` in `Model`.
-  - Pros: 
-    - Easier to design since it is similar to `patientList` implementation.
-    - If we want to add more Models, this will be the default implementation
-  - Cons:
-    - Adding an extra layer of OOP abstraction.
-    - May lead to performance issues when reading/writing data (more prone to crashing issues).
-
-- **Alternative 2:** Store appointments as a list of `Appointment` objects in `patientList`.
-  - Pros: Easier to manage appointments as a list.
-  - Cons: 
-    - Reduce in OOP-ness of the code
-    - Hard to scale up, as we need to change the whole code base.
-
-    
-<!-- @@author Jerome-j -->
 ### Adding a New Patient
 
 The add patient feature is modified from the original AB3 which allows users to register new students as users and insert them into the application.
