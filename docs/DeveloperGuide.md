@@ -150,9 +150,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 
-### Appointment
-#### Implementation
-##### Appointment Classes
+### Appointment Classes
 Appointment is a new feature added to the app. It is a new entity that is related to a `Patient`. An `Appointment` object has the following attributes:
 - Appointment ID
 - Appointment Start and End Date Time
@@ -173,7 +171,7 @@ The Feedback Score is an integer value from 1 to 5 (inclusive) that indicates pa
 
 The Appointment Description is a String that describes the appointment.
 
-##### Appointment Storage
+### Appointment Storage
 Appointments are stored in the `Model` component as `AppointmentList` which contains `UniqueAppointmentList` object that is parallel similar to `PatientList` storing `UniquePatientList`. 
 The `Model` component provides methods to add, delete, and retrieve appointments from `AppointmentList`
 
@@ -222,9 +220,9 @@ This enhancement was driven by the need for:
 1. Improved Search Accuracy: By allowing multiple criteria to be specified, counsellors can narrow down search results to the most relevant patients (as the SoC cohort is large).
 2. Efficiency: Enables quicker access to patient records by reducing the time spent sifting through irrelevant patient information.
 
-**Alternative 1: Single Criterion Search (AB3 Approach)**: The original AB3 approach of allowing search based on a single criterion was found to be too limiting for the different needs of patient management in CogniCare.
+- **Alternative 1: Single Criterion Search (AB3 Approach)**: The original AB3 approach of allowing search based on a single criterion was found to be too limiting for the different needs of patient management in CogniCare.
 
-**Alternative 2: Search Query with OR Constraint:** While also considered, this approach was determined to potentially yield too broad of a search result, undermining the efficiency desired in retrieving patient record.
+- **Alternative 2: Search Query with OR Constraint:** While also considered, this approach was determined to potentially yield too broad of a search result, undermining the efficiency desired in retrieving patient record.
 
 **Aspect: Appointment ID**
 - **Alternative 1 (current choice):** Generate auto-increasing fixed appointment ID when creating a new appointment. Fail commands that attempt to set the appointment ID still increase the appointment ID.
